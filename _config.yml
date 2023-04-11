@@ -14,8 +14,14 @@ menu:
     url: /
   - title: About
     url: /about
-  - title: Contact
-    url: /contact
+  - title: Github Blog
+    url: /category/blog
+  - title: YAML
+    url: /category/yaml
+  - title: Docker
+    url: /category/docker
+  - title: BLOG
+        
   # - title: 22
   #   url: /feed.xml
 email: mase306@gmail.com
