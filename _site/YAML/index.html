@@ -153,16 +153,16 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-08T21:00:00+09:00">
+                        <time class="date" datetime="2023-04-09T21:00:00+09:00">
                             
 
 
-April 8, 2023
+April 9, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>5 min to read</span>
                 </p>
                 <h1 class="post-title">YAML</h1>
                 <p class="post-subtitle">구조화된 데이터 표현 방식 YAML의 정의와 표현</p>
@@ -178,7 +178,210 @@ April 8, 2023
                 <!-- Add your table of contents here -->
 
 
-                <p>#</p>
+                <p>학습 도움 유튜브 링크 : <a href="https://www.youtube.com/watch?v=8zqW_D3XoAc">당신이 몰랐을 수도 있는 YAML 이야기 </a></p>
+<h1 id="achievement-goal">Achievement Goal</h1>
+<ul>
+  <li>구조화된 데이터를 표현하는 방식을 학습한다.
+    <ul>
+      <li>XML, JSON, YAML의 차이점을 이해한다.</li>
+    </ul>
+  </li>
+  <li>데이터를 YAML 형식으로 표현할 수 있다.
+    <ul>
+      <li>간단한 YAML 문법을 학습한다.
+        <ul>
+          <li>데이터를 표현하는 키-값 형태를 이해한다.</li>
+          <li>Array, Dictionary 등의 구조를 이애한다.</li>
+          <li>작성된 데이터가 여러 줄일 때, 표현하는 방식을 학습한다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>스프린트를 통해 데이터를 보고 YAML 형식으로 작성하여 실습한다.</li>
+</ul>
+
+<hr />
+
+<p><br /></p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Official_YAML_Logo.svg/2560px-Official_YAML_Logo.svg.png" width="150" height="150" /></p>
+
+<h1 id="yaml">YAML</h1>
+<p><strong>YAML</strong>(“YAML Ain’t Markup Language”의 줄임말)은 구조화된 데이터를 나타내는 데 사용되는 사람이 읽을 수 있는 데이터 직렬화 형식입니다.</p>
+<blockquote>
+  <p>JSON과 거의 호환이 된다. JSON의 상위 집합 언어이기 때문이다.</p>
+</blockquote>
+
+<p>사람과 기계 모두 쉽게 읽을 수 있도록 설계되었으며 구성 파일, 프로그래밍 언어 간의 데이터 교환 및 데이터를 쉽게 구문 분석하고 이해해야 하는 기타 응용 프로그램에 일반적으로 사용됩니다.</p>
+
+<h2 id="yaml-문법">YAML 문법</h2>
+<h3 id="1-데이터-정의">1. 데이터 정의</h3>
+<p><code class="language-plaintext highlighter-rouge">key : value</code> 형태 ( 콜론 : 사이에 공백이 있어야한다. )</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#주석 </span>
+<span class="na">Fruit</span><span class="pi">:</span> <span class="s">Apple</span>
+<span class="na">Quantity</span><span class="pi">:</span> <span class="m">5</span>
+<span class="na">Origin</span><span class="pi">:</span> <span class="s">Chungju</span>
+</code></pre></div></div>
+
+<h3 id="2-array--lists">2. Array / Lists</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#1번</span>
+<span class="na">Fruits</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">Orange</span>
+  <span class="pi">-</span> <span class="s">Apple</span>
+  <span class="pi">-</span> <span class="s">Mango</span>
+
+<span class="na">Vegetables</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">Carrot</span>
+  <span class="pi">-</span> <span class="s">Lettuce</span>
+</code></pre></div></div>
+
+<h3 id="3-dictionary--map">3. Dictionary / Map</h3>
+<p>기본적으로 2칸 혹은 4칸의 들여쓰기를 사용한다.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Fruits</span><span class="pi">:</span> 
+    <span class="na">Name</span><span class="pi">:</span> <span class="s">Apple</span>
+    <span class="na">Quantity</span><span class="pi">:</span> <span class="m">5</span>
+    <span class="na">Origin</span><span class="pi">:</span> <span class="s">Chungju</span>
+
+<span class="na">Vegetables</span><span class="pi">:</span>
+    <span class="na">Name</span><span class="pi">:</span> <span class="s">Lettuces</span>
+    <span class="na">Quantity</span><span class="pi">:</span> <span class="m">10</span>
+    <span class="na">Origin</span><span class="pi">:</span> <span class="s">Daekwan</span>
+</code></pre></div></div>
+<p>Name, Quantity, Origin은 같은 수만큼의 들여쓰기를 했기 때문에 같은 계층으로 각각 Fruits와 Vegetables에 속합니다. 이와 같이 들여쓰기를 통해 어떤 계층에 속하는지 달라지기 때문에, 들여쓰기에 주의해야 합니다.</p>
+
+<h3 id="4-yaml과-json-비교">4. YAML과 JSON 비교</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">YAML</span>
+
+<span class="na">Fruits</span><span class="pi">:</span>
+<span class="err">	</span><span class="pi">-</span> <span class="na">Banana</span><span class="pi">:</span>
+<span class="err">			</span><span class="na">Calories</span><span class="pi">:</span> <span class="m">105</span>
+<span class="err">			</span><span class="na">Fat</span><span class="pi">:</span> <span class="s">0.4g</span>
+<span class="na">			Carbs</span><span class="pi">:</span> <span class="s">27g</span>
+
+<span class="na">	- Grape</span><span class="pi">:</span>
+<span class="err">			</span><span class="na">Calories</span><span class="pi">:</span> <span class="m">62</span>
+<span class="err">			</span><span class="na">Fat</span><span class="pi">:</span> <span class="s">0.3g</span>
+<span class="na">			Carbs</span><span class="pi">:</span> <span class="s">15g</span>
+</code></pre></div></div>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#JSON</span><span class="w"> 
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"Fruits"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Banana"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Calories"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Fat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.4g"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Carbs"</span><span class="p">:</span><span class="w"> </span><span class="s2">"27g"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Grape"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Caloreis"</span><span class="p">:</span><span class="w"> </span><span class="mi">62</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Fat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.3g"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Carbs"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15g"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="5-줄-바꿈">5. 줄 바꿈</h3>
+<p>yaml 에서 줄 바꿈 할 때는 기본적으로는 <code class="language-plaintext highlighter-rouge">\n</code>이지만, <code class="language-plaintext highlighter-rouge">&gt;</code> 과 <code class="language-plaintext highlighter-rouge">|</code> 를 쓸 수 있습니다.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#YAML</span>
+<span class="na">example1</span><span class="pi">:</span> <span class="pi">&gt;</span>
+  <span class="s">this is multiline string </span>
+  <span class="s">and this is nextline </span>
+  <span class="s">and nextline</span>
+
+<span class="na">example2</span><span class="pi">:</span> <span class="pi">&gt;</span>
+  <span class="s">this is multiline string </span>
+
+  <span class="s">and this is nextline </span>
+  <span class="s">and nextline</span>
+</code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#JSON</span><span class="w"> 
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"example1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is multiline string  and this is nextline  and nextline</span><span class="se">\n</span><span class="s2">"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"example2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is multiline string </span><span class="se">\n</span><span class="s2">and this is nextline  and nextline</span><span class="se">\n</span><span class="s2">"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681178921/128px-JSON_vector_logo.svg_nzvtwu.png" width="150" height="150" /></p>
+<h1 id="대표적인-데이터-교환-포맷-json">대표적인 데이터 교환 포맷 JSON</h1>
+<p>JSON : JavaScript Object Notation<br />
+JSON은 서로 다른 프로그램 사이에서 데이터를 교환하기 위한 포맷입니다. 그리고 JSON 포맷은 자바스크립트을 포함한 많은 언어에서 범용적으로 사용하는 유명한 포맷입니다.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">const</span><span class="w"> </span><span class="err">message</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="err">sender:</span><span class="w"> </span><span class="s2">"김코딩"</span><span class="p">,</span><span class="w">
+  </span><span class="err">receiver:</span><span class="w"> </span><span class="s2">"박해커"</span><span class="p">,</span><span class="w">
+  </span><span class="err">message:</span><span class="w"> </span><span class="s2">"해커야 오늘 저녁 같이 먹을래?"</span><span class="p">,</span><span class="w">
+  </span><span class="err">createdAt:</span><span class="w"> </span><span class="s2">"2021-01-12 10:10:10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p align="center"> [메시지를 담고 있는 객체 message] </p>
+
+<ul>
+  <li>전송 가능한 조건 (transferable condition)
+    <ul>
+      <li>수신자(reciever)와 발신자(sender)가 같은 프로그램을 사용<br />
+또는, 문자열처럼 범용적으로 읽을 수 있어야 한다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>타입 변환 시 String으로 변환할 때 객체 내용 포함하지 않는 경우의 해결법<br />
+(JSON 형태로 변환하거나 JSON을 객체의 형태로 변환)</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">JSON.stringify</code> : Object type을 JSON으로 변환</li>
+      <li><code class="language-plaintext highlighter-rouge">JSON.parse</code> : JSON을 Object type으로 변환</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">let</span><span class="w"> </span><span class="err">transferableMessage</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">JSON.stringify(message)</span><span class="w">
+</span><span class="err">console.log(transferableMessage)</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="err">`</span><span class="p">{</span><span class="nl">"sender"</span><span class="p">:</span><span class="s2">"김코딩"</span><span class="p">,</span><span class="nl">"receiver"</span><span class="p">:</span><span class="s2">"박해커"</span><span class="p">,</span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"해커야 오늘 저녁 같이 먹을래?"</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2021-01-12 10:10:10"</span><span class="p">}</span><span class="err">`</span><span class="w">
+</span><span class="err">console.log(typeof(transferableMessage))</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">`string`</span><span class="w">
+</span></code></pre></div></div>
+<p align="center">  [Code] message 객체를 JSON으로 변환하는 메소드 JSON.stringify</p>
+<p align="center"> 직렬화(serialize) </p>
+
+<p>객체 직렬화(serialize)를 통해 만들어진 문자열을 누군가에게 객체의 내용으로 보낼 수 있습니다.(<code class="language-plaintext highlighter-rouge">JSON.stringify</code>)<br />
+그렇다면, 받는 사람이 문자열 메시지를 다시 객체의 형태로 만드는 방법은 <code class="language-plaintext highlighter-rouge">JSON.parse</code>입니다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">let</span><span class="w"> </span><span class="err">packet</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">`</span><span class="p">{</span><span class="nl">"sender"</span><span class="p">:</span><span class="s2">"김코딩"</span><span class="p">,</span><span class="nl">"receiver"</span><span class="p">:</span><span class="s2">"박해커"</span><span class="p">,</span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"해커야 오늘 저녁 같이 먹을래?"</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2021-01-12 10:10:10"</span><span class="p">}</span><span class="err">`</span><span class="w">
+
+</span><span class="err">let</span><span class="w"> </span><span class="err">obj</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">JSON.parse(packet)</span><span class="w">
+</span><span class="err">console.log(obj)</span><span class="w">
+</span><span class="err">/*</span><span class="w">
+ </span><span class="err">*</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="err">*</span><span class="w"> </span><span class="err">sender:</span><span class="w"> </span><span class="s2">"김코딩"</span><span class="p">,</span><span class="w">
+ </span><span class="err">*</span><span class="w"> </span><span class="err">receiver:</span><span class="w"> </span><span class="s2">"박해커"</span><span class="p">,</span><span class="w">
+ </span><span class="err">*</span><span class="w"> </span><span class="err">message:</span><span class="w"> </span><span class="s2">"해커야 오늘 저녁 같이 먹을래?"</span><span class="p">,</span><span class="w">
+ </span><span class="err">*</span><span class="w"> </span><span class="err">createdAt:</span><span class="w"> </span><span class="s2">"2021-01-12 10:10:10"</span><span class="w">
+ </span><span class="err">*</span><span class="w"> </span><span class="p">}</span><span class="w">
+ </span><span class="err">*/</span><span class="w">
+ </span><span class="err">console.log(typeof(obj))</span><span class="w">
+ </span><span class="err">//</span><span class="w"> </span><span class="err">`object`</span><span class="w">
+</span></code></pre></div></div>
+<p align="center">[Code] 직렬화된 JSON에 메소드 JSON.parse를 적용하면 다시 객체의 형태로 변환</p>
+<p align="center"> 역직렬화(deserialize) </p>
+
+<p><img src="/assets/img/YAML/%EC%A7%81%EB%A0%AC_%EC%97%AD%EC%A7%81%EB%A0%AC.png" alt="직렬화와 역직렬화 모식도" /></p>
+
+<p><br /></p>
+
+<h1 id="quiz">Quiz)</h1>
+<ul>
+  <li>JSON 이전에 주로 사용하던 데이터 교환 포맷으로는 XML이 있습니다. JSON이 XML 보다 유리한 점이 무엇인가요?</li>
+  <li>JSON 포맷은 텍스트 형식으로, VS Code와 같은 텍스트 에디터에서 읽을 수 있습니다. 반면 텍스트 에디터로 읽을 수 없는 바이너리(이진) 형식의 데이터 교환 포맷(예를 들어 protobuf)도 있습니다. 텍스트 형식의 데이터 교환 포맷과 이진 형식의 데이터 교환 포맷의 차이점과 장단점은 무엇인가요?</li>
+</ul>
+
+<p>끝으로,</p>
 
 
                 <!-- Pagination links -->
@@ -192,15 +395,6 @@ April 8, 2023
                     <ul>
                         
                         
-                        
-                            <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기</h3>
-                                </a>
-                            </li>
                         
                             <li>
                                 <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
@@ -220,6 +414,15 @@ April 8, 2023
                                 </a>
                             </li>
                         
+                            <li>
+                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기</h3>
+                                </a>
+                            </li>
+                        
                     </ul>
                 </aside>
             
@@ -228,7 +431,7 @@ April 8, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="5">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -248,13 +451,13 @@ April 8, 2023
         </div>
     </div>
     
-    <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/" class="post-preview">
+    <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/" class="post-preview">
         <div class="image">
             
                 <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
             
         </div>
-        <h3 class="title">깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
+        <h3 class="title">깃허브 블로그 만들기</h3>
     </a>
 </div>
 
@@ -403,13 +606,216 @@ April 8, 2023
             "description": "구조화된 데이터 표현 방식의 차이를 알아본다.",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png",
             "url": "http://localhost:4000/YAML/",
-            "articleBody": "#
+            "articleBody": "학습 도움 유튜브 링크 : 당신이 몰랐을 수도 있는 YAML 이야기 
+Achievement Goal
+
+  구조화된 데이터를 표현하는 방식을 학습한다.
+    
+      XML, JSON, YAML의 차이점을 이해한다.
+    
+  
+  데이터를 YAML 형식으로 표현할 수 있다.
+    
+      간단한 YAML 문법을 학습한다.
+        
+          데이터를 표현하는 키-값 형태를 이해한다.
+          Array, Dictionary 등의 구조를 이애한다.
+          작성된 데이터가 여러 줄일 때, 표현하는 방식을 학습한다.
+        
+      
+    
+  
+  스프린트를 통해 데이터를 보고 YAML 형식으로 작성하여 실습한다.
+
+
+
+
+
+
+
+
+YAML
+YAML(“YAML Ain’t Markup Language”의 줄임말)은 구조화된 데이터를 나타내는 데 사용되는 사람이 읽을 수 있는 데이터 직렬화 형식입니다.
+
+  JSON과 거의 호환이 된다. JSON의 상위 집합 언어이기 때문이다.
+
+
+사람과 기계 모두 쉽게 읽을 수 있도록 설계되었으며 구성 파일, 프로그래밍 언어 간의 데이터 교환 및 데이터를 쉽게 구문 분석하고 이해해야 하는 기타 응용 프로그램에 일반적으로 사용됩니다.
+
+YAML 문법
+1. 데이터 정의
+key : value 형태 ( 콜론 : 사이에 공백이 있어야한다. )
+#주석 
+Fruit: Apple
+Quantity: 5
+Origin: Chungju
+
+
+2. Array / Lists
+#1번
+Fruits:
+  - Orange
+  - Apple
+  - Mango
+
+Vegetables:
+  - Carrot
+  - Lettuce
+
+
+3. Dictionary / Map
+기본적으로 2칸 혹은 4칸의 들여쓰기를 사용한다.
+Fruits: 
+    Name: Apple
+    Quantity: 5
+    Origin: Chungju
+
+Vegetables:
+    Name: Lettuces
+    Quantity: 10
+    Origin: Daekwan
+
+Name, Quantity, Origin은 같은 수만큼의 들여쓰기를 했기 때문에 같은 계층으로 각각 Fruits와 Vegetables에 속합니다. 이와 같이 들여쓰기를 통해 어떤 계층에 속하는지 달라지기 때문에, 들여쓰기에 주의해야 합니다.
+
+4. YAML과 JSON 비교
+YAML
+
+Fruits:
+	- Banana:
+			Calories: 105
+			Fat: 0.4g
+			Carbs: 27g
+
+	- Grape:
+			Calories: 62
+			Fat: 0.3g
+			Carbs: 15g
+
+#JSON 
+
+{
+  &quot;Fruits&quot;: [
+    {
+      &quot;Banana&quot;: {
+        &quot;Calories&quot;: 105,
+        &quot;Fat&quot;: &quot;0.4g&quot;,
+        &quot;Carbs&quot;: &quot;27g&quot;
+      }
+    },
+    {
+      &quot;Grape&quot;: {
+        &quot;Caloreis&quot;: 62,
+        &quot;Fat&quot;: &quot;0.3g&quot;,
+        &quot;Carbs&quot;: &quot;15g&quot;
+      }
+    }
+  ]
+}
+
+
+5. 줄 바꿈
+yaml 에서 줄 바꿈 할 때는 기본적으로는 \n이지만, &amp;gt; 과 | 를 쓸 수 있습니다.
+#YAML
+example1: &amp;gt;
+  this is multiline string 
+  and this is nextline 
+  and nextline
+
+example2: &amp;gt;
+  this is multiline string 
+
+  and this is nextline 
+  and nextline
+
+
+#JSON 
+
+{
+  &quot;example1&quot;: &quot;this is multiline string  and this is nextline  and nextline\n&quot;
+}
+
+
+{
+  &quot;example2&quot;: &quot;this is multiline string \nand this is nextline  and nextline\n&quot;
+}
+
+
+
+대표적인 데이터 교환 포맷 JSON
+JSON : JavaScript Object Notation
+JSON은 서로 다른 프로그램 사이에서 데이터를 교환하기 위한 포맷입니다. 그리고 JSON 포맷은 자바스크립트을 포함한 많은 언어에서 범용적으로 사용하는 유명한 포맷입니다.
+
+const message = {
+  sender: &quot;김코딩&quot;,
+  receiver: &quot;박해커&quot;,
+  message: &quot;해커야 오늘 저녁 같이 먹을래?&quot;,
+  createdAt: &quot;2021-01-12 10:10:10&quot;
+}
+
+ [메시지를 담고 있는 객체 message] 
+
+
+  전송 가능한 조건 (transferable condition)
+    
+      수신자(reciever)와 발신자(sender)가 같은 프로그램을 사용
+또는, 문자열처럼 범용적으로 읽을 수 있어야 한다.
+    
+  
+  
+    타입 변환 시 String으로 변환할 때 객체 내용 포함하지 않는 경우의 해결법
+(JSON 형태로 변환하거나 JSON을 객체의 형태로 변환)
+
+    
+      JSON.stringify : Object type을 JSON으로 변환
+      JSON.parse : JSON을 Object type으로 변환
+    
+  
+
+
+let transferableMessage = JSON.stringify(message)
+console.log(transferableMessage)  // `{&quot;sender&quot;:&quot;김코딩&quot;,&quot;receiver&quot;:&quot;박해커&quot;,&quot;message&quot;:&quot;해커야 오늘 저녁 같이 먹을래?&quot;,&quot;createdAt&quot;:&quot;2021-01-12 10:10:10&quot;}`
+console.log(typeof(transferableMessage)) // `string`
+
+  [Code] message 객체를 JSON으로 변환하는 메소드 JSON.stringify
+ 직렬화(serialize) 
+
+객체 직렬화(serialize)를 통해 만들어진 문자열을 누군가에게 객체의 내용으로 보낼 수 있습니다.(JSON.stringify)
+그렇다면, 받는 사람이 문자열 메시지를 다시 객체의 형태로 만드는 방법은 JSON.parse입니다.
+let packet = `{&quot;sender&quot;:&quot;김코딩&quot;,&quot;receiver&quot;:&quot;박해커&quot;,&quot;message&quot;:&quot;해커야 오늘 저녁 같이 먹을래?&quot;,&quot;createdAt&quot;:&quot;2021-01-12 10:10:10&quot;}`
+
+let obj = JSON.parse(packet)
+console.log(obj)
+/*
+ * {
+ * sender: &quot;김코딩&quot;,
+ * receiver: &quot;박해커&quot;,
+ * message: &quot;해커야 오늘 저녁 같이 먹을래?&quot;,
+ * createdAt: &quot;2021-01-12 10:10:10&quot;
+ * }
+ */
+ console.log(typeof(obj))
+ // `object`
+
+[Code] 직렬화된 JSON에 메소드 JSON.parse를 적용하면 다시 객체의 형태로 변환
+ 역직렬화(deserialize) 
+
+
+
+
+
+Quiz)
+
+  JSON 이전에 주로 사용하던 데이터 교환 포맷으로는 XML이 있습니다. JSON이 XML 보다 유리한 점이 무엇인가요?
+  JSON 포맷은 텍스트 형식으로, VS Code와 같은 텍스트 에디터에서 읽을 수 있습니다. 반면 텍스트 에디터로 읽을 수 없는 바이너리(이진) 형식의 데이터 교환 포맷(예를 들어 protobuf)도 있습니다. 텍스트 형식의 데이터 교환 포맷과 이진 형식의 데이터 교환 포맷의 차이점과 장단점은 무엇인가요?
+
+
+끝으로,
 ",
-            "wordcount": "1",
+            "wordcount": "1063",
             "inLanguage": "en",
-            "dateCreated": "2023-04-08/",
-            "datePublished": "2023-04-08/",
-            "dateModified": "2023-04-08/",
+            "dateCreated": "2023-04-09/",
+            "datePublished": "2023-04-09/",
+            "dateModified": "2023-04-09/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
