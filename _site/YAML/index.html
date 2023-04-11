@@ -162,7 +162,7 @@ April 9, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>5 min to read</span>
+                    <span>10 min to read</span>
                 </p>
                 <h1 class="post-title">YAML</h1>
                 <p class="post-subtitle">구조화된 데이터 표현 방식 YAML의 정의와 표현</p>
@@ -313,6 +313,7 @@ April 9, 2023
 </span></code></pre></div></div>
 
 <p><img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681178921/128px-JSON_vector_logo.svg_nzvtwu.png" width="150" height="150" /></p>
+
 <h1 id="대표적인-데이터-교환-포맷-json">대표적인 데이터 교환 포맷 JSON</h1>
 <p>JSON : JavaScript Object Notation<br />
 JSON은 서로 다른 프로그램 사이에서 데이터를 교환하기 위한 포맷입니다. 그리고 JSON 포맷은 자바스크립트을 포함한 많은 언어에서 범용적으로 사용하는 유명한 포맷입니다.</p>
@@ -381,7 +382,169 @@ JSON은 서로 다른 프로그램 사이에서 데이터를 교환하기 위한
   <li>JSON 포맷은 텍스트 형식으로, VS Code와 같은 텍스트 에디터에서 읽을 수 있습니다. 반면 텍스트 에디터로 읽을 수 없는 바이너리(이진) 형식의 데이터 교환 포맷(예를 들어 protobuf)도 있습니다. 텍스트 형식의 데이터 교환 포맷과 이진 형식의 데이터 교환 포맷의 차이점과 장단점은 무엇인가요?</li>
 </ul>
 
+<h1 id="sprint">Sprint</h1>
+<h2 id="getting-started">Getting Started</h2>
+<ul>
+  <li>github repository fork, clone</li>
+  <li><code class="language-plaintext highlighter-rouge">npm install</code></li>
+  <li><code class="language-plaintext highlighter-rouge">npm run test</code> 테스트케이스 통과</li>
+  <li>Pull &amp; Request 를 통해 제출</li>
+</ul>
+
+<h2 id="test-1">Test 1</h2>
+<p>아래 표와 같은 데이터를 YAML 파일로 작성하세요.
+<img src="/assets/img/YAML/%ED%91%9C.png" alt="표" /></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Car</span><span class="pi">:</span>
+  <span class="na">Color</span><span class="pi">:</span> <span class="s">Blue</span>  
+  <span class="na">Model</span><span class="pi">:</span>
+    <span class="na">Name</span><span class="pi">:</span> <span class="s">Cyber Truck</span>      
+    <span class="na">Year</span><span class="pi">:</span> <span class="m">2022</span>
+  <span class="na">Fuel</span><span class="pi">:</span> <span class="s">Electric</span>
+  <span class="na">Price</span><span class="pi">:</span> <span class="s">$100,000</span>
+
+</code></pre></div></div>
+<h2 id="test-2">Test 2</h2>
+<p><img src="/assets/img/YAML/%ED%91%9C2.png" alt="표2" /></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">test2</span><span class="pi">:</span> 
+  <span class="na">Version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2012-10-17"</span>
+  <span class="na">Statement</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">Effect</span><span class="pi">:</span> <span class="s">Allow</span>
+      <span class="na">Action</span><span class="pi">:</span> 
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">ec2:*"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">elasticloadbalancing:*"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">route53:*"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">autoscaling:*"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">cloudwatch:*"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">SNS:*"</span>
+      <span class="na">Resource</span><span class="pi">:</span> 
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">*"</span>
+    <span class="pi">-</span> <span class="na">Effect</span><span class="pi">:</span> <span class="s">Allow</span>
+      <span class="na">Action</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">s3:*"</span>
+      <span class="na">Resource</span><span class="pi">:</span> 
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:s3:::travis-terraform-state"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:s3:::travis-terraform-state/*"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:s3:::travis-shared-1-registry-images"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:s3:::travis-shared-1-registry-images/*"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:s3:::travis-shared-2-registry-images"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:s3:::travis-shared-2-registry-images/*"</span>
+    <span class="pi">-</span> <span class="na">Effect</span><span class="pi">:</span> <span class="s">Allow</span>
+      <span class="na">Action</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">iam:GetUser"</span>
+      <span class="na">Resource</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:iam::341288657826:user/igor-terraform"</span>
+    <span class="pi">-</span> <span class="na">Effect</span><span class="pi">:</span> <span class="s">Allow</span>
+      <span class="na">Action</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">iam:*"</span>
+      <span class="na">Resource</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:iam::341288657826:role/*"</span>
+        <span class="pi">-</span>   <span class="s2">"</span><span class="s">arn:aws:iam::341288657826:user/registry-shared-1"</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:iam::341288657826:user/registry-shared-2"</span>
+        <span class="pi">-</span>   <span class="s2">"</span><span class="s">arn:aws:iam::*:user/cyclist-*"</span>
+        <span class="pi">-</span>   <span class="s2">"</span><span class="s">arn:aws:iam::*:user/worker-*"</span>
+        <span class="pi">-</span>   <span class="s2">"</span><span class="s">arn:aws:iam::*:user/build-trace-*"</span>
+    <span class="pi">-</span> <span class="na">Effect</span><span class="pi">:</span> <span class="s">Allow</span>
+      <span class="na">Action</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">dynamodb:*"</span>
+      <span class="na">Resource</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">arn:aws:dynamodb:us-east-1:341288657826:table/travis-terraform-state"</span>
+</code></pre></div></div>
+
+<h2 id="test-3">Test 3</h2>
+<p>다음 JSON으로 작성된 설정 파일을 YAML 형식으로 작성하시오.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">test</span><span class="mi">3</span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Node.js CI"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"on"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"push"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"branches"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"pull_request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"branches"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"jobs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"runs-on"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ubuntu-latest"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"steps"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"uses"</span><span class="p">:</span><span class="w"> </span><span class="s2">"actions/checkout@v2"</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Use Node.js"</span><span class="p">,</span><span class="w">
+                        </span><span class="nl">"uses"</span><span class="p">:</span><span class="w"> </span><span class="s2">"actions/setup-node@v1"</span><span class="p">,</span><span class="w">
+                        </span><span class="nl">"with"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"always-auth"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"node-version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.x"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"registry-url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://registry.npmjs.org"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@octocat"</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Install dependencies"</span><span class="p">,</span><span class="w">
+                        </span><span class="nl">"run"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npm ci"</span><span class="p">,</span><span class="w">
+                        </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"NODE_AUTH_TOKEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$"</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">;</span><span class="w">  
+
+
+</span></code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">test3</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">Node.js CI</span>
+  <span class="na">on</span><span class="pi">:</span>
+    <span class="na">push</span><span class="pi">:</span>
+      <span class="na">branches</span><span class="pi">:</span> <span class="s">main</span>
+    <span class="na">pull_request</span><span class="pi">:</span>
+      <span class="na">branches</span><span class="pi">:</span> <span class="s">main</span>
+  <span class="na">jobs</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span>
+      <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+      <span class="na">steps</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Use Node.js</span>
+          <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-node@v1</span>
+          <span class="na">with</span><span class="pi">:</span>
+            <span class="na">always-auth</span><span class="pi">:</span> <span class="no">true</span>
+            <span class="na">node-version</span><span class="pi">:</span> <span class="s">12.x</span>
+            <span class="na">registry-url</span><span class="pi">:</span> <span class="s">https://registry.npmjs.org</span>
+            <span class="na">scope</span><span class="pi">:</span> <span class="s1">'</span><span class="s">@octocat'</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install dependencies</span>
+          <span class="na">run</span><span class="pi">:</span> <span class="s">npm ci</span>
+          <span class="na">env</span><span class="pi">:</span>
+            <span class="na">NODE_AUTH_TOKEN</span><span class="pi">:</span> <span class="s">$</span>
+</code></pre></div></div>
+
 <p>끝으로,</p>
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hoonology-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 
                 <!-- Pagination links -->
@@ -395,6 +558,15 @@ JSON은 서로 다른 프로그램 사이에서 데이터를 교환하기 위한
                     <ul>
                         
                         
+                        
+                            <li>
+                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기</h3>
+                                </a>
+                            </li>
                         
                             <li>
                                 <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
@@ -414,15 +586,6 @@ JSON은 서로 다른 프로그램 사이에서 데이터를 교환하기 위한
                                 </a>
                             </li>
                         
-                            <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기</h3>
-                                </a>
-                            </li>
-                        
                     </ul>
                 </aside>
             
@@ -431,7 +594,7 @@ JSON은 서로 다른 프로그램 사이에서 데이터를 교환하기 위한
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="5">
+            <div class="time-bar" data-minutes="10">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -741,6 +904,7 @@ example2: &amp;gt;
 
 
 
+
 대표적인 데이터 교환 포맷 JSON
 JSON : JavaScript Object Notation
 JSON은 서로 다른 프로그램 사이에서 데이터를 교환하기 위한 포맷입니다. 그리고 JSON 포맷은 자바스크립트을 포함한 많은 언어에서 범용적으로 사용하는 유명한 포맷입니다.
@@ -809,9 +973,155 @@ Quiz)
   JSON 포맷은 텍스트 형식으로, VS Code와 같은 텍스트 에디터에서 읽을 수 있습니다. 반면 텍스트 에디터로 읽을 수 없는 바이너리(이진) 형식의 데이터 교환 포맷(예를 들어 protobuf)도 있습니다. 텍스트 형식의 데이터 교환 포맷과 이진 형식의 데이터 교환 포맷의 차이점과 장단점은 무엇인가요?
 
 
+Sprint
+Getting Started
+
+  github repository fork, clone
+  npm install
+  npm run test 테스트케이스 통과
+  Pull &amp;amp; Request 를 통해 제출
+
+
+Test 1
+아래 표와 같은 데이터를 YAML 파일로 작성하세요.
+
+
+Car:
+  Color: Blue  
+  Model:
+    Name: Cyber Truck      
+    Year: 2022
+  Fuel: Electric
+  Price: $100,000
+
+
+Test 2
+
+
+test2: 
+  Version: &quot;2012-10-17&quot;
+  Statement:
+    - Effect: Allow
+      Action: 
+        - &quot;ec2:*&quot;
+        - &quot;elasticloadbalancing:*&quot;
+        - &quot;route53:*&quot;
+        - &quot;autoscaling:*&quot;
+        - &quot;cloudwatch:*&quot;
+        - &quot;SNS:*&quot;
+      Resource: 
+        - &quot;*&quot;
+    - Effect: Allow
+      Action:
+        - &quot;s3:*&quot;
+      Resource: 
+        - &quot;arn:aws:s3:::travis-terraform-state&quot;
+        - &quot;arn:aws:s3:::travis-terraform-state/*&quot;
+        - &quot;arn:aws:s3:::travis-shared-1-registry-images&quot;
+        - &quot;arn:aws:s3:::travis-shared-1-registry-images/*&quot;
+        - &quot;arn:aws:s3:::travis-shared-2-registry-images&quot;
+        - &quot;arn:aws:s3:::travis-shared-2-registry-images/*&quot;
+    - Effect: Allow
+      Action:
+        - &quot;iam:GetUser&quot;
+      Resource:
+        - &quot;arn:aws:iam::341288657826:user/igor-terraform&quot;
+    - Effect: Allow
+      Action:
+        - &quot;iam:*&quot;
+      Resource:
+        - &quot;arn:aws:iam::341288657826:role/*&quot;
+        -   &quot;arn:aws:iam::341288657826:user/registry-shared-1&quot;
+        - &quot;arn:aws:iam::341288657826:user/registry-shared-2&quot;
+        -   &quot;arn:aws:iam::*:user/cyclist-*&quot;
+        -   &quot;arn:aws:iam::*:user/worker-*&quot;
+        -   &quot;arn:aws:iam::*:user/build-trace-*&quot;
+    - Effect: Allow
+      Action:
+        - &quot;dynamodb:*&quot;
+      Resource:
+        - &quot;arn:aws:dynamodb:us-east-1:341288657826:table/travis-terraform-state&quot;
+
+
+Test 3
+다음 JSON으로 작성된 설정 파일을 YAML 형식으로 작성하시오.
+
+test3: {
+        &quot;name&quot;: &quot;Node.js CI&quot;,
+        &quot;on&quot;: {
+            &quot;push&quot;: {
+                &quot;branches&quot;: &quot;main&quot;
+            },
+            &quot;pull_request&quot;: {
+                &quot;branches&quot;: &quot;main&quot;
+            }
+        },
+        &quot;jobs&quot;: {
+            &quot;build&quot;: {
+                &quot;runs-on&quot;: &quot;ubuntu-latest&quot;,
+                &quot;steps&quot;: [
+                    {
+                        &quot;uses&quot;: &quot;actions/checkout@v2&quot;
+                    },
+                    {
+                        &quot;name&quot;: &quot;Use Node.js&quot;,
+                        &quot;uses&quot;: &quot;actions/setup-node@v1&quot;,
+                        &quot;with&quot;: {
+                            &quot;always-auth&quot;: true,
+                            &quot;node-version&quot;: &quot;12.x&quot;,
+                            &quot;registry-url&quot;: &quot;https://registry.npmjs.org&quot;,
+                            &quot;scope&quot;: &quot;@octocat&quot;
+                        }
+                    },
+                    {
+                        &quot;name&quot;: &quot;Install dependencies&quot;,
+                        &quot;run&quot;: &quot;npm ci&quot;,
+                        &quot;env&quot;: {
+                            &quot;NODE_AUTH_TOKEN&quot;: &quot;$&quot;
+                        }
+                    }
+                ]
+            }
+        }
+    }
+};  
+
+
+
+
+test3:
+  name: Node.js CI
+  on:
+    push:
+      branches: main
+    pull_request:
+      branches: main
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Use Node.js
+          uses: actions/setup-node@v1
+          with:
+            always-auth: true
+            node-version: 12.x
+            registry-url: https://registry.npmjs.org
+            scope: &apos;@octocat&apos;
+        - name: Install dependencies
+          run: npm ci
+          env:
+            NODE_AUTH_TOKEN: $
+
+
 끝으로,
+
+
+
+
+Please enable JavaScript to view the comments powered by Disqus.
 ",
-            "wordcount": "1063",
+            "wordcount": "1812",
             "inLanguage": "en",
             "dateCreated": "2023-04-09/",
             "datePublished": "2023-04-09/",
@@ -845,5 +1155,5 @@ Quiz)
             "keywords": ["github","blog"]
         }
         </script>
-    </body>
+       </body>
 </html>

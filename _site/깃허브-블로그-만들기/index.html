@@ -315,23 +315,93 @@ https://github.com/cotes2020/jekyll-theme-chirpy</p>
 이 페이지에 잘 나와있다.</p>
 
 <h3 id="conf-파일-상세내용">conf 파일 상세내용</h3>
-<p>| 항목              | 값                                                      | 설명                                                                                           |
-| —————– | ——————————————————– | ———————————————————————————————- |
-| lang              | ko                                                       | 언어를 한글로 설정합니다. 기본값은 en입니다.                                                 |
-| timezone          | Asia/Seoul                                               | 서울 표준시로 설정합니다.                                                                     |
-| title             | 아무거나~                                               | 블로그 제목을 넣어 줍니다.                                                                 |
-| tagline           | 아무거나~                                               | title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.                                         |
-| description       | 아무거나~                                               | SEO를 위한 키워드들을 입력합니다.                                                             |
-| url               | https://focuschange-test.github.io                       | 내 블로그로 실제 접속할 URL을 입력합니다.                                                     |
-| github            | github id                                                | 본인의 GitHub 아이디를 입력합니다.                                                            |
-| twitter.username | twitter id                                               | 트위터를 사용한다면 아이디를 입력합니다.                                                       |
-| social.name       | 이름                                                     | 포스트 등에 표시할 나의 이름을 입력합니다.                                                     |
-| social.email      | 이메일                                                   | 나의 이메일 계정을 입력합니다.                                                                 |
-| social.links      | 소셜 링크들                                             | 트위터, 페이스북 등 내가 사용하고 있는 소셜 서비스의 나의 홈 URL을 입력합니다.                 |
-| theme_mode        | light or dark                                            | 원하는 테마 스킨을 선택합니다. 기본은 light입니다.                                            |
-| avatar            | 이미지 경로                                             | 블로그 왼쪽 상단에 표시될 나의 아바타 이미지를 설정합니다.                                    |
-| toc               | true                                                     | 포스팅된 글의 오른쪽에 목차를 표시합니다.                                                     |
-| paginate          | 10                                                       | 한 목록에 몇 개의 글을 표시해 줄 것인지 선택합니다.                                          |</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>값</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>lang</td>
+      <td>ko</td>
+      <td>언어를 한글로 설정합니다. 기본값은 en입니다.</td>
+    </tr>
+    <tr>
+      <td>timezone</td>
+      <td>Asia/Seoul</td>
+      <td>서울 표준시로 설정합니다.</td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>아무거나~</td>
+      <td>블로그 제목을 넣어 줍니다.</td>
+    </tr>
+    <tr>
+      <td>tagline</td>
+      <td>아무거나~</td>
+      <td>title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.</td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td>아무거나~</td>
+      <td>SEO를 위한 키워드들을 입력합니다.</td>
+    </tr>
+    <tr>
+      <td>url</td>
+      <td>https://focuschange-test.github.io</td>
+      <td>내 블로그로 실제 접속할 URL을 입력합니다.</td>
+    </tr>
+    <tr>
+      <td>github</td>
+      <td>github id</td>
+      <td>본인의 GitHub 아이디를 입력합니다.</td>
+    </tr>
+    <tr>
+      <td>twitter.username</td>
+      <td>twitter id</td>
+      <td>트위터를 사용한다면 아이디를 입력합니다.</td>
+    </tr>
+    <tr>
+      <td>social.name</td>
+      <td>이름</td>
+      <td>포스트 등에 표시할 나의 이름을 입력합니다.</td>
+    </tr>
+    <tr>
+      <td>social.email</td>
+      <td>이메일</td>
+      <td>나의 이메일 계정을 입력합니다.</td>
+    </tr>
+    <tr>
+      <td>social.links</td>
+      <td>소셜 링크들</td>
+      <td>트위터, 페이스북 등 내가 사용하고 있는 소셜 서비스의 나의 홈 URL을 입력합니다.</td>
+    </tr>
+    <tr>
+      <td>theme_mode</td>
+      <td>light or dark</td>
+      <td>원하는 테마 스킨을 선택합니다. 기본은 light입니다.</td>
+    </tr>
+    <tr>
+      <td>avatar</td>
+      <td>이미지 경로</td>
+      <td>블로그 왼쪽 상단에 표시될 나의 아바타 이미지를 설정합니다.</td>
+    </tr>
+    <tr>
+      <td>toc</td>
+      <td>true</td>
+      <td>포스팅된 글의 오른쪽에 목차를 표시합니다.</td>
+    </tr>
+    <tr>
+      <td>paginate</td>
+      <td>10</td>
+      <td>한 목록에 몇 개의 글을 표시해 줄 것인지 선택합니다.</td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano .ignore
 <span class="c"># 아래 내용 추가 -&gt; ? 빌드/배포 에러 방지하기 위해 올리지 않도록 하는 것</span>
@@ -378,15 +448,6 @@ github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfil
                         
                         
                             <li>
-                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
                                 <a href="/YAML/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
@@ -401,6 +462,15 @@ github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfil
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
                                     <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
                                 </a>
                             </li>
                         
@@ -724,23 +794,93 @@ https://www.irgroup.org/posts/jekyll-chirpy/
 이 페이지에 잘 나와있다.
 
 conf 파일 상세내용
-| 항목              | 값                                                      | 설명                                                                                           |
-| —————– | ——————————————————– | ———————————————————————————————- |
-| lang              | ko                                                       | 언어를 한글로 설정합니다. 기본값은 en입니다.                                                 |
-| timezone          | Asia/Seoul                                               | 서울 표준시로 설정합니다.                                                                     |
-| title             | 아무거나~                                               | 블로그 제목을 넣어 줍니다.                                                                 |
-| tagline           | 아무거나~                                               | title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.                                         |
-| description       | 아무거나~                                               | SEO를 위한 키워드들을 입력합니다.                                                             |
-| url               | https://focuschange-test.github.io                       | 내 블로그로 실제 접속할 URL을 입력합니다.                                                     |
-| github            | github id                                                | 본인의 GitHub 아이디를 입력합니다.                                                            |
-| twitter.username | twitter id                                               | 트위터를 사용한다면 아이디를 입력합니다.                                                       |
-| social.name       | 이름                                                     | 포스트 등에 표시할 나의 이름을 입력합니다.                                                     |
-| social.email      | 이메일                                                   | 나의 이메일 계정을 입력합니다.                                                                 |
-| social.links      | 소셜 링크들                                             | 트위터, 페이스북 등 내가 사용하고 있는 소셜 서비스의 나의 홈 URL을 입력합니다.                 |
-| theme_mode        | light or dark                                            | 원하는 테마 스킨을 선택합니다. 기본은 light입니다.                                            |
-| avatar            | 이미지 경로                                             | 블로그 왼쪽 상단에 표시될 나의 아바타 이미지를 설정합니다.                                    |
-| toc               | true                                                     | 포스팅된 글의 오른쪽에 목차를 표시합니다.                                                     |
-| paginate          | 10                                                       | 한 목록에 몇 개의 글을 표시해 줄 것인지 선택합니다.                                          |
+
+
+  
+    
+      항목
+      값
+      설명
+    
+  
+  
+    
+      lang
+      ko
+      언어를 한글로 설정합니다. 기본값은 en입니다.
+    
+    
+      timezone
+      Asia/Seoul
+      서울 표준시로 설정합니다.
+    
+    
+      title
+      아무거나~
+      블로그 제목을 넣어 줍니다.
+    
+    
+      tagline
+      아무거나~
+      title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.
+    
+    
+      description
+      아무거나~
+      SEO를 위한 키워드들을 입력합니다.
+    
+    
+      url
+      https://focuschange-test.github.io
+      내 블로그로 실제 접속할 URL을 입력합니다.
+    
+    
+      github
+      github id
+      본인의 GitHub 아이디를 입력합니다.
+    
+    
+      twitter.username
+      twitter id
+      트위터를 사용한다면 아이디를 입력합니다.
+    
+    
+      social.name
+      이름
+      포스트 등에 표시할 나의 이름을 입력합니다.
+    
+    
+      social.email
+      이메일
+      나의 이메일 계정을 입력합니다.
+    
+    
+      social.links
+      소셜 링크들
+      트위터, 페이스북 등 내가 사용하고 있는 소셜 서비스의 나의 홈 URL을 입력합니다.
+    
+    
+      theme_mode
+      light or dark
+      원하는 테마 스킨을 선택합니다. 기본은 light입니다.
+    
+    
+      avatar
+      이미지 경로
+      블로그 왼쪽 상단에 표시될 나의 아바타 이미지를 설정합니다.
+    
+    
+      toc
+      true
+      포스팅된 글의 오른쪽에 목차를 표시합니다.
+    
+    
+      paginate
+      10
+      한 목록에 몇 개의 글을 표시해 줄 것인지 선택합니다.
+    
+  
+
 
 nano .ignore
 # 아래 내용 추가 -&amp;gt; ? 빌드/배포 에러 방지하기 위해 올리지 않도록 하는 것
@@ -773,7 +913,7 @@ https://codesyun.tistory.com/102#–%–%ED%–%-C%EB%A-%–%EB%B-%–%–%EC%�
 
 
 ",
-            "wordcount": "774",
+            "wordcount": "741",
             "inLanguage": "en",
             "dateCreated": "2023-04-07/",
             "datePublished": "2023-04-07/",
@@ -807,5 +947,5 @@ https://codesyun.tistory.com/102#–%–%ED%–%-C%EB%A-%–%EB%B-%–%–%EC%�
             "keywords": ["github","blog"]
         }
         </script>
-    </body>
+       </body>
 </html>

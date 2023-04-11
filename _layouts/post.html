@@ -104,6 +104,7 @@
             {% assign author_urls = author_urls | append: '"https://www.linkedin.com/in/' | append: author.linkedin_username | append: '",' %}
         {% endif %}
         {% if page.math %}
+        
         <script>
             MathJax = {
                 tex: {
@@ -161,5 +162,5 @@
             "keywords": [{{ page.tags | join: '","' | append: '"' | prepend: '"' }}]
         }
         </script>
-    </body>
+       </body>
 </html>

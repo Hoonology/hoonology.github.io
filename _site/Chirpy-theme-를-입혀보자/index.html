@@ -162,7 +162,7 @@ April 8, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>2 min to read</span>
                 </p>
                 <h1 class="post-title">깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h1>
                 <p class="post-subtitle">깃허브 블로그를 만들어보자</p>
@@ -234,6 +234,27 @@ Gemfile.lock
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push <span class="nt">-u</span> origin master
 </code></pre></div></div>
 
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hoonology-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
                 <!-- Pagination links -->
 
@@ -246,15 +267,6 @@ Gemfile.lock
                     <ul>
                         
                         
-                        
-                            <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기</h3>
-                                </a>
-                            </li>
                         
                             <li>
                                 <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
@@ -274,6 +286,15 @@ Gemfile.lock
                                 </a>
                             </li>
                         
+                            <li>
+                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기</h3>
+                                </a>
+                            </li>
+                        
                     </ul>
                 </aside>
             
@@ -282,7 +303,7 @@ Gemfile.lock
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="2">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -512,8 +533,13 @@ Gemfile.lock
 
 git push -u origin master
 
+
+
+
+
+Please enable JavaScript to view the comments powered by Disqus.
 ",
-            "wordcount": "346",
+            "wordcount": "449",
             "inLanguage": "en",
             "dateCreated": "2023-04-08/",
             "datePublished": "2023-04-08/",
@@ -547,5 +573,5 @@ git push -u origin master
             "keywords": ["github","blog"]
         }
         </script>
-    </body>
+       </body>
 </html>
