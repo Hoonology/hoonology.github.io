@@ -6,7 +6,7 @@ subtitle: 깃허브 블로그를 만들어보자
 description: 실패를 하지 않는 두려움과 시도의 즐거움 - 트러블슈팅
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png
-category: Github Blog
+category: Blog
 tags:
   - github
   - blog
