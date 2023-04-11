@@ -17,28 +17,28 @@
     
     
 
-    <title>깃허브 블로그 만들기 | Hoonology</title>
-    <meta name="description" content="가장 어려웠고, 내가 도전하면서 뿌듯함을 느낀 깃허브 블로그">
+    <title>Docker | Hoonology</title>
+    <meta name="description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
     
-        <meta name="keywords" content="github, blog">
+        <meta name="keywords" content="Docker, nginx, postgresql">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="깃허브 블로그 만들기 | Hoonology">
-    <meta name="twitter:description" content="가장 어려웠고, 내가 도전하면서 뿌듯함을 느낀 깃허브 블로그">
+    <meta name="twitter:title" content="Docker | Hoonology">
+    <meta name="twitter:description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
-    <meta property="og:title" content="깃허브 블로그 만들기 | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-    <meta property="og:description" content="가장 어려웠고, 내가 도전하면서 뿌듯함을 느낀 깃허브 블로그">
+    <meta property="og:url" content="http://localhost:4000/Docker/">
+    <meta property="og:title" content="Docker | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+    <meta property="og:description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
     <meta property="og:site_name" content="DevOps">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+    <link rel="canonical" href="http://localhost:4000/Docker/">
     <link rel="alternate" type="application/rss+xml" title="DevOps" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -153,22 +153,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-07T21:00:00+09:00">
+                        <time class="date" datetime="2023-04-11T16:15:19+09:00">
                             
 
 
-April 7, 2023
+April 11, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>4 min to read</span>
+                    <span>2 min to read</span>
                 </p>
-                <h1 class="post-title">깃허브 블로그 만들기</h1>
-                <p class="post-subtitle">깃허브 블로그를 만들어보자 - 깃허브 레포 작업 부터 시작</p>
+                <h1 class="post-title">Docker</h1>
+                <p class="post-subtitle">도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -178,261 +178,126 @@ April 7, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="references">References</h1>
-<ul>
-  <li>https://zeddios.tistory.com/1222</li>
-  <li>https://choijaegwon.github.io/categories/GitHubBlog</li>
-  <li>https://www.irgroup.org/posts/jekyll-chirpy/</li>
-</ul>
-
-<p><br />
-<br /></p>
-
-<h1 id="github-repo-작업">Github Repo 작업</h1>
-<h3 id="1-새로운-repository-생성">1. 새로운 Repository 생성</h3>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">username.github.io</code> 의 이름으로 레포지토리를 생성한다.</li>
-  <li><code class="language-plaintext highlighter-rouge">Add a README file</code> 체크</li>
-</ul>
-
-<h3 id="2-로컬에-클론">2. 로컬에 클론</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/username/username.github.io
-</code></pre></div></div>
-
-<h3 id="3-클론한-폴더의-경로-이동-후-파일-생성---github와의-연결-확인">3. 클론한 폴더의 경로 이동 후 파일 생성 - github와의 연결 확인</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>username.github.io
-<span class="nb">echo</span> <span class="s2">"Hello World"</span> <span class="o">&gt;</span> index.html
-
-<span class="c"># git add, commit, push</span>
-git add <span class="nb">.</span>
-git commit <span class="nt">-m</span> <span class="s2">"Initioal commit"</span>
-git push <span class="nt">-u</span> origin main
-</code></pre></div></div>
-
-<p><img src="/assets/img/Github_blog/push.png" alt="push" /></p>
-
-<h3 id="4-확인">4. 확인</h3>
-<p>https://hoonology.github.io 에서 확인<br />
-정상적으로 index.html의 내용이 표시된다.</p>
-
-<p><br />
-<br /></p>
-
-<h3 id="5-vscode에-연동시켜준다">5. VScode에 연동시켜준다.</h3>
-
-<p><br />
-<br /></p>
-
-<h1 id="jekyll">Jekyll</h1>
-
-<h3 id="0-rbenv-설치">0. rbenv 설치</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew update
-brew <span class="nb">install </span>rbenv ruby-build
-<span class="c"># 버전 확인 </span>
-rbenv versions
-</code></pre></div></div>
+                <h1 id="achievement-goals">Achievement Goals</h1>
 
 <ul>
-  <li>rbenv PATH를 추가하기 위해 본인의 쉘 설정 파일 (..zshrc, .bashrc) 을 열어 다음의 코드를 추가
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  nano ~/.zshrc
-</code></pre></div>    </div>
-  </li>
-  <li>에디터를 열어 패스 설정
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">[[</span> <span class="nt">-d</span> ~/.rbenv  <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
-  <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rbenv/bin:<span class="k">${</span><span class="nv">PATH</span><span class="k">}</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
-  <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>rbenv init -<span class="si">)</span><span class="s2">"</span>
-</code></pre></div>    </div>
-  </li>
-  <li>패스 소스 적용
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  source ~/.zshrc
-</code></pre></div>    </div>
-  </li>
-  <li>gem install
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  gem <span class="nb">install </span>bundler
-</code></pre></div>    </div>
-  </li>
+  <li>컨테이너 기술이 무엇인지, Docker가 왜 필요한지 알 수 있다.</li>
+  <li>컨테이너와 이미지, 레지스트리가 무엇인지 이해할 수 있다.</li>
+  <li>대표적인 레지스트리인 Docker Hub에서 이미지를 검색하고, 사용할 수 있다.</li>
+  <li>한 개의 이미지를 이용해서 컨테이너를 구축할 수 있다.</li>
+  <li>두 개 이상의 이미지를 이용해서 컨테이너를 구축하고 서로가 어떻게 연결되는 지 알 수 있다.</li>
+  <li>Docker CLI에서 명령어를 사용해서 이미지를 생성/수정/배포하고, 컨테이너를 생성/삭제할 수 있다.</li>
+  <li>Dockerfile을 이용해 이미지를 생성할 수 있다.</li>
+  <li>애플리케이션을 컨테이너화할 수 있다.</li>
 </ul>
 
-<h3 id="1-로컬에-jekyll을-설치">1. 로컬에 Jekyll을 설치</h3>
+<h1 id="docker">Docker</h1>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>jekyll bundler
-</code></pre></div></div>
+<p><a href="https://docs.docker.com/desktop/install/mac-install/">도커설치</a></p>
 
-<h3 id="2-indexhtml-제거">2. index.html 제거</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm </span>index.html
-</code></pre></div></div>
+<p><img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681195931/2880px-Docker__28container_engine_29_logo.svg_kvn7uz.png" alt="docker" /></p>
 
-<h3 id="3-jekyll-버전확인">3. Jekyll 버전확인</h3>
+<p><strong><em>“컨테이너 방식으로 애플리케이션을 실행한다”</em></strong><br />
+<strong><em>“실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다!”</em></strong></p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll <span class="nt">-v</span>
-</code></pre></div></div>
+<p><br /></p>
 
-<h3 id="4-원격-저장소의-root에-jekyll-저장">4. 원격 저장소의 root에 jekyll 저장</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll new ./
-</code></pre></div></div>
-<h3 id="5-로컬로-서버-띄워보기">5. 로컬로 서버 띄워보기</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve
-</code></pre></div></div>
-<p>http://127.0.0.1:4000 접속 후 정상적으로 나오면, <br />
-https://hoonology.github.io/에 접속해서 같은 창이 나오는지 확인</p>
+<h1 id="왜-docker인가-">왜 Docker인가 ?</h1>
+<h2 id="컨테이너-방식의-장점">컨테이너 방식의 장점</h2>
 
-<p><img src="/assets/img/Github_blog/local.png" alt="local" /></p>
+<ol>
+  <li><a href="#1-의존성-출동-문제를-해결한다"><strong>의존성 충돌 문제를 해결</strong></a>한다.
+    <blockquote>
+      <p>의존성이 충돌할 때 : 두 애플리케이션의 일정한 버전으로 의존 관계가 있을 때 하나 이상의 애플리케이션과 버전이 다를 경우 제대로 된 실행을 보장할 수 없다.<br />
+  이에 컨테이너 기술은 위 문제를 해결한다. 어떠한 의존성도 공유하지 않고, 각자 고유의 의존성을 포함한다.</p>
+    </blockquote>
+  </li>
+  <li><a href="#2-개발과-배포-환경을-일치시킨다"><strong>개발과 배포 환경을 일치</strong>시킨다.</a></li>
+  <li><strong>수평 확장</strong>을 쉽게 해준다.</li>
+  <li>각 서버에 새로운 내용을 <strong>쉽게 배포</strong>시킨다.</li>
+</ol>
 
-<p><br />
-<br /></p>
+<h2 id="1-의존성-출동-문제를-해결한다">1. 의존성 출동 문제를 해결한다.</h2>
+<h3 id="컨테이너가-하는-일">컨테이너가 하는 일</h3>
 
-<h3 id="6-스킨-입혀보기">6. 스킨 입혀보기</h3>
-<p>https://github.com/samarsault/plainwhite-jekyll<br />
-이 레포에 있는 것들 모조리 다운로드 한 뒤, 내가 만든 로컬에 덮어쓴다.</p>
 <ul>
-  <li>새로 bundle을 설치한다.
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install</span>
-</code></pre></div>    </div>
-    <h3 id="ds_stroe-뭐라고-뜨면-그냥-없애버려">DS_Stroe 뭐라고 뜨면 그냥 없애버려</h3>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> .DS_Store <span class="nt">-print0</span> | xargs <span class="nt">-0</span> git <span class="nb">rm</span> <span class="nt">--ignore-unmatch</span> <span class="nt">-f</span>
-<span class="nb">echo</span> .DS_Store&gt;&gt;.gitignore
-</code></pre></div>    </div>
-  </li>
-  <li>로컬에서 서버 돌려본다.
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve
-</code></pre></div>    </div>
-  </li>
+  <li>한 컴퓨터 안에 여러 대의 컨테이너 존재 = 애플리케이션 실행 환경 격리</li>
+  <li>한 컴퓨터에 서로 다른 버전의 php 설치 조건 : 컨테이너 하나 하나가 <strong>애플리케이션 실행</strong>에 <strong>높은 수준의 격리를 제공</strong></li>
 </ul>
 
-<p><img src="/assets/img/Github_blog/local2.png" alt="local2" />
-깔끔허이.. 잘 쓰겄소</p>
+<h4 id="격리를-한다고">격리를 한다고?</h4>
 
-<p>아니다. 난 처피 포기 못해<br />
-https://github.com/cotes2020/jekyll-theme-chirpy</p>
+<ol>
+  <li>프로세스
+    <ul>
+      <li>특정 컨테이너에서 작동하는 프로세스는 그 컨테이너 안에서만 액세스 가능</li>
+    </ul>
+  </li>
+  <li>네트워크
+    <ul>
+      <li>컨테이너 하나에 하나의 IP 주소 할당</li>
+    </ul>
+  </li>
+  <li>파일 시스템
+    <ul>
+      <li>컨테이너 안에서 사용되는 파일 시스템은 <strong>구획화</strong>됨 -&gt; 해당 컨테이너에서의 명령이나 파일 등의 액세스 제한 가능</li>
+    </ul>
+  </li>
+</ol>
 
-<p><br />
-<br /></p>
+<h2 id="2-개발과-배포-환경을-일치시킨다">2. 개발과 배포 환경을 일치시킨다.</h2>
+<h3 id="문제-상황">문제 상황</h3>
+<h4 id="개발팀의-문제">개발팀의 문제</h4>
 
-<h1 id="블로그-설정">블로그 설정</h1>
-
-<h2 id="_congifyml-커스터마이징"><code class="language-plaintext highlighter-rouge">_congif.yml</code> 커스터마이징</h2>
-<p>https://www.irgroup.org/posts/jekyll-chirpy/<br />
-이 페이지에 잘 나와있다.</p>
-
-<h3 id="conf-파일-상세내용">conf 파일 상세내용</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>항목</th>
-      <th>값</th>
-      <th>설명</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>lang</td>
-      <td>ko</td>
-      <td>언어를 한글로 설정합니다. 기본값은 en입니다.</td>
-    </tr>
-    <tr>
-      <td>timezone</td>
-      <td>Asia/Seoul</td>
-      <td>서울 표준시로 설정합니다.</td>
-    </tr>
-    <tr>
-      <td>title</td>
-      <td>아무거나~</td>
-      <td>블로그 제목을 넣어 줍니다.</td>
-    </tr>
-    <tr>
-      <td>tagline</td>
-      <td>아무거나~</td>
-      <td>title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.</td>
-    </tr>
-    <tr>
-      <td>description</td>
-      <td>아무거나~</td>
-      <td>SEO를 위한 키워드들을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>url</td>
-      <td>https://focuschange-test.github.io</td>
-      <td>내 블로그로 실제 접속할 URL을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>github</td>
-      <td>github id</td>
-      <td>본인의 GitHub 아이디를 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>twitter.username</td>
-      <td>twitter id</td>
-      <td>트위터를 사용한다면 아이디를 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>social.name</td>
-      <td>이름</td>
-      <td>포스트 등에 표시할 나의 이름을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>social.email</td>
-      <td>이메일</td>
-      <td>나의 이메일 계정을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>social.links</td>
-      <td>소셜 링크들</td>
-      <td>트위터, 페이스북 등 내가 사용하고 있는 소셜 서비스의 나의 홈 URL을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>theme_mode</td>
-      <td>light or dark</td>
-      <td>원하는 테마 스킨을 선택합니다. 기본은 light입니다.</td>
-    </tr>
-    <tr>
-      <td>avatar</td>
-      <td>이미지 경로</td>
-      <td>블로그 왼쪽 상단에 표시될 나의 아바타 이미지를 설정합니다.</td>
-    </tr>
-    <tr>
-      <td>toc</td>
-      <td>true</td>
-      <td>포스팅된 글의 오른쪽에 목차를 표시합니다.</td>
-    </tr>
-    <tr>
-      <td>paginate</td>
-      <td>10</td>
-      <td>한 목록에 몇 개의 글을 표시해 줄 것인지 선택합니다.</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano .ignore
-<span class="c"># 아래 내용 추가 -&gt; ? 빌드/배포 에러 방지하기 위해 올리지 않도록 하는 것</span>
-Gemfile.lock
-</code></pre></div></div>
-
-<h1 id="문제-발생">문제 발생</h1>
-<p>github에 report build 오류 발생, <br />
-<img src="/assets/img/Github_blog/error.png" alt="error" />
-github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfile을 아래와 같이 수정했다.</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="s2">"jekyll-theme-chirpy"</span>, <span class="s2">"~&gt; 4.5"</span>
-</code></pre></div></div>
-
-<p>커밋이 되는지 확인</p>
-
+<p>개발팀 구성원들은 버전이 서로 다른 애플리케이션을 각자의 로컬 환경에 설치하여 개발을 진행한다.</p>
 <blockquote>
-  <p>또 뜬다.</p>
+  <p>런타임 환경 버전 통일, 시스템 환경 변수 구성 등의 과정이 필요하다.<br />
+각자의 OS에서 애플리케이션 등을 설치하는 과정 또한 다르다.<br />
+문제가 발생하면 문제 해결에 대한 시간 소모가 커지게 되는 문제도 생긴다.</p>
 </blockquote>
 
+<h3 id="docker로-해결">Docker로 해결</h3>
+
+<p>PostgreSQL을 설치하는 가정하에,</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ~|-|~|-|name postgres ~|-|e POSTGRES_PASSWORD~|<span class="o">=</span>|mysecret ~|-|d postgres
+</code></pre></div></div>
+
 <blockquote>
-  <p>github-pages can’t satisfy your Gemfile’s dependencies.</p>
+  <p>애플리케이션 구성 자체가 컨테이너화 된것이라면, YAML과 명령어 하나로 애플리케이션 실행 환경이 구성 완료된다.</p>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker~|-|compose up
+</code></pre></div>  </div>
 </blockquote>
 
-<p>이 문제를 해결하려면 Gemfile.lock에서 github-pages 버전과 호환되는 jekyll-theme-chirpy의 하위 버전을 지정해 보세요. 또는 github-pages의 로컬 버전을 jekyll-theme-chirpy 버전 4.5와 호환되는 버전으로 업데이트할 수 있습니다. bundle update를 실행하여 모든 gem을 최신 호환 버전으로 업데이트할 수도 있습니다.</p>
+<ul>
+  <li>OS에 상관 없이 즉시 애플리케이션 실행 환경 구성 가능</li>
+  <li>개발 컨테이너 위에서 모든 개발팀이 동일한 환경 하에 개발 진행 가능</li>
+</ul>
 
-<hr />
+<h4 id="배포-시의-문제">배포 시의 문제</h4>
 
-<p>https://codesyun.tistory.com/102#–%–%ED%–%-C%EB%A-%–%EB%B-%–%–%EC%–%B-%EB%B-%–%EC%–%AC%ED%–%AD%–%EB%B-%–%EA%B-%BD</p>
+<p>이제는 배포의 패러다임이 달라졌다. 서버에 파일 하나하나를 업로드하는 방식은 마치 물자를 하나하나 배에 옮기는 이전의 방식이라고 볼 수 있다. <br />
+서버도 이제는 컨테이너에 담긴 애플리케이션을 실행하는 방식으로 서비스를 제공한다.</p>
 
-<hr />
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hoonology-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
 
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 
                 <!-- Pagination links -->
@@ -457,11 +322,11 @@ github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfil
                             </li>
                         
                             <li>
-                                <a href="/Docker/">
+                                <a href="/YAML/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
                                     
-                                    <h3>Docker</h3>
+                                    <h3>YAML</h3>
                                 </a>
                             </li>
                         
@@ -482,7 +347,7 @@ github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfil
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="4">
+            <div class="time-bar" data-minutes="2">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -502,13 +367,13 @@ github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfil
         </div>
     </div>
     
-    <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/" class="post-preview">
+    <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/" class="post-preview">
         <div class="image">
             
                 <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
             
         </div>
-        <h3 class="title">깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
+        <h3 class="title">깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
     </a>
 </div>
 
@@ -524,11 +389,11 @@ github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfil
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;가장 어려웠고, 내가 도전하면서 뿌듯함을 느낀 깃허브 블로그&quot;%20http://localhost:4000/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/%20via%20&#64;&hashtags=github,blog"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.&quot;%20http://localhost:4000/Docker/%20via%20&#64;&hashtags=Docker,nginx,postgresql"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -652,272 +517,121 @@ github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfil
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "깃허브 블로그 만들기",
-            "headline": "깃허브 블로그를 만들어보자 - 깃허브 레포 작업 부터 시작",
-            "description": "가장 어려웠고, 내가 도전하면서 뿌듯함을 느낀 깃허브 블로그",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png",
-            "url": "http://localhost:4000/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/",
-            "articleBody": "References
-
-  https://zeddios.tistory.com/1222
-  https://choijaegwon.github.io/categories/GitHubBlog
-  https://www.irgroup.org/posts/jekyll-chirpy/
+            "name": "Docker",
+            "headline": "도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다",
+            "description": "도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
+            "url": "http://localhost:4000/Docker/",
+            "articleBody": "Achievement Goals
 
 
+  컨테이너 기술이 무엇인지, Docker가 왜 필요한지 알 수 있다.
+  컨테이너와 이미지, 레지스트리가 무엇인지 이해할 수 있다.
+  대표적인 레지스트리인 Docker Hub에서 이미지를 검색하고, 사용할 수 있다.
+  한 개의 이미지를 이용해서 컨테이너를 구축할 수 있다.
+  두 개 이상의 이미지를 이용해서 컨테이너를 구축하고 서로가 어떻게 연결되는 지 알 수 있다.
+  Docker CLI에서 명령어를 사용해서 이미지를 생성/수정/배포하고, 컨테이너를 생성/삭제할 수 있다.
+  Dockerfile을 이용해 이미지를 생성할 수 있다.
+  애플리케이션을 컨테이너화할 수 있다.
 
 
+Docker
 
-Github Repo 작업
-1. 새로운 Repository 생성
-
-  username.github.io 의 이름으로 레포지토리를 생성한다.
-  Add a README file 체크
-
-
-2. 로컬에 클론
-git clone https://github.com/username/username.github.io
-
-
-3. 클론한 폴더의 경로 이동 후 파일 생성 - github와의 연결 확인
-cd username.github.io
-echo &quot;Hello World&quot; &amp;gt; index.html
-
-# git add, commit, push
-git add .
-git commit -m &quot;Initioal commit&quot;
-git push -u origin main
+도커설치
 
 
 
-
-4. 확인
-https://hoonology.github.io 에서 확인
-정상적으로 index.html의 내용이 표시된다.
+“컨테이너 방식으로 애플리케이션을 실행한다”
+“실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다!”
 
 
 
-
-5. VScode에 연동시켜준다.
-
-
+왜 Docker인가 ?
+컨테이너 방식의 장점
 
 
-Jekyll
-
-0. rbenv 설치
-brew update
-brew install rbenv ruby-build
-# 버전 확인 
-rbenv versions
-
-
-
-  rbenv PATH를 추가하기 위해 본인의 쉘 설정 파일 (..zshrc, .bashrc) 을 열어 다음의 코드를 추가
-      nano ~/.zshrc
+  의존성 충돌 문제를 해결한다.
+    
+      의존성이 충돌할 때 : 두 애플리케이션의 일정한 버전으로 의존 관계가 있을 때 하나 이상의 애플리케이션과 버전이 다를 경우 제대로 된 실행을 보장할 수 없다.
+  이에 컨테이너 기술은 위 문제를 해결한다. 어떠한 의존성도 공유하지 않고, 각자 고유의 의존성을 포함한다.
     
   
-  에디터를 열어 패스 설정
-      [[ -d ~/.rbenv  ]] &amp;amp;&amp;amp; \
-  export PATH=${HOME}/.rbenv/bin:${PATH} &amp;amp;&amp;amp; \
-  eval &quot;$(rbenv init -)&quot;
+  개발과 배포 환경을 일치시킨다.
+  수평 확장을 쉽게 해준다.
+  각 서버에 새로운 내용을 쉽게 배포시킨다.
+
+
+1. 의존성 출동 문제를 해결한다.
+컨테이너가 하는 일
+
+
+  한 컴퓨터 안에 여러 대의 컨테이너 존재 = 애플리케이션 실행 환경 격리
+  한 컴퓨터에 서로 다른 버전의 php 설치 조건 : 컨테이너 하나 하나가 애플리케이션 실행에 높은 수준의 격리를 제공
+
+
+격리를 한다고?
+
+
+  프로세스
+    
+      특정 컨테이너에서 작동하는 프로세스는 그 컨테이너 안에서만 액세스 가능
     
   
-  패스 소스 적용
-      source ~/.zshrc
+  네트워크
+    
+      컨테이너 하나에 하나의 IP 주소 할당
     
   
-  gem install
-      gem install bundler
+  파일 시스템
+    
+      컨테이너 안에서 사용되는 파일 시스템은 구획화됨 -&amp;gt; 해당 컨테이너에서의 명령이나 파일 등의 액세스 제한 가능
     
   
 
 
-1. 로컬에 Jekyll을 설치
+2. 개발과 배포 환경을 일치시킨다.
+문제 상황
+개발팀의 문제
 
-gem install jekyll bundler
+개발팀 구성원들은 버전이 서로 다른 애플리케이션을 각자의 로컬 환경에 설치하여 개발을 진행한다.
 
-
-2. index.html 제거
-rm index.html
-
-
-3. Jekyll 버전확인
-
-jekyll -v
+  런타임 환경 버전 통일, 시스템 환경 변수 구성 등의 과정이 필요하다.
+각자의 OS에서 애플리케이션 등을 설치하는 과정 또한 다르다.
+문제가 발생하면 문제 해결에 대한 시간 소모가 커지게 되는 문제도 생긴다.
 
 
-4. 원격 저장소의 root에 jekyll 저장
-jekyll new ./
+Docker로 해결
 
-5. 로컬로 서버 띄워보기
-bundle exec jekyll serve
-
-http://127.0.0.1:4000 접속 후 정상적으로 나오면, 
-https://hoonology.github.io/에 접속해서 같은 창이 나오는지 확인
+PostgreSQL을 설치하는 가정하에,
+docker run ~|-|~|-|name postgres ~|-|e POSTGRES_PASSWORD~|=|mysecret ~|-|d postgres
 
 
 
-
-
-
-6. 스킨 입혀보기
-https://github.com/samarsault/plainwhite-jekyll
-이 레포에 있는 것들 모조리 다운로드 한 뒤, 내가 만든 로컬에 덮어쓴다.
-
-  새로 bundle을 설치한다.
-    bundle install
-    
-    DS_Stroe 뭐라고 뜨면 그냥 없애버려
-    find . -name .DS_Store -print0 | xargs -0 git rm --ignore-unmatch -f
-echo .DS_Store&amp;gt;&amp;gt;.gitignore
-    
-  
-  로컬에서 서버 돌려본다.
-    bundle exec jekyll serve
-    
+  애플리케이션 구성 자체가 컨테이너화 된것이라면, YAML과 명령어 하나로 애플리케이션 실행 환경이 구성 완료된다.
+  docker~|-|compose up
   
 
 
 
-깔끔허이.. 잘 쓰겄소
-
-아니다. 난 처피 포기 못해
-https://github.com/cotes2020/jekyll-theme-chirpy
+  OS에 상관 없이 즉시 애플리케이션 실행 환경 구성 가능
+  개발 컨테이너 위에서 모든 개발팀이 동일한 환경 하에 개발 진행 가능
 
 
+배포 시의 문제
 
-
-블로그 설정
-
-_congif.yml 커스터마이징
-https://www.irgroup.org/posts/jekyll-chirpy/
-이 페이지에 잘 나와있다.
-
-conf 파일 상세내용
-
-
-  
-    
-      항목
-      값
-      설명
-    
-  
-  
-    
-      lang
-      ko
-      언어를 한글로 설정합니다. 기본값은 en입니다.
-    
-    
-      timezone
-      Asia/Seoul
-      서울 표준시로 설정합니다.
-    
-    
-      title
-      아무거나~
-      블로그 제목을 넣어 줍니다.
-    
-    
-      tagline
-      아무거나~
-      title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.
-    
-    
-      description
-      아무거나~
-      SEO를 위한 키워드들을 입력합니다.
-    
-    
-      url
-      https://focuschange-test.github.io
-      내 블로그로 실제 접속할 URL을 입력합니다.
-    
-    
-      github
-      github id
-      본인의 GitHub 아이디를 입력합니다.
-    
-    
-      twitter.username
-      twitter id
-      트위터를 사용한다면 아이디를 입력합니다.
-    
-    
-      social.name
-      이름
-      포스트 등에 표시할 나의 이름을 입력합니다.
-    
-    
-      social.email
-      이메일
-      나의 이메일 계정을 입력합니다.
-    
-    
-      social.links
-      소셜 링크들
-      트위터, 페이스북 등 내가 사용하고 있는 소셜 서비스의 나의 홈 URL을 입력합니다.
-    
-    
-      theme_mode
-      light or dark
-      원하는 테마 스킨을 선택합니다. 기본은 light입니다.
-    
-    
-      avatar
-      이미지 경로
-      블로그 왼쪽 상단에 표시될 나의 아바타 이미지를 설정합니다.
-    
-    
-      toc
-      true
-      포스팅된 글의 오른쪽에 목차를 표시합니다.
-    
-    
-      paginate
-      10
-      한 목록에 몇 개의 글을 표시해 줄 것인지 선택합니다.
-    
-  
-
-
-nano .ignore
-# 아래 내용 추가 -&amp;gt; ? 빌드/배포 에러 방지하기 위해 올리지 않도록 하는 것
-Gemfile.lock
-
-
-문제 발생
-github에 report build 오류 발생, 
-
-github-pages can’t satisfy your Gemfile’s dependencies. 라고 떠서 Gemfile을 아래와 같이 수정했다.
-gem &quot;jekyll-theme-chirpy&quot;, &quot;~&amp;gt; 4.5&quot;
-
-
-커밋이 되는지 확인
-
-
-  또 뜬다.
+이제는 배포의 패러다임이 달라졌다. 서버에 파일 하나하나를 업로드하는 방식은 마치 물자를 하나하나 배에 옮기는 이전의 방식이라고 볼 수 있다. 
+서버도 이제는 컨테이너에 담긴 애플리케이션을 실행하는 방식으로 서비스를 제공한다.
 
 
 
-  github-pages can’t satisfy your Gemfile’s dependencies.
 
-
-이 문제를 해결하려면 Gemfile.lock에서 github-pages 버전과 호환되는 jekyll-theme-chirpy의 하위 버전을 지정해 보세요. 또는 github-pages의 로컬 버전을 jekyll-theme-chirpy 버전 4.5와 호환되는 버전으로 업데이트할 수 있습니다. bundle update를 실행하여 모든 gem을 최신 호환 버전으로 업데이트할 수도 있습니다.
-
-
-
-https://codesyun.tistory.com/102#–%–%ED%–%-C%EB%A-%–%EB%B-%–%–%EC%–%B-%EB%B-%–%EC%–%AC%ED%–%AD%–%EB%B-%–%EA%B-%BD
-
-
-
+Please enable JavaScript to view the comments powered by Disqus.
 ",
-            "wordcount": "741",
+            "wordcount": "517",
             "inLanguage": "en",
-            "dateCreated": "2023-04-07/",
-            "datePublished": "2023-04-07/",
-            "dateModified": "2023-04-07/",
+            "dateCreated": "2023-04-11/",
+            "datePublished": "2023-04-11/",
+            "dateModified": "2023-04-11/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -942,9 +656,9 @@ https://codesyun.tistory.com/102#–%–%ED%–%-C%EB%A-%–%EB%B-%–%–%EC%�
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "Github Blog",
-            "articleSection": "Github Blog",
-            "keywords": ["github","blog"]
+            "genre": "Docker",
+            "articleSection": "Docker",
+            "keywords": ["Docker","nginx","postgresql"]
         }
         </script>
        </body>
