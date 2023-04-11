@@ -1,6 +1,6 @@
 # Site Settings
 name: Hoonology
-title: DevOps
+title: Hoonology | Welcome to Hoonology's Blog !
 description: Hoonology changes whole world.
 tags:
   - blog
@@ -8,7 +8,7 @@ tags:
   - jekyll
   - theme
   - netlify
-show_hero: true
+show_hero: false
 menu:
   - title: Home
     url: /
@@ -23,7 +23,7 @@ email: mase306@gmail.com
 disqus_username: hoonology
 # Contact Form Setting
 # See: https://formspree.io/
-# formspree_form_id: formspree_form_id
+formspree_form_id: Seonghoon Kim
 
 
 # Social Media Settings
@@ -39,7 +39,7 @@ instagram_username: ho.o_ny
 # Posts Settings
 show_time_bar: true
 show_modal_on_exit: false
-show_modal_on_finish_post: true
+show_modal_on_finish_post: false
 two_columns_layout: true
 
 
@@ -47,7 +47,7 @@ two_columns_layout: true
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 google_analytics: "UA-XXXXXXXX-X"
-language: "en"
+language: "ko"
 categories_folder: category
 sent_message_url: "/contact/message-sent/"
 

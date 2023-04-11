@@ -1,7 +1,6 @@
-name: Jekflix
-title: Jekflix | A blog theme for Jekyll
-description: Jekflix is a template for Jekyll inspired by Netflix and made by
-  Thiago Rossener.
+name: Hoonology
+title: Hoonology | Welcome to Hoonology's Blog !
+description: Hoonology changes whole world.
 tags:
   - blog
   - template
@@ -18,9 +17,9 @@ menu:
     url: /contact
   - title: Feed
     url: /feed.xml
-email: mase306.devops@gmail.com
+email: mase306@gmail.com
 # See: https://disqus.com/
-disqus_username: disqus_username
+disqus_username: hoonology
 # Contact Form Setting
 # See: https://formspree.io/
 formspree_form_id: formspree_form_id
