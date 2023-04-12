@@ -115,7 +115,98 @@
     
     
         <url>
+            <loc>http://localhost:4000/Docker/view-all/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/8/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/9/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/10/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/11/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/12/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/13/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
             <loc>http://localhost:4000/Docker/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/2/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/3/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/4/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/5/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/6/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/7/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-11</lastmod>

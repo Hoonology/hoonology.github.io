@@ -188,22 +188,22 @@ April 11, 2023
     
     <div class="pagination pagination-post ">
         
-            <a href="/Docker/2/">
+            <a href="/Docker/7/">
                 
                     
     <div class="progress-bar ">
         
             <div class="bar completed"></div>
         
-            <div class="bar "></div>
+            <div class="bar completed"></div>
         
-            <div class="bar "></div>
+            <div class="bar completed"></div>
         
-            <div class="bar "></div>
+            <div class="bar completed"></div>
         
-            <div class="bar "></div>
+            <div class="bar completed"></div>
         
-            <div class="bar "></div>
+            <div class="bar completed"></div>
         
             <div class="bar "></div>
         
@@ -234,29 +234,26 @@ April 11, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="achievement-goals">Achievement Goals</h1>
+                
+<h2 id="docker-핵심-키워드-">Docker 핵심 키워드</h2>
+<h3 id="컨테이너">컨테이너</h3>
 
-<ul>
-  <li>컨테이너 기술이 무엇인지, Docker가 왜 필요한지 알 수 있다.</li>
-  <li>컨테이너와 이미지, 레지스트리가 무엇인지 이해할 수 있다.</li>
-  <li>대표적인 레지스트리인 Docker Hub에서 이미지를 검색하고, 사용할 수 있다.</li>
-  <li>한 개의 이미지를 이용해서 컨테이너를 구축할 수 있다.</li>
-  <li>두 개 이상의 이미지를 이용해서 컨테이너를 구축하고 서로가 어떻게 연결되는 지 알 수 있다.</li>
-  <li>Docker CLI에서 명령어를 사용해서 이미지를 생성/수정/배포하고, 컨테이너를 생성/삭제할 수 있다.</li>
-  <li>Dockerfile을 이용해 이미지를 생성할 수 있다.</li>
-  <li>애플리케이션을 컨테이너화할 수 있다.</li>
-</ul>
+<p>컨테이너는 앞서 설명한 대로, 애플리케이션이 의존성, 네트워크 환경, 파일 시스템에 구애받지 않고, 도커라는 기술 위에 실행될 수 있도록 만든 애플리케이션 상자입니다.</p>
 
-<h1 id="docker">Docker</h1>
+<h3 id="이미지">이미지</h3>
 
-<p><a href="https://docs.docker.com/desktop/install/mac-install/">도커설치</a></p>
+<p>실행되는 모든 컨테이너는 이미지로부터 생성됩니다. 이미지는 애플리케이션 및 애플리케이션 구성을 함께 담아놓은 템플릿으로, 이를 이용해 즉시 컨테이너를 만들 수 있습니다.</p>
 
-<p><img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681195931/2880px-Docker__28container_engine_29_logo.svg_kvn7uz.png" alt="docker" /></p>
+<p>이미지를 이용해 여러 개의 컨테이너를 생성할 수 있습니다. 이를 이용해 앞서 설명한 애플리케이션의 수평 확장이 가능합니다.</p>
 
-<p><strong><em>“컨테이너 방식으로 애플리케이션을 실행한다”</em></strong><br />
-<strong><em>“실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다!”</em></strong></p>
+<p>이미지는 기본 이미지(base image)로부터 (마치 git을 사용하는 것처럼) 변경 사항을 추가/커밋해서 또 다른 이미지를 만들 수도 있습니다.<br />
+예를 들어 node.js로 작성된 애플리케이션을 이미지로 만들고 싶은 경우, nodejs 이미지를 기본 이미지로 삼고 내가 만든 애플리케이션을 추가해 넣고, 이미지화할 수 있습니다.</p>
 
-<p><br /></p>
+<p>이와 관련한 아주 간단한 튜토리얼이 있습니다. Self Guided Lessons의 Node.js 웹 앱의 도커라이징 레퍼런스를 참고해보세요.</p>
+
+<h3 id="레지스트리">레지스트리</h3>
+
+<p>이미지는 레지스트리에 저장됩니다. 대표적인 이미지 레지스트리로는 Docker Hub, Amazon ECR이 있습니다. 도커 CLI에서 이미지를 이용해 컨테이너를 생성할 때, 호스트 컴퓨터에 이미지가 존재하지 않는다면, 기본 레지스트리로부터 다운로드 받게 됩니다.</p>
 
 
 
@@ -265,7 +262,7 @@ April 11, 2023
     
     <div class="pagination pagination-post ">
         
-            <a href="/Docker/2/">
+            <a href="/Docker/7/">
                 
                 <span class="text">Next Page <svg class="arrow"><use xlink:href="#icon-arrow-right"></use></svg></span>
             </a>
@@ -283,20 +280,20 @@ April 11, 2023
                         
                         
                             <li>
+                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
                                 <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
                                     <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/YAML/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
-                                    
-                                    <h3>YAML</h3>
                                 </a>
                             </li>
                         
@@ -328,11 +325,11 @@ April 11, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.&quot;%20http://localhost:4000/Docker/%20via%20&#64;&hashtags=Docker,nginx,postgresql"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.&quot;%20http://localhost:4000/Docker/6/%20via%20&#64;&hashtags=Docker,nginx,postgresql"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker/6/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -355,7 +352,7 @@ April 11, 2023
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Docker/';
+        var disqus_url = '/Docker/6/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -503,33 +500,30 @@ April 11, 2023
             "headline": "도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다",
             "description": "도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/Docker/",
-            "articleBody": "Achievement Goals
+            "url": "http://localhost:4000/Docker/6/",
+            "articleBody": "
+Docker 핵심 키워드
+컨테이너
 
+컨테이너는 앞서 설명한 대로, 애플리케이션이 의존성, 네트워크 환경, 파일 시스템에 구애받지 않고, 도커라는 기술 위에 실행될 수 있도록 만든 애플리케이션 상자입니다.
 
-  컨테이너 기술이 무엇인지, Docker가 왜 필요한지 알 수 있다.
-  컨테이너와 이미지, 레지스트리가 무엇인지 이해할 수 있다.
-  대표적인 레지스트리인 Docker Hub에서 이미지를 검색하고, 사용할 수 있다.
-  한 개의 이미지를 이용해서 컨테이너를 구축할 수 있다.
-  두 개 이상의 이미지를 이용해서 컨테이너를 구축하고 서로가 어떻게 연결되는 지 알 수 있다.
-  Docker CLI에서 명령어를 사용해서 이미지를 생성/수정/배포하고, 컨테이너를 생성/삭제할 수 있다.
-  Dockerfile을 이용해 이미지를 생성할 수 있다.
-  애플리케이션을 컨테이너화할 수 있다.
+이미지
 
+실행되는 모든 컨테이너는 이미지로부터 생성됩니다. 이미지는 애플리케이션 및 애플리케이션 구성을 함께 담아놓은 템플릿으로, 이를 이용해 즉시 컨테이너를 만들 수 있습니다.
 
-Docker
+이미지를 이용해 여러 개의 컨테이너를 생성할 수 있습니다. 이를 이용해 앞서 설명한 애플리케이션의 수평 확장이 가능합니다.
 
-도커설치
+이미지는 기본 이미지(base image)로부터 (마치 git을 사용하는 것처럼) 변경 사항을 추가/커밋해서 또 다른 이미지를 만들 수도 있습니다.
+예를 들어 node.js로 작성된 애플리케이션을 이미지로 만들고 싶은 경우, nodejs 이미지를 기본 이미지로 삼고 내가 만든 애플리케이션을 추가해 넣고, 이미지화할 수 있습니다.
 
+이와 관련한 아주 간단한 튜토리얼이 있습니다. Self Guided Lessons의 Node.js 웹 앱의 도커라이징 레퍼런스를 참고해보세요.
 
+레지스트리
 
-“컨테이너 방식으로 애플리케이션을 실행한다”
-“실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다!”
-
-
+이미지는 레지스트리에 저장됩니다. 대표적인 이미지 레지스트리로는 Docker Hub, Amazon ECR이 있습니다. 도커 CLI에서 이미지를 이용해 컨테이너를 생성할 때, 호스트 컴퓨터에 이미지가 존재하지 않는다면, 기본 레지스트리로부터 다운로드 받게 됩니다.
 
 ",
-            "wordcount": "95",
+            "wordcount": "150",
             "inLanguage": "ko",
             "dateCreated": "2023-04-11/",
             "datePublished": "2023-04-11/",
