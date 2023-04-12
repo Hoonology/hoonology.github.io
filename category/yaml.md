@@ -1,6 +1,6 @@
 ---
 layout: category
-title: YAML
-slug: YAML
+title: yaml
+slug: yaml
 description: YAML 카테고리
 ---

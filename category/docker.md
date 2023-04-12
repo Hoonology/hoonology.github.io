@@ -1,6 +1,6 @@
 ---
 layout: category
-title: Docker
-slug: Docker
+title: docker
+slug: docker
 description: Docker 카테고리
 ---
