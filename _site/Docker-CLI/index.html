@@ -176,7 +176,7 @@ April 12, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>3 min to read</span>
                 </p>
                 <h1 class="post-title">Docker CLI</h1>
                 <p class="post-subtitle">Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.</p>
@@ -280,6 +280,88 @@ docker image <span class="nb">ls</span>
 docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
 </code></pre></div></div>
 
+<p>터널에서 수족관의 물고기를 볼 수 있는 커맨드</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run ~|-|it ~|-|~|-|rm danielkraic/asciiquarium:latest
+</code></pre></div></div>
+<ul>
+  <li>it : -i, -t 를 동시에 사용한 옵션입니다. 사용자와 컨테이너 간에 인터렉션(interaction)이 필요하다면 이 옵션을 사용합니다. 이 예제에서는 출력되는 화면을 사용자가 지속적으로 보기 위해서 사용하였습니다. 예를 들어 Python 명령이 필요하거나 추가로 다른 입력을 받는다면, 이 옵션을 지정한 뒤 사용합니다.</li>
+</ul>
+
+<h1 id="docker-cli2-copy-dockerfile">Docker CLI(2) - Copy, Dockerfile</h1>
+<h2 id="docker-컨테이너에-파일을-복사하기">Docker 컨테이너에 파일을 복사하기</h2>
+
+<ol>
+  <li>웹서버는 도커 컨테이너로 실행</li>
+  <li>웹 서버를 구성하는 파일은 직접 만들거나 가져온 파일 구성
+    <ul>
+      <li>Pros
+        <ul>
+          <li>서버에 문제가 생기는 것을 호스트와 별개로 파악 가능</li>
+          <li>문제가 생긴 서버를 끄고, 마치 공장 초기화를 하듯 도커 이미지로 서버를 재구동할 수 있음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>로컬에 있는 파일과 도커 이미지를 연결하는 방법</p>
+<ul>
+  <li>CP : 호스트와 컨테이너 사이에 파일을 복사</li>
+  <li>Volume : 호스트와 컨테이너 사이에 공간을 마운트</li>
+</ul>
+
+<h2 id="httpd-웹-서버">httpd 웹 서버</h2>
+
+<ol>
+  <li>clone
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/codestates/pacman~|-|canvas
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">docker container run</code> 명령어로 httpd 를 실행</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run ~|-|~|-|name 컨테이너_이름 ~|-|p 818:80 httpd
+</code></pre></div></div>
+<ul>
+  <li>-p 옵션은 로컬호스트의 포트와 컨테이너의 포트를 연결합니다. 2의 명령어에서 818포트가 로컬호스트의 포트이고, 80번은 컨테이너의 포트입니다.</li>
+  <li>httpd 는 일정 시간 연결 기록이 없으면, 서버 가동이 중지됩니다. 실행 중이던 도커 컨테이너가 중지되었다면, 다시 실행하세요.</li>
+  <li>
+    <p>터미널에서 1, 2의 명령어를 입력했을 때, 다음 화면처럼 터미널의 작동이 중단된 것처럼 보여도 걱정할 필요 없습니다. 정상적인 상태이므로 터미널을 종료하지 말고, 다른 터미널 창을 열어 계속해서 실습을 진행합니다.</p>
+  </li>
+  <li>컨테이너를 백그라운드에서 실행하게 해주는 -d 옵션에 대해 알아봅니다. 해당 옵션을 사용했을 때와 사용하지 않았을 때 차이점을 확인해보세요.</li>
+</ul>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">127.0.0.1:818</code> 혹은 <code class="language-plaintext highlighter-rouge">localhost:818</code> 을 통해 웹 서버가 작동하고 있는지 확인합니다.
+    <blockquote>
+      <p>It Works! 나오면 성공</p>
+    </blockquote>
+  </li>
+  <li>서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container <span class="nb">cp</span> ./ 컨테이너_이름:/usr/local/apache2/htdocs/
+</code></pre></div></div>
+<p>[주의] 위의 명령어를 로컬 터미널에서 실행할 때, 위치는 pacman-canvas 디렉토리여야 합니다.</p>
+
+<h2 id="docker-이미지-만들기">Docker 이미지 만들기</h2>
+
+<p>이번에는 앞서 만들어 본 Docker Container를 이미지 파일로 변환합니다. <strong>이미지로 만들어 놓을 때의 장점</strong>은 다음과 같습니다.</p>
+<ul id="1-구동한-docker-container-를-이미지로-만드는-법">
+  <li>이전에 작업했던 내용을 다시 한 번 수행하지 않아도 됨</li>
+  <li>배포 및 관리가 유용
+    <h3 id="1-구동한-docker-container-를-이미지로-만드는-법">1. 구동한 Docker Container 를 <strong>이미지로 만드는 법</strong></h3>
+  </li>
+</ul>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker container commit</code>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker container commit 컨테이너_이름 my_pacman:1.0
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+
 
                 <!-- Pagination links -->
 
@@ -294,20 +376,20 @@ docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
                         
                         
                             <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
                                 <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
                                     <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/YAML/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                    
+                                    <h3>YAML</h3>
                                 </a>
                             </li>
                         
@@ -328,7 +410,7 @@ docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="3">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -633,8 +715,90 @@ docker container rm 컨테이너_이름
 docker stop 44103ad9eed0 ~|#| 정지
 docker rm 44103ad9eed0 ~|#| 삭제
 
+
+터널에서 수족관의 물고기를 볼 수 있는 커맨드
+docker container run ~|-|it ~|-|~|-|rm danielkraic/asciiquarium:latest
+
+
+  it : -i, -t 를 동시에 사용한 옵션입니다. 사용자와 컨테이너 간에 인터렉션(interaction)이 필요하다면 이 옵션을 사용합니다. 이 예제에서는 출력되는 화면을 사용자가 지속적으로 보기 위해서 사용하였습니다. 예를 들어 Python 명령이 필요하거나 추가로 다른 입력을 받는다면, 이 옵션을 지정한 뒤 사용합니다.
+
+
+Docker CLI(2) - Copy, Dockerfile
+Docker 컨테이너에 파일을 복사하기
+
+
+  웹서버는 도커 컨테이너로 실행
+  웹 서버를 구성하는 파일은 직접 만들거나 가져온 파일 구성
+    
+      Pros
+        
+          서버에 문제가 생기는 것을 호스트와 별개로 파악 가능
+          문제가 생긴 서버를 끄고, 마치 공장 초기화를 하듯 도커 이미지로 서버를 재구동할 수 있음
+        
+      
+    
+  
+
+
+로컬에 있는 파일과 도커 이미지를 연결하는 방법
+
+  CP : 호스트와 컨테이너 사이에 파일을 복사
+  Volume : 호스트와 컨테이너 사이에 공간을 마운트
+
+
+httpd 웹 서버
+
+
+  clone
+    git clone https://github.com/codestates/pacman~|-|canvas
+    
+  
+  docker container run 명령어로 httpd 를 실행
+
+
+docker container run ~|-|~|-|name 컨테이너_이름 ~|-|p 818:80 httpd
+
+
+  -p 옵션은 로컬호스트의 포트와 컨테이너의 포트를 연결합니다. 2의 명령어에서 818포트가 로컬호스트의 포트이고, 80번은 컨테이너의 포트입니다.
+  httpd 는 일정 시간 연결 기록이 없으면, 서버 가동이 중지됩니다. 실행 중이던 도커 컨테이너가 중지되었다면, 다시 실행하세요.
+  
+    터미널에서 1, 2의 명령어를 입력했을 때, 다음 화면처럼 터미널의 작동이 중단된 것처럼 보여도 걱정할 필요 없습니다. 정상적인 상태이므로 터미널을 종료하지 말고, 다른 터미널 창을 열어 계속해서 실습을 진행합니다.
+  
+  컨테이너를 백그라운드에서 실행하게 해주는 -d 옵션에 대해 알아봅니다. 해당 옵션을 사용했을 때와 사용하지 않았을 때 차이점을 확인해보세요.
+
+
+
+  127.0.0.1:818 혹은 localhost:818 을 통해 웹 서버가 작동하고 있는지 확인합니다.
+    
+      It Works! 나오면 성공
+    
+  
+  서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.
+
+
+docker container cp ./ 컨테이너_이름:/usr/local/apache2/htdocs/
+
+[주의] 위의 명령어를 로컬 터미널에서 실행할 때, 위치는 pacman-canvas 디렉토리여야 합니다.
+
+Docker 이미지 만들기
+
+이번에는 앞서 만들어 본 Docker Container를 이미지 파일로 변환합니다. 이미지로 만들어 놓을 때의 장점은 다음과 같습니다.
+
+  이전에 작업했던 내용을 다시 한 번 수행하지 않아도 됨
+  배포 및 관리가 유용
+    1. 구동한 Docker Container 를 이미지로 만드는 법
+  
+
+
+
+  docker container commit
+      docker container commit 컨테이너_이름 my_pacman:1.0
+    
+  
+
+
 ",
-            "wordcount": "286",
+            "wordcount": "673",
             "inLanguage": "ko",
             "dateCreated": "2023-04-12/",
             "datePublished": "2023-04-12/",

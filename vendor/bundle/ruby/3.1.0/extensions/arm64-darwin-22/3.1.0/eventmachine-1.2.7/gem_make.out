@@ -1,0 +1,19 @@
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/eventmachine-1.2.7/ext/fastfilereader
+/Users/teddykim/.rbenv/versions/3.1.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20230412-56419-fk9czy sitelibdir\=./.gem.20230412-56419-fk9czy clean
+
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20230412-56419-fk9czy sitelibdir\=./.gem.20230412-56419-fk9czy
+compiling mapper.cpp
+compiling rubymain.cpp
+linking shared-object fastfilereaderext.bundle
+
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20230412-56419-fk9czy sitelibdir\=./.gem.20230412-56419-fk9czy install
+/usr/bin/install -c -m 0755 fastfilereaderext.bundle ./.gem.20230412-56419-fk9czy
+
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20230412-56419-fk9czy sitelibdir\=./.gem.20230412-56419-fk9czy clean

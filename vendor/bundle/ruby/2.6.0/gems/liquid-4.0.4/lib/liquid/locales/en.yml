@@ -4,9 +4,10 @@
       tag_unexpected_args: "Syntax Error in '%{tag}' - Valid syntax: %{tag}"
       assign: "Syntax Error in 'assign' - Valid syntax: assign [var] = [source]"
       capture: "Syntax Error in 'capture' - Valid syntax: capture [var]"
-      case: "Syntax Error in 'case' - Valid syntax: case [condition]"
-      case_invalid_when: "Syntax Error in tag 'case' - Valid when condition: {% when [condition] [or condition2...] %}"
-      case_invalid_else: "Syntax Error in tag 'case' - Valid else condition: {% else %} (no parameters) "
+      case: "Syntax Error in 'case' - Valid syntax: case [expression]"
+      case_invalid_when: "Syntax Error in tag 'case' - Valid when condition: {% when [expression] [or expression2...] %}"
+      case_invalid_else: "Syntax Error in tag 'case' - Valid else condition: {% else %}"
+
       cycle: "Syntax Error in 'cycle' - Valid syntax: cycle [name :] var [, var2, var3 ...]"
       for: "Syntax Error in 'for loop' - Valid syntax: for [item] in [collection]"
       for_invalid_in: "For loops require an 'in' clause"

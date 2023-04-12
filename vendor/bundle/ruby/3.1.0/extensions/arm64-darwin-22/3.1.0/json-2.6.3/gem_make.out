@@ -1,0 +1,16 @@
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.6.3/ext/json
+/Users/teddykim/.rbenv/versions/3.1.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.6.3/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20230412-56419-id7elm sitelibdir\=./.gem.20230412-56419-id7elm clean
+
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.6.3/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20230412-56419-id7elm sitelibdir\=./.gem.20230412-56419-id7elm
+make: Nothing to be done for `all'.
+
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.6.3/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20230412-56419-id7elm sitelibdir\=./.gem.20230412-56419-id7elm install
+
+current directory: /Users/teddykim/hoonology.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.6.3/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20230412-56419-id7elm sitelibdir\=./.gem.20230412-56419-id7elm clean
