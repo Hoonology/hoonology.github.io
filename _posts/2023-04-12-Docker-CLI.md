@@ -1,0 +1,96 @@
+---
+date: 2023-04-12 01:48:32
+layout: post
+title: "Docker CLI"
+subtitle: Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.
+description: Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.
+image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png
+optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png
+category: docker
+tags:  
+  - Docker
+  - nginx
+  - postgresql
+  - 컨테이너
+  - DockerCLI
+  - CLI
+  - 도커이미지
+author: Hoonology
+paginate: true
+---
+
+# Docker CLI
+- 필독 : [Docker docs](https://docs.docker.com/engine/reference/commandline/container_run/)
+  - 사용법 : Docker CLI, Docker-Compose CLI, API Reference
+  - 환경 및 빌드 파일 구성 : DockerFile, Docker-Compose File
+
+## 사용법
+```bash
+docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]
+```
+### Docker docs
+#### [OPTIONS](https://docs.docker.com/engine/reference/commandline/container_run/#options)
+#### [COMMAND](https://docs.docker.com/engine/reference/commandline/container_run/#parent-command)
+#### [Related COMMAND](https://docs.docker.com/engine/reference/commandline/container_run/#related-commands)
+
+## Docker 이용하기
+![이미지구분](/assets/img/Docker/%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B5%AC%EB%B6%84.png)
+<p align = "center"> [그림] 이미지 구분 </p>
+
+- Registry
+  - 도커 이미지 관리 공간
+  - 기본 레지스트리 : [Docker Hub](https://hub.docker.com/)
+  - 레지스트리 구분 : Docker Hub, Private Docker Hub, 회사 내부용 레지스트리
+- Repository ( Github Rep와 비슷하다. )
+  - 레지스트리 내 도커 이미지가 저장되는 공간
+  - 이미지 이름으로 사용도 함
+- Tag
+  - 이미지를 설명하는 버전 정보
+  - 기본 태그 : ```latest```
+
+#### 위의 설명을 토대로 ```docker/whalesay:latest```를 읽어보자
+- Registry Account : ```docker```
+- Repository Name : ```whalesay```
+- Tag : ```latest```
+
+### Docker Example 수행 ( docker/whalesay )
+```bash
+docker image pull docker/whalesay:latest
+docker image ls
+```
+![pull](/assets/img/Docker/dockerpull.png)
+
+#### 받아온 이미지 실행
+```bash
+docker container run --name whaleasy docker/whalesay:latest cowsay boo
+```
+![boo](/assets/img/Docker/boo.png)
+
+#### 컨테이너 리스트 출력
+```bash
+docker container ps -a
+```
+![psa](/assets/img/Docker/psa.png)
+
+#### 컨테이너 삭제
+```bash
+docker container rm 컨테이너_이름
+```
+
+내 환경에서 ```docker image rm docker/whalesay``` 실행 오류가 나왔다.  
+> Error response from daemon: conflict: unable to remove repository reference "docker/whalesay" (must force) - container 44103ad9eed0 is using its referenced image 6b362a9f73eb
+
+```bash
+docker stop 44103ad9eed0 # 정지
+docker rm 44103ad9eed0 # 삭제
+```
+
+터널에서 수족관의 물고기를 볼 수 있는 커맨드 
+```bash
+docker container run -it --rm danielkraic/asciiquarium:latest
+```
+- it : -i, -t 를 동시에 사용한 옵션입니다. 사용자와 컨테이너 간에 인터렉션(interaction)이 필요하다면 이 옵션을 사용합니다. 이 예제에서는 출력되는 화면을 사용자가 지속적으로 보기 위해서 사용하였습니다. 예를 들어 Python 명령이 필요하거나 추가로 다른 입력을 받는다면, 이 옵션을 지정한 뒤 사용합니다.
+
+
+
+

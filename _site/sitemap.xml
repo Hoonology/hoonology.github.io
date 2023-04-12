@@ -115,6 +115,13 @@
     
     
         <url>
+            <loc>http://localhost:4000/Docker-CLI/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-12</lastmod>
+        </url>
+    
+        <url>
             <loc>http://localhost:4000/Docker/view-all/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>

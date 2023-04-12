@@ -3,8 +3,16 @@
   
   
     {
+      "title"    : "Docker CLI",
+      "tags"     : "Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, and 도커이미지",
+      "categories" : "docker",
+      "url"      : "/Docker-CLI/",
+      "date"     : "04/12/2023"
+    } ,
+  
+    {
       "title"    : "Docker",
-      "tags"     : "Docker, nginx, and postgresql",
+      "tags"     : "Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, and 도커이미지",
       "categories" : "docker",
       "url"      : "/Docker/",
       "date"     : "04/11/2023"
