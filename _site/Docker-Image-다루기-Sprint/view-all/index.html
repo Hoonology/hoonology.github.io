@@ -17,16 +17,16 @@
     
     
 
-    <title>Docker | Hoonology</title>
-    <meta name="description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <title>Docker Image 다루기 | Hoonology</title>
+    <meta name="description" content="한 개의 Docker Image를 다루는 방식을 연습합니다.">
     
         <meta name="keywords" content="Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, 도커이미지">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Docker | Hoonology">
-    <meta name="twitter:description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <meta name="twitter:title" content="Docker Image 다루기 | Hoonology">
+    <meta name="twitter:description" content="한 개의 Docker Image를 다루는 방식을 연습합니다.">
 
     
         <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
@@ -35,10 +35,10 @@
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/Docker/">
-    <meta property="og:title" content="Docker | Hoonology">
+    <meta property="og:url" content="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/">
+    <meta property="og:title" content="Docker Image 다루기 | Hoonology">
     <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-    <meta property="og:description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <meta property="og:description" content="한 개의 Docker Image를 다루는 방식을 연습합니다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoonology's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/Docker/">
+    <link rel="canonical" href="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoonology's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,103 +167,116 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-11T16:15:19+09:00">
+                        <time class="date" datetime="2023-04-12T10:48:32+09:00">
                             
 
 
-April 11, 2023
+April 12, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>2 min to read</span>
                 </p>
-                <h1 class="post-title">Docker</h1>
-                <p class="post-subtitle">도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다</p>
+                <h1 class="post-title">Docker Image 다루기</h1>
+                <p class="post-subtitle">Sprint - Docker Image - I</p>
 
+                
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
-
-    
-    <div class="pagination pagination-post ">
-        
-            <a href="/Docker/6/">
-                
-                    
-    <div class="progress-bar ">
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-        <svg class="star"><use xlink:href="#icon-star"></use></svg>
-    </div>
-
-
-                
-                <span class="text">Next Page <svg class="arrow"><use xlink:href="#icon-arrow-right"></use></svg></span>
-            </a>
-        
-    </div>
 
 
 
                 <!-- Add your table of contents here -->
 
 
-                
-<h2 id="3-수평확장을-쉽게-해준다">3. 수평확장을 쉽게 해준다.</h2>
+                <!--more-->
 
-<p><strong><em>“동일한 서비스가 여러 컴퓨터에서 작동한다”</em></strong><br />
-이 말은 <strong><em>도커의 필요성</em></strong>을 나타내준다.<br />
-(트래픽에 대한 대비로 서버 증설에 컨테이너 기술, 즉 도커가 활발하게 사용된다. )</p>
+<h1 id="요구사항">요구사항</h1>
+
+<p>요구 사항에 따라 docker-cli 명령어를 이용해 실습을 진행하여, Quiz를 풀 수 있어야 합니다.</p>
+
+<p>–page-break–</p>
+
+<h1 id="quiz-1-브라우저-속-게임-화면의-특정-단어를-확인하세요">Quiz 1: 브라우저 속 게임 화면의 특정 단어를 확인하세요.</h1>
+
+<ul>
+  <li>이미지는 <code class="language-plaintext highlighter-rouge">sebcontents/part1</code>을 이용해야 합니다. 태그는 latest 입니다.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull sebcontents/part1:latest
+</code></pre></div>    </div>
+    <p><img src="/assets/img/Docker/pull.png" alt="pull" /></p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">sebcontents/part1</code>은 <strong>아파치 웹 서버 이미지(httpd)</strong>를 기반으로 commit된 새로운 이미지 입니다.</li>
+  <li>아래 명령어를 터미널에 입력하여 컨테이너를 생성합니다
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker run <span class="nt">--name</span> 컨테이너_이름 <span class="nt">-d</span> <span class="nt">-p</span> 3000:80 sebcontents/part1
+</code></pre></div>    </div>
+    <blockquote>
+      <p>먼저 다음 명령을 사용하여 Docker 레지스트리에서 sebcontents/part1 이미지의 최신 버전을 가져옵니다.<br />
+<code class="language-plaintext highlighter-rouge">docker pull sebcontents/part1:latest</code><br />
+이 명령은 이미지를 로컬 컴퓨터에 다운로드하여 컨테이너를 만드는 데 사용할 수 있도록 합니다.<br />
+그런 다음,  <code class="language-plaintext highlighter-rouge">docker run</code> 명령을 사용하여 이름이 game_container인 sebcontents/part1 이미지를 기반으로<br />
+새 컨테이너를 만들고 호스트 시스템의 포트 3000을 컨테이너의 포트 80에 매핑하고 컨테이너를 실행합니다.<br />
+분리 모드:<br />
+<code class="language-plaintext highlighter-rouge">docker run --name game_container -d -p 3000:80 sebcontents/part1</code><br />
+이 명령은 이전에 다운로드한 sebcontents/part1 이미지를 컨테이너의 기본 이미지로 사용하여 지정된 구성으로 새 컨테이너를 만듭니다.</p>
+    </blockquote>
+  </li>
+  <li>Docker Hub에 저장되어 있는 이미지를 사용하는 경우, repository에 작성된 안내 사항을 확인하는 습관을 들이는 것이 중요합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">sebcontents/part1</code> 이미지의 repository로 이동하여 안내 사항을 참고하고, 컨테이너를 생성합니다.</li>
+  <li>컨테이너를 통해 space 게임을 실행해보세요. 소스 코드는 <a href="https://github.com/codestates/SpaceInvaders">https://github.com/codestates/SpaceInvaders</a>에 있습니다.</li>
+</ul>
+
+<p>먼저,</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Dockerfile 추가 후 수정 진행</span>
+nano Dockerfile
+<span class="c"># 아래 내용 추가</span>
+FROM sebcontents/part1:latest
+
+WORKDIR /app
+
+COPY package<span class="k">*</span>.json ./
+
+RUN apt-get update <span class="o">&amp;&amp;</span> apt-get <span class="nb">install</span> <span class="nt">-y</span> npm
+
+COPY <span class="nb">.</span> <span class="nb">.</span>
+
+EXPOSE 3000
+
+CMD <span class="o">[</span><span class="s2">"npm"</span>, <span class="s2">"start"</span><span class="o">]</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker build <span class="nt">-t</span> game_container <span class="nb">.</span>
+</code></pre></div></div>
 
 <blockquote>
-  <p>컨테이너 기술의 큰 장점 = <strong>실행 환경의 일치</strong><br />
-(로드밸런서에 애플리케이션을 실행한 컨테이너를 추가만하면 되기 때문이다.)</p>
+  <p><code class="language-plaintext highlighter-rouge">127.0.0.1:3000</code> 혹은 <code class="language-plaintext highlighter-rouge">localhost:3000</code> 실행</p>
+  <ul>
+    <li>게임 실행 후 다음 그림의 빨간 박스에 들어갈 단어가 무엇인지 확인하세요. Quiz 1의 정답입니다.</li>
+  </ul>
 </blockquote>
 
-<h2 id="4-각-서버에-새로운-내용을-배포하기-쉽게-만들어준다">4. 각 서버에 새로운 내용을 배포하기 쉽게 만들어준다.</h2>
+<h1 id="오류-발생">오류 발생</h1>
 
-<p>또한, <strong>AWS</strong>는 <strong>서버 생성 및 삭제를 자동</strong>으로 해주기에 <strong>놀라운 시너지 효과</strong>를 누릴 수 있다.<br />
-새로운 버전의 애플리케이션을 여러 서버 중 몇 대에만 운영하여 테스트하면서 새 버전의 문제를 미리 파악가능하다. 이로써 <strong>사용자 전체에게 영향을 끼치지 않도록 설계</strong>할 수 있게 된다.</p>
+<p>일단 모든 이미지와 컨테이너를 정지한 뒤 삭제한다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 컨테이너 정지 후 삭제</span>
+docker stop <span class="si">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="si">)</span>
+docker <span class="nb">rm</span> <span class="si">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="si">)</span>
+<span class="c"># 이미지 삭제</span>
+docker rmi <span class="si">$(</span>docker images <span class="nt">-q</span><span class="si">)</span> <span class="nt">--force</span>
+</code></pre></div></div>
+<h2 id="prune으로-사용하지-않는-오브젝트만-삭제하기">prune으로 사용하지 않는 오브젝트만 삭제하기</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker container prune
+ docker image prune
+</code></pre></div></div>
+
+<h1 id="다시-실행해보자">다시 실행해보자</h1>
 
 
 
                 <!-- Pagination links -->
-
-    
-    <div class="pagination pagination-post ">
-        
-            <a href="/Docker/6/">
-                
-                <span class="text">Next Page <svg class="arrow"><use xlink:href="#icon-arrow-right"></use></svg></span>
-            </a>
-        
-    </div>
 
 
             </article>
@@ -274,6 +287,15 @@ April 11, 2023
                     <ul>
                         
                         
+                        
+                            <li>
+                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
+                                </a>
+                            </li>
                         
                             <li>
                                 <a href="/Docker-CLI/">
@@ -293,15 +315,6 @@ April 11, 2023
                                 </a>
                             </li>
                         
-                            <li>
-                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
-                                </a>
-                            </li>
-                        
                     </ul>
                 </aside>
             
@@ -309,6 +322,37 @@ April 11, 2023
         </section>
 
         <!-- Add time bar only for pages without pagination -->
+        
+            <div class="time-bar" data-minutes="2">
+    <span class="time-completed"></span>
+    <span class="time-remaining"></span>
+    <div class="bar">
+        <span class="completed" style="width:0%;"></span>
+        <span class="remaining" style="width:100%;"></span>
+    </div>
+</div>
+
+            <div class="recommendation">
+    <div class="message">
+        <strong>Why don't you read something next?</strong>
+        <div>
+            <button>
+                <svg><use xlink:href="#icon-arrow-right"></use></svg>
+                <span>Go back to top</span>
+            </button>
+        </div>
+    </div>
+    
+    <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/" class="post-preview">
+        <div class="image">
+            
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+            
+        </div>
+        <h3 class="title">깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
+    </a>
+</div>
+
         
 
         <!-- Show modal if the post is the last one -->
@@ -321,11 +365,11 @@ April 11, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.&quot;%20http://localhost:4000/Docker/5/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;한 개의 Docker Image를 다루는 방식을 연습합니다.&quot;%20http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker/5/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -348,7 +392,7 @@ April 11, 2023
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Docker/5/';
+        var disqus_url = '/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -492,34 +536,99 @@ April 11, 2023
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Docker",
-            "headline": "도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다",
-            "description": "도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.",
+            "name": "Docker Image 다루기",
+            "headline": "Sprint - Docker Image - I",
+            "description": "한 개의 Docker Image를 다루는 방식을 연습합니다.",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/Docker/5/",
+            "url": "http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/",
             "articleBody": "
-3. 수평확장을 쉽게 해준다.
 
-“동일한 서비스가 여러 컴퓨터에서 작동한다”
-이 말은 도커의 필요성을 나타내준다.
-(트래픽에 대한 대비로 서버 증설에 컨테이너 기술, 즉 도커가 활발하게 사용된다. )
+요구사항
+
+요구 사항에 따라 docker-cli 명령어를 이용해 실습을 진행하여, Quiz를 풀 수 있어야 합니다.
+
+–page-break–
+
+Quiz 1: 브라우저 속 게임 화면의 특정 단어를 확인하세요.
 
 
-  컨테이너 기술의 큰 장점 = 실행 환경의 일치
-(로드밸런서에 애플리케이션을 실행한 컨테이너를 추가만하면 되기 때문이다.)
+  이미지는 sebcontents/part1을 이용해야 합니다. 태그는 latest 입니다.
+    docker pull sebcontents/part1:latest
+    
+    
+  
+  sebcontents/part1은 아파치 웹 서버 이미지(httpd)를 기반으로 commit된 새로운 이미지 입니다.
+  아래 명령어를 터미널에 입력하여 컨테이너를 생성합니다
+      docker run --name 컨테이너_이름 -d -p 3000:80 sebcontents/part1
+    
+    
+      먼저 다음 명령을 사용하여 Docker 레지스트리에서 sebcontents/part1 이미지의 최신 버전을 가져옵니다.
+docker pull sebcontents/part1:latest
+이 명령은 이미지를 로컬 컴퓨터에 다운로드하여 컨테이너를 만드는 데 사용할 수 있도록 합니다.
+그런 다음,  docker run 명령을 사용하여 이름이 game_container인 sebcontents/part1 이미지를 기반으로
+새 컨테이너를 만들고 호스트 시스템의 포트 3000을 컨테이너의 포트 80에 매핑하고 컨테이너를 실행합니다.
+분리 모드:
+docker run --name game_container -d -p 3000:80 sebcontents/part1
+이 명령은 이전에 다운로드한 sebcontents/part1 이미지를 컨테이너의 기본 이미지로 사용하여 지정된 구성으로 새 컨테이너를 만듭니다.
+    
+  
+  Docker Hub에 저장되어 있는 이미지를 사용하는 경우, repository에 작성된 안내 사항을 확인하는 습관을 들이는 것이 중요합니다.
+  sebcontents/part1 이미지의 repository로 이동하여 안내 사항을 참고하고, 컨테이너를 생성합니다.
+  컨테이너를 통해 space 게임을 실행해보세요. 소스 코드는 https://github.com/codestates/SpaceInvaders에 있습니다.
 
 
-4. 각 서버에 새로운 내용을 배포하기 쉽게 만들어준다.
+먼저,
+# Dockerfile 추가 후 수정 진행
+nano Dockerfile
+# 아래 내용 추가
+FROM sebcontents/part1:latest
 
-또한, AWS는 서버 생성 및 삭제를 자동으로 해주기에 놀라운 시너지 효과를 누릴 수 있다.
-새로운 버전의 애플리케이션을 여러 서버 중 몇 대에만 운영하여 테스트하면서 새 버전의 문제를 미리 파악가능하다. 이로써 사용자 전체에게 영향을 끼치지 않도록 설계할 수 있게 된다.
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN apt-get update &amp;amp;&amp;amp; apt-get install -y npm
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [&quot;npm&quot;, &quot;start&quot;]
+
+
+  docker build -t game_container .
+
+
+
+  127.0.0.1:3000 혹은 localhost:3000 실행
+  
+    게임 실행 후 다음 그림의 빨간 박스에 들어갈 단어가 무엇인지 확인하세요. Quiz 1의 정답입니다.
+  
+
+
+오류 발생
+
+일단 모든 이미지와 컨테이너를 정지한 뒤 삭제한다.
+# 컨테이너 정지 후 삭제
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+# 이미지 삭제
+docker rmi $(docker images -q) --force
+
+prune으로 사용하지 않는 오브젝트만 삭제하기
+
+ docker container prune
+ docker image prune
+
+
+다시 실행해보자
 
 ",
-            "wordcount": "96",
+            "wordcount": "386",
             "inLanguage": "ko",
-            "dateCreated": "2023-04-11/",
-            "datePublished": "2023-04-11/",
-            "dateModified": "2023-04-11/",
+            "dateCreated": "2023-04-12/",
+            "datePublished": "2023-04-12/",
+            "dateModified": "2023-04-12/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",

@@ -17,16 +17,16 @@
     
     
 
-    <title>Docker | Hoonology</title>
-    <meta name="description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <title>Docker Image 다루기 | Hoonology</title>
+    <meta name="description" content="한 개의 Docker Image를 다루는 방식을 연습합니다.">
     
         <meta name="keywords" content="Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, 도커이미지">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Docker | Hoonology">
-    <meta name="twitter:description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <meta name="twitter:title" content="Docker Image 다루기 | Hoonology">
+    <meta name="twitter:description" content="한 개의 Docker Image를 다루는 방식을 연습합니다.">
 
     
         <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
@@ -35,10 +35,10 @@
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/Docker/">
-    <meta property="og:title" content="Docker | Hoonology">
+    <meta property="og:url" content="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
+    <meta property="og:title" content="Docker Image 다루기 | Hoonology">
     <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-    <meta property="og:description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <meta property="og:description" content="한 개의 Docker Image를 다루는 방식을 연습합니다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoonology's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/Docker/">
+    <link rel="canonical" href="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoonology's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,19 +167,19 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-11T16:15:19+09:00">
+                        <time class="date" datetime="2023-04-12T10:48:32+09:00">
                             
 
 
-April 11, 2023
+April 12, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
                     <span>1 min to read</span>
                 </p>
-                <h1 class="post-title">Docker</h1>
-                <p class="post-subtitle">도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다</p>
+                <h1 class="post-title">Docker Image 다루기</h1>
+                <p class="post-subtitle">Sprint - Docker Image - I</p>
 
                 
 
@@ -188,34 +188,12 @@ April 11, 2023
     
     <div class="pagination pagination-post ">
         
-            <a href="/Docker/6/">
+            <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/2/">
                 
                     
     <div class="progress-bar ">
         
             <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
         
             <div class="bar "></div>
         
@@ -234,22 +212,11 @@ April 11, 2023
                 <!-- Add your table of contents here -->
 
 
-                
-<h2 id="3-수평확장을-쉽게-해준다">3. 수평확장을 쉽게 해준다.</h2>
+                <!--more-->
 
-<p><strong><em>“동일한 서비스가 여러 컴퓨터에서 작동한다”</em></strong><br />
-이 말은 <strong><em>도커의 필요성</em></strong>을 나타내준다.<br />
-(트래픽에 대한 대비로 서버 증설에 컨테이너 기술, 즉 도커가 활발하게 사용된다. )</p>
+<h1 id="요구사항">요구사항</h1>
 
-<blockquote>
-  <p>컨테이너 기술의 큰 장점 = <strong>실행 환경의 일치</strong><br />
-(로드밸런서에 애플리케이션을 실행한 컨테이너를 추가만하면 되기 때문이다.)</p>
-</blockquote>
-
-<h2 id="4-각-서버에-새로운-내용을-배포하기-쉽게-만들어준다">4. 각 서버에 새로운 내용을 배포하기 쉽게 만들어준다.</h2>
-
-<p>또한, <strong>AWS</strong>는 <strong>서버 생성 및 삭제를 자동</strong>으로 해주기에 <strong>놀라운 시너지 효과</strong>를 누릴 수 있다.<br />
-새로운 버전의 애플리케이션을 여러 서버 중 몇 대에만 운영하여 테스트하면서 새 버전의 문제를 미리 파악가능하다. 이로써 <strong>사용자 전체에게 영향을 끼치지 않도록 설계</strong>할 수 있게 된다.</p>
+<p>요구 사항에 따라 docker-cli 명령어를 이용해 실습을 진행하여, Quiz를 풀 수 있어야 합니다.</p>
 
 
 
@@ -258,7 +225,7 @@ April 11, 2023
     
     <div class="pagination pagination-post ">
         
-            <a href="/Docker/6/">
+            <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/2/">
                 
                 <span class="text">Next Page <svg class="arrow"><use xlink:href="#icon-arrow-right"></use></svg></span>
             </a>
@@ -276,11 +243,20 @@ April 11, 2023
                         
                         
                             <li>
-                                <a href="/Docker-CLI/">
+                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Docker/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker CLI</h3>
+                                    <h3>Docker</h3>
                                 </a>
                             </li>
                         
@@ -290,15 +266,6 @@ April 11, 2023
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
                                     <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
                                 </a>
                             </li>
                         
@@ -321,11 +288,11 @@ April 11, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.&quot;%20http://localhost:4000/Docker/5/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;한 개의 Docker Image를 다루는 방식을 연습합니다.&quot;%20http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker/5/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -348,7 +315,7 @@ April 11, 2023
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Docker/5/';
+        var disqus_url = '/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -492,34 +459,23 @@ April 11, 2023
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Docker",
-            "headline": "도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다",
-            "description": "도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.",
+            "name": "Docker Image 다루기",
+            "headline": "Sprint - Docker Image - I",
+            "description": "한 개의 Docker Image를 다루는 방식을 연습합니다.",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/Docker/5/",
+            "url": "http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/",
             "articleBody": "
-3. 수평확장을 쉽게 해준다.
 
-“동일한 서비스가 여러 컴퓨터에서 작동한다”
-이 말은 도커의 필요성을 나타내준다.
-(트래픽에 대한 대비로 서버 증설에 컨테이너 기술, 즉 도커가 활발하게 사용된다. )
+요구사항
 
-
-  컨테이너 기술의 큰 장점 = 실행 환경의 일치
-(로드밸런서에 애플리케이션을 실행한 컨테이너를 추가만하면 되기 때문이다.)
-
-
-4. 각 서버에 새로운 내용을 배포하기 쉽게 만들어준다.
-
-또한, AWS는 서버 생성 및 삭제를 자동으로 해주기에 놀라운 시너지 효과를 누릴 수 있다.
-새로운 버전의 애플리케이션을 여러 서버 중 몇 대에만 운영하여 테스트하면서 새 버전의 문제를 미리 파악가능하다. 이로써 사용자 전체에게 영향을 끼치지 않도록 설계할 수 있게 된다.
+요구 사항에 따라 docker-cli 명령어를 이용해 실습을 진행하여, Quiz를 풀 수 있어야 합니다.
 
 ",
-            "wordcount": "96",
+            "wordcount": "16",
             "inLanguage": "ko",
-            "dateCreated": "2023-04-11/",
-            "datePublished": "2023-04-11/",
-            "dateModified": "2023-04-11/",
+            "dateCreated": "2023-04-12/",
+            "datePublished": "2023-04-12/",
+            "dateModified": "2023-04-12/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",

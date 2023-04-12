@@ -69,6 +69,7 @@ collections:
   authors:
     output: true
 paginate_path: "/page/:num/"
+paginate : 15
 show_get_theme_btn: true
 use_logo: false
 
@@ -112,7 +113,6 @@ exclude: [
   'gulpfile.js',
   'README.md'
 ]
-
+exclude: [vendor]
 # Theme
 # version: v3.1.2
-exclude: [vendor]

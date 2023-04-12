@@ -18,6 +18,7 @@ tags:
 author: Hoonology
 paginate: true
 ---
+<!--more-->
 
 # Docker CLI
 - 필독 : [Docker docs](https://docs.docker.com/engine/reference/commandline/container_run/)
@@ -139,8 +140,74 @@ docker container cp ./ 컨테이너_이름:/usr/local/apache2/htdocs/
 - 배포 및 관리가 유용
 ### 1. 구동한 Docker Container 를 **이미지로 만드는 법**
   - ```docker container commit```
+    ```bash
+    docker container commit 컨테이너_이름 my_pacman:1.0
+    ╰─$ docker container commit 220f6bd95e4e pacman:1.0
+    ```
+  <p align = "center">[커맨드] 구동한 Docker Container를 commit </p>    
+
+- 
   ```bash
-  docker container commit 컨테이너_이름 my_pacman:1.0
+  docker images
+  ```
+
+<p align = "center">[커맨드] pacman 1.0 확인 </p>
+
+- 생성된 이미지를 900 포트에서 웹 서버로 구동
+
+  ```bash
+  docker run --name my_web2 -p 900:80 my_pacman:1.0
   ```
 
 
+<p align = "center">[커맨드] 900 포트에서 웹 서버로 이미지를 구동</p>
+
+```127.0.0.1:900``` 또는 ```localhost:900``` 접속 !
+![pac](/assets/img/Docker/pacman.png)
+
+
+### 2. Docker Image 빌드를 위한 파일 : Dockerfile로 만들기
+[https://docs.docker.com/engine/reference/builder/](https://docs.docker.com/engine/reference/builder/)
+Dockerfile는 이미지를 어셈블하기 위해 사용자가 명령줄에서 호출할 수 있는 모든 명령을 포함하는 텍스트 문서입니다. 이 페이지에서는 에서 사용할 수 있는 명령에 대해 설명합니다.
+- Dockerfile 을 만들고, Dockerfile 대로 이미지를 build 하는 방법입니다.
+
+
+#### 기본 형식
+
+  ```bash
+  # Comment
+  INSTRUCTION arguments
+  ```
+
+- ```FROM ARG FROM Dockerfile```
+
+  ```bash
+  RUN echo hello \
+  world
+  ```
+
+- Dockerfile로 pacman 이미지를 생성해 보세요.
+  - COPY 구문을 잘 살펴보세요. Dockerfile은 어디에 생성되어야 할까요?  
+  
+  ```bash
+  FROM httpd:2.4 # 베이스 이미지를 httpd:2.4 로 사용합니다.
+  COPY ./ /usr/local/apache2/htdocs/ 
+  # 호스트의 현재 경로에 있는 파일을 생성할 이미지 /usr/local/apache2/htdocs/ 에 복사합니다.
+  ```
+  (현재 경로에 있는 파일을 생성할 이미지 경로에 복사하는 명령의 Dockerfile 소스 코드)
+
+- ```docker build``` 명령은, Dockerfile로 도커 이미지 파일을 생성합니다.
+  ```bash
+  # --tag 는 name:tag 형식으로 이미지를 생성할 수 있습니다.
+  # 지정한 경로에 있는 Dockerfile을 찾아서 빌드합니다.
+  docker build --tag my_pacman:2.0 . # "."을 명령어에 꼭 포함해야 합니다! 
+  ```
+![docker build](/assets/img/Docker/dockerbuild.png)
+
+- 생성된 이미지를 이용해 901 포트에 웹 서버 구동
+  ```bash
+  docker run --name my_web3 -p 901:80 pacman:2.0
+  ```
+```127.0.0.1:901``` 혹은 ```localhost:901``` 을 통해 웹 서버가 작동하고 있는지 확인합니다.
+
+![pacman2](/assets/img/Docker/pacman.png)

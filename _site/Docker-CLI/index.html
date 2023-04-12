@@ -176,7 +176,7 @@ April 12, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>3 min to read</span>
+                    <span>5 min to read</span>
                 </p>
                 <h1 class="post-title">Docker CLI</h1>
                 <p class="post-subtitle">Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.</p>
@@ -192,7 +192,9 @@ April 12, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="docker-cli">Docker CLI</h1>
+                <!--more-->
+
+<h1 id="docker-cli">Docker CLI</h1>
 
 <ul>
   <li>필독 : <a href="https://docs.docker.com/engine/reference/commandline/container_run/">Docker docs</a>
@@ -356,11 +358,84 @@ docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">docker container commit</code>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker container commit 컨테이너_이름 my_pacman:1.0
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container commit 컨테이너_이름 my_pacman:1.0
+╰─<span class="nv">$ </span>docker container commit 220f6bd95e4e pacman:1.0
+</code></pre></div>    </div>
+  </li>
+</ul>
+<p align="center">[커맨드] 구동한 Docker Container를 commit </p>
+
+<ul>
+  <li>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker images
 </code></pre></div>    </div>
   </li>
 </ul>
 
+<p align="center">[커맨드] pacman 1.0 확인 </p>
+
+<ul>
+  <li>
+    <p>생성된 이미지를 900 포트에서 웹 서버로 구동</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ~|-|~|-|name my_web2 ~|-|p 900:80 my_pacman:1.0
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p align="center">[커맨드] 900 포트에서 웹 서버로 이미지를 구동</p>
+
+<p><code class="language-plaintext highlighter-rouge">127.0.0.1:900</code> 또는 <code class="language-plaintext highlighter-rouge">localhost:900</code> 접속 !
+<img src="/assets/img/Docker/pacman.png" alt="pac" /></p>
+
+<h3 id="2-docker-image-빌드를-위한-파일-dockerfile로-만들기">2. Docker Image 빌드를 위한 파일 : Dockerfile로 만들기</h3>
+
+<p><a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a>
+Dockerfile는 이미지를 어셈블하기 위해 사용자가 명령줄에서 호출할 수 있는 모든 명령을 포함하는 텍스트 문서입니다. 이 페이지에서는 에서 사용할 수 있는 명령에 대해 설명합니다.</p>
+<ul>
+  <li>Dockerfile 을 만들고, Dockerfile 대로 이미지를 build 하는 방법입니다.</li>
+</ul>
+
+<h4 id="기본-형식">기본 형식</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ~|#| Comment
+  INSTRUCTION arguments
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">FROM ARG FROM Dockerfile</code></p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN <span class="nb">echo </span>hello <span class="se">\</span>
+world
+</code></pre></div>    </div>
+  </li>
+  <li>Dockerfile로 pacman 이미지를 생성해 보세요.
+    <ul>
+      <li>COPY 구문을 잘 살펴보세요. Dockerfile은 어디에 생성되어야 할까요?</li>
+    </ul>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM httpd:2.4 ~|#| 베이스 이미지를 httpd:2.4 로 사용합니다.
+COPY ./ /usr/local/apache2/htdocs/ 
+~|#| 호스트의 현재 경로에 있는 파일을 생성할 이미지 /usr/local/apache2/htdocs/ 에 복사합니다.
+</code></pre></div>    </div>
+    <p>(현재 경로에 있는 파일을 생성할 이미지 경로에 복사하는 명령의 Dockerfile 소스 코드)</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">docker build</code> 명령은, Dockerfile로 도커 이미지 파일을 생성합니다.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| ~|-|~|-|tag 는 name:tag 형식으로 이미지를 생성할 수 있습니다.
+~|#| 지정한 경로에 있는 Dockerfile을 찾아서 빌드합니다.
+docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span class="s2">"."</span>을 명령어에 꼭 포함해야 합니다! 
+</code></pre></div>    </div>
+    <p><img src="/assets/img/Docker/dockerbuild.png" alt="docker build" /></p>
+  </li>
+  <li>생성된 이미지를 이용해 901 포트에 웹 서버 구동
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ~|-|~|-|name my_web3 ~|-|p 901:80 pacman:2.0
+</code></pre></div>    </div>
+    <p><code class="language-plaintext highlighter-rouge">127.0.0.1:901</code> 혹은 <code class="language-plaintext highlighter-rouge">localhost:901</code> 을 통해 웹 서버가 작동하고 있는지 확인합니다.</p>
+  </li>
+</ul>
+
+<p><img src="/assets/img/Docker/pacman.png" alt="pacman2" /></p>
 
 
                 <!-- Pagination links -->
@@ -376,20 +451,11 @@ docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
                         
                         
                             <li>
-                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                <a href="/Docker/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/YAML/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
-                                    
-                                    <h3>YAML</h3>
+                                    <h3>Docker</h3>
                                 </a>
                             </li>
                         
@@ -402,6 +468,15 @@ docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
                                 </a>
                             </li>
                         
+                            <li>
+                                <a href="/YAML/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                    
+                                    <h3>YAML</h3>
+                                </a>
+                            </li>
+                        
                     </ul>
                 </aside>
             
@@ -410,7 +485,7 @@ docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="3">
+            <div class="time-bar" data-minutes="5">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -628,7 +703,9 @@ docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
             "description": "Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
             "url": "http://localhost:4000/Docker-CLI/",
-            "articleBody": "Docker CLI
+            "articleBody": "
+
+Docker CLI
 
 
   필독 : Docker docs
@@ -792,13 +869,86 @@ Docker 이미지 만들기
 
 
   docker container commit
-      docker container commit 컨테이너_이름 my_pacman:1.0
+    docker container commit 컨테이너_이름 my_pacman:1.0
+╰─$ docker container commit 220f6bd95e4e pacman:1.0
+    
+  
+
+[커맨드] 구동한 Docker Container를 commit 
+
+
+  
+      docker images
     
   
 
 
+[커맨드] pacman 1.0 확인 
+
+
+  
+    생성된 이미지를 900 포트에서 웹 서버로 구동
+
+    docker run ~|-|~|-|name my_web2 ~|-|p 900:80 my_pacman:1.0
+    
+  
+
+
+[커맨드] 900 포트에서 웹 서버로 이미지를 구동
+
+127.0.0.1:900 또는 localhost:900 접속 !
+
+
+2. Docker Image 빌드를 위한 파일 : Dockerfile로 만들기
+
+https://docs.docker.com/engine/reference/builder/
+Dockerfile는 이미지를 어셈블하기 위해 사용자가 명령줄에서 호출할 수 있는 모든 명령을 포함하는 텍스트 문서입니다. 이 페이지에서는 에서 사용할 수 있는 명령에 대해 설명합니다.
+
+  Dockerfile 을 만들고, Dockerfile 대로 이미지를 build 하는 방법입니다.
+
+
+기본 형식
+
+  ~|#| Comment
+  INSTRUCTION arguments
+
+
+
+  
+    FROM ARG FROM Dockerfile
+
+    RUN echo hello \
+world
+    
+  
+  Dockerfile로 pacman 이미지를 생성해 보세요.
+    
+      COPY 구문을 잘 살펴보세요. Dockerfile은 어디에 생성되어야 할까요?
+    
+
+    FROM httpd:2.4 ~|#| 베이스 이미지를 httpd:2.4 로 사용합니다.
+COPY ./ /usr/local/apache2/htdocs/ 
+~|#| 호스트의 현재 경로에 있는 파일을 생성할 이미지 /usr/local/apache2/htdocs/ 에 복사합니다.
+    
+    (현재 경로에 있는 파일을 생성할 이미지 경로에 복사하는 명령의 Dockerfile 소스 코드)
+  
+  docker build 명령은, Dockerfile로 도커 이미지 파일을 생성합니다.
+    ~|#| ~|-|~|-|tag 는 name:tag 형식으로 이미지를 생성할 수 있습니다.
+~|#| 지정한 경로에 있는 Dockerfile을 찾아서 빌드합니다.
+docker build ~|-|~|-|tag my_pacman:2.0 . ~|#| &quot;.&quot;을 명령어에 꼭 포함해야 합니다! 
+    
+    
+  
+  생성된 이미지를 이용해 901 포트에 웹 서버 구동
+    docker run ~|-|~|-|name my_web3 ~|-|p 901:80 pacman:2.0
+    
+    127.0.0.1:901 혹은 localhost:901 을 통해 웹 서버가 작동하고 있는지 확인합니다.
+  
+
+
+
 ",
-            "wordcount": "673",
+            "wordcount": "980",
             "inLanguage": "ko",
             "dateCreated": "2023-04-12/",
             "datePublished": "2023-04-12/",
