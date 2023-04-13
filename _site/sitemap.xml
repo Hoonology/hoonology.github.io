@@ -136,14 +136,21 @@
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker-CLI/</loc>
+            <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-12</lastmod>
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker/6/</loc>
+            <loc>http://localhost:4000/Docker-CLI-Part1/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-12</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/5/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-11</lastmod>
@@ -220,7 +227,7 @@
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker/5/</loc>
+            <loc>http://localhost:4000/Docker/6/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-11</lastmod>

@@ -17,16 +17,16 @@
     
     
 
-    <title>Docker Image 다루기 1 | Hoonology</title>
-    <meta name="description" content="한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.">
+    <title>Docker CLI | Hoonology</title>
+    <meta name="description" content="Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.">
     
         <meta name="keywords" content="Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, 도커이미지">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Docker Image 다루기 1 | Hoonology">
-    <meta name="twitter:description" content="한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.">
+    <meta name="twitter:title" content="Docker CLI | Hoonology">
+    <meta name="twitter:description" content="Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.">
 
     
         <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
@@ -35,10 +35,10 @@
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/">
-    <meta property="og:title" content="Docker Image 다루기 1 | Hoonology">
+    <meta property="og:url" content="http://localhost:4000/Docker-CLI-Part1/">
+    <meta property="og:title" content="Docker CLI | Hoonology">
     <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-    <meta property="og:description" content="한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.">
+    <meta property="og:description" content="Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoonology's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/">
+    <link rel="canonical" href="http://localhost:4000/Docker-CLI-Part1/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoonology's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -176,10 +176,10 @@ April 12, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>3 min to read</span>
+                    <span>5 min to read</span>
                 </p>
-                <h1 class="post-title">Docker Image 다루기 1</h1>
-                <p class="post-subtitle">Sprint - Docker Image - I</p>
+                <h1 class="post-title">Docker CLI</h1>
+                <p class="post-subtitle">Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.</p>
 
                 
                     <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png" alt="Featured image" class="post-cover">
@@ -194,143 +194,248 @@ April 12, 2023
 
                 <!--more-->
 
-<h1 id="요구사항">요구사항</h1>
-
-<p>요구 사항에 따라 docker-cli 명령어를 이용해 실습을 진행하여, Quiz를 풀 수 있어야 합니다.</p>
-
-<p>–page-break–</p>
-
-<h1 id="quiz-1">Quiz 1</h1>
-
-<p>브라우저 속 게임 화면의 특정 단어를 확인하세요.</p>
-<ul>
-  <li>이미지는 <code class="language-plaintext highlighter-rouge">sebcontents/part1</code>을 이용해야 합니다. 태그는 latest 입니다.
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull sebcontents/part1:latest
-</code></pre></div>    </div>
-    <p><img src="/assets/img/Docker/pull.png" alt="pull" /></p>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">sebcontents/part1</code>은 <strong>아파치 웹 서버 이미지(httpd)</strong>를 기반으로 commit된 새로운 이미지 입니다.</li>
-  <li>아래 명령어를 터미널에 입력하여 컨테이너를 생성합니다
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker run <span class="nt">--name</span> 컨테이너_이름 <span class="nt">-d</span> <span class="nt">-p</span> 3000:80 sebcontents/part1
-</code></pre></div>    </div>
-    <blockquote>
-      <p>먼저 다음 명령을 사용하여 Docker 레지스트리에서 sebcontents/part1 이미지의 최신 버전을 가져옵니다.<br />
-<code class="language-plaintext highlighter-rouge">docker pull sebcontents/part1:latest</code><br />
-이 명령은 이미지를 로컬 컴퓨터에 다운로드하여 컨테이너를 만드는 데 사용할 수 있도록 합니다.<br />
-그런 다음,  <code class="language-plaintext highlighter-rouge">docker run</code> 명령을 사용하여 이름이 game_container인 sebcontents/part1 이미지를 기반으로<br />
-새 컨테이너를 만들고 호스트 시스템의 포트 3000을 컨테이너의 포트 80에 매핑하고 컨테이너를 실행합니다.<br />
-분리 모드:<br />
-<code class="language-plaintext highlighter-rouge">docker run --name game_container -d -p 3000:80 sebcontents/part1</code><br />
-이 명령은 이전에 다운로드한 sebcontents/part1 이미지를 컨테이너의 기본 이미지로 사용하여 지정된 구성으로 새 컨테이너를 만듭니다.</p>
-    </blockquote>
-  </li>
-  <li>Docker Hub에 저장되어 있는 이미지를 사용하는 경우, repository에 작성된 안내 사항을 확인하는 습관을 들이는 것이 중요합니다.</li>
-  <li><code class="language-plaintext highlighter-rouge">sebcontents/part1</code> 이미지의 repository로 이동하여 안내 사항을 참고하고, 컨테이너를 생성합니다.</li>
-  <li>컨테이너를 통해 space 게임을 실행해보세요. 소스 코드는 <a href="https://github.com/codestates/SpaceInvaders">https://github.com/codestates/SpaceInvaders</a>에 있습니다.</li>
-</ul>
-
-<p>먼저,</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Dockerfile 추가 후 수정 진행</span>
-nano Dockerfile
-<span class="c"># 아래 내용 추가</span>
-FROM sebcontents/part1:latest
-
-WORKDIR /app
-
-COPY package<span class="k">*</span>.json ./
-
-RUN apt-get update <span class="o">&amp;&amp;</span> apt-get <span class="nb">install</span> <span class="nt">-y</span> npm
-
-COPY <span class="nb">.</span> <span class="nb">.</span>
-
-EXPOSE 3000
-
-CMD <span class="o">[</span><span class="s2">"npm"</span>, <span class="s2">"start"</span><span class="o">]</span>
-</code></pre></div></div>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker build <span class="nt">-t</span> game_container <span class="nb">.</span>
-</code></pre></div></div>
-
-<blockquote>
-  <p><code class="language-plaintext highlighter-rouge">127.0.0.1:3000</code> 혹은 <code class="language-plaintext highlighter-rouge">localhost:3000</code> 실행</p>
-  <ul>
-    <li>게임 실행 후 다음 그림의 빨간 박스에 들어갈 단어가 무엇인지 확인하세요. Quiz 1의 정답입니다.</li>
-  </ul>
-</blockquote>
-
-<h1 id="오류-발생">오류 발생</h1>
-
-<p>일단 모든 이미지와 컨테이너를 정지한 뒤 삭제한다.</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 컨테이너 정지 후 삭제</span>
-docker stop <span class="si">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="si">)</span>
-docker <span class="nb">rm</span> <span class="si">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="si">)</span>
-<span class="c"># 이미지 삭제</span>
-docker rmi <span class="si">$(</span>docker images <span class="nt">-q</span><span class="si">)</span> <span class="nt">--force</span>
-</code></pre></div></div>
-<h2 id="prune으로-사용하지-않는-오브젝트만-삭제하기">prune으로 사용하지 않는 오브젝트만 삭제하기</h2>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker container prune
- docker image prune
-</code></pre></div></div>
-
-<h1 id="다시-실행해보자">다시 실행해보자</h1>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">--name</span> gamecontainer1 <span class="nt">-d</span> <span class="nt">-p</span> 3000:80 sebcontents/part1
-</code></pre></div></div>
-<blockquote>
-  <p>It Works! 나오면 성공</p>
-</blockquote>
-
-<p>서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container <span class="nb">cp</span> ./ gamecontainer1:/usr/local/apache2/htdocs/
-</code></pre></div></div>
-<p><img src="/assets/img/Docker/game.png" alt="game" /></p>
-
-<h1 id="quiz2">Quiz2</h1>
+<h1 id="docker-cli">Docker CLI</h1>
 
 <ul>
-  <li>컨테이너 속 txt 파일 안에 있는 단어를 확인하세요.</li>
-  <li>docker exec 명령어를 이용해 실습을 진행합니다.</li>
-  <li>터미널을 열어 다음 명령어를 입력합니다.
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">exec</span> <span class="nt">-it</span> 컨테이너_이름 bash
-</code></pre></div>    </div>
-    <p>위 명령어를 입력하면 컨테이너 안에서 bash shell을 실행할 수 있습니다.</p>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@538de4e5e997:/usr/local/apache2#
-</code></pre></div>    </div>
-    <ol>
-      <li><code class="language-plaintext highlighter-rouge">cd/</code> 를 통해 루트 디렉토리로 이동
-        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  root@538de4e5e997:/usr/local/apache2# <span class="nb">cd</span> /
-  root@538de4e5e997:/#
-</code></pre></div>        </div>
-      </li>
-      <li>ls 명령어를 입력하여 루트 디렉토리에 data 폴더가 존재하는지 확인합니다.
-        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> root@538de4e5e997:/# <span class="nb">ls
- </span>bin   data  etc   lib	 mnt  proc  run   srv  tmp  var
- boot  dev   home  media  opt  root  sbin  sys  usr
-</code></pre></div>        </div>
-      </li>
-      <li>data 폴더로 이동하여 ls 명령어를 입력합니다. quiz2.txt 파일이 존재하는지 확인합니다.
-        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> root@538de4e5e997:/# <span class="nb">cd </span>data
- root@538de4e5e997:/data# <span class="nb">ls
- </span>quiz2.txt
-</code></pre></div>        </div>
-      </li>
-      <li>명령어 apt update 와 apt install nano 를 입력해 nano 텍스트 에디터를 설치합니다.</li>
-    </ol>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  root@538de4e5e997:/data# apt update
-  root@538de4e5e997:/data# apt <span class="nb">install </span>nano
-</code></pre></div>    </div>
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  5. nano quiz2.txt 명령어를 입력해 quiz2.txt 파일 안에 적힌 단어를 확인합니다. Quiz 2의 정답입니다.
-</code></pre></div>    </div>
-
-    <blockquote>
-      <p><code class="language-plaintext highlighter-rouge">exit</code> 으로 나온다.</p>
-    </blockquote>
+  <li>필독 : <a href="https://docs.docker.com/engine/reference/commandline/container_run/">Docker docs</a>
+    <ul>
+      <li>사용법 : Docker CLI, Docker-Compose CLI, API Reference</li>
+      <li>환경 및 빌드 파일 구성 : DockerFile, Docker-Compose File</li>
+    </ul>
   </li>
 </ul>
 
+<h2 id="사용법">사용법</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run <span class="o">[</span>OPTIONS] IMAGE <span class="o">[</span>COMMAND] <span class="o">[</span>ARG...]
+</code></pre></div></div>
+<h3 id="docker-docs">Docker docs</h3>
+<h4 id="options"><a href="https://docs.docker.com/engine/reference/commandline/container_run/#options">OPTIONS</a></h4>
+<h4 id="command"><a href="https://docs.docker.com/engine/reference/commandline/container_run/#parent-command">COMMAND</a></h4>
+<h4 id="related-command"><a href="https://docs.docker.com/engine/reference/commandline/container_run/#related-commands">Related COMMAND</a></h4>
+
+<h2 id="docker-이용하기">Docker 이용하기</h2>
+
+<p><img src="/assets/img/Docker/%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B5%AC%EB%B6%84.png" alt="이미지구분" /></p>
+<p align="center"> [그림] 이미지 구분 </p>
+
+<ul>
+  <li>Registry
+    <ul>
+      <li>도커 이미지 관리 공간</li>
+      <li>기본 레지스트리 : <a href="https://hub.docker.com/">Docker Hub</a></li>
+      <li>레지스트리 구분 : Docker Hub, Private Docker Hub, 회사 내부용 레지스트리</li>
+    </ul>
+  </li>
+  <li>Repository ( Github Rep와 비슷하다. )
+    <ul>
+      <li>레지스트리 내 도커 이미지가 저장되는 공간</li>
+      <li>이미지 이름으로 사용도 함</li>
+    </ul>
+  </li>
+  <li>Tag
+    <ul>
+      <li>이미지를 설명하는 버전 정보</li>
+      <li>기본 태그 : <code class="language-plaintext highlighter-rouge">latest</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="위의-설명을-토대로-dockerwhalesaylatest를-읽어보자">위의 설명을 토대로 <code class="language-plaintext highlighter-rouge">docker/whalesay:latest</code>를 읽어보자</h4>
+
+<ul>
+  <li>Registry Account : <code class="language-plaintext highlighter-rouge">docker</code></li>
+  <li>Repository Name : <code class="language-plaintext highlighter-rouge">whalesay</code></li>
+  <li>Tag : <code class="language-plaintext highlighter-rouge">latest</code></li>
+</ul>
+
+<h3 id="docker-example-수행-dockerwhalesay-">Docker Example 수행 ( docker/whalesay )</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker image pull docker/whalesay:latest
+docker image <span class="nb">ls</span>
+</code></pre></div></div>
+<p><img src="/assets/img/Docker/dockerpull.png" alt="pull" /></p>
+
+<h4 id="받아온-이미지-실행">받아온 이미지 실행</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run ~|-|~|-|name whaleasy docker/whalesay:latest cowsay boo
+</code></pre></div></div>
+<p><img src="/assets/img/Docker/boo.png" alt="boo" /></p>
+
+<h4 id="컨테이너-리스트-출력">컨테이너 리스트 출력</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container ps ~|-|a
+</code></pre></div></div>
+<p><img src="/assets/img/Docker/psa.png" alt="psa" /></p>
+
+<h4 id="컨테이너-삭제">컨테이너 삭제</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container <span class="nb">rm </span>컨테이너_이름
+</code></pre></div></div>
+
+<p>내 환경에서 <code class="language-plaintext highlighter-rouge">docker image rm docker/whalesay</code> 실행 오류가 나왔다.</p>
+<blockquote>
+  <p>Error response from daemon: conflict: unable to remove repository reference “docker/whalesay” (must force) - container 44103ad9eed0 is using its referenced image 6b362a9f73eb</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker stop 44103ad9eed0 ~|#| 정지
+docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
+</code></pre></div></div>
+
+<p>터널에서 수족관의 물고기를 볼 수 있는 커맨드</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run ~|-|it ~|-|~|-|rm danielkraic/asciiquarium:latest
+</code></pre></div></div>
+<ul>
+  <li>it : -i, -t 를 동시에 사용한 옵션입니다. 사용자와 컨테이너 간에 인터렉션(interaction)이 필요하다면 이 옵션을 사용합니다. 이 예제에서는 출력되는 화면을 사용자가 지속적으로 보기 위해서 사용하였습니다. 예를 들어 Python 명령이 필요하거나 추가로 다른 입력을 받는다면, 이 옵션을 지정한 뒤 사용합니다.</li>
+</ul>
+
+<h1 id="docker-cli2-copy-dockerfile">Docker CLI(2) - Copy, Dockerfile</h1>
+<h2 id="docker-컨테이너에-파일을-복사하기">Docker 컨테이너에 파일을 복사하기</h2>
+
+<ol>
+  <li>웹서버는 도커 컨테이너로 실행</li>
+  <li>웹 서버를 구성하는 파일은 직접 만들거나 가져온 파일 구성
+    <ul>
+      <li>Pros
+        <ul>
+          <li>서버에 문제가 생기는 것을 호스트와 별개로 파악 가능</li>
+          <li>문제가 생긴 서버를 끄고, 마치 공장 초기화를 하듯 도커 이미지로 서버를 재구동할 수 있음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>로컬에 있는 파일과 도커 이미지를 연결하는 방법</p>
+<ul>
+  <li>CP : 호스트와 컨테이너 사이에 파일을 복사</li>
+  <li>Volume : 호스트와 컨테이너 사이에 공간을 마운트</li>
+</ul>
+
+<h2 id="httpd-웹-서버">httpd 웹 서버</h2>
+
+<ol>
+  <li>clone
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/codestates/pacman~|-|canvas
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">docker container run</code> 명령어로 httpd 를 실행</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run ~|-|~|-|name 컨테이너_이름 ~|-|p 818:80 httpd
+</code></pre></div></div>
+<ul>
+  <li>-p 옵션은 로컬호스트의 포트와 컨테이너의 포트를 연결합니다. 2의 명령어에서 818포트가 로컬호스트의 포트이고, 80번은 컨테이너의 포트입니다.</li>
+  <li>httpd 는 일정 시간 연결 기록이 없으면, 서버 가동이 중지됩니다. 실행 중이던 도커 컨테이너가 중지되었다면, 다시 실행하세요.</li>
+  <li>
+    <p>터미널에서 1, 2의 명령어를 입력했을 때, 다음 화면처럼 터미널의 작동이 중단된 것처럼 보여도 걱정할 필요 없습니다. 정상적인 상태이므로 터미널을 종료하지 말고, 다른 터미널 창을 열어 계속해서 실습을 진행합니다.</p>
+  </li>
+  <li>컨테이너를 백그라운드에서 실행하게 해주는 -d 옵션에 대해 알아봅니다. 해당 옵션을 사용했을 때와 사용하지 않았을 때 차이점을 확인해보세요.</li>
+</ul>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">127.0.0.1:818</code> 혹은 <code class="language-plaintext highlighter-rouge">localhost:818</code> 을 통해 웹 서버가 작동하고 있는지 확인합니다.
+    <blockquote>
+      <p>It Works! 나오면 성공</p>
+    </blockquote>
+  </li>
+  <li>서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container <span class="nb">cp</span> ./ 컨테이너_이름:/usr/local/apache2/htdocs/
+</code></pre></div></div>
+<p>[주의] 위의 명령어를 로컬 터미널에서 실행할 때, 위치는 pacman-canvas 디렉토리여야 합니다.</p>
+
+<h2 id="docker-이미지-만들기">Docker 이미지 만들기</h2>
+
+<p>이번에는 앞서 만들어 본 Docker Container를 이미지 파일로 변환합니다. <strong>이미지로 만들어 놓을 때의 장점</strong>은 다음과 같습니다.</p>
+<ul id="1-구동한-docker-container-를-이미지로-만드는-법">
+  <li>이전에 작업했던 내용을 다시 한 번 수행하지 않아도 됨</li>
+  <li>배포 및 관리가 유용
+    <h3 id="1-구동한-docker-container-를-이미지로-만드는-법">1. 구동한 Docker Container 를 <strong>이미지로 만드는 법</strong></h3>
+  </li>
+</ul>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker container commit</code>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container commit 컨테이너_이름 my_pacman:1.0
+╰─<span class="nv">$ </span>docker container commit 220f6bd95e4e pacman:1.0
+</code></pre></div>    </div>
+  </li>
+</ul>
+<p align="center">[커맨드] 구동한 Docker Container를 commit </p>
+
+<ul>
+  <li>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker images
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p align="center">[커맨드] pacman 1.0 확인 </p>
+
+<ul>
+  <li>
+    <p>생성된 이미지를 900 포트에서 웹 서버로 구동</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ~|-|~|-|name my_web2 ~|-|p 900:80 my_pacman:1.0
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p align="center">[커맨드] 900 포트에서 웹 서버로 이미지를 구동</p>
+
+<p><code class="language-plaintext highlighter-rouge">127.0.0.1:900</code> 또는 <code class="language-plaintext highlighter-rouge">localhost:900</code> 접속 !
+<img src="/assets/img/Docker/pacman.png" alt="pac" /></p>
+
+<h3 id="2-docker-image-빌드를-위한-파일-dockerfile로-만들기">2. Docker Image 빌드를 위한 파일 : Dockerfile로 만들기</h3>
+
+<p><a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a>
+Dockerfile는 이미지를 어셈블하기 위해 사용자가 명령줄에서 호출할 수 있는 모든 명령을 포함하는 텍스트 문서입니다. 이 페이지에서는 에서 사용할 수 있는 명령에 대해 설명합니다.</p>
+<ul>
+  <li>Dockerfile 을 만들고, Dockerfile 대로 이미지를 build 하는 방법입니다.</li>
+</ul>
+
+<h4 id="기본-형식">기본 형식</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ~|#| Comment
+  INSTRUCTION arguments
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">FROM ARG FROM Dockerfile</code></p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN <span class="nb">echo </span>hello <span class="se">\</span>
+world
+</code></pre></div>    </div>
+  </li>
+  <li>Dockerfile로 pacman 이미지를 생성해 보세요.
+    <ul>
+      <li>COPY 구문을 잘 살펴보세요. Dockerfile은 어디에 생성되어야 할까요?</li>
+    </ul>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM httpd:2.4 ~|#| 베이스 이미지를 httpd:2.4 로 사용합니다.
+COPY ./ /usr/local/apache2/htdocs/ 
+~|#| 호스트의 현재 경로에 있는 파일을 생성할 이미지 /usr/local/apache2/htdocs/ 에 복사합니다.
+</code></pre></div>    </div>
+    <p>(현재 경로에 있는 파일을 생성할 이미지 경로에 복사하는 명령의 Dockerfile 소스 코드)</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">docker build</code> 명령은, Dockerfile로 도커 이미지 파일을 생성합니다.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| ~|-|~|-|tag 는 name:tag 형식으로 이미지를 생성할 수 있습니다.
+~|#| 지정한 경로에 있는 Dockerfile을 찾아서 빌드합니다.
+docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span class="s2">"."</span>을 명령어에 꼭 포함해야 합니다! 
+</code></pre></div>    </div>
+    <p><img src="/assets/img/Docker/dockerbuild.png" alt="docker build" /></p>
+  </li>
+  <li>생성된 이미지를 이용해 901 포트에 웹 서버 구동
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ~|-|~|-|name my_web3 ~|-|p 901:80 pacman:2.0
+</code></pre></div>    </div>
+    <p><code class="language-plaintext highlighter-rouge">127.0.0.1:901</code> 혹은 <code class="language-plaintext highlighter-rouge">localhost:901</code> 을 통해 웹 서버가 작동하고 있는지 확인합니다.</p>
+  </li>
+</ul>
+
+<p><img src="/assets/img/Docker/pacman.png" alt="pacman2" /></p>
 
 
                 <!-- Pagination links -->
@@ -364,11 +469,11 @@ docker rmi <span class="si">$(</span>docker images <span class="nt">-q</span><sp
                             </li>
                         
                             <li>
-                                <a href="/Docker/">
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker</h3>
+                                    <h3>Docker Image 다루기 1</h3>
                                 </a>
                             </li>
                         
@@ -380,7 +485,7 @@ docker rmi <span class="si">$(</span>docker images <span class="nt">-q</span><sp
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="3">
+            <div class="time-bar" data-minutes="5">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -400,13 +505,13 @@ docker rmi <span class="si">$(</span>docker images <span class="nt">-q</span><sp
         </div>
     </div>
     
-    <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/" class="post-preview">
+    <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
             
         </div>
-        <h3 class="title">깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
+        <h3 class="title">Docker Image 다루기 2 </h3>
     </a>
 </div>
 
@@ -422,11 +527,11 @@ docker rmi <span class="si">$(</span>docker images <span class="nt">-q</span><sp
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.&quot;%20http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.&quot;%20http://localhost:4000/Docker-CLI-Part1/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-CLI-Part1/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -449,7 +554,7 @@ docker rmi <span class="si">$(</span>docker images <span class="nt">-q</span><sp
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/';
+        var disqus_url = '/Docker-CLI-Part1/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -593,152 +698,257 @@ docker rmi <span class="si">$(</span>docker images <span class="nt">-q</span><sp
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Docker Image 다루기 1",
-            "headline": "Sprint - Docker Image - I",
-            "description": "한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.",
+            "name": "Docker CLI",
+            "headline": "Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.",
+            "description": "Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/",
+            "url": "http://localhost:4000/Docker-CLI-Part1/",
             "articleBody": "
 
-요구사항
+Docker CLI
 
-요구 사항에 따라 docker-cli 명령어를 이용해 실습을 진행하여, Quiz를 풀 수 있어야 합니다.
 
-–page-break–
-
-Quiz 1
-
-브라우저 속 게임 화면의 특정 단어를 확인하세요.
-
-  이미지는 sebcontents/part1을 이용해야 합니다. 태그는 latest 입니다.
-    docker pull sebcontents/part1:latest
+  필독 : Docker docs
     
+      사용법 : Docker CLI, Docker-Compose CLI, API Reference
+      환경 및 빌드 파일 구성 : DockerFile, Docker-Compose File
     
   
-  sebcontents/part1은 아파치 웹 서버 이미지(httpd)를 기반으로 commit된 새로운 이미지 입니다.
-  아래 명령어를 터미널에 입력하여 컨테이너를 생성합니다
-      docker run --name 컨테이너_이름 -d -p 3000:80 sebcontents/part1
+
+
+사용법
+
+docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Docker docs
+OPTIONS
+COMMAND
+Related COMMAND
+
+Docker 이용하기
+
+
+ [그림] 이미지 구분 
+
+
+  Registry
     
-    
-      먼저 다음 명령을 사용하여 Docker 레지스트리에서 sebcontents/part1 이미지의 최신 버전을 가져옵니다.
-docker pull sebcontents/part1:latest
-이 명령은 이미지를 로컬 컴퓨터에 다운로드하여 컨테이너를 만드는 데 사용할 수 있도록 합니다.
-그런 다음,  docker run 명령을 사용하여 이름이 game_container인 sebcontents/part1 이미지를 기반으로
-새 컨테이너를 만들고 호스트 시스템의 포트 3000을 컨테이너의 포트 80에 매핑하고 컨테이너를 실행합니다.
-분리 모드:
-docker run --name game_container -d -p 3000:80 sebcontents/part1
-이 명령은 이전에 다운로드한 sebcontents/part1 이미지를 컨테이너의 기본 이미지로 사용하여 지정된 구성으로 새 컨테이너를 만듭니다.
+      도커 이미지 관리 공간
+      기본 레지스트리 : Docker Hub
+      레지스트리 구분 : Docker Hub, Private Docker Hub, 회사 내부용 레지스트리
     
   
-  Docker Hub에 저장되어 있는 이미지를 사용하는 경우, repository에 작성된 안내 사항을 확인하는 습관을 들이는 것이 중요합니다.
-  sebcontents/part1 이미지의 repository로 이동하여 안내 사항을 참고하고, 컨테이너를 생성합니다.
-  컨테이너를 통해 space 게임을 실행해보세요. 소스 코드는 https://github.com/codestates/SpaceInvaders에 있습니다.
-
-
-먼저,
-# Dockerfile 추가 후 수정 진행
-nano Dockerfile
-# 아래 내용 추가
-FROM sebcontents/part1:latest
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN apt-get update &amp;amp;&amp;amp; apt-get install -y npm
-
-COPY . .
-
-EXPOSE 3000
-
-CMD [&quot;npm&quot;, &quot;start&quot;]
-
-
-  docker build -t game_container .
-
-
-
-  127.0.0.1:3000 혹은 localhost:3000 실행
+  Repository ( Github Rep와 비슷하다. )
+    
+      레지스트리 내 도커 이미지가 저장되는 공간
+      이미지 이름으로 사용도 함
+    
   
-    게임 실행 후 다음 그림의 빨간 박스에 들어갈 단어가 무엇인지 확인하세요. Quiz 1의 정답입니다.
+  Tag
+    
+      이미지를 설명하는 버전 정보
+      기본 태그 : latest
+    
   
 
 
-오류 발생
-
-일단 모든 이미지와 컨테이너를 정지한 뒤 삭제한다.
-# 컨테이너 정지 후 삭제
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
-# 이미지 삭제
-docker rmi $(docker images -q) --force
-
-prune으로 사용하지 않는 오브젝트만 삭제하기
-
- docker container prune
- docker image prune
+위의 설명을 토대로 docker/whalesay:latest를 읽어보자
 
 
-다시 실행해보자
-
-docker run --name gamecontainer1 -d -p 3000:80 sebcontents/part1
-
-
-  It Works! 나오면 성공
+  Registry Account : docker
+  Repository Name : whalesay
+  Tag : latest
 
 
-서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.
+Docker Example 수행 ( docker/whalesay )
 
-docker container cp ./ gamecontainer1:/usr/local/apache2/htdocs/
+docker image pull docker/whalesay:latest
+docker image ls
 
 
 
-Quiz2
+받아온 이미지 실행
+
+docker container run ~|-|~|-|name whaleasy docker/whalesay:latest cowsay boo
 
 
-  컨테이너 속 txt 파일 안에 있는 단어를 확인하세요.
-  docker exec 명령어를 이용해 실습을 진행합니다.
-  터미널을 열어 다음 명령어를 입력합니다.
-    docker exec -it 컨테이너_이름 bash
+
+컨테이너 리스트 출력
+
+docker container ps ~|-|a
+
+
+
+컨테이너 삭제
+
+docker container rm 컨테이너_이름
+
+
+내 환경에서 docker image rm docker/whalesay 실행 오류가 나왔다.
+
+  Error response from daemon: conflict: unable to remove repository reference “docker/whalesay” (must force) - container 44103ad9eed0 is using its referenced image 6b362a9f73eb
+
+
+docker stop 44103ad9eed0 ~|#| 정지
+docker rm 44103ad9eed0 ~|#| 삭제
+
+
+터널에서 수족관의 물고기를 볼 수 있는 커맨드
+docker container run ~|-|it ~|-|~|-|rm danielkraic/asciiquarium:latest
+
+
+  it : -i, -t 를 동시에 사용한 옵션입니다. 사용자와 컨테이너 간에 인터렉션(interaction)이 필요하다면 이 옵션을 사용합니다. 이 예제에서는 출력되는 화면을 사용자가 지속적으로 보기 위해서 사용하였습니다. 예를 들어 Python 명령이 필요하거나 추가로 다른 입력을 받는다면, 이 옵션을 지정한 뒤 사용합니다.
+
+
+Docker CLI(2) - Copy, Dockerfile
+Docker 컨테이너에 파일을 복사하기
+
+
+  웹서버는 도커 컨테이너로 실행
+  웹 서버를 구성하는 파일은 직접 만들거나 가져온 파일 구성
     
-    위 명령어를 입력하면 컨테이너 안에서 bash shell을 실행할 수 있습니다.
-    root@538de4e5e997:/usr/local/apache2#
-    
-    
-      cd/ 를 통해 루트 디렉토리로 이동
-          root@538de4e5e997:/usr/local/apache2# cd /
-  root@538de4e5e997:/#
+      Pros
+        
+          서버에 문제가 생기는 것을 호스트와 별개로 파악 가능
+          문제가 생긴 서버를 끄고, 마치 공장 초기화를 하듯 도커 이미지로 서버를 재구동할 수 있음
         
       
-      ls 명령어를 입력하여 루트 디렉토리에 data 폴더가 존재하는지 확인합니다.
-         root@538de4e5e997:/# ls
- bin   data  etc   lib	 mnt  proc  run   srv  tmp  var
- boot  dev   home  media  opt  root  sbin  sys  usr
-        
-      
-      data 폴더로 이동하여 ls 명령어를 입력합니다. quiz2.txt 파일이 존재하는지 확인합니다.
-         root@538de4e5e997:/# cd data
- root@538de4e5e997:/data# ls
- quiz2.txt
-        
-      
-      명령어 apt update 와 apt install nano 를 입력해 nano 텍스트 에디터를 설치합니다.
-    
-
-      root@538de4e5e997:/data# apt update
-  root@538de4e5e997:/data# apt install nano
-    
-      5. nano quiz2.txt 명령어를 입력해 quiz2.txt 파일 안에 적힌 단어를 확인합니다. Quiz 2의 정답입니다.
-    
-
-    
-      exit 으로 나온다.
     
   
+
+
+로컬에 있는 파일과 도커 이미지를 연결하는 방법
+
+  CP : 호스트와 컨테이너 사이에 파일을 복사
+  Volume : 호스트와 컨테이너 사이에 공간을 마운트
+
+
+httpd 웹 서버
+
+
+  clone
+    git clone https://github.com/codestates/pacman~|-|canvas
+    
+  
+  docker container run 명령어로 httpd 를 실행
+
+
+docker container run ~|-|~|-|name 컨테이너_이름 ~|-|p 818:80 httpd
+
+
+  -p 옵션은 로컬호스트의 포트와 컨테이너의 포트를 연결합니다. 2의 명령어에서 818포트가 로컬호스트의 포트이고, 80번은 컨테이너의 포트입니다.
+  httpd 는 일정 시간 연결 기록이 없으면, 서버 가동이 중지됩니다. 실행 중이던 도커 컨테이너가 중지되었다면, 다시 실행하세요.
+  
+    터미널에서 1, 2의 명령어를 입력했을 때, 다음 화면처럼 터미널의 작동이 중단된 것처럼 보여도 걱정할 필요 없습니다. 정상적인 상태이므로 터미널을 종료하지 말고, 다른 터미널 창을 열어 계속해서 실습을 진행합니다.
+  
+  컨테이너를 백그라운드에서 실행하게 해주는 -d 옵션에 대해 알아봅니다. 해당 옵션을 사용했을 때와 사용하지 않았을 때 차이점을 확인해보세요.
+
+
+
+  127.0.0.1:818 혹은 localhost:818 을 통해 웹 서버가 작동하고 있는지 확인합니다.
+    
+      It Works! 나오면 성공
+    
+  
+  서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.
+
+
+docker container cp ./ 컨테이너_이름:/usr/local/apache2/htdocs/
+
+[주의] 위의 명령어를 로컬 터미널에서 실행할 때, 위치는 pacman-canvas 디렉토리여야 합니다.
+
+Docker 이미지 만들기
+
+이번에는 앞서 만들어 본 Docker Container를 이미지 파일로 변환합니다. 이미지로 만들어 놓을 때의 장점은 다음과 같습니다.
+
+  이전에 작업했던 내용을 다시 한 번 수행하지 않아도 됨
+  배포 및 관리가 유용
+    1. 구동한 Docker Container 를 이미지로 만드는 법
+  
+
+
+
+  docker container commit
+    docker container commit 컨테이너_이름 my_pacman:1.0
+╰─$ docker container commit 220f6bd95e4e pacman:1.0
+    
+  
+
+[커맨드] 구동한 Docker Container를 commit 
+
+
+  
+      docker images
+    
+  
+
+
+[커맨드] pacman 1.0 확인 
+
+
+  
+    생성된 이미지를 900 포트에서 웹 서버로 구동
+
+    docker run ~|-|~|-|name my_web2 ~|-|p 900:80 my_pacman:1.0
+    
+  
+
+
+[커맨드] 900 포트에서 웹 서버로 이미지를 구동
+
+127.0.0.1:900 또는 localhost:900 접속 !
+
+
+2. Docker Image 빌드를 위한 파일 : Dockerfile로 만들기
+
+https://docs.docker.com/engine/reference/builder/
+Dockerfile는 이미지를 어셈블하기 위해 사용자가 명령줄에서 호출할 수 있는 모든 명령을 포함하는 텍스트 문서입니다. 이 페이지에서는 에서 사용할 수 있는 명령에 대해 설명합니다.
+
+  Dockerfile 을 만들고, Dockerfile 대로 이미지를 build 하는 방법입니다.
+
+
+기본 형식
+
+  ~|#| Comment
+  INSTRUCTION arguments
+
+
+
+  
+    FROM ARG FROM Dockerfile
+
+    RUN echo hello \
+world
+    
+  
+  Dockerfile로 pacman 이미지를 생성해 보세요.
+    
+      COPY 구문을 잘 살펴보세요. Dockerfile은 어디에 생성되어야 할까요?
+    
+
+    FROM httpd:2.4 ~|#| 베이스 이미지를 httpd:2.4 로 사용합니다.
+COPY ./ /usr/local/apache2/htdocs/ 
+~|#| 호스트의 현재 경로에 있는 파일을 생성할 이미지 /usr/local/apache2/htdocs/ 에 복사합니다.
+    
+    (현재 경로에 있는 파일을 생성할 이미지 경로에 복사하는 명령의 Dockerfile 소스 코드)
+  
+  docker build 명령은, Dockerfile로 도커 이미지 파일을 생성합니다.
+    ~|#| ~|-|~|-|tag 는 name:tag 형식으로 이미지를 생성할 수 있습니다.
+~|#| 지정한 경로에 있는 Dockerfile을 찾아서 빌드합니다.
+docker build ~|-|~|-|tag my_pacman:2.0 . ~|#| &quot;.&quot;을 명령어에 꼭 포함해야 합니다! 
+    
+    
+  
+  생성된 이미지를 이용해 901 포트에 웹 서버 구동
+    docker run ~|-|~|-|name my_web3 ~|-|p 901:80 pacman:2.0
+    
+    127.0.0.1:901 혹은 localhost:901 을 통해 웹 서버가 작동하고 있는지 확인합니다.
+  
+
 
 
 ",
-            "wordcount": "640",
+            "wordcount": "980",
             "inLanguage": "ko",
             "dateCreated": "2023-04-12/",
             "datePublished": "2023-04-12/",

@@ -17,16 +17,16 @@
     
     
 
-    <title>Docker CLI | Hoonology</title>
-    <meta name="description" content="Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.">
+    <title>Docker Image 다루기 2  | Hoonology</title>
+    <meta name="description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
     
         <meta name="keywords" content="Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, 도커이미지">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Docker CLI | Hoonology">
-    <meta name="twitter:description" content="Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.">
+    <meta name="twitter:title" content="Docker Image 다루기 2  | Hoonology">
+    <meta name="twitter:description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
 
     
         <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
@@ -35,10 +35,10 @@
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/Docker-CLI/">
-    <meta property="og:title" content="Docker CLI | Hoonology">
+    <meta property="og:url" content="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+    <meta property="og:title" content="Docker Image 다루기 2  | Hoonology">
     <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-    <meta property="og:description" content="Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.">
+    <meta property="og:description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoonology's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/Docker-CLI/">
+    <link rel="canonical" href="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoonology's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -176,10 +176,10 @@ April 12, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>5 min to read</span>
+                    <span>4 min to read</span>
                 </p>
-                <h1 class="post-title">Docker CLI</h1>
-                <p class="post-subtitle">Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.</p>
+                <h1 class="post-title">Docker Image 다루기 2 </h1>
+                <p class="post-subtitle">Sprint - Docker Image - II</p>
 
                 
                     <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png" alt="Featured image" class="post-cover">
@@ -194,248 +194,252 @@ April 12, 2023
 
                 <!--more-->
 
-<h1 id="docker-cli">Docker CLI</h1>
+<h1 id="getting-started">Getting Started</h1>
 
 <ul>
-  <li>필독 : <a href="https://docs.docker.com/engine/reference/commandline/container_run/">Docker docs</a>
-    <ul>
-      <li>사용법 : Docker CLI, Docker-Compose CLI, API Reference</li>
-      <li>환경 및 빌드 파일 구성 : DockerFile, Docker-Compose File</li>
-    </ul>
+  <li>nginx 이미지를 기반으로 한 sebcontents/client 이미지를 이용하여 client 컨테이너를 생성합니다.</li>
+  <li>node 이미지를 기반으로 한 sebcontents/server 이미지를 이용하여 server 컨테이너를 생성합니다.
+<img src="/assets/img/Docker/docker.png" alt="docker" /></li>
+  <li>이번 실습에서는 localhost 의 8080 번 포트로 접속하면, sebcontents/client 이미지를 이용해 배포한 client 컨테이너의 80 번 포트로 연결됩니다.</li>
+  <li>위 그림은 매우 간략하게 표현되어 있습니다. 도커 네트워크에 대해서 좀 더 궁금하시다면 docker network, docker bridge 를 검색해 더 많은 정보를 찾을 수 있습니다</li>
+</ul>
+
+<h2 id="dockercompose-cli">docker-compose CLI</h2>
+
+<p><a href="https://docs.docker.com/compose/reference/">docker-compose CLI</a><br />
+아래 명령어로 Docker 컨테이너에서 여러 서비스를 빌드하고 관리</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose <span class="o">[</span>~|-|f ~|&lt;|arg&gt;...] <span class="o">[</span>options] <span class="o">[</span>COMMAND] <span class="o">[</span>ARGS...]
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>build</td>
+      <td>Build or rebuild services</td>
+    </tr>
+    <tr>
+      <td>bundle</td>
+      <td>Generate a Docker bundle from the Compose file</td>
+    </tr>
+    <tr>
+      <td>config</td>
+      <td>Validate and view the Compose file</td>
+    </tr>
+    <tr>
+      <td>create</td>
+      <td>Create services</td>
+    </tr>
+    <tr>
+      <td>down</td>
+      <td>Stop and remove containers, networks, images, and volumes</td>
+    </tr>
+    <tr>
+      <td>events</td>
+      <td>Receive real time events from containers</td>
+    </tr>
+    <tr>
+      <td>exec</td>
+      <td>Execute a command in a running container</td>
+    </tr>
+    <tr>
+      <td>help</td>
+      <td>Get help on a command</td>
+    </tr>
+    <tr>
+      <td>images</td>
+      <td>List images</td>
+    </tr>
+    <tr>
+      <td>kill</td>
+      <td>Kill containers</td>
+    </tr>
+    <tr>
+      <td>logs</td>
+      <td>View output from containers</td>
+    </tr>
+    <tr>
+      <td>pause</td>
+      <td>Pause services</td>
+    </tr>
+    <tr>
+      <td>port</td>
+      <td>Print the public port for a port binding</td>
+    </tr>
+    <tr>
+      <td>ps</td>
+      <td>List containers</td>
+    </tr>
+    <tr>
+      <td>pull</td>
+      <td>Pull service images</td>
+    </tr>
+    <tr>
+      <td>push</td>
+      <td>Push service images</td>
+    </tr>
+    <tr>
+      <td>restart</td>
+      <td>Restart services</td>
+    </tr>
+    <tr>
+      <td>rm</td>
+      <td>Remove stopped containers</td>
+    </tr>
+    <tr>
+      <td>run</td>
+      <td>Run a one-off command</td>
+    </tr>
+    <tr>
+      <td>scale</td>
+      <td>Set number of containers for a service</td>
+    </tr>
+    <tr>
+      <td>start</td>
+      <td>Start services</td>
+    </tr>
+    <tr>
+      <td>stop</td>
+      <td>Stop services</td>
+    </tr>
+    <tr>
+      <td>top</td>
+      <td>Display the running processes</td>
+    </tr>
+    <tr>
+      <td>unpause</td>
+      <td>Unpause services</td>
+    </tr>
+    <tr>
+      <td>up</td>
+      <td>Create and start containers</td>
+    </tr>
+    <tr>
+      <td>version</td>
+      <td>Show the Docker Compose version information</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="f-하나-이상의-compose-파일의-이름과-경로-지정"><code class="language-plaintext highlighter-rouge">~|-|f</code> 하나 이상의 Compose 파일의 이름과 경로 지정</h3>
+<h4 id="여러-compose-파일-지정-">여러 Compose 파일 지정</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose ~|-|f docker~|-|compose.yml ~|-|f docker-compose.admin.yml run backup_db
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker~|-|compose.yml</code>로 지정할 수 있다.
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">webapp</span><span class="pi">:</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">examples/web</span>
+  <span class="na">ports</span><span class="pi">:</span>
+    <span class="s">~|-| "8000:8000"</span>
+  <span class="na">volumes</span><span class="pi">:</span>
+    <span class="s">~|-| "/data"</span>
+</code></pre></div>    </div>
+    <p>여러 Compose 파일을 사용하는 경우 파일의 모든 경로는 로 지정된 첫 번째 구성 파일에 상대적입니다 <code class="language-plaintext highlighter-rouge">~|-|f. --project-directory</code>옵션을 사용하여 이 기본 경로를 재정의 할 수 있습니다 .</p>
   </li>
 </ul>
 
-<h2 id="사용법">사용법</h2>
+<h4 id="단일-compose-파일에-대한-경로-지정-">단일 Compose 파일에 대한 경로 지정</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run <span class="o">[</span>OPTIONS] IMAGE <span class="o">[</span>COMMAND] <span class="o">[</span>ARG...]
-</code></pre></div></div>
-<h3 id="docker-docs">Docker docs</h3>
-<h4 id="options"><a href="https://docs.docker.com/engine/reference/commandline/container_run/#options">OPTIONS</a></h4>
-<h4 id="command"><a href="https://docs.docker.com/engine/reference/commandline/container_run/#parent-command">COMMAND</a></h4>
-<h4 id="related-command"><a href="https://docs.docker.com/engine/reference/commandline/container_run/#related-commands">Related COMMAND</a></h4>
-
-<h2 id="docker-이용하기">Docker 이용하기</h2>
-
-<p><img src="/assets/img/Docker/%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B5%AC%EB%B6%84.png" alt="이미지구분" /></p>
-<p align="center"> [그림] 이미지 구분 </p>
+<p>플래그를 사용하여 명령줄에서 또는 셸 또는 환경 파일에서 COMPOSE_FILE 환경 변수를 <code class="language-plaintext highlighter-rouge">~|-|f</code> 설정하여 <br />
+현재 디렉터리에 없는 Compose 파일의 경로를 지정할 수 있습니다.</p>
 
 <ul>
-  <li>Registry
-    <ul>
-      <li>도커 이미지 관리 공간</li>
-      <li>기본 레지스트리 : <a href="https://hub.docker.com/">Docker Hub</a></li>
-      <li>레지스트리 구분 : Docker Hub, Private Docker Hub, 회사 내부용 레지스트리</li>
-    </ul>
-  </li>
-  <li>Repository ( Github Rep와 비슷하다. )
-    <ul>
-      <li>레지스트리 내 도커 이미지가 저장되는 공간</li>
-      <li>이미지 이름으로 사용도 함</li>
-    </ul>
-  </li>
-  <li>Tag
-    <ul>
-      <li>이미지를 설명하는 버전 정보</li>
-      <li>기본 태그 : <code class="language-plaintext highlighter-rouge">latest</code></li>
-    </ul>
+  <li>어디서나 서비스 에 대한 postgres 이미지를 가져오기 위해 <code class="language-plaintext highlighter-rouge">docker compose pull</code> 과 같은 명령을 사용할 수 있습니다 .
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose ~|-|f ~/sandbox/rails/docker~|-|compose.yml pull db
+</code></pre></div>    </div>
   </li>
 </ul>
 
-<h4 id="위의-설명을-토대로-dockerwhalesaylatest를-읽어보자">위의 설명을 토대로 <code class="language-plaintext highlighter-rouge">docker/whalesay:latest</code>를 읽어보자</h4>
-
-<ul>
-  <li>Registry Account : <code class="language-plaintext highlighter-rouge">docker</code></li>
-  <li>Repository Name : <code class="language-plaintext highlighter-rouge">whalesay</code></li>
-  <li>Tag : <code class="language-plaintext highlighter-rouge">latest</code></li>
-</ul>
-
-<h3 id="docker-example-수행-dockerwhalesay-">Docker Example 수행 ( docker/whalesay )</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker image pull docker/whalesay:latest
-docker image <span class="nb">ls</span>
-</code></pre></div></div>
-<p><img src="/assets/img/Docker/dockerpull.png" alt="pull" /></p>
-
-<h4 id="받아온-이미지-실행">받아온 이미지 실행</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run ~|-|~|-|name whaleasy docker/whalesay:latest cowsay boo
-</code></pre></div></div>
-<p><img src="/assets/img/Docker/boo.png" alt="boo" /></p>
-
-<h4 id="컨테이너-리스트-출력">컨테이너 리스트 출력</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container ps ~|-|a
-</code></pre></div></div>
-<p><img src="/assets/img/Docker/psa.png" alt="psa" /></p>
-
-<h4 id="컨테이너-삭제">컨테이너 삭제</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container <span class="nb">rm </span>컨테이너_이름
-</code></pre></div></div>
-
-<p>내 환경에서 <code class="language-plaintext highlighter-rouge">docker image rm docker/whalesay</code> 실행 오류가 나왔다.</p>
-<blockquote>
-  <p>Error response from daemon: conflict: unable to remove repository reference “docker/whalesay” (must force) - container 44103ad9eed0 is using its referenced image 6b362a9f73eb</p>
-</blockquote>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker stop 44103ad9eed0 ~|#| 정지
-docker <span class="nb">rm </span>44103ad9eed0 ~|#| 삭제
-</code></pre></div></div>
-
-<p>터널에서 수족관의 물고기를 볼 수 있는 커맨드</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run ~|-|it ~|-|~|-|rm danielkraic/asciiquarium:latest
-</code></pre></div></div>
-<ul>
-  <li>it : -i, -t 를 동시에 사용한 옵션입니다. 사용자와 컨테이너 간에 인터렉션(interaction)이 필요하다면 이 옵션을 사용합니다. 이 예제에서는 출력되는 화면을 사용자가 지속적으로 보기 위해서 사용하였습니다. 예를 들어 Python 명령이 필요하거나 추가로 다른 입력을 받는다면, 이 옵션을 지정한 뒤 사용합니다.</li>
-</ul>
-
-<h1 id="docker-cli2-copy-dockerfile">Docker CLI(2) - Copy, Dockerfile</h1>
-<h2 id="docker-컨테이너에-파일을-복사하기">Docker 컨테이너에 파일을 복사하기</h2>
+<h3 id="dockercompose-cli-사용">docker-compose CLI 사용</h3>
 
 <ol>
-  <li>웹서버는 도커 컨테이너로 실행</li>
-  <li>웹 서버를 구성하는 파일은 직접 만들거나 가져온 파일 구성
-    <ul>
-      <li>Pros
-        <ul>
-          <li>서버에 문제가 생기는 것을 호스트와 별개로 파악 가능</li>
-          <li>문제가 생긴 서버를 끄고, 마치 공장 초기화를 하듯 도커 이미지로 서버를 재구동할 수 있음</li>
-        </ul>
-      </li>
-    </ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker~|-|compse.yaml</code>에 정의된 이미지를 컨테이너로 <strong>실행</strong></p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose up ~|#| ~|-|d 옵션을 함께 사용하면, 컨테이너를 백그라운드로 실행할 수 있습니다.
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">docker~|-|compose.yaml</code>에 정의된 이미지를 이용해 실행된 컨테이너를 <strong>종료</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose down
+</code></pre></div>    </div>
+  </li>
+  <li>특정 이미지만 컨테이너로 실행
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose up <span class="o">{</span>특정 이미지<span class="o">}</span>
+</code></pre></div>    </div>
   </li>
 </ol>
 
-<p>로컬에 있는 파일과 도커 이미지를 연결하는 방법</p>
-<ul>
-  <li>CP : 호스트와 컨테이너 사이에 파일을 복사</li>
-  <li>Volume : 호스트와 컨테이너 사이에 공간을 마운트</li>
-</ul>
+<h1 id="요구사항">요구사항</h1>
 
-<h2 id="httpd-웹-서버">httpd 웹 서버</h2>
-
-<ol>
-  <li>clone
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/codestates/pacman~|-|canvas
-</code></pre></div>    </div>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">docker container run</code> 명령어로 httpd 를 실행</li>
-</ol>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container run ~|-|~|-|name 컨테이너_이름 ~|-|p 818:80 httpd
-</code></pre></div></div>
-<ul>
-  <li>-p 옵션은 로컬호스트의 포트와 컨테이너의 포트를 연결합니다. 2의 명령어에서 818포트가 로컬호스트의 포트이고, 80번은 컨테이너의 포트입니다.</li>
-  <li>httpd 는 일정 시간 연결 기록이 없으면, 서버 가동이 중지됩니다. 실행 중이던 도커 컨테이너가 중지되었다면, 다시 실행하세요.</li>
-  <li>
-    <p>터미널에서 1, 2의 명령어를 입력했을 때, 다음 화면처럼 터미널의 작동이 중단된 것처럼 보여도 걱정할 필요 없습니다. 정상적인 상태이므로 터미널을 종료하지 말고, 다른 터미널 창을 열어 계속해서 실습을 진행합니다.</p>
-  </li>
-  <li>컨테이너를 백그라운드에서 실행하게 해주는 -d 옵션에 대해 알아봅니다. 해당 옵션을 사용했을 때와 사용하지 않았을 때 차이점을 확인해보세요.</li>
-</ul>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">127.0.0.1:818</code> 혹은 <code class="language-plaintext highlighter-rouge">localhost:818</code> 을 통해 웹 서버가 작동하고 있는지 확인합니다.
-    <blockquote>
-      <p>It Works! 나오면 성공</p>
-    </blockquote>
-  </li>
-  <li>서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.</li>
-</ol>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container <span class="nb">cp</span> ./ 컨테이너_이름:/usr/local/apache2/htdocs/
-</code></pre></div></div>
-<p>[주의] 위의 명령어를 로컬 터미널에서 실행할 때, 위치는 pacman-canvas 디렉토리여야 합니다.</p>
-
-<h2 id="docker-이미지-만들기">Docker 이미지 만들기</h2>
-
-<p>이번에는 앞서 만들어 본 Docker Container를 이미지 파일로 변환합니다. <strong>이미지로 만들어 놓을 때의 장점</strong>은 다음과 같습니다.</p>
-<ul id="1-구동한-docker-container-를-이미지로-만드는-법">
-  <li>이전에 작업했던 내용을 다시 한 번 수행하지 않아도 됨</li>
-  <li>배포 및 관리가 유용
-    <h3 id="1-구동한-docker-container-를-이미지로-만드는-법">1. 구동한 Docker Container 를 <strong>이미지로 만드는 법</strong></h3>
-  </li>
-</ul>
+<p>두 개 이상의 도커 컨테이너를 연결하는 docker-compose를 사용해 보겠습니다.</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">docker container commit</code>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container commit 컨테이너_이름 my_pacman:1.0
-╰─<span class="nv">$ </span>docker container commit 220f6bd95e4e pacman:1.0
-</code></pre></div>    </div>
-  </li>
-</ul>
-<p align="center">[커맨드] 구동한 Docker Container를 commit </p>
-
-<ul>
-  <li>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker images
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p align="center">[커맨드] pacman 1.0 확인 </p>
-
-<ul>
-  <li>
-    <p>생성된 이미지를 900 포트에서 웹 서버로 구동</p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ~|-|~|-|name my_web2 ~|-|p 900:80 my_pacman:1.0
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p align="center">[커맨드] 900 포트에서 웹 서버로 이미지를 구동</p>
-
-<p><code class="language-plaintext highlighter-rouge">127.0.0.1:900</code> 또는 <code class="language-plaintext highlighter-rouge">localhost:900</code> 접속 !
-<img src="/assets/img/Docker/pacman.png" alt="pac" /></p>
-
-<h3 id="2-docker-image-빌드를-위한-파일-dockerfile로-만들기">2. Docker Image 빌드를 위한 파일 : Dockerfile로 만들기</h3>
-
-<p><a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a>
-Dockerfile는 이미지를 어셈블하기 위해 사용자가 명령줄에서 호출할 수 있는 모든 명령을 포함하는 텍스트 문서입니다. 이 페이지에서는 에서 사용할 수 있는 명령에 대해 설명합니다.</p>
-<ul>
-  <li>Dockerfile 을 만들고, Dockerfile 대로 이미지를 build 하는 방법입니다.</li>
-</ul>
-
-<h4 id="기본-형식">기본 형식</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ~|#| Comment
-  INSTRUCTION arguments
-</code></pre></div></div>
-
-<ul>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">FROM ARG FROM Dockerfile</code></p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN <span class="nb">echo </span>hello <span class="se">\</span>
-world
-</code></pre></div>    </div>
-  </li>
-  <li>Dockerfile로 pacman 이미지를 생성해 보세요.
+  <li>다음의 설명에 따라 <code class="language-plaintext highlighter-rouge">docker~|-|compose.yaml</code> 파일을 생성하세요.
     <ul>
-      <li>COPY 구문을 잘 살펴보세요. Dockerfile은 어디에 생성되어야 할까요?</li>
+      <li>소스 코드는 이미 작성되어 있습니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">docker~|-|compose up ~|-|d</code>을 통해 컨테이너를 구동하세요.</li>
+      <li>결과를 <code class="language-plaintext highlighter-rouge">localhost:8080</code> 혹은 <code class="language-plaintext highlighter-rouge">127.0.0.1:8080</code> 에서 확인하세요.</li>
     </ul>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM httpd:2.4 ~|#| 베이스 이미지를 httpd:2.4 로 사용합니다.
-COPY ./ /usr/local/apache2/htdocs/ 
-~|#| 호스트의 현재 경로에 있는 파일을 생성할 이미지 /usr/local/apache2/htdocs/ 에 복사합니다.
-</code></pre></div>    </div>
-    <p>(현재 경로에 있는 파일을 생성할 이미지 경로에 복사하는 명령의 Dockerfile 소스 코드)</p>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">docker build</code> 명령은, Dockerfile로 도커 이미지 파일을 생성합니다.
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| ~|-|~|-|tag 는 name:tag 형식으로 이미지를 생성할 수 있습니다.
-~|#| 지정한 경로에 있는 Dockerfile을 찾아서 빌드합니다.
-docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span class="s2">"."</span>을 명령어에 꼭 포함해야 합니다! 
-</code></pre></div>    </div>
-    <p><img src="/assets/img/Docker/dockerbuild.png" alt="docker build" /></p>
-  </li>
-  <li>생성된 이미지를 이용해 901 포트에 웹 서버 구동
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ~|-|~|-|name my_web3 ~|-|p 901:80 pacman:2.0
-</code></pre></div>    </div>
-    <p><code class="language-plaintext highlighter-rouge">127.0.0.1:901</code> 혹은 <code class="language-plaintext highlighter-rouge">localhost:901</code> 을 통해 웹 서버가 작동하고 있는지 확인합니다.</p>
   </li>
 </ul>
 
-<p><img src="/assets/img/Docker/pacman.png" alt="pacman2" /></p>
+<h1 id="quiz-3">Quiz 3</h1>
+
+<p>client와 server를 동시에 구동해 로그인 후 나타나는 단어를 확인하세요.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker~|-|compse.yaml</code>
+    <ul>
+      <li><strong><em>하나의 docker-compose에서 관리되는 컨테이너끼리는 동일한 docker network에서 구동됩니다.</em></strong><br />
+docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가 사용됩니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.8'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">nginx</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">sebcontents/client</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s1">'</span><span class="s">always'</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="s">~|-| "8080:80"</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">client</span>
+
+  <span class="na">node</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">sebcontents/server</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s1">'</span><span class="s">always'</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="s">~|-| "4999:80"</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">server</span>
+</code></pre></div></div>
+<ol>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>docker~</td>
+          <td>-</td>
+          <td>compose.yaml 혹은 docker~</td>
+          <td>-</td>
+          <td>compose.yml 파일을 위의 소스를 그대로 붙여넣어 생성합니다. 파일을 생성할 때 터미널의 위치는 무관합니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>yaml 파일이 있는 위치에서 <code class="language-plaintext highlighter-rouge">docker~|-|compose up ~|-|d</code> 명령어를 통해 yaml 파일을 실행합니다.
+<img src="/assets/img/Docker/dockerTerminal.png" alt="docker1" />
+<img src="/assets/img/Docker/dockerDesktop.png" alt="docker2" /></li>
+  <li>브라우저에서 <code class="language-plaintext highlighter-rouge">localhost:8080</code> 혹은 <code class="language-plaintext highlighter-rouge">127.0.0.1:8080</code> 에서 실행된 <strong>client 화면을 확인</strong>한 후, 로그인 합니다. 로그인 정보는 브라우저 화면을 확인하세요.
+<img src="/assets/img/Docker/login.png" alt="docker3" /></li>
+  <li>로그인 후 나오는 단어를 확인하세요. Quiz 3의 정답입니다.</li>
+</ol>
+
 
 
                 <!-- Pagination links -->
@@ -451,11 +455,20 @@ docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span clas
                         
                         
                             <li>
-                                <a href="/Docker/">
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker</h3>
+                                    <h3>Docker Image 다루기 1</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Docker-CLI-Part1/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Docker CLI</h3>
                                 </a>
                             </li>
                         
@@ -468,15 +481,6 @@ docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span clas
                                 </a>
                             </li>
                         
-                            <li>
-                                <a href="/YAML/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
-                                    
-                                    <h3>YAML</h3>
-                                </a>
-                            </li>
-                        
                     </ul>
                 </aside>
             
@@ -485,7 +489,7 @@ docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span clas
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="5">
+            <div class="time-bar" data-minutes="4">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -527,11 +531,11 @@ docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span clas
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.&quot;%20http://localhost:4000/Docker-CLI/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI&quot;%20http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-CLI/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -554,7 +558,7 @@ docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span clas
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Docker-CLI/';
+        var disqus_url = '/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -698,257 +702,261 @@ docker build ~|-|~|-|tag my_pacman:2.0 <span class="nb">.</span> ~|#| <span clas
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Docker CLI",
-            "headline": "Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.",
-            "description": "Docker Image 및 Container를 다루기 위한 Docker Command Line 명령어를 알아본다.",
+            "name": "Docker Image 다루기 2 ",
+            "headline": "Sprint - Docker Image - II",
+            "description": "두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/Docker-CLI/",
+            "url": "http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/",
             "articleBody": "
 
-Docker CLI
+Getting Started
 
 
-  필독 : Docker docs
+  nginx 이미지를 기반으로 한 sebcontents/client 이미지를 이용하여 client 컨테이너를 생성합니다.
+  node 이미지를 기반으로 한 sebcontents/server 이미지를 이용하여 server 컨테이너를 생성합니다.
+
+  이번 실습에서는 localhost 의 8080 번 포트로 접속하면, sebcontents/client 이미지를 이용해 배포한 client 컨테이너의 80 번 포트로 연결됩니다.
+  위 그림은 매우 간략하게 표현되어 있습니다. 도커 네트워크에 대해서 좀 더 궁금하시다면 docker network, docker bridge 를 검색해 더 많은 정보를 찾을 수 있습니다
+
+
+docker-compose CLI
+
+docker-compose CLI
+아래 명령어로 Docker 컨테이너에서 여러 서비스를 빌드하고 관리
+docker compose [~|-|f ~|&amp;lt;|arg&amp;gt;...] [options] [COMMAND] [ARGS...]
+
+
+
+  
     
-      사용법 : Docker CLI, Docker-Compose CLI, API Reference
-      환경 및 빌드 파일 구성 : DockerFile, Docker-Compose File
+      Command
+      Description
+    
+  
+  
+    
+      build
+      Build or rebuild services
+    
+    
+      bundle
+      Generate a Docker bundle from the Compose file
+    
+    
+      config
+      Validate and view the Compose file
+    
+    
+      create
+      Create services
+    
+    
+      down
+      Stop and remove containers, networks, images, and volumes
+    
+    
+      events
+      Receive real time events from containers
+    
+    
+      exec
+      Execute a command in a running container
+    
+    
+      help
+      Get help on a command
+    
+    
+      images
+      List images
+    
+    
+      kill
+      Kill containers
+    
+    
+      logs
+      View output from containers
+    
+    
+      pause
+      Pause services
+    
+    
+      port
+      Print the public port for a port binding
+    
+    
+      ps
+      List containers
+    
+    
+      pull
+      Pull service images
+    
+    
+      push
+      Push service images
+    
+    
+      restart
+      Restart services
+    
+    
+      rm
+      Remove stopped containers
+    
+    
+      run
+      Run a one-off command
+    
+    
+      scale
+      Set number of containers for a service
+    
+    
+      start
+      Start services
+    
+    
+      stop
+      Stop services
+    
+    
+      top
+      Display the running processes
+    
+    
+      unpause
+      Unpause services
+    
+    
+      up
+      Create and start containers
+    
+    
+      version
+      Show the Docker Compose version information
     
   
 
 
-사용법
+~|-|f 하나 이상의 Compose 파일의 이름과 경로 지정
+여러 Compose 파일 지정
 
-docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]
-
-Docker docs
-OPTIONS
-COMMAND
-Related COMMAND
-
-Docker 이용하기
+docker compose ~|-|f docker~|-|compose.yml ~|-|f docker-compose.admin.yml run backup_db
 
 
- [그림] 이미지 구분 
-
-
-  Registry
+  docker~|-|compose.yml로 지정할 수 있다.
+    webapp:
+  image: examples/web
+  ports:
+    ~|-| &quot;8000:8000&quot;
+  volumes:
+    ~|-| &quot;/data&quot;
     
-      도커 이미지 관리 공간
-      기본 레지스트리 : Docker Hub
-      레지스트리 구분 : Docker Hub, Private Docker Hub, 회사 내부용 레지스트리
-    
+    여러 Compose 파일을 사용하는 경우 파일의 모든 경로는 로 지정된 첫 번째 구성 파일에 상대적입니다 ~|-|f. --project-directory옵션을 사용하여 이 기본 경로를 재정의 할 수 있습니다 .
   
-  Repository ( Github Rep와 비슷하다. )
-    
-      레지스트리 내 도커 이미지가 저장되는 공간
-      이미지 이름으로 사용도 함
-    
-  
-  Tag
-    
-      이미지를 설명하는 버전 정보
-      기본 태그 : latest
+
+
+단일 Compose 파일에 대한 경로 지정
+
+플래그를 사용하여 명령줄에서 또는 셸 또는 환경 파일에서 COMPOSE_FILE 환경 변수를 ~|-|f 설정하여 
+현재 디렉터리에 없는 Compose 파일의 경로를 지정할 수 있습니다.
+
+
+  어디서나 서비스 에 대한 postgres 이미지를 가져오기 위해 docker compose pull 과 같은 명령을 사용할 수 있습니다 .
+    docker compose ~|-|f ~/sandbox/rails/docker~|-|compose.yml pull db
     
   
 
 
-위의 설명을 토대로 docker/whalesay:latest를 읽어보자
+docker-compose CLI 사용
 
 
-  Registry Account : docker
-  Repository Name : whalesay
-  Tag : latest
+  
+    docker~|-|compse.yaml에 정의된 이미지를 컨테이너로 실행
 
-
-Docker Example 수행 ( docker/whalesay )
-
-docker image pull docker/whalesay:latest
-docker image ls
-
-
-
-받아온 이미지 실행
-
-docker container run ~|-|~|-|name whaleasy docker/whalesay:latest cowsay boo
-
-
-
-컨테이너 리스트 출력
-
-docker container ps ~|-|a
-
-
-
-컨테이너 삭제
-
-docker container rm 컨테이너_이름
-
-
-내 환경에서 docker image rm docker/whalesay 실행 오류가 나왔다.
-
-  Error response from daemon: conflict: unable to remove repository reference “docker/whalesay” (must force) - container 44103ad9eed0 is using its referenced image 6b362a9f73eb
-
-
-docker stop 44103ad9eed0 ~|#| 정지
-docker rm 44103ad9eed0 ~|#| 삭제
-
-
-터널에서 수족관의 물고기를 볼 수 있는 커맨드
-docker container run ~|-|it ~|-|~|-|rm danielkraic/asciiquarium:latest
-
-
-  it : -i, -t 를 동시에 사용한 옵션입니다. 사용자와 컨테이너 간에 인터렉션(interaction)이 필요하다면 이 옵션을 사용합니다. 이 예제에서는 출력되는 화면을 사용자가 지속적으로 보기 위해서 사용하였습니다. 예를 들어 Python 명령이 필요하거나 추가로 다른 입력을 받는다면, 이 옵션을 지정한 뒤 사용합니다.
-
-
-Docker CLI(2) - Copy, Dockerfile
-Docker 컨테이너에 파일을 복사하기
-
-
-  웹서버는 도커 컨테이너로 실행
-  웹 서버를 구성하는 파일은 직접 만들거나 가져온 파일 구성
+     docker~|-|compose up ~|#| ~|-|d 옵션을 함께 사용하면, 컨테이너를 백그라운드로 실행할 수 있습니다.
     
-      Pros
+  
+  docker~|-|compose.yaml에 정의된 이미지를 이용해 실행된 컨테이너를 종료
+     docker~|-|compose down
+    
+  
+  특정 이미지만 컨테이너로 실행
+     docker~|-|compose up {특정 이미지}
+    
+  
+
+
+요구사항
+
+두 개 이상의 도커 컨테이너를 연결하는 docker-compose를 사용해 보겠습니다.
+
+
+  다음의 설명에 따라 docker~|-|compose.yaml 파일을 생성하세요.
+    
+      소스 코드는 이미 작성되어 있습니다.
+      docker~|-|compose up ~|-|d을 통해 컨테이너를 구동하세요.
+      결과를 localhost:8080 혹은 127.0.0.1:8080 에서 확인하세요.
+    
+  
+
+
+Quiz 3
+
+client와 server를 동시에 구동해 로그인 후 나타나는 단어를 확인하세요.
+
+  docker~|-|compse.yaml
+    
+      하나의 docker-compose에서 관리되는 컨테이너끼리는 동일한 docker network에서 구동됩니다.
+docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가 사용됩니다.
+    
+  
+
+
+version: '3.8'
+
+services:
+  nginx:
+    image: sebcontents/client
+    restart: 'always'
+    ports:
+      ~|-| &quot;8080:80&quot;
+    container_name: client
+
+  node:
+    image: sebcontents/server
+    restart: 'always'
+    ports:
+      ~|-| &quot;4999:80&quot;
+    container_name: server
+
+
+  
+    
+      
         
-          서버에 문제가 생기는 것을 호스트와 별개로 파악 가능
-          문제가 생긴 서버를 끄고, 마치 공장 초기화를 하듯 도커 이미지로 서버를 재구동할 수 있음
+          docker~
+          -
+          compose.yaml 혹은 docker~
+          -
+          compose.yml 파일을 위의 소스를 그대로 붙여넣어 생성합니다. 파일을 생성할 때 터미널의 위치는 무관합니다.
         
       
     
   
+  yaml 파일이 있는 위치에서 docker~|-|compose up ~|-|d 명령어를 통해 yaml 파일을 실행합니다.
 
 
-로컬에 있는 파일과 도커 이미지를 연결하는 방법
+  브라우저에서 localhost:8080 혹은 127.0.0.1:8080 에서 실행된 client 화면을 확인한 후, 로그인 합니다. 로그인 정보는 브라우저 화면을 확인하세요.
 
-  CP : 호스트와 컨테이너 사이에 파일을 복사
-  Volume : 호스트와 컨테이너 사이에 공간을 마운트
-
-
-httpd 웹 서버
-
-
-  clone
-    git clone https://github.com/codestates/pacman~|-|canvas
-    
-  
-  docker container run 명령어로 httpd 를 실행
-
-
-docker container run ~|-|~|-|name 컨테이너_이름 ~|-|p 818:80 httpd
-
-
-  -p 옵션은 로컬호스트의 포트와 컨테이너의 포트를 연결합니다. 2의 명령어에서 818포트가 로컬호스트의 포트이고, 80번은 컨테이너의 포트입니다.
-  httpd 는 일정 시간 연결 기록이 없으면, 서버 가동이 중지됩니다. 실행 중이던 도커 컨테이너가 중지되었다면, 다시 실행하세요.
-  
-    터미널에서 1, 2의 명령어를 입력했을 때, 다음 화면처럼 터미널의 작동이 중단된 것처럼 보여도 걱정할 필요 없습니다. 정상적인 상태이므로 터미널을 종료하지 말고, 다른 터미널 창을 열어 계속해서 실습을 진행합니다.
-  
-  컨테이너를 백그라운드에서 실행하게 해주는 -d 옵션에 대해 알아봅니다. 해당 옵션을 사용했을 때와 사용하지 않았을 때 차이점을 확인해보세요.
-
-
-
-  127.0.0.1:818 혹은 localhost:818 을 통해 웹 서버가 작동하고 있는지 확인합니다.
-    
-      It Works! 나오면 성공
-    
-  
-  서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.
-
-
-docker container cp ./ 컨테이너_이름:/usr/local/apache2/htdocs/
-
-[주의] 위의 명령어를 로컬 터미널에서 실행할 때, 위치는 pacman-canvas 디렉토리여야 합니다.
-
-Docker 이미지 만들기
-
-이번에는 앞서 만들어 본 Docker Container를 이미지 파일로 변환합니다. 이미지로 만들어 놓을 때의 장점은 다음과 같습니다.
-
-  이전에 작업했던 내용을 다시 한 번 수행하지 않아도 됨
-  배포 및 관리가 유용
-    1. 구동한 Docker Container 를 이미지로 만드는 법
-  
-
-
-
-  docker container commit
-    docker container commit 컨테이너_이름 my_pacman:1.0
-╰─$ docker container commit 220f6bd95e4e pacman:1.0
-    
-  
-
-[커맨드] 구동한 Docker Container를 commit 
-
-
-  
-      docker images
-    
-  
-
-
-[커맨드] pacman 1.0 확인 
-
-
-  
-    생성된 이미지를 900 포트에서 웹 서버로 구동
-
-    docker run ~|-|~|-|name my_web2 ~|-|p 900:80 my_pacman:1.0
-    
-  
-
-
-[커맨드] 900 포트에서 웹 서버로 이미지를 구동
-
-127.0.0.1:900 또는 localhost:900 접속 !
-
-
-2. Docker Image 빌드를 위한 파일 : Dockerfile로 만들기
-
-https://docs.docker.com/engine/reference/builder/
-Dockerfile는 이미지를 어셈블하기 위해 사용자가 명령줄에서 호출할 수 있는 모든 명령을 포함하는 텍스트 문서입니다. 이 페이지에서는 에서 사용할 수 있는 명령에 대해 설명합니다.
-
-  Dockerfile 을 만들고, Dockerfile 대로 이미지를 build 하는 방법입니다.
-
-
-기본 형식
-
-  ~|#| Comment
-  INSTRUCTION arguments
-
-
-
-  
-    FROM ARG FROM Dockerfile
-
-    RUN echo hello \
-world
-    
-  
-  Dockerfile로 pacman 이미지를 생성해 보세요.
-    
-      COPY 구문을 잘 살펴보세요. Dockerfile은 어디에 생성되어야 할까요?
-    
-
-    FROM httpd:2.4 ~|#| 베이스 이미지를 httpd:2.4 로 사용합니다.
-COPY ./ /usr/local/apache2/htdocs/ 
-~|#| 호스트의 현재 경로에 있는 파일을 생성할 이미지 /usr/local/apache2/htdocs/ 에 복사합니다.
-    
-    (현재 경로에 있는 파일을 생성할 이미지 경로에 복사하는 명령의 Dockerfile 소스 코드)
-  
-  docker build 명령은, Dockerfile로 도커 이미지 파일을 생성합니다.
-    ~|#| ~|-|~|-|tag 는 name:tag 형식으로 이미지를 생성할 수 있습니다.
-~|#| 지정한 경로에 있는 Dockerfile을 찾아서 빌드합니다.
-docker build ~|-|~|-|tag my_pacman:2.0 . ~|#| &quot;.&quot;을 명령어에 꼭 포함해야 합니다! 
-    
-    
-  
-  생성된 이미지를 이용해 901 포트에 웹 서버 구동
-    docker run ~|-|~|-|name my_web3 ~|-|p 901:80 pacman:2.0
-    
-    127.0.0.1:901 혹은 localhost:901 을 통해 웹 서버가 작동하고 있는지 확인합니다.
-  
-
+  로그인 후 나오는 단어를 확인하세요. Quiz 3의 정답입니다.
 
 
 ",
-            "wordcount": "980",
+            "wordcount": "764",
             "inLanguage": "ko",
             "dateCreated": "2023-04-12/",
             "datePublished": "2023-04-12/",

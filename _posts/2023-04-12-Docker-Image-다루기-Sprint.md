@@ -1,9 +1,9 @@
 ---
 date: 2023-04-12 01:48:32
 layout: post
-title: "Docker Image 다루기"
+title: "Docker Image 다루기 1"
 subtitle: Sprint - Docker Image - I
-description: 한 개의 Docker Image를 다루는 방식을 연습합니다.
+description: 한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png
 category: docker
@@ -25,7 +25,8 @@ paginate: true
 
 --page-break--  
 
-# Quiz 1: 브라우저 속 게임 화면의 특정 단어를 확인하세요.
+# Quiz 1
+브라우저 속 게임 화면의 특정 단어를 확인하세요.
 - 이미지는 ```sebcontents/part1```을 이용해야 합니다. 태그는 latest 입니다.
   ```bash
   docker pull sebcontents/part1:latest
@@ -74,6 +75,7 @@ CMD ["npm", "start"]
   ```bash
   docker build -t game_container .
   ```
+  
 
 > ```127.0.0.1:3000``` 혹은 ```localhost:3000``` 실행 
 - 게임 실행 후 다음 그림의 빨간 박스에 들어갈 단어가 무엇인지 확인하세요. Quiz 1의 정답입니다.
@@ -95,3 +97,55 @@ docker rmi $(docker images -q) --force
 ```
 
 # 다시 실행해보자
+```bash
+docker run --name gamecontainer1 -d -p 3000:80 sebcontents/part1
+```
+> It Works! 나오면 성공
+
+서버가 정상적으로 열린 것을 확인한 후, 새로운 터미널을 열어 docker container cp 명령어를 입력해 로컬호스트에 있는 파일을 컨테이너에 전달합니다.
+
+```bash
+docker container cp ./ gamecontainer1:/usr/local/apache2/htdocs/
+```
+![game](/assets/img/Docker/game.png)
+
+
+# Quiz2
+- 컨테이너 속 txt 파일 안에 있는 단어를 확인하세요.
+- docker exec 명령어를 이용해 실습을 진행합니다.
+- 터미널을 열어 다음 명령어를 입력합니다.
+  ```bash
+  docker exec -it 컨테이너_이름 bash
+  ```
+  위 명령어를 입력하면 컨테이너 안에서 bash shell을 실행할 수 있습니다.
+  ```bash
+  root@538de4e5e997:/usr/local/apache2#
+  ```
+1.  ```cd/``` 를 통해 루트 디렉토리로 이동
+    ```bash
+    root@538de4e5e997:/usr/local/apache2# cd /
+    root@538de4e5e997:/#
+    ```
+2. ls 명령어를 입력하여 루트 디렉토리에 data 폴더가 존재하는지 확인합니다.
+    ```bash  
+      root@538de4e5e997:/# ls
+      bin   data  etc   lib	 mnt  proc  run   srv  tmp  var
+      boot  dev   home  media  opt  root  sbin  sys  usr
+    ```
+3. data 폴더로 이동하여 ls 명령어를 입력합니다. quiz2.txt 파일이 존재하는지 확인합니다.
+    ```bash
+      root@538de4e5e997:/# cd data
+      root@538de4e5e997:/data# ls
+      quiz2.txt
+    ```
+4. 명령어 apt update 와 apt install nano 를 입력해 nano 텍스트 에디터를 설치합니다.
+
+    ```bash
+    root@538de4e5e997:/data# apt update
+    root@538de4e5e997:/data# apt install nano
+    ```
+5. nano quiz2.txt 명령어를 입력해 quiz2.txt 파일 안에 적힌 단어를 확인합니다. Quiz 2의 정답입니다.
+
+    > ```exit``` 으로 나온다.
+
+
