@@ -31,10 +31,10 @@
 # ----------------------------------------------------------------
 POST_TITLE="${@:2:$(($#-1))}"
 POST_NAME="$(echo ${@:2:$(($#-1))} | sed -e 's/ /-/g' | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/")"
-CURRENT_DATE="$(date -u +'%Y-%m-%d')"
-TIME=$(date -u +"%T")
+CURRENT_DATE="$(TZ=Asia/Seoul date +'%Y-%m-%d')"
+TIME=$(TZ=Asia/Seoul date +"%T")
 FILE_NAME="${CURRENT_DATE}-${POST_NAME}.md"
-# ----------------------------------------------------------------
+------------------
 
 
 # SETTINGS: your configuration goes here

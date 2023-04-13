@@ -115,6 +115,20 @@
     
     
         <url>
+            <loc>http://localhost:4000/Docker-Compose/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-13</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-12</lastmod>
+        </url>
+    
+        <url>
             <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
@@ -130,13 +144,6 @@
     
         <url>
             <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/2/</loc>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-            <lastmod>2023-04-12</lastmod>
-        </url>
-    
-        <url>
-            <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-12</lastmod>

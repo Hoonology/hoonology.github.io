@@ -17,16 +17,16 @@
     
     
 
-    <title>Docker | Hoonology</title>
-    <meta name="description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <title>Docker Compose 실행 및 풀스택 앱 컨테이너화 | Hoonology</title>
+    <meta name="description" content="한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.">
     
-        <meta name="keywords" content="Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, 도커이미지">
+        <meta name="keywords" content="Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, 도커이미지, 앱컨테이너화, Docker_Compose">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Docker | Hoonology">
-    <meta name="twitter:description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <meta name="twitter:title" content="Docker Compose 실행 및 풀스택 앱 컨테이너화 | Hoonology">
+    <meta name="twitter:description" content="한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.">
 
     
         <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
@@ -35,10 +35,10 @@
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/Docker/">
-    <meta property="og:title" content="Docker | Hoonology">
+    <meta property="og:url" content="http://localhost:4000/Docker-Compose/">
+    <meta property="og:title" content="Docker Compose 실행 및 풀스택 앱 컨테이너화 | Hoonology">
     <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-    <meta property="og:description" content="도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.">
+    <meta property="og:description" content="한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoonology's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/Docker/">
+    <link rel="canonical" href="http://localhost:4000/Docker-Compose/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoonology's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -170,103 +170,150 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-11T16:15:19+09:00">
+                        <time class="date" datetime="2023-04-13T09:00:32+09:00">
                             
 
 
-April 11, 2023
+April 13, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>2 min to read</span>
                 </p>
-                <h1 class="post-title">Docker</h1>
-                <p class="post-subtitle">도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다</p>
+                <h1 class="post-title">Docker Compose 실행 및 풀스택 앱 컨테이너화</h1>
+                <p class="post-subtitle">Application Container & Docker Compose</p>
 
+                
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
-
-    
-    <div class="pagination pagination-post ">
-        
-            <a href="/Docker/9/">
-                
-                    
-    <div class="progress-bar ">
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar completed"></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-            <div class="bar "></div>
-        
-        <svg class="star"><use xlink:href="#icon-star"></use></svg>
-    </div>
-
-
-                
-                <span class="text">Next Page <svg class="arrow"><use xlink:href="#icon-arrow-right"></use></svg></span>
-            </a>
-        
-    </div>
 
 
 
                 <!-- Add your table of contents here -->
 
 
-                
-<h1 id="quiz-27">Quiz (2/7)</h1>
-<h2 id="2-도커에서-컨테이너의-역할은-무엇인가요">2. 도커에서 컨테이너의 역할은 무엇인가요?</h2>
+                <h1 id="풀스택-앱-컨테이너화와-docker-compose를-이용한-실행">풀스택 앱 컨테이너화와 Docker Compose를 이용한 실행</h1>
 
-<p>A.
-컨테이너는 도커를 위한 가상 머신(VM)이다.</p>
+<p>풀스택 애플리케이션은 다음 아키텍처로 구성되어 있습니다.</p>
 
-<p><strong><em>B.컨테이너는 도커에 의해 관리/제공되는 (도커가 호스팅하는) 애플리케이션 단위이다.</em></strong></p>
+<p><img src="/assets/img/Docker/80.png" alt="80" /></p>
+<ul>
+  <li>rontend 디렉토리에 있는 파일이 이미지로 빌드되어야 합니다.
+    <ul>
+      <li>Apache HTTP Server (httpd:2.4)를 base image로 삼아야 합니다.</li>
+      <li>컨테이너 내 80포트로 접속시, frontend/index.html이 표시되어야 합니다.</li>
+      <li>frontend/Dockerfile을 채워넣으세요.</li>
+    </ul>
+  </li>
+  <li>backend 디렉토리에 있는 파일이 이미지로 빌드되어야 합니다.
+    <ul>
+      <li>Node.js 이미지 (node:16-alpine) 를 base image로 삼아야 합니다.</li>
+      <li>컨테이너 내 80포트로 접속시, hello from server가 응답으로 표시되어야 합니다.</li>
+      <li>backend/Dockerfile을 채워넣으세요.</li>
+    </ul>
+  </li>
+  <li>docker-compose.yml 파일을 통해 두 이미지가 동시에 실행되어야 합니다.
+    <ul>
+      <li>두 이미지는 아키텍처에 표시되어 있는 포트 번호로 서로 통신할 수 있어야 합니다.</li>
+      <li>frontend는 backend에 의존성을 가집니다.</li>
+      <li>docker-compose.yml을 채워넣으세요.</li>
+    </ul>
+  </li>
+</ul>
 
-<p>C.
-컨테이너는 도커 이미지를 포함하는 데 사용된다.</p>
+<h2 id="실행">실행</h2>
 
-<p><br />
-<br />
-<br />
-<br /></p>
+<p><code class="language-plaintext highlighter-rouge">docker compose up</code> 으로 실행한 후, http://localhost 로 접속하세요.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>frontend | nano Dockerfile
+~|#| 아래 입력
 
+~|#| Apache HTTP server 이미지를 바탕으로 컨테이너를 실행한 후
+~|#| http://localhost로 접속했을 때 index.html이 표시되게 만드세요
+
+
+FROM httpd:2.4
+
+COPY ./ /usr/local/apache2/htdocs/
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker~|-|compose up
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>backend | nano Dockerfile
+
+~|#| node.js 이미지를 바탕으로 컨테이너를 실행한 후
+~|#| http://localhost:3333으로 접속했을 때 hello from server 메시지가 표시되게 만드세요
+
+~|#| 아래 입력
+
+FROM node:16~|-|alpine
+
+WORKDIR /usr/src/app
+
+COPY package<span class="k">*</span>.json ./
+
+RUN npm <span class="nb">install
+
+</span>COPY <span class="nb">.</span> <span class="nb">.</span>
+
+EXPOSE 80
+
+CMD <span class="o">[</span> <span class="s2">"node"</span>, <span class="s2">"app.js"</span> <span class="o">]</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| docker compose 파일을 완성하고
+~|#| http://localhost로 접속했을 때 서버로부터 온 메시지가 표시되게 만드세요
+
+version: <span class="s2">"3.0"</span>
+
+services:
+  apache2:
+    image: frontend
+    restart: <span class="s1">'always'</span>
+    ports:
+      ~|-| <span class="s2">"80:80"</span>
+    container_name: frontend_client
+
+  node:
+    image: backend
+    restart: <span class="s1">'always'</span>
+    ports:
+      ~|-| <span class="s2">"3333:80"</span>
+    container_name: backend_server
+</code></pre></div></div>
+
+<h2 id="뭔가-바꾼-것을-적용하고-싶을-때">뭔가 바꾼 것을 적용하고 싶을 때</h2>
+
+<p><code class="language-plaintext highlighter-rouge">docker compose build</code> 후 <code class="language-plaintext highlighter-rouge">docker compose up</code>을 실행하세요.</p>
+
+<p><br /></p>
+
+<h1 id="계속-compose-up이-안된-이유">계속 compose up이 안된 이유</h1>
+
+<ol>
+  <li>우선, <code class="language-plaintext highlighter-rouge">docker~|-|compose up</code> 을 하려면, 루트디렉토리에서 실행한다.</li>
+  <li>frontend, backend 디렉토리에 있는 Dockerfile을 손본 뒤, build를 해준다.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  docker build ~|-|t frontend <span class="nb">.</span>
+  docker build ~|-|t backend <span class="nb">.</span>
+</code></pre></div>    </div>
+  </li>
+  <li>최종적으로 루트 디렉토리에 가서 아래와 같이 실행
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose build
+docker~|-|compose up
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><img src="/assets/img/Docker/composeup.png" alt="compose" /></p>
+
+<h2 id="종료">종료</h2>
+
+<p><code class="language-plaintext highlighter-rouge">docker compose down</code> 으로 종료하세요.</p>
 
 
                 <!-- Pagination links -->
-
-    
-    <div class="pagination pagination-post ">
-        
-            <a href="/Docker/9/">
-                
-                <span class="text">Next Page <svg class="arrow"><use xlink:href="#icon-arrow-right"></use></svg></span>
-            </a>
-        
-    </div>
 
 
             </article>
@@ -279,20 +326,11 @@ April 11, 2023
                         
                         
                             <li>
-                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
+                                <a href="/Docker/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker Image 다루기 1</h3>
+                                    <h3>Docker</h3>
                                 </a>
                             </li>
                         
@@ -305,6 +343,15 @@ April 11, 2023
                                 </a>
                             </li>
                         
+                            <li>
+                                <a href="/Docker-CLI-Part1/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Docker CLI</h3>
+                                </a>
+                            </li>
+                        
                     </ul>
                 </aside>
             
@@ -312,6 +359,37 @@ April 11, 2023
         </section>
 
         <!-- Add time bar only for pages without pagination -->
+        
+            <div class="time-bar" data-minutes="2">
+    <span class="time-completed"></span>
+    <span class="time-remaining"></span>
+    <div class="bar">
+        <span class="completed" style="width:0%;"></span>
+        <span class="remaining" style="width:100%;"></span>
+    </div>
+</div>
+
+            <div class="recommendation">
+    <div class="message">
+        <strong>Why don't you read something next?</strong>
+        <div>
+            <button>
+                <svg><use xlink:href="#icon-arrow-right"></use></svg>
+                <span>Go back to top</span>
+            </button>
+        </div>
+    </div>
+    
+    <a href="/YAML/" class="post-preview">
+        <div class="image">
+            
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+            
+        </div>
+        <h3 class="title">YAML</h3>
+    </a>
+</div>
+
         
 
         <!-- Show modal if the post is the last one -->
@@ -324,11 +402,11 @@ April 11, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.&quot;%20http://localhost:4000/Docker/8/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.&quot;%20http://localhost:4000/Docker-Compose/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지,앱컨테이너화,Docker_Compose"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker/8/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-Compose/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -351,7 +429,7 @@ April 11, 2023
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Docker/8/';
+        var disqus_url = '/Docker-Compose/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -495,34 +573,133 @@ April 11, 2023
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Docker",
-            "headline": "도커의 필요성 - 컨테이너 방식으로 애플리케이션을 실행한다",
-            "description": "도커의 필요성 - 실행 환경에 구애받지 않고 애플리케이션을 실행할 수 있다.",
+            "name": "Docker Compose 실행 및 풀스택 앱 컨테이너화",
+            "headline": "Application Container & Docker Compose",
+            "description": "한 개의 Docker Image를 다루는 방식을 연습합니다. 컨테이너와 이미지에 대한 이해를 합니다.",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/Docker/8/",
-            "articleBody": "
-Quiz (2/7)
-2. 도커에서 컨테이너의 역할은 무엇인가요?
+            "url": "http://localhost:4000/Docker-Compose/",
+            "articleBody": "풀스택 앱 컨테이너화와 Docker Compose를 이용한 실행
 
-A.
-컨테이너는 도커를 위한 가상 머신(VM)이다.
-
-B.컨테이너는 도커에 의해 관리/제공되는 (도커가 호스팅하는) 애플리케이션 단위이다.
-
-C.
-컨테이너는 도커 이미지를 포함하는 데 사용된다.
+풀스택 애플리케이션은 다음 아키텍처로 구성되어 있습니다.
 
 
 
+  rontend 디렉토리에 있는 파일이 이미지로 빌드되어야 합니다.
+    
+      Apache HTTP Server (httpd:2.4)를 base image로 삼아야 합니다.
+      컨테이너 내 80포트로 접속시, frontend/index.html이 표시되어야 합니다.
+      frontend/Dockerfile을 채워넣으세요.
+    
+  
+  backend 디렉토리에 있는 파일이 이미지로 빌드되어야 합니다.
+    
+      Node.js 이미지 (node:16-alpine) 를 base image로 삼아야 합니다.
+      컨테이너 내 80포트로 접속시, hello from server가 응답으로 표시되어야 합니다.
+      backend/Dockerfile을 채워넣으세요.
+    
+  
+  docker-compose.yml 파일을 통해 두 이미지가 동시에 실행되어야 합니다.
+    
+      두 이미지는 아키텍처에 표시되어 있는 포트 번호로 서로 통신할 수 있어야 합니다.
+      frontend는 backend에 의존성을 가집니다.
+      docker-compose.yml을 채워넣으세요.
+    
+  
+
+
+실행
+
+docker compose up 으로 실행한 후, http://localhost 로 접속하세요.
+cd frontend | nano Dockerfile
+~|#| 아래 입력
+
+~|#| Apache HTTP server 이미지를 바탕으로 컨테이너를 실행한 후
+~|#| http://localhost로 접속했을 때 index.html이 표시되게 만드세요
+
+
+FROM httpd:2.4
+
+COPY ./ /usr/local/apache2/htdocs/
+
+
+docker~|-|compose up
+
+cd backend | nano Dockerfile
+
+~|#| node.js 이미지를 바탕으로 컨테이너를 실행한 후
+~|#| http://localhost:3333으로 접속했을 때 hello from server 메시지가 표시되게 만드세요
+
+~|#| 아래 입력
+
+FROM node:16~|-|alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 80
+
+CMD [ &quot;node&quot;, &quot;app.js&quot; ]
+
+
+~|#| docker compose 파일을 완성하고
+~|#| http://localhost로 접속했을 때 서버로부터 온 메시지가 표시되게 만드세요
+
+version: &quot;3.0&quot;
+
+services:
+  apache2:
+    image: frontend
+    restart: 'always'
+    ports:
+      ~|-| &quot;80:80&quot;
+    container_name: frontend_client
+
+  node:
+    image: backend
+    restart: 'always'
+    ports:
+      ~|-| &quot;3333:80&quot;
+    container_name: backend_server
+
+
+뭔가 바꾼 것을 적용하고 싶을 때
+
+docker compose build 후 docker compose up을 실행하세요.
 
 
 
+계속 compose up이 안된 이유
+
+
+  우선, docker~|-|compose up 을 하려면, 루트디렉토리에서 실행한다.
+  frontend, backend 디렉토리에 있는 Dockerfile을 손본 뒤, build를 해준다.
+      docker build ~|-|t frontend .
+  docker build ~|-|t backend .
+    
+  
+  최종적으로 루트 디렉토리에 가서 아래와 같이 실행
+    docker compose build
+docker~|-|compose up
+    
+  
+
+
+
+
+종료
+
+docker compose down 으로 종료하세요.
 ",
-            "wordcount": "38",
+            "wordcount": "366",
             "inLanguage": "ko",
-            "dateCreated": "2023-04-11/",
-            "datePublished": "2023-04-11/",
-            "dateModified": "2023-04-11/",
+            "dateCreated": "2023-04-13/",
+            "datePublished": "2023-04-13/",
+            "dateModified": "2023-04-13/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -549,7 +726,7 @@ C.
             "mainEntityOfPage": "True",
             "genre": "docker",
             "articleSection": "docker",
-            "keywords": ["Docker","nginx","postgresql","컨테이너","DockerCLI","CLI","도커이미지"]
+            "keywords": ["Docker","nginx","postgresql","컨테이너","DockerCLI","CLI","도커이미지","앱컨테이너화","Docker_Compose"]
         }
         </script>
        </body>

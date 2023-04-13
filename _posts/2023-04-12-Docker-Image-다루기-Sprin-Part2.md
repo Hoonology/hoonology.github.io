@@ -1,5 +1,5 @@
 ---
-date: 2023-04-12 01:48:32
+date: 2023-04-12 11:48:32
 layout: post
 title: "Docker Image 다루기 2 "
 subtitle: Sprint - Docker Image - II
@@ -15,6 +15,7 @@ tags:
   - DockerCLI
   - CLI
   - 도커이미지
+  - Docker_Compose
 author: Hoonology
 paginate: true
 ---
