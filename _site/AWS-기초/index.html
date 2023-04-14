@@ -17,28 +17,28 @@
     
     
 
-    <title>Docker Image 다루기 2  | Hoonology</title>
-    <meta name="description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
+    <title>AWS 기초 | Hoonology</title>
+    <meta name="description" content="Cloud와 Deployment의 의미를 각각 알고, 서비스를 다른사람에게 배포할 수 있다.">
     
-        <meta name="keywords" content="Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, 도커이미지, Docker_Compose">
+        <meta name="keywords" content="AWS, cloud, S3, EC2, RDS">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Docker Image 다루기 2  | Hoonology">
-    <meta name="twitter:description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
+    <meta name="twitter:title" content="AWS 기초 | Hoonology">
+    <meta name="twitter:description" content="Cloud와 Deployment의 의미를 각각 알고, 서비스를 다른사람에게 배포할 수 있다.">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
-    <meta property="og:title" content="Docker Image 다루기 2  | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-    <meta property="og:description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
+    <meta property="og:url" content="http://localhost:4000/AWS-%EA%B8%B0%EC%B4%88/">
+    <meta property="og:title" content="AWS 기초 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+    <meta property="og:description" content="Cloud와 Deployment의 의미를 각각 알고, 서비스를 다른사람에게 배포할 수 있다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+    <link rel="canonical" href="http://localhost:4000/AWS-%EA%B8%B0%EC%B4%88/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-12T20:48:32+09:00">
+                        <time class="date" datetime="2023-04-14T09:00:00+09:00">
                             
 
 
-April 12, 2023
+April 14, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>4 min to read</span>
+                    <span>3 min to read</span>
                 </p>
-                <h1 class="post-title">Docker Image 다루기 2 </h1>
-                <p class="post-subtitle">Sprint - Docker Image - II</p>
+                <h1 class="post-title">AWS 기초</h1>
+                <p class="post-subtitle">AWS 기초 학습</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,253 +192,131 @@ April 12, 2023
                 <!-- Add your table of contents here -->
 
 
-                <!--more-->
-
-<h1 id="getting-started">Getting Started</h1>
-
+                <h1 id="학습-목표-및-회고">학습 목표 및 회고</h1>
 <ul>
-  <li>nginx 이미지를 기반으로 한 sebcontents/client 이미지를 이용하여 client 컨테이너를 생성합니다.</li>
-  <li>node 이미지를 기반으로 한 sebcontents/server 이미지를 이용하여 server 컨테이너를 생성합니다.
-<img src="/assets/img/Docker/docker.png" alt="docker" /></li>
-  <li>이번 실습에서는 localhost 의 8080 번 포트로 접속하면, sebcontents/client 이미지를 이용해 배포한 client 컨테이너의 80 번 포트로 연결됩니다.</li>
-  <li>위 그림은 매우 간략하게 표현되어 있습니다. 도커 네트워크에 대해서 좀 더 궁금하시다면 docker network, docker bridge 를 검색해 더 많은 정보를 찾을 수 있습니다</li>
+  <li>Cloud와 Deployment의 의미를 각각 알고, 서비스를 다른사람에게 배포할 수 있다.</li>
+  <li>클라우드 컴퓨팅이 무엇인지 설명할 수 있다.</li>
+  <li>애플리케이션 배포가 어떻게 변화되어 왔는지 이해할 수 있다.</li>
+  <li>AWS의 각 서비스가 어떤 목적에 부합하는지 이해할 수 있다.</li>
+  <li>S3의 목적과, 정적 웹 사이트 배포 방법을 이해할 수 있다.</li>
+  <li>EC2의 주요 용어를 이해할 수 있다. (AMI, 인스턴스, 인스턴스 유형, 스토리지 타입, 퍼블릭/프라이빗 IP)</li>
+  <li>EC2의 인스턴스 시작/중지/종료에 대해 이해할 수 있다.</li>
+  <li>RDS와 EC2에서의 MySQL 사용이 어떻게 다른지 이해할 수 있다.</li>
+  <li>CloudFront의 목적을 이해할 수 있다.</li>
+  <li>Auto Scaling의 특징 및 역할을 알 수 있다.</li>
+  <li>로드 밸런서 중 ELB, 그 중에서 Application Load Balancer의 목적을 이해할 수 있다.</li>
+  <li>AWS 인프라 중 VPC에 대해서 이해할 수 있다.</li>
+  <li>Route 53의 목적을 이해하고, 도메인을 연결해 HTTPS로 배포할 수 있다.</li>
+  <li>빌드 및 배포시 필요한 환경 설정을 할 수 있다.</li>
+  <li>배포 시 발생하는 문제를 이해하고 고칠 수 있다.</li>
 </ul>
 
-<h2 id="dockercompose-cli">docker-compose CLI</h2>
+<hr />
 
-<p><a href="https://docs.docker.com/compose/reference/">docker-compose CLI</a><br />
-아래 명령어로 Docker 컨테이너에서 여러 서비스를 빌드하고 관리</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose <span class="o">[</span>~|-|f ~|&lt;|arg&gt;...] <span class="o">[</span>options] <span class="o">[</span>COMMAND] <span class="o">[</span>ARGS...]
-</code></pre></div></div>
+<h1 id="cloud-computing---aws">Cloud Computing - AWS</h1>
+<h2 id="클라우드-컴퓨팅의-세가지-모델">클라우드 컴퓨팅의 세가지 모델</h2>
+<h3 id="서비스로서의-인프라iaas-서비스로서의-플랫폼paas-서비스로서의-소프트웨어saas">서비스로서의 인프라(IaaS), 서비스로서의 플랫폼(PaaS), 서비스로서의 소프트웨어(SaaS)</h3>
+<p><img src="/assets/img/AWS/3%EB%8C%80%EB%AA%A8%EB%8D%B8.png" alt="3" /></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Command</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>build</td>
-      <td>Build or rebuild services</td>
-    </tr>
-    <tr>
-      <td>bundle</td>
-      <td>Generate a Docker bundle from the Compose file</td>
-    </tr>
-    <tr>
-      <td>config</td>
-      <td>Validate and view the Compose file</td>
-    </tr>
-    <tr>
-      <td>create</td>
-      <td>Create services</td>
-    </tr>
-    <tr>
-      <td>down</td>
-      <td>Stop and remove containers, networks, images, and volumes</td>
-    </tr>
-    <tr>
-      <td>events</td>
-      <td>Receive real time events from containers</td>
-    </tr>
-    <tr>
-      <td>exec</td>
-      <td>Execute a command in a running container</td>
-    </tr>
-    <tr>
-      <td>help</td>
-      <td>Get help on a command</td>
-    </tr>
-    <tr>
-      <td>images</td>
-      <td>List images</td>
-    </tr>
-    <tr>
-      <td>kill</td>
-      <td>Kill containers</td>
-    </tr>
-    <tr>
-      <td>logs</td>
-      <td>View output from containers</td>
-    </tr>
-    <tr>
-      <td>pause</td>
-      <td>Pause services</td>
-    </tr>
-    <tr>
-      <td>port</td>
-      <td>Print the public port for a port binding</td>
-    </tr>
-    <tr>
-      <td>ps</td>
-      <td>List containers</td>
-    </tr>
-    <tr>
-      <td>pull</td>
-      <td>Pull service images</td>
-    </tr>
-    <tr>
-      <td>push</td>
-      <td>Push service images</td>
-    </tr>
-    <tr>
-      <td>restart</td>
-      <td>Restart services</td>
-    </tr>
-    <tr>
-      <td>rm</td>
-      <td>Remove stopped containers</td>
-    </tr>
-    <tr>
-      <td>run</td>
-      <td>Run a one-off command</td>
-    </tr>
-    <tr>
-      <td>scale</td>
-      <td>Set number of containers for a service</td>
-    </tr>
-    <tr>
-      <td>start</td>
-      <td>Start services</td>
-    </tr>
-    <tr>
-      <td>stop</td>
-      <td>Stop services</td>
-    </tr>
-    <tr>
-      <td>top</td>
-      <td>Display the running processes</td>
-    </tr>
-    <tr>
-      <td>unpause</td>
-      <td>Unpause services</td>
-    </tr>
-    <tr>
-      <td>up</td>
-      <td>Create and start containers</td>
-    </tr>
-    <tr>
-      <td>version</td>
-      <td>Show the Docker Compose version information</td>
-    </tr>
-  </tbody>
-</table>
+<h3 id="infrastructure-as-a-serviceiaas">Infrastructure as a Service(IaaS)</h3>
+<blockquote>
+  <p>서비스로서의 인프라</p>
+</blockquote>
 
-<h3 id="f-하나-이상의-compose-파일의-이름과-경로-지정"><code class="language-plaintext highlighter-rouge">~|-|f</code> 하나 이상의 Compose 파일의 이름과 경로 지정</h3>
-<h4 id="여러-compose-파일-지정-">여러 Compose 파일 지정</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose ~|-|f docker~|-|compose.yml ~|-|f docker-compose.admin.yml run backup_db
-</code></pre></div></div>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">docker~|-|compose.yml</code>로 지정할 수 있다.
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">webapp</span><span class="pi">:</span>
-  <span class="na">image</span><span class="pi">:</span> <span class="s">examples/web</span>
-  <span class="na">ports</span><span class="pi">:</span>
-    <span class="s">~|-| "8000:8000"</span>
-  <span class="na">volumes</span><span class="pi">:</span>
-    <span class="s">~|-| "/data"</span>
-</code></pre></div>    </div>
-    <p>여러 Compose 파일을 사용하는 경우 파일의 모든 경로는 로 지정된 첫 번째 구성 파일에 상대적입니다 <code class="language-plaintext highlighter-rouge">~|-|f. --project-directory</code>옵션을 사용하여 이 기본 경로를 재정의 할 수 있습니다 .</p>
-  </li>
+  <li>클라우드 IT를 위한 기본 빌딩 블록이 포함</li>
+  <li>일반적으로 네트워킹 기능, 컴퓨터(가상 또는 전용 하드웨어) 및 데이터 스토리지 공간에 대한 액세스를 제공</li>
+  <li>IT 리소스에 대한 최고 수준의 유연성과 관리 제어 기능을 제공</li>
 </ul>
 
-<h4 id="단일-compose-파일에-대한-경로-지정-">단일 Compose 파일에 대한 경로 지정</h4>
-
-<p>플래그를 사용하여 명령줄에서 또는 셸 또는 환경 파일에서 COMPOSE_FILE 환경 변수를 <code class="language-plaintext highlighter-rouge">~|-|f</code> 설정하여 <br />
-현재 디렉터리에 없는 Compose 파일의 경로를 지정할 수 있습니다.</p>
+<h3 id="platform-as-a-servicepaas">Platform as a Service(PaaS)</h3>
+<blockquote>
+  <p>서비스로서의 플랫폼</p>
+</blockquote>
 
 <ul>
-  <li>어디서나 서비스 에 대한 postgres 이미지를 가져오기 위해 <code class="language-plaintext highlighter-rouge">docker compose pull</code> 과 같은 명령을 사용할 수 있습니다 .
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose ~|-|f ~/sandbox/rails/docker~|-|compose.yml pull db
-</code></pre></div>    </div>
-  </li>
+  <li>기본 인프라( Hardware &amp; OS ) 관리 필요가 없다.</li>
+  <li>애플리케이션 실행과 관련된 리소스 구매, 용량 계획, 소프트웨어 유지 관리, 패치 작업 등에 부담이 없음</li>
 </ul>
 
-<h3 id="dockercompose-cli-사용">docker-compose CLI 사용</h3>
-
-<ol>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">docker~|-|compse.yaml</code>에 정의된 이미지를 컨테이너로 <strong>실행</strong></p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose up ~|#| ~|-|d 옵션을 함께 사용하면, 컨테이너를 백그라운드로 실행할 수 있습니다.
-</code></pre></div>    </div>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">docker~|-|compose.yaml</code>에 정의된 이미지를 이용해 실행된 컨테이너를 <strong>종료</strong>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose down
-</code></pre></div>    </div>
-  </li>
-  <li>특정 이미지만 컨테이너로 실행
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose up <span class="o">{</span>특정 이미지<span class="o">}</span>
-</code></pre></div>    </div>
-  </li>
-</ol>
-
-<h1 id="요구사항">요구사항</h1>
-
-<p>두 개 이상의 도커 컨테이너를 연결하는 docker-compose를 사용해 보겠습니다.</p>
+<h3 id="software-as-a-servicesaas">Software as a Service(SaaS)</h3>
+<blockquote>
+  <p>서비스로서의 소프트웨어</p>
+</blockquote>
 
 <ul>
-  <li>다음의 설명에 따라 <code class="language-plaintext highlighter-rouge">docker~|-|compose.yaml</code> 파일을 생성하세요.
+  <li>‘공급자에 의해 실행되고 관리되는 완전한 제품’</li>
+  <li>웹 기반 이메일과 같은 최종 사용자 애필리케이션</li>
+  <li>유지 관리, 기본 인프라를 관리하는 방법에 대해 생각할 필요가 없다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="클라우드-컴퓨팅-세가지-배포-모델">클라우드 컴퓨팅 세가지 배포 모델</h2>
+<h3 id="all-in-cloud">All in Cloud</h3>
+<p><strong>AWS</strong> 같은 클라우드 서비스 제공자를 통해 애플리케이션을 배포하는 방식 ( = <strong><em>퍼블릭 클라우드</em></strong> )</p>
+<ul>
+  <li>방법
     <ul>
-      <li>소스 코드는 이미 작성되어 있습니다.</li>
-      <li><code class="language-plaintext highlighter-rouge">docker~|-|compose up ~|-|d</code>을 통해 컨테이너를 구동하세요.</li>
-      <li>결과를 <code class="language-plaintext highlighter-rouge">localhost:8080</code> 혹은 <code class="language-plaintext highlighter-rouge">127.0.0.1:8080</code> 에서 확인하세요.</li>
+      <li>클라우드에서 새 애플리케이션을 개발 및 제공하는 방법</li>
+      <li>기존의 애플리케이션을 클라우드로 이전하는 방법
+        <blockquote>
+          <p>넷플릭스 ( AWS에서 데이터 센터와 스트리밍 콘텐츠 서비스 제공 )</p>
+        </blockquote>
+      </li>
     </ul>
   </li>
 </ul>
 
-<h1 id="quiz-3">Quiz 3</h1>
+<h3 id="하이브리드-클라우드">하이브리드 클라우드</h3>
+<p>애플리케이션을 제공하는 환경 : <strong><em>퍼블릭 클라우드</em></strong>,  <strong><em>온프레미스(On premise)</em></strong></p>
 
-<p>client와 server를 동시에 구동해 로그인 후 나타나는 단어를 확인하세요.</p>
+<blockquote>
+  <p>온프레미스 : 기업이 자체 시설에서 보유하고 직접 유지 관리하는 프라이빗 데이터 센터</p>
+</blockquote>
+
+<p>하이브리드 클라우드 사용 : 대부분의 기업들이 방대한 인프라와 데이터를 온프레미스 데이터 센터에 축적</p>
+<blockquote>
+  <p>두 환경을 연결하면 기존 데이터 센터의 확장 개념에서 퍼블릭 클라우드를 이용할 수 있고, 클라우드 전환 또한 쉽게 진행 가능하다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="온프레미스와-프라이빗-클라우드">온프레미스와 프라이빗 클라우드</h3>
+<h4 id="온프레미스--물리적-서버-회사나-개인이-자체적으로-보유하며-운영하는-서버">온프레미스 : 물리적 서버, 회사나 개인이 자체적으로 보유하며 운영하는 서버</h4>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">docker~|-|compse.yaml</code>
-    <ul>
-      <li><strong><em>하나의 docker-compose에서 관리되는 컨테이너끼리는 동일한 docker network에서 구동됩니다.</em></strong><br />
-docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가 사용됩니다.</li>
-    </ul>
+  <li><strong>서버를 운영</strong>하기 위해서는 <strong>유지보수</strong>, <strong>관리 인력</strong>, <strong>공간</strong> 등의 <strong>추가적인 비용</strong>들이 발생</li>
+  <li>직접 설치하는 과정에서 시공간적인 비효율 발생
+    <blockquote>
+      <p>솔루션 : 마이그레이션을 통해 온프레미스를 클라우드로 옮긴다.</p>
+    </blockquote>
   </li>
 </ul>
 
-<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.8'</span>
+<h4 id="프라이빗-클라우드">프라이빗 클라우드</h4>
+<p>외부 클라우드 사업자의 서비스를 이용하지 않고 서비스를 위한 인프라를 직접 구축</p>
 
-<span class="na">services</span><span class="pi">:</span>
-  <span class="na">nginx</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">sebcontents/client</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s1">'</span><span class="s">always'</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="s">~|-| "8080:80"</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">client</span>
+<h4 id="차이점--클라우드의-핵심-능력인-신속함과-확장성을-가지고-있는지의-여부">차이점 : 클라우드의 핵심 능력인, 신속함과 확장성을 가지고 있는지의 여부</h4>
 
-  <span class="na">node</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">sebcontents/server</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s1">'</span><span class="s">always'</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="s">~|-| "4999:80"</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">server</span>
-</code></pre></div></div>
-<ol>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>docker~</td>
-          <td>-</td>
-          <td>compose.yaml 혹은 docker~</td>
-          <td>-</td>
-          <td>compose.yml 파일을 위의 소스를 그대로 붙여넣어 생성합니다. 파일을 생성할 때 터미널의 위치는 무관합니다.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>yaml 파일이 있는 위치에서 <code class="language-plaintext highlighter-rouge">docker~|-|compose up ~|-|d</code> 명령어를 통해 yaml 파일을 실행합니다.
-<img src="/assets/img/Docker/dockerTerminal.png" alt="docker1" />
-<img src="/assets/img/Docker/dockerDesktop.png" alt="docker2" /></li>
-  <li>브라우저에서 <code class="language-plaintext highlighter-rouge">localhost:8080</code> 혹은 <code class="language-plaintext highlighter-rouge">127.0.0.1:8080</code> 에서 실행된 <strong>client 화면을 확인</strong>한 후, 로그인 합니다. 로그인 정보는 브라우저 화면을 확인하세요.
-<img src="/assets/img/Docker/login.png" alt="docker3" /></li>
-  <li>로그인 후 나오는 단어를 확인하세요. Quiz 3의 정답입니다.</li>
-</ol>
+<h2 id="클라우드-글로벌-인프라">클라우드 글로벌 인프라</h2>
+<p><img src="/assets/img/AWS/%EC%9D%B8%ED%94%84%EB%9D%BC.png" alt="인프라" /><br />
+245개 국가에 AWS의 안정적인 서비스를 위해 글로벌 클라우드 인프라 제공</p>
+
+<h3 id="리전-refion-">리전( Refion )</h3>
+<p>AWS의 서비스를 제공하는 지리적 위치 ( 전 세계에서 데이터 센터를 클러스터링하는 물리적 위치 )</p>
+<blockquote>
+  <p>리전 안에 속한 데이터는 AWS 고객의 명시적인 동의 없이는 이동 불가</p>
+</blockquote>
+
+<h3 id="가용영역-availiability-zone-az">가용영역( Availiability Zone, ‘AZ’)</h3>
+<ul>
+  <li>현재 총 99개의 AZ 존재</li>
+  <li>하나의 AZ가 셧다운 되더라도 인접한 다른 AZ에 동일한 피해가 가지 않도록한다.</li>
+  <li>동일 리전 내 AZ는 <strong>저비용성</strong>, <strong>고응답성</strong>, <strong>고보안성</strong>의 조건을 충족하는 광케이블 네트워크로 연결하기 때문에 AZ간 응답성은 매운 높은 수준이다.</li>
+</ul>
+
+<h2 id="aws-보안">AWS 보안</h2>
+<p><img src="/assets/img/AWS/biao.png" alt="표" /></p>
 
 
 
@@ -455,29 +333,29 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
                         
                         
                             <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                <a href="/YAML/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
                                     
-                                    <h3>깃허브 블로그 만들기</h3>
+                                    <h3>YAML</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Docker/">
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker</h3>
+                                    <h3>Docker Image 다루기 1</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
-                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
+                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
                                 </a>
                             </li>
                         
@@ -489,7 +367,7 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="4">
+            <div class="time-bar" data-minutes="3">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -509,13 +387,13 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
         </div>
     </div>
     
-    <a href="/AWS-%EA%B8%B0%EC%B4%88/" class="post-preview">
+    <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5/" class="post-preview">
         <div class="image">
             
                 <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
             
         </div>
-        <h3 class="title">AWS 기초</h3>
+        <h3 class="title">AWS 서비스 로드맵</h3>
     </a>
 </div>
 
@@ -531,11 +409,11 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI&quot;%20http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지,Docker_Compose"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Cloud와 Deployment의 의미를 각각 알고, 서비스를 다른사람에게 배포할 수 있다.&quot;%20http://localhost:4000/AWS-%EA%B8%B0%EC%B4%88/%20via%20&#64;&hashtags=AWS,cloud,S3,EC2,RDS"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/AWS-%EA%B8%B0%EC%B4%88/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -558,7 +436,7 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/';
+        var disqus_url = '/AWS-%EA%B8%B0%EC%B4%88/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -702,265 +580,143 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Docker Image 다루기 2 ",
-            "headline": "Sprint - Docker Image - II",
-            "description": "두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/",
-            "articleBody": "
+            "name": "AWS 기초",
+            "headline": "AWS 기초 학습",
+            "description": "Cloud와 Deployment의 의미를 각각 알고, 서비스를 다른사람에게 배포할 수 있다.",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
+            "url": "http://localhost:4000/AWS-%EA%B8%B0%EC%B4%88/",
+            "articleBody": "학습 목표 및 회고
 
-Getting Started
-
-
-  nginx 이미지를 기반으로 한 sebcontents/client 이미지를 이용하여 client 컨테이너를 생성합니다.
-  node 이미지를 기반으로 한 sebcontents/server 이미지를 이용하여 server 컨테이너를 생성합니다.
-
-  이번 실습에서는 localhost 의 8080 번 포트로 접속하면, sebcontents/client 이미지를 이용해 배포한 client 컨테이너의 80 번 포트로 연결됩니다.
-  위 그림은 매우 간략하게 표현되어 있습니다. 도커 네트워크에 대해서 좀 더 궁금하시다면 docker network, docker bridge 를 검색해 더 많은 정보를 찾을 수 있습니다
-
-
-docker-compose CLI
-
-docker-compose CLI
-아래 명령어로 Docker 컨테이너에서 여러 서비스를 빌드하고 관리
-docker compose [~|-|f ~|&amp;lt;|arg&amp;gt;...] [options] [COMMAND] [ARGS...]
-
-
-
-  
-    
-      Command
-      Description
-    
-  
-  
-    
-      build
-      Build or rebuild services
-    
-    
-      bundle
-      Generate a Docker bundle from the Compose file
-    
-    
-      config
-      Validate and view the Compose file
-    
-    
-      create
-      Create services
-    
-    
-      down
-      Stop and remove containers, networks, images, and volumes
-    
-    
-      events
-      Receive real time events from containers
-    
-    
-      exec
-      Execute a command in a running container
-    
-    
-      help
-      Get help on a command
-    
-    
-      images
-      List images
-    
-    
-      kill
-      Kill containers
-    
-    
-      logs
-      View output from containers
-    
-    
-      pause
-      Pause services
-    
-    
-      port
-      Print the public port for a port binding
-    
-    
-      ps
-      List containers
-    
-    
-      pull
-      Pull service images
-    
-    
-      push
-      Push service images
-    
-    
-      restart
-      Restart services
-    
-    
-      rm
-      Remove stopped containers
-    
-    
-      run
-      Run a one-off command
-    
-    
-      scale
-      Set number of containers for a service
-    
-    
-      start
-      Start services
-    
-    
-      stop
-      Stop services
-    
-    
-      top
-      Display the running processes
-    
-    
-      unpause
-      Unpause services
-    
-    
-      up
-      Create and start containers
-    
-    
-      version
-      Show the Docker Compose version information
-    
-  
+  Cloud와 Deployment의 의미를 각각 알고, 서비스를 다른사람에게 배포할 수 있다.
+  클라우드 컴퓨팅이 무엇인지 설명할 수 있다.
+  애플리케이션 배포가 어떻게 변화되어 왔는지 이해할 수 있다.
+  AWS의 각 서비스가 어떤 목적에 부합하는지 이해할 수 있다.
+  S3의 목적과, 정적 웹 사이트 배포 방법을 이해할 수 있다.
+  EC2의 주요 용어를 이해할 수 있다. (AMI, 인스턴스, 인스턴스 유형, 스토리지 타입, 퍼블릭/프라이빗 IP)
+  EC2의 인스턴스 시작/중지/종료에 대해 이해할 수 있다.
+  RDS와 EC2에서의 MySQL 사용이 어떻게 다른지 이해할 수 있다.
+  CloudFront의 목적을 이해할 수 있다.
+  Auto Scaling의 특징 및 역할을 알 수 있다.
+  로드 밸런서 중 ELB, 그 중에서 Application Load Balancer의 목적을 이해할 수 있다.
+  AWS 인프라 중 VPC에 대해서 이해할 수 있다.
+  Route 53의 목적을 이해하고, 도메인을 연결해 HTTPS로 배포할 수 있다.
+  빌드 및 배포시 필요한 환경 설정을 할 수 있다.
+  배포 시 발생하는 문제를 이해하고 고칠 수 있다.
 
 
-~|-|f 하나 이상의 Compose 파일의 이름과 경로 지정
-여러 Compose 파일 지정
-
-docker compose ~|-|f docker~|-|compose.yml ~|-|f docker-compose.admin.yml run backup_db
 
 
-  docker~|-|compose.yml로 지정할 수 있다.
-    webapp:
-  image: examples/web
-  ports:
-    ~|-| &quot;8000:8000&quot;
-  volumes:
-    ~|-| &quot;/data&quot;
+Cloud Computing - AWS
+클라우드 컴퓨팅의 세가지 모델
+서비스로서의 인프라(IaaS), 서비스로서의 플랫폼(PaaS), 서비스로서의 소프트웨어(SaaS)
+
+
+Infrastructure as a Service(IaaS)
+
+  서비스로서의 인프라
+
+
+
+  클라우드 IT를 위한 기본 빌딩 블록이 포함
+  일반적으로 네트워킹 기능, 컴퓨터(가상 또는 전용 하드웨어) 및 데이터 스토리지 공간에 대한 액세스를 제공
+  IT 리소스에 대한 최고 수준의 유연성과 관리 제어 기능을 제공
+
+
+Platform as a Service(PaaS)
+
+  서비스로서의 플랫폼
+
+
+
+  기본 인프라( Hardware &amp;amp; OS ) 관리 필요가 없다.
+  애플리케이션 실행과 관련된 리소스 구매, 용량 계획, 소프트웨어 유지 관리, 패치 작업 등에 부담이 없음
+
+
+Software as a Service(SaaS)
+
+  서비스로서의 소프트웨어
+
+
+
+  ‘공급자에 의해 실행되고 관리되는 완전한 제품’
+  웹 기반 이메일과 같은 최종 사용자 애필리케이션
+  유지 관리, 기본 인프라를 관리하는 방법에 대해 생각할 필요가 없다.
+
+
+
+
+클라우드 컴퓨팅 세가지 배포 모델
+All in Cloud
+AWS 같은 클라우드 서비스 제공자를 통해 애플리케이션을 배포하는 방식 ( = 퍼블릭 클라우드 )
+
+  방법
     
-    여러 Compose 파일을 사용하는 경우 파일의 모든 경로는 로 지정된 첫 번째 구성 파일에 상대적입니다 ~|-|f. --project-directory옵션을 사용하여 이 기본 경로를 재정의 할 수 있습니다 .
-  
-
-
-단일 Compose 파일에 대한 경로 지정
-
-플래그를 사용하여 명령줄에서 또는 셸 또는 환경 파일에서 COMPOSE_FILE 환경 변수를 ~|-|f 설정하여 
-현재 디렉터리에 없는 Compose 파일의 경로를 지정할 수 있습니다.
-
-
-  어디서나 서비스 에 대한 postgres 이미지를 가져오기 위해 docker compose pull 과 같은 명령을 사용할 수 있습니다 .
-    docker compose ~|-|f ~/sandbox/rails/docker~|-|compose.yml pull db
-    
-  
-
-
-docker-compose CLI 사용
-
-
-  
-    docker~|-|compse.yaml에 정의된 이미지를 컨테이너로 실행
-
-     docker~|-|compose up ~|#| ~|-|d 옵션을 함께 사용하면, 컨테이너를 백그라운드로 실행할 수 있습니다.
-    
-  
-  docker~|-|compose.yaml에 정의된 이미지를 이용해 실행된 컨테이너를 종료
-     docker~|-|compose down
-    
-  
-  특정 이미지만 컨테이너로 실행
-     docker~|-|compose up {특정 이미지}
-    
-  
-
-
-요구사항
-
-두 개 이상의 도커 컨테이너를 연결하는 docker-compose를 사용해 보겠습니다.
-
-
-  다음의 설명에 따라 docker~|-|compose.yaml 파일을 생성하세요.
-    
-      소스 코드는 이미 작성되어 있습니다.
-      docker~|-|compose up ~|-|d을 통해 컨테이너를 구동하세요.
-      결과를 localhost:8080 혹은 127.0.0.1:8080 에서 확인하세요.
-    
-  
-
-
-Quiz 3
-
-client와 server를 동시에 구동해 로그인 후 나타나는 단어를 확인하세요.
-
-  docker~|-|compse.yaml
-    
-      하나의 docker-compose에서 관리되는 컨테이너끼리는 동일한 docker network에서 구동됩니다.
-docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가 사용됩니다.
-    
-  
-
-
-version: '3.8'
-
-services:
-  nginx:
-    image: sebcontents/client
-    restart: 'always'
-    ports:
-      ~|-| &quot;8080:80&quot;
-    container_name: client
-
-  node:
-    image: sebcontents/server
-    restart: 'always'
-    ports:
-      ~|-| &quot;4999:80&quot;
-    container_name: server
-
-
-  
-    
-      
+      클라우드에서 새 애플리케이션을 개발 및 제공하는 방법
+      기존의 애플리케이션을 클라우드로 이전하는 방법
         
-          docker~
-          -
-          compose.yaml 혹은 docker~
-          -
-          compose.yml 파일을 위의 소스를 그대로 붙여넣어 생성합니다. 파일을 생성할 때 터미널의 위치는 무관합니다.
+          넷플릭스 ( AWS에서 데이터 센터와 스트리밍 콘텐츠 서비스 제공 )
         
       
     
   
-  yaml 파일이 있는 위치에서 docker~|-|compose up ~|-|d 명령어를 통해 yaml 파일을 실행합니다.
 
 
-  브라우저에서 localhost:8080 혹은 127.0.0.1:8080 에서 실행된 client 화면을 확인한 후, 로그인 합니다. 로그인 정보는 브라우저 화면을 확인하세요.
+하이브리드 클라우드
+애플리케이션을 제공하는 환경 : 퍼블릭 클라우드,  온프레미스(On premise)
 
-  로그인 후 나오는 단어를 확인하세요. Quiz 3의 정답입니다.
+
+  온프레미스 : 기업이 자체 시설에서 보유하고 직접 유지 관리하는 프라이빗 데이터 센터
+
+
+하이브리드 클라우드 사용 : 대부분의 기업들이 방대한 인프라와 데이터를 온프레미스 데이터 센터에 축적
+
+  두 환경을 연결하면 기존 데이터 센터의 확장 개념에서 퍼블릭 클라우드를 이용할 수 있고, 클라우드 전환 또한 쉽게 진행 가능하다.
+
+
+
+
+온프레미스와 프라이빗 클라우드
+온프레미스 : 물리적 서버, 회사나 개인이 자체적으로 보유하며 운영하는 서버
+
+  서버를 운영하기 위해서는 유지보수, 관리 인력, 공간 등의 추가적인 비용들이 발생
+  직접 설치하는 과정에서 시공간적인 비효율 발생
+    
+      솔루션 : 마이그레이션을 통해 온프레미스를 클라우드로 옮긴다.
+    
+  
+
+
+프라이빗 클라우드
+외부 클라우드 사업자의 서비스를 이용하지 않고 서비스를 위한 인프라를 직접 구축
+
+차이점 : 클라우드의 핵심 능력인, 신속함과 확장성을 가지고 있는지의 여부
+
+클라우드 글로벌 인프라
+
+245개 국가에 AWS의 안정적인 서비스를 위해 글로벌 클라우드 인프라 제공
+
+리전( Refion )
+AWS의 서비스를 제공하는 지리적 위치 ( 전 세계에서 데이터 센터를 클러스터링하는 물리적 위치 )
+
+  리전 안에 속한 데이터는 AWS 고객의 명시적인 동의 없이는 이동 불가
+
+
+가용영역( Availiability Zone, ‘AZ’)
+
+  현재 총 99개의 AZ 존재
+  하나의 AZ가 셧다운 되더라도 인접한 다른 AZ에 동일한 피해가 가지 않도록한다.
+  동일 리전 내 AZ는 저비용성, 고응답성, 고보안성의 조건을 충족하는 광케이블 네트워크로 연결하기 때문에 AZ간 응답성은 매운 높은 수준이다.
+
+
+AWS 보안
 
 
 ",
-            "wordcount": "764",
+            "wordcount": "560",
             "inLanguage": "ko",
-            "dateCreated": "2023-04-12/",
-            "datePublished": "2023-04-12/",
-            "dateModified": "2023-04-12/",
+            "dateCreated": "2023-04-14/",
+            "datePublished": "2023-04-14/",
+            "dateModified": "2023-04-14/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -985,9 +741,9 @@ services:
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "docker",
-            "articleSection": "docker",
-            "keywords": ["Docker","nginx","postgresql","컨테이너","DockerCLI","CLI","도커이미지","Docker_Compose"]
+            "genre": "AWS",
+            "articleSection": "AWS",
+            "keywords": ["AWS","cloud","S3","EC2","RDS"]
         }
         </script>
        </body>
