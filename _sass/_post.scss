@@ -57,7 +57,7 @@
   }
 
   p,
-  h1,
+  h1{color: #201a5c}
   h2,
   h3,
   h4,
@@ -66,6 +66,7 @@
   ul,
   ol,
   iframe {
+    
     @include center(rem(800px));
     @include mainFont(400);
     font-size: rem(17px);
@@ -90,7 +91,7 @@
   p.post-subtitle {
     color: darken($lightGray, 30%);
     font-size: rem(17px);
-    margin: rem(10px) auto;
+    margin: 10px auto;
     line-height: 1.6;
 
     @include media(">=sm") {
@@ -140,7 +141,7 @@
 
     code {
       font-size: rem(15px);
-      background: #282a36;
+      background: #916656;
       color: #fff;
       word-wrap: break-word;
       padding: rem(3px) rem(5px);
@@ -195,7 +196,7 @@
     }
   }
   h1 {
-    font-size: rem(36px);
+    font-size: 36px;
     line-height: 1.4;
     @include media(">=sm") {
       font-size: rem(50px);
@@ -203,7 +204,7 @@
   }
 
   h2 {
-    font-size: rem(28px);
+    font-size: 28px;
     line-height: 1.4;
 
     @include media(">=sm") {
@@ -212,7 +213,7 @@
   }
 
   h3 {
-    font-size: rem(22px);
+    font-size: rem22px;
     line-height: 1.4;
 
     @include media(">=sm") {

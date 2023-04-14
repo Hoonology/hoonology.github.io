@@ -202,7 +202,7 @@ April 14, 2023
   <li>
     <p><strong><em>Elastic Compute Cloud</em></strong></p>
     <ul>
-      <li>Elastic이 무엇인가 ?( = ‘탄련적인’)
+      <li>Elastic이 무엇인가 ?( = ‘탄력적인’)
         <ul>
           <li>PC방 후불제 처럼 사용한 것만 지불하면 되는 구조</li>
         </ul>
@@ -254,14 +254,48 @@ April 14, 2023
 <img src="/assets/img/AWS/instance.png" alt="insatance" /></p>
 
 <h4 id="reference"><a href="https://docs.aws.amazon.com/ko_kr/ko_kr/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html">Reference</a></h4>
-<p>| 인스턴스 상태 | 설명 | 인스턴스 사용 요금 |
-| — | — | — |
-| pending | 인스턴스는 running 상태로 될 준비를 하고 있습니다. &lt;/br&gt; 인스턴스를 처음 시작하거나 pending 상태의 인스턴스를 다시 시작하면 stopped 상태가 됩니다. | 미청구 |
-| running | 인스턴스를 실행하고 사용할 준비가 되었습니다. | 청구 |
-| terminated | 인스턴스가 영구적으로 삭제되었으며 시작할 수 없습니다. | 미청구 |
-| shutting-down | 인스턴스가 종료할 준비를 하고 있습니다. | 미청구 |
-| stopped | 인스턴스가 종료되고 사용이 불가합니다. 언제든지 인스턴스를 다시 시작할 수 있습니다. | 미청구 |
-| stopping | 인스턴스가 중지 또는 중지-최대 절전 모드로 전환할 준비를 하고 있습니다. | 중지 준비 중인 경우 미청구, &lt;/br&gt;최대 절전 모드로 전환 준비 중인 경우 청구 |</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>인스턴스 상태</th>
+      <th>설명</th>
+      <th>인스턴스 사용 요금</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>pending</td>
+      <td>인스턴스는 running 상태로 될 준비를 하고 있습니다. 인스턴스를 처음 시작하거나 pending 상태의 인스턴스를 다시 시작하면 stopped 상태가 됩니다.</td>
+      <td>미청구</td>
+    </tr>
+    <tr>
+      <td>running</td>
+      <td>인스턴스를 실행하고 사용할 준비가 되었습니다.</td>
+      <td>청구</td>
+    </tr>
+    <tr>
+      <td>terminated</td>
+      <td>인스턴스가 영구적으로 삭제되었으며 시작할 수 없습니다.</td>
+      <td>미청구</td>
+    </tr>
+    <tr>
+      <td>shutting-down</td>
+      <td>인스턴스가 종료할 준비를 하고 있습니다.</td>
+      <td>미청구</td>
+    </tr>
+    <tr>
+      <td>stopped</td>
+      <td>인스턴스가 종료되고 사용이 불가합니다. 언제든지 인스턴스를 다시 시작할 수 있습니다.</td>
+      <td>미청구</td>
+    </tr>
+    <tr>
+      <td>stopping</td>
+      <td>인스턴스가 중지 또는 중지-최대 절전 모드로 전환할 준비를 하고 있습니다.</td>
+      <td>중지 준비 중인 경우 미청구, 최대 절전 모드로 전환 준비 중인 경우 청구</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="인스턴스-시작">인스턴스 시작</h3>
 <ul>
@@ -382,6 +416,15 @@ April 14, 2023
                         
                         
                             <li>
+                                <a href="/Docker-CLI-Part1/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Docker CLI</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
                                 <a href="/Docker/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
@@ -391,20 +434,11 @@ April 14, 2023
                             </li>
                         
                             <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker Image 다루기 1</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/AWS-%EA%B8%B0%EC%B4%88/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
-                                    
-                                    <h3>AWS 기초</h3>
+                                    <h3>Docker Image 다루기 2 </h3>
                                 </a>
                             </li>
                         
@@ -644,7 +678,7 @@ April 14, 2023
   
     Elastic Compute Cloud
     
-      Elastic이 무엇인가 ?( = ‘탄련적인’)
+      Elastic이 무엇인가 ?( = ‘탄력적인’)
         
           PC방 후불제 처럼 사용한 것만 지불하면 되는 구조
         
@@ -696,14 +730,48 @@ AMI를 토대로 세팅된 PC를 빌린다.
 
 
 Reference
-| 인스턴스 상태 | 설명 | 인스턴스 사용 요금 |
-| — | — | — |
-| pending | 인스턴스는 running 상태로 될 준비를 하고 있습니다. &amp;lt;/br&amp;gt; 인스턴스를 처음 시작하거나 pending 상태의 인스턴스를 다시 시작하면 stopped 상태가 됩니다. | 미청구 |
-| running | 인스턴스를 실행하고 사용할 준비가 되었습니다. | 청구 |
-| terminated | 인스턴스가 영구적으로 삭제되었으며 시작할 수 없습니다. | 미청구 |
-| shutting-down | 인스턴스가 종료할 준비를 하고 있습니다. | 미청구 |
-| stopped | 인스턴스가 종료되고 사용이 불가합니다. 언제든지 인스턴스를 다시 시작할 수 있습니다. | 미청구 |
-| stopping | 인스턴스가 중지 또는 중지-최대 절전 모드로 전환할 준비를 하고 있습니다. | 중지 준비 중인 경우 미청구, &amp;lt;/br&amp;gt;최대 절전 모드로 전환 준비 중인 경우 청구 |
+
+
+  
+    
+      인스턴스 상태
+      설명
+      인스턴스 사용 요금
+    
+  
+  
+    
+      pending
+      인스턴스는 running 상태로 될 준비를 하고 있습니다. 인스턴스를 처음 시작하거나 pending 상태의 인스턴스를 다시 시작하면 stopped 상태가 됩니다.
+      미청구
+    
+    
+      running
+      인스턴스를 실행하고 사용할 준비가 되었습니다.
+      청구
+    
+    
+      terminated
+      인스턴스가 영구적으로 삭제되었으며 시작할 수 없습니다.
+      미청구
+    
+    
+      shutting-down
+      인스턴스가 종료할 준비를 하고 있습니다.
+      미청구
+    
+    
+      stopped
+      인스턴스가 종료되고 사용이 불가합니다. 언제든지 인스턴스를 다시 시작할 수 있습니다.
+      미청구
+    
+    
+      stopping
+      인스턴스가 중지 또는 중지-최대 절전 모드로 전환할 준비를 하고 있습니다.
+      중지 준비 중인 경우 미청구, 최대 절전 모드로 전환 준비 중인 경우 청구
+    
+  
+
 
 인스턴스 시작
 
@@ -810,7 +878,7 @@ Spot
 
 
 ",
-            "wordcount": "972",
+            "wordcount": "956",
             "inLanguage": "ko",
             "dateCreated": "2023-04-14/",
             "datePublished": "2023-04-14/",
