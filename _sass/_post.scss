@@ -140,7 +140,7 @@
 
     code {
       font-size: rem(15px);
-      background: #916656;
+      background: #282a36;
       color: #fff;
       word-wrap: break-word;
       padding: rem(3px) rem(5px);
@@ -243,6 +243,8 @@
       width: 100%;
       margin: rem(50px) auto; // 전체 문장의 간격
       padding: 0 rem(30px);
+      font-size: rem(20px);
+      line-height: rem(36px);
     }
 
     p {
