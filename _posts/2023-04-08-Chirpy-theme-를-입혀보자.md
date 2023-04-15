@@ -38,7 +38,7 @@ jekyll serve # 실행
 ```
 위 명령어를 모두 실행했을 때 이상이 없음을 확인한다.
 
-##  ```_congif.yml``` 커스터마이징  
+##  ```_configyml``` 커스터마이징  
 https://www.irgroup.org/posts/jekyll-chirpy/  
 이 페이지에 잘 나와있다.
 
@@ -51,7 +51,7 @@ https://www.irgroup.org/posts/jekyll-chirpy/
 | title             | 아무거나~                                               | 블로그 제목을 넣어 줍니다.                                                                 |
 | tagline           | 아무거나~                                               | title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.                                         |
 | description       | 아무거나~                                               | SEO를 위한 키워드들을 입력합니다.                                                             |
-| url               | https://focuschange-test.github.io                       | 내 블로그로 실제 접속할 URL을 입력합니다.                                                     |
+| url               | [https://focuschange-test.github.io](https://focuschange-test.github.io)                       | 내 블로그로 실제 접속할 URL을 입력합니다.                                                     |
 | github            | github id                                                | 본인의 GitHub 아이디를 입력합니다.                                                            |
 | twitter.username | twitter id                                               | 트위터를 사용한다면 아이디를 입력합니다.                                                       |
 | social.name       | 이름                                                     | 포스트 등에 표시할 나의 이름을 입력합니다.                                                     |
