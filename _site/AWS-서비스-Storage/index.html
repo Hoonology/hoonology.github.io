@@ -20,7 +20,7 @@
     <title>AWS 서비스 - Storage | Hoonology</title>
     <meta name="description" content="Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델">
     
-        <meta name="keywords" content="AWS, cloud, EC2, 인스턴스, AMI">
+        <meta name="keywords" content="AWS, cloud, EC2, 인스턴스, S3, EFS, EBS">
     
 
     <!-- Social: Twitter -->
@@ -176,7 +176,7 @@ April 16, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>3 min to read</span>
                 </p>
                 <h1 class="post-title">AWS 서비스 - Storage</h1>
                 <p class="post-subtitle">AWS 서비스 Storage에 대하여</p>
@@ -194,7 +194,7 @@ April 16, 2023
 
                 <h1 id="aws-storage">AWS Storage</h1>
 <h2 id="1-객체-스토리지--object-storage-">1. 객체 스토리지 ( Object Storage )</h2>
-<p>객체 : 문서, 영상, 이미지 등 비교적 단순한 구조에 메타데이터를 포함하고 있는 데이터</p>
+<p>객체 : 문서, 영상, 이미지 등(<strong>비정형 데이터</strong>) 비교적 단순한 구조에 메타데이터를 포함하고 있는 데이터</p>
 <blockquote>
   <p>인터넷으로 연결된 API를 통해 데이터를 애플리케이션에 제공
 데이터를 객체로 저장하며 메타데이터와 데이터로 구성</p>
@@ -205,7 +205,7 @@ April 16, 2023
     <blockquote>
       <ul>
         <li>대규모 데이터 저장 가능</li>
-        <li>높은 확장성, 내구성, 가용성</li>
+        <li>높은 확장성, 내구성, 가용성, 보안성 및 저렴한 비용</li>
         <li>객체 단위로 데이터 처리 -&gt; 객체에 대한 접근이 빠름</li>
       </ul>
     </blockquote>
@@ -230,22 +230,19 @@ April 16, 2023
   <li>장점
     <blockquote>
       <ul>
-        <li>블록 단위로 데이터를 처리 -? 블록 단위로 데이터를 읽고 쓰기가 가능</li>
+        <li>블록 단위로 데이터를 처리 -&gt; 블록 단위로 데이터를 읽고 쓰기가 가능</li>
+        <li>서버 디스크로 사용할 수 있어서 높은 처리 속도를 가짐</li>
+        <li>데이터의 신뢰성 및 성능을 높이기 위해 RAID 기술 사용 -&gt; 높은 성능 및 안정성</li>
       </ul>
     </blockquote>
-    <ul>
-      <li>서버 디스크로 사용할 수 있어서 높은 처리 속도를 가짐</li>
-    </ul>
   </li>
   <li>단점
     <blockquote>
       <ul>
         <li>블록 스토리지는 서버에 직접 연결되어 있기 때문에, 서버 장애 시 데이터 손실 발생</li>
+        <li>블록 스토리지는 큰 용량의 데이터를 처리하기에는 적합하지 않다.</li>
       </ul>
     </blockquote>
-    <ul>
-      <li>블록 스토리지는 큰 용량의 데이터를 처리하기에는 적합하지 않다.</li>
-    </ul>
   </li>
   <li>대표적인 서비스
     <ul>
@@ -263,9 +260,103 @@ April 16, 2023
       <li>EFS( Elastic File System )</li>
     </ul>
   </li>
+  <li>장점
+    <blockquote>
+      <ul>
+        <li>파일 단위로 데이터 저장 -&gt; 개별 파일에 대한 액세스와 수정이 용이, 백업하거나 이전하기가 용이</li>
+        <li>다중 액세스, 공유 파일, 고정 크기 파일 및 용량 풀링</li>
+        <li>애플리케이션과의 호환성</li>
+      </ul>
+    </blockquote>
+  </li>
+  <li>단점
+    <blockquote>
+      <ul>
+        <li>대용량의 데이터를 처리하기엔 비효율성 발생 ( 디스크 공간의0 비효율 )</li>
+        <li>파일의 이름과 경로가 유일한 식별자 -&gt; 동일한 이름의 파일을 다른 경로에 저장 불가</li>
+        <li>파일의 공유와 동시 수정이 어려움</li>
+        <li>단일 서버에서 사용되는 방식이라 확장성 제한</li>
+      </ul>
+    </blockquote>
+  </li>
 </ul>
 
-<p>##</p>
+<h1 id="s3">S3</h1>
+<p>S3 ( Simple Storage Service ) : AWS에서 제공하는 클라우드 스토리지 서비스</p>
+<h2 id="s3의-이점--1-높은-확장성">S3의 이점 : 1. 높은 확장성</h2>
+<ul>
+  <li>무한한 스토리지 용량 확장 가능 ( 저장된 파일의 유실 가능성 0.000001%)
+    <ul>
+      <li>한 곳의 가용 영역이 재난이나 사고로 인해 가동이 불가능해지더라도 다른 가용 영역에 백업을 해놓은 데이터를 활용하여 문제없이 서버가 가동분에</li>
+      <li>AWS에서 제공하는 서비스들은 높은 가용성과 내구성을 보장</li>
+    </ul>
+  </li>
+  <li>다양한 스토리지 클래스 제공
+    <ul>
+      <li><strong>Standard 클래스</strong> ( <strong>범용적인 목적</strong>으로 사용 ) - 데이터에 빠른 속도로 접근, 데이터 액세스 요청에 대한 처리 속도 빠름
+        <ul>
+          <li>가장 일반적으로 사용되는 스토리지 클래스</li>
+          <li>데이터에 <strong>자주 액세스</strong>해야할 경우 사용</li>
+          <li>보관 비용이 높다.</li>
+        </ul>
+      </li>
+      <li><strong>Glacier 클래스</strong> : ( <strong>장기적인 보관</strong> 목적으로 사용 )
+        <ul>
+          <li>데이터에 느린 속도로 액세스</li>
+          <li>보관 비용이 저렴하다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Standard-IA</li>
+  <li>One Zone-IA</li>
+  <li>S3 Glacier Deep Archive</li>
+</ul>
+
+<h2 id="s3의-이점--2-정적-웹-사이트-호스팅-가능">S3의 이점 : 2. 정적 웹 사이트 호스팅 가능</h2>
+<blockquote>
+  <p>정적 파일 : 서버의 개입 없이 클라이언트에 제공될 수 있는 파일<br />
+  웹 호스팅 : <strong>서버의 한 공간</strong>을 빌려줘서 웹 사이트의 배포와 운영이 가능하게 만들어주는 서비스<br />
+  S3에서는 <code class="language-plaintext highlighter-rouge">버킷</code>을 통한 정적 웹 사이트 호스팅이 가능하다.</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">버킷</code> : AWS의 객체 스토리지 서비스인 Amazon S3에서 데이터를 저장하는 논리적인 컨테이너, S3에서 <strong>객체를 저장하는 기본 단위</strong><br />
+( 객체를 담는 바구니, 최상위 디렉토리 )</p>
+  <ul>
+    <li>데이터 저장 : 객체는 개별 파일로써 버킷에 저장, 해당 버킷에 고유한 키를 갖는다.</li>
+    <li>권한 관리 : 객체에 대한 액세스 권한 설정</li>
+    <li>데이터 관리 : 수명 주기 설정, 버전 관리, 액세스 로깅, 이벤트 알림</li>
+    <li>키-값 페어 형식으로 데이터를 저장</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">객체</code> : 버킷에 담기는 파일</p>
+  <ul>
+    <li>‘파일 + 메타데이터’로 구성</li>
+    <li>고유한 키를 가짐</li>
+    <li>URL 주소를 통해서 객체에 접근 가능</li>
+    <li>URL 형식 : http://[버킷 name].S3.amazonaws.com/[객체의 key]</li>
+  </ul>
+</blockquote>
+
+<p><img src="/assets/img/AWS/%EB%B2%84%ED%82%B7.png" alt="버킷" /></p>
+
+<ul>
+  <li>
+    <p>S3 사용 시 얻는 이점 : 정적 웹 사이트 호스팅이 가능</p>
+
+    <ul>
+      <li>정적 파일 : 서버의 개입 없이 생성된 파일</li>
+      <li>동적 파일 : 클라이언트가 서버에 요청을 보내면, 서버가 요청에 맞추어 그 자리에서 생성한 파일</li>
+    </ul>
+
+    <p>S3에서는 버킷이 사용자들이 정적 웹 사이트를 배포할 수 있는 공간을 제공<br />
+버킷이라는 저장 공간에 정적 파일을 업로드하고 버킷을 정적 웹 사이트 호스팅 용도로 구성하면 정적 웹 사이트를 배포할 수 있다.</p>
+  </li>
+</ul>
+
 
 
                 <!-- Pagination links -->
@@ -281,29 +372,29 @@ April 16, 2023
                         
                         
                             <li>
-                                <a href="/Docker-CLI-Part1/">
+                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
-                                    <h3>Docker CLI</h3>
+                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-EC2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>Docker Image 다루기 2 </h3>
+                                    <h3>AWS 서비스 - EC2</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/YAML/">
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>YAML</h3>
+                                    <h3>Docker Image 다루기 1</h3>
                                 </a>
                             </li>
                         
@@ -315,7 +406,7 @@ April 16, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="3">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -357,7 +448,7 @@ April 16, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/%20via%20&#64;&hashtags=AWS,cloud,EC2,인스턴스,AMI"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/%20via%20&#64;&hashtags=AWS,cloud,EC2,인스턴스,S3,EFS,EBS"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
@@ -535,7 +626,7 @@ April 16, 2023
             "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/",
             "articleBody": "AWS Storage
 1. 객체 스토리지 ( Object Storage )
-객체 : 문서, 영상, 이미지 등 비교적 단순한 구조에 메타데이터를 포함하고 있는 데이터
+객체 : 문서, 영상, 이미지 등(비정형 데이터) 비교적 단순한 구조에 메타데이터를 포함하고 있는 데이터
 
   인터넷으로 연결된 API를 통해 데이터를 애플리케이션에 제공
 데이터를 객체로 저장하며 메타데이터와 데이터로 구성
@@ -546,7 +637,7 @@ April 16, 2023
     
       
         대규모 데이터 저장 가능
-        높은 확장성, 내구성, 가용성
+        높은 확장성, 내구성, 가용성, 보안성 및 저렴한 비용
         객체 단위로 데이터 처리 -&amp;gt; 객체에 대한 접근이 빠름
       
     
@@ -571,21 +662,18 @@ April 16, 2023
   장점
     
       
-        블록 단위로 데이터를 처리 -? 블록 단위로 데이터를 읽고 쓰기가 가능
+        블록 단위로 데이터를 처리 -&amp;gt; 블록 단위로 데이터를 읽고 쓰기가 가능
+        서버 디스크로 사용할 수 있어서 높은 처리 속도를 가짐
+        데이터의 신뢰성 및 성능을 높이기 위해 RAID 기술 사용 -&amp;gt; 높은 성능 및 안정성
       
-    
-    
-      서버 디스크로 사용할 수 있어서 높은 처리 속도를 가짐
     
   
   단점
     
       
         블록 스토리지는 서버에 직접 연결되어 있기 때문에, 서버 장애 시 데이터 손실 발생
+        블록 스토리지는 큰 용량의 데이터를 처리하기에는 적합하지 않다.
       
-    
-    
-      블록 스토리지는 큰 용량의 데이터를 처리하기에는 적합하지 않다.
     
   
   대표적인 서비스
@@ -604,11 +692,105 @@ April 16, 2023
       EFS( Elastic File System )
     
   
+  장점
+    
+      
+        파일 단위로 데이터 저장 -&amp;gt; 개별 파일에 대한 액세스와 수정이 용이, 백업하거나 이전하기가 용이
+        다중 액세스, 공유 파일, 고정 크기 파일 및 용량 풀링
+        애플리케이션과의 호환성
+      
+    
+  
+  단점
+    
+      
+        대용량의 데이터를 처리하기엔 비효율성 발생 ( 디스크 공간의0 비효율 )
+        파일의 이름과 경로가 유일한 식별자 -&amp;gt; 동일한 이름의 파일을 다른 경로에 저장 불가
+        파일의 공유와 동시 수정이 어려움
+        단일 서버에서 사용되는 방식이라 확장성 제한
+      
+    
+  
 
 
-##
+S3
+S3 ( Simple Storage Service ) : AWS에서 제공하는 클라우드 스토리지 서비스
+S3의 이점 : 1. 높은 확장성
+
+  무한한 스토리지 용량 확장 가능 ( 저장된 파일의 유실 가능성 0.000001%)
+    
+      한 곳의 가용 영역이 재난이나 사고로 인해 가동이 불가능해지더라도 다른 가용 영역에 백업을 해놓은 데이터를 활용하여 문제없이 서버가 가동분에
+      AWS에서 제공하는 서비스들은 높은 가용성과 내구성을 보장
+    
+  
+  다양한 스토리지 클래스 제공
+    
+      Standard 클래스 ( 범용적인 목적으로 사용 ) - 데이터에 빠른 속도로 접근, 데이터 액세스 요청에 대한 처리 속도 빠름
+        
+          가장 일반적으로 사용되는 스토리지 클래스
+          데이터에 자주 액세스해야할 경우 사용
+          보관 비용이 높다.
+        
+      
+      Glacier 클래스 : ( 장기적인 보관 목적으로 사용 )
+        
+          데이터에 느린 속도로 액세스
+          보관 비용이 저렴하다.
+        
+      
+    
+  
+  Standard-IA
+  One Zone-IA
+  S3 Glacier Deep Archive
+
+
+S3의 이점 : 2. 정적 웹 사이트 호스팅 가능
+
+  정적 파일 : 서버의 개입 없이 클라이언트에 제공될 수 있는 파일
+  웹 호스팅 : 서버의 한 공간을 빌려줘서 웹 사이트의 배포와 운영이 가능하게 만들어주는 서비스
+  S3에서는 버킷을 통한 정적 웹 사이트 호스팅이 가능하다.
+
+
+
+  버킷 : AWS의 객체 스토리지 서비스인 Amazon S3에서 데이터를 저장하는 논리적인 컨테이너, S3에서 객체를 저장하는 기본 단위
+( 객체를 담는 바구니, 최상위 디렉토리 )
+  
+    데이터 저장 : 객체는 개별 파일로써 버킷에 저장, 해당 버킷에 고유한 키를 갖는다.
+    권한 관리 : 객체에 대한 액세스 권한 설정
+    데이터 관리 : 수명 주기 설정, 버전 관리, 액세스 로깅, 이벤트 알림
+    키-값 페어 형식으로 데이터를 저장
+  
+
+
+
+  객체 : 버킷에 담기는 파일
+  
+    ‘파일 + 메타데이터’로 구성
+    고유한 키를 가짐
+    URL 주소를 통해서 객체에 접근 가능
+    URL 형식 : http://[버킷 name].S3.amazonaws.com/[객체의 key]
+  
+
+
+
+
+
+  
+    S3 사용 시 얻는 이점 : 정적 웹 사이트 호스팅이 가능
+
+    
+      정적 파일 : 서버의 개입 없이 생성된 파일
+      동적 파일 : 클라이언트가 서버에 요청을 보내면, 서버가 요청에 맞추어 그 자리에서 생성한 파일
+    
+
+    S3에서는 버킷이 사용자들이 정적 웹 사이트를 배포할 수 있는 공간을 제공
+버킷이라는 저장 공간에 정적 파일을 업로드하고 버킷을 정적 웹 사이트 호스팅 용도로 구성하면 정적 웹 사이트를 배포할 수 있다.
+  
+
+
 ",
-            "wordcount": "230",
+            "wordcount": "669",
             "inLanguage": "ko",
             "dateCreated": "2023-04-16/",
             "datePublished": "2023-04-16/",
@@ -639,7 +821,7 @@ April 16, 2023
             "mainEntityOfPage": "True",
             "genre": "AWS",
             "articleSection": "AWS",
-            "keywords": ["AWS","cloud","EC2","인스턴스","AMI"]
+            "keywords": ["AWS","cloud","EC2","인스턴스","S3","EFS","EBS"]
         }
         </script>
        </body>
