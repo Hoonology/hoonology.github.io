@@ -176,7 +176,7 @@ April 14, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>2 min to read</span>
+                    <span>3 min to read</span>
                 </p>
                 <h1 class="post-title">AWS 서비스 로드맵</h1>
                 <p class="post-subtitle">AWS 서비스 로드맵에 대하여</p>
@@ -192,144 +192,31 @@ April 14, 2023
                 <!-- Add your table of contents here -->
 
 
-                <table>
-  <thead>
-    <tr>
-      <th>서비스 명</th>
-      <th>AWS 분류</th>
-      <th>학습 콘텐츠</th>
-      <th>한 줄 설명</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>EC2</td>
-      <td>컴퓨팅</td>
-      <td>AWS</td>
-      <td>컴퓨트 엔진, 임대형 가상 컴퓨터</td>
-    </tr>
-    <tr>
-      <td>Lambda</td>
-      <td>컴퓨팅,서버리스</td>
-      <td>마이크로서비스</td>
-      <td>컴퓨트 엔진, Function as a Service</td>
-    </tr>
-    <tr>
-      <td>RDS</td>
-      <td>데이터베이스</td>
-      <td>AWS</td>
-      <td>관계형 데이터베이스</td>
-    </tr>
-    <tr>
-      <td>DynamoDB</td>
-      <td>데이터베이스,서버리스</td>
-      <td>AWS</td>
-      <td>NoSQL 데이터베이스</td>
-    </tr>
-    <tr>
-      <td>ElastiCache</td>
-      <td>데이터베이스</td>
-      <td>AWS</td>
-      <td>캐시 데이터베이스</td>
-    </tr>
-    <tr>
-      <td>Redshift</td>
-      <td>데이터베이스</td>
-      <td>AWS</td>
-      <td>데이터 웨어하우스</td>
-    </tr>
-    <tr>
-      <td>S3</td>
-      <td>스토리지,서버리스</td>
-      <td>AWS</td>
-      <td>스토리지, 데이터 레이크</td>
-    </tr>
-    <tr>
-      <td>EBS</td>
-      <td>스토리지</td>
-      <td>AWS</td>
-      <td>블록 스토리지</td>
-    </tr>
-    <tr>
-      <td>EFS</td>
-      <td>스토리지</td>
-      <td>AWS</td>
-      <td>파일 스토리지</td>
-    </tr>
-    <tr>
-      <td>ECS</td>
-      <td>컨테이너</td>
-      <td>AWS</td>
-      <td>컨테이너 배포 서비스</td>
-    </tr>
-    <tr>
-      <td>EKS</td>
-      <td>컨테이너</td>
-      <td>컨테이너 오케스트레이션</td>
-      <td>관리형 쿠버네티스</td>
-    </tr>
-    <tr>
-      <td>Fargate</td>
-      <td>컨테이너,서버리스</td>
-      <td>AWS</td>
-      <td>컨테이너 배포 컴퓨팅 엔진</td>
-    </tr>
-    <tr>
-      <td>ECR</td>
-      <td>컨테이너</td>
-      <td>AWS</td>
-      <td>컨테이너 배포 레지스트리</td>
-    </tr>
-    <tr>
-      <td>CodeBuild</td>
-      <td>개발자 도구</td>
-      <td>배포 자동화</td>
-      <td>빌드 엔진</td>
-    </tr>
-    <tr>
-      <td>CodeDeploy</td>
-      <td>개발자 도구</td>
-      <td>배포 자동화</td>
-      <td>배포 에이전트</td>
-    </tr>
-    <tr>
-      <td>CodePipeline</td>
-      <td>개발자 도구</td>
-      <td>배포 자동화</td>
-      <td>CI/CD 도구</td>
-    </tr>
-    <tr>
-      <td>CloudWatch</td>
-      <td>관리 및 거버넌스</td>
-      <td>서비스 모니터링</td>
-      <td>모니터링 도구</td>
-    </tr>
-    <tr>
-      <td>CloudFormation</td>
-      <td>관리 및 거버넌스</td>
-      <td>Infrastructure as Code</td>
-      <td>IaC 도구</td>
-    </tr>
-    <tr>
-      <td>VPC</td>
-      <td>네트워크 및 콘텐츠 전송</td>
-      <td>AWS</td>
-      <td>가상 사설 네트워크</td>
-    </tr>
-    <tr>
-      <td>CloudFront</td>
-      <td>네트워크 및 콘텐츠 전송</td>
-      <td>AWS</td>
-      <td>CDN</td>
-    </tr>
-    <tr>
-      <td>Route 53</td>
-      <td>네트워크 및 콘텐츠 전송</td>
-      <td>AWS</td>
-      <td>DNS 서버</td>
-    </tr>
-  </tbody>
-</table>
+                <h1 id="aws-서비스-로드맵">AWS 서비스 로드맵</h1>
+<h2 id="aws-주요-서비스-목록">AWS 주요 서비스 목록</h2>
+<p>| 서비스 명               | AWS 분류                     | 학습 콘텐츠             | 한 줄 설명                                  |
+| ———————–| ————————— | ———————- | ——————————————- |
+| EC2                    | 컴퓨팅                       | AWS                    | 컴퓨트 엔진, 임대형 가상 컴퓨터           |
+| Lambda                 | 컴퓨팅,서버리스             | 마이크로서비스           | 컴퓨트 엔진, Function as a Service          |
+| RDS                    | 데이터베이스                 | AWS                    | 관계형 데이터베이스                        |
+| DynamoDB               | 데이터베이스,서버리스        | AWS                    | NoSQL 데이터베이스                          |
+| ElastiCache            | 데이터베이스                 | AWS                    | 캐시 데이터베이스                            |
+| Redshift               | 데이터베이스                 | AWS                    | 데이터 웨어하우스                           |
+| S3                     | 스토리지,서버리스            | AWS                    | 스토리지, 데이터 레이크                    |
+| EBS                    | 스토리지                     | AWS                    | 블록 스토리지                               |
+| EFS                    | 스토리지                     | AWS                    | 파일 스토리지                               |
+| ECS                    | 컨테이너                     | AWS                    | 컨테이너 배포 서비스                        |
+| EKS                    | 컨테이너                     | 컨테이너 오케스트레이션 | 관리형 쿠버네티스                            |
+| Fargate                | 컨테이너,서버리스            | AWS                    | 컨테이너 배포 컴퓨팅 엔진                   |
+| ECR                    | 컨테이너                     | AWS                    | 컨테이너 배포 레지스트리                    |
+| CodeBuild              | 개발자 도구                  | 배포 자동화             | 빌드 엔진                                   |
+| CodeDeploy             | 개발자 도구                  | 배포 자동화             | 배포 에이전트                               |
+| CodePipeline           | 개발자 도구                  | 배포 자동화             | CI/CD 도구                                  |
+| CloudWatch             | 관리 및 거버넌스             | 서비스 모니터링         | 모니터링 도구                               |
+| CloudFormation         | 관리 및 거버넌스             | Infrastructure as Code | IaC 도구                                    |
+| VPC                    | 네트워크 및 콘텐츠 전송      | AWS                    | 가상 사설 네트워크                          |
+| CloudFront             | 네트워크 및 콘텐츠 전송      | AWS                    | CDN                                         |
+| Route 53               | 네트워크 및 콘텐츠 전송      | AWS                    | DNS 서버                                    |</p>
 
 <h2 id="유형별-서비스-특징-및-목록">유형별 서비스 특징 및 목록</h2>
 <h2 id="컴퓨트">컴퓨트</h2>
@@ -471,29 +358,29 @@ April 14, 2023
                         
                         
                             <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>Docker Image 다루기 2 </h3>
+                                    <h3>AWS 서비스 - Storage</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/YAML/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-EC2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>YAML</h3>
+                                    <h3>AWS 서비스 - EC2</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Docker/">
+                                <a href="/AWS-%EA%B8%B0%EC%B4%88/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>Docker</h3>
+                                    <h3>AWS 기초</h3>
                                 </a>
                             </li>
                         
@@ -505,7 +392,7 @@ April 14, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="2">
+            <div class="time-bar" data-minutes="3">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -723,144 +610,31 @@ April 14, 2023
             "description": "AWS의 서비스를 알아보고 유형별 서비스 특징 및 목록을 알아본다.",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
             "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5/",
-            "articleBody": "
-  
-    
-      서비스 명
-      AWS 분류
-      학습 콘텐츠
-      한 줄 설명
-    
-  
-  
-    
-      EC2
-      컴퓨팅
-      AWS
-      컴퓨트 엔진, 임대형 가상 컴퓨터
-    
-    
-      Lambda
-      컴퓨팅,서버리스
-      마이크로서비스
-      컴퓨트 엔진, Function as a Service
-    
-    
-      RDS
-      데이터베이스
-      AWS
-      관계형 데이터베이스
-    
-    
-      DynamoDB
-      데이터베이스,서버리스
-      AWS
-      NoSQL 데이터베이스
-    
-    
-      ElastiCache
-      데이터베이스
-      AWS
-      캐시 데이터베이스
-    
-    
-      Redshift
-      데이터베이스
-      AWS
-      데이터 웨어하우스
-    
-    
-      S3
-      스토리지,서버리스
-      AWS
-      스토리지, 데이터 레이크
-    
-    
-      EBS
-      스토리지
-      AWS
-      블록 스토리지
-    
-    
-      EFS
-      스토리지
-      AWS
-      파일 스토리지
-    
-    
-      ECS
-      컨테이너
-      AWS
-      컨테이너 배포 서비스
-    
-    
-      EKS
-      컨테이너
-      컨테이너 오케스트레이션
-      관리형 쿠버네티스
-    
-    
-      Fargate
-      컨테이너,서버리스
-      AWS
-      컨테이너 배포 컴퓨팅 엔진
-    
-    
-      ECR
-      컨테이너
-      AWS
-      컨테이너 배포 레지스트리
-    
-    
-      CodeBuild
-      개발자 도구
-      배포 자동화
-      빌드 엔진
-    
-    
-      CodeDeploy
-      개발자 도구
-      배포 자동화
-      배포 에이전트
-    
-    
-      CodePipeline
-      개발자 도구
-      배포 자동화
-      CI/CD 도구
-    
-    
-      CloudWatch
-      관리 및 거버넌스
-      서비스 모니터링
-      모니터링 도구
-    
-    
-      CloudFormation
-      관리 및 거버넌스
-      Infrastructure as Code
-      IaC 도구
-    
-    
-      VPC
-      네트워크 및 콘텐츠 전송
-      AWS
-      가상 사설 네트워크
-    
-    
-      CloudFront
-      네트워크 및 콘텐츠 전송
-      AWS
-      CDN
-    
-    
-      Route 53
-      네트워크 및 콘텐츠 전송
-      AWS
-      DNS 서버
-    
-  
-
+            "articleBody": "AWS 서비스 로드맵
+AWS 주요 서비스 목록
+| 서비스 명               | AWS 분류                     | 학습 콘텐츠             | 한 줄 설명                                  |
+| ———————–| ————————— | ———————- | ——————————————- |
+| EC2                    | 컴퓨팅                       | AWS                    | 컴퓨트 엔진, 임대형 가상 컴퓨터           |
+| Lambda                 | 컴퓨팅,서버리스             | 마이크로서비스           | 컴퓨트 엔진, Function as a Service          |
+| RDS                    | 데이터베이스                 | AWS                    | 관계형 데이터베이스                        |
+| DynamoDB               | 데이터베이스,서버리스        | AWS                    | NoSQL 데이터베이스                          |
+| ElastiCache            | 데이터베이스                 | AWS                    | 캐시 데이터베이스                            |
+| Redshift               | 데이터베이스                 | AWS                    | 데이터 웨어하우스                           |
+| S3                     | 스토리지,서버리스            | AWS                    | 스토리지, 데이터 레이크                    |
+| EBS                    | 스토리지                     | AWS                    | 블록 스토리지                               |
+| EFS                    | 스토리지                     | AWS                    | 파일 스토리지                               |
+| ECS                    | 컨테이너                     | AWS                    | 컨테이너 배포 서비스                        |
+| EKS                    | 컨테이너                     | 컨테이너 오케스트레이션 | 관리형 쿠버네티스                            |
+| Fargate                | 컨테이너,서버리스            | AWS                    | 컨테이너 배포 컴퓨팅 엔진                   |
+| ECR                    | 컨테이너                     | AWS                    | 컨테이너 배포 레지스트리                    |
+| CodeBuild              | 개발자 도구                  | 배포 자동화             | 빌드 엔진                                   |
+| CodeDeploy             | 개발자 도구                  | 배포 자동화             | 배포 에이전트                               |
+| CodePipeline           | 개발자 도구                  | 배포 자동화             | CI/CD 도구                                  |
+| CloudWatch             | 관리 및 거버넌스             | 서비스 모니터링         | 모니터링 도구                               |
+| CloudFormation         | 관리 및 거버넌스             | Infrastructure as Code | IaC 도구                                    |
+| VPC                    | 네트워크 및 콘텐츠 전송      | AWS                    | 가상 사설 네트워크                          |
+| CloudFront             | 네트워크 및 콘텐츠 전송      | AWS                    | CDN                                         |
+| Route 53               | 네트워크 및 콘텐츠 전송      | AWS                    | DNS 서버                                    |
 
 유형별 서비스 특징 및 목록
 컴퓨트
@@ -988,7 +762,7 @@ April 14, 2023
   Simple Queue Service (SQS)
 
 ",
-            "wordcount": "536",
+            "wordcount": "613",
             "inLanguage": "ko",
             "dateCreated": "2023-04-14/",
             "datePublished": "2023-04-14/",
