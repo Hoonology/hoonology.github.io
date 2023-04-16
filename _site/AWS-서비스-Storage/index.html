@@ -192,18 +192,80 @@ April 16, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="intro">Intro</h1>
+                <h1 id="aws-storage">AWS Storage</h1>
+<h2 id="1-객체-스토리지--object-storage-">1. 객체 스토리지 ( Object Storage )</h2>
+<p>객체 : 문서, 영상, 이미지 등 비교적 단순한 구조에 메타데이터를 포함하고 있는 데이터</p>
+<blockquote>
+  <p>인터넷으로 연결된 API를 통해 데이터를 애플리케이션에 제공
+데이터를 객체로 저장하며 메타데이터와 데이터로 구성</p>
+</blockquote>
+
 <ul>
-  <li><a href="#1-객체-스토리지--object-storage">1. 객체 스토리지</a></li>
-  <li><a href="#2-블록-스토리지--block-storage">2. 블록 스토리지</a></li>
-  <li><a href="#3-파일-스토리지--file-storage">3. 파일 스토리지</a></li>
+  <li>장점
+    <blockquote>
+      <ul>
+        <li>대규모 데이터 저장 가능</li>
+        <li>높은 확장성, 내구성, 가용성</li>
+        <li>객체 단위로 데이터 처리 -&gt; 객체에 대한 접근이 빠름</li>
+      </ul>
+    </blockquote>
+  </li>
+  <li>단점
+    <blockquote>
+      <ul>
+        <li>파일 단위로 접근하는 것이 아니기 때문에 일부 응용 프로그램에서는 적합하지 않다.</li>
+        <li>객체 단위로 데이터를 처리하기 때문에 작은 파일에 대한 처리 비용이 높아진다.</li>
+      </ul>
+    </blockquote>
+  </li>
 </ul>
 
-<h1 id="aws-storage">AWS Storage</h1>
-<h2 id="1-객체-스토리지--object-storage-">1. 객체 스토리지 ( Object Storage )</h2>
 <h2 id="2-블록-스토리지--block-storage-">2. 블록 스토리지 ( Block Storage )</h2>
-<h2 id="3-파일-스토리지--file-storage-">3. 파일 스토리지 ( File Storage )</h2>
+<p><strong>블록 스토리지에서의 데이터</strong> : 서버 인스턴스에 디스크 볼륨의 형태로 제공되는 데이터</p>
+<blockquote>
+  <p>EC2 인스턴스에 포함된 볼륨에 <strong>고속으로 접근</strong> 가능</p>
+</blockquote>
 
+<ul>
+  <li>장점
+    <blockquote>
+      <ul>
+        <li>블록 단위로 데이터를 처리 -? 블록 단위로 데이터를 읽고 쓰기가 가능</li>
+      </ul>
+    </blockquote>
+    <ul>
+      <li>서버 디스크로 사용할 수 있어서 높은 처리 속도를 가짐</li>
+    </ul>
+  </li>
+  <li>단점
+    <blockquote>
+      <ul>
+        <li>블록 스토리지는 서버에 직접 연결되어 있기 때문에, 서버 장애 시 데이터 손실 발생</li>
+      </ul>
+    </blockquote>
+    <ul>
+      <li>블록 스토리지는 큰 용량의 데이터를 처리하기에는 적합하지 않다.</li>
+    </ul>
+  </li>
+  <li>대표적인 서비스
+    <ul>
+      <li>EBS( Elastic Block Store )</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="3-파일-스토리지--file-storage-">3. 파일 스토리지 ( File Storage )</h2>
+<p><strong>파일 스토리지에서 데이터</strong> : 서버 인스턴스에 파일 시스템 인터페이스 방식으로 제공되는 데이터</p>
+
+<ul>
+  <li>대표적인 서비스( 고속으로 다수의 EC2 인스턴스를 통해 데이터에 접근 )
+    <ul>
+      <li>EFS( Elastic File System )</li>
+    </ul>
+  </li>
+</ul>
+
+<p>##</p>
 
 
                 <!-- Pagination links -->
@@ -219,29 +281,29 @@ April 16, 2023
                         
                         
                             <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/AWS-%EA%B8%B0%EC%B4%88/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
-                                    
-                                    <h3>AWS 기초</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
+                                <a href="/Docker-CLI-Part1/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker Image 다루기 1</h3>
+                                    <h3>Docker CLI</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Docker Image 다루기 2 </h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/YAML/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                    
+                                    <h3>YAML</h3>
                                 </a>
                             </li>
                         
@@ -471,20 +533,82 @@ April 16, 2023
             "description": "Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
             "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/",
-            "articleBody": "Intro
-
-  1. 객체 스토리지
-  2. 블록 스토리지
-  3. 파일 스토리지
-
-
-AWS Storage
+            "articleBody": "AWS Storage
 1. 객체 스토리지 ( Object Storage )
-2. 블록 스토리지 ( Block Storage )
-3. 파일 스토리지 ( File Storage )
+객체 : 문서, 영상, 이미지 등 비교적 단순한 구조에 메타데이터를 포함하고 있는 데이터
 
+  인터넷으로 연결된 API를 통해 데이터를 애플리케이션에 제공
+데이터를 객체로 저장하며 메타데이터와 데이터로 구성
+
+
+
+  장점
+    
+      
+        대규모 데이터 저장 가능
+        높은 확장성, 내구성, 가용성
+        객체 단위로 데이터 처리 -&amp;gt; 객체에 대한 접근이 빠름
+      
+    
+  
+  단점
+    
+      
+        파일 단위로 접근하는 것이 아니기 때문에 일부 응용 프로그램에서는 적합하지 않다.
+        객체 단위로 데이터를 처리하기 때문에 작은 파일에 대한 처리 비용이 높아진다.
+      
+    
+  
+
+
+2. 블록 스토리지 ( Block Storage )
+블록 스토리지에서의 데이터 : 서버 인스턴스에 디스크 볼륨의 형태로 제공되는 데이터
+
+  EC2 인스턴스에 포함된 볼륨에 고속으로 접근 가능
+
+
+
+  장점
+    
+      
+        블록 단위로 데이터를 처리 -? 블록 단위로 데이터를 읽고 쓰기가 가능
+      
+    
+    
+      서버 디스크로 사용할 수 있어서 높은 처리 속도를 가짐
+    
+  
+  단점
+    
+      
+        블록 스토리지는 서버에 직접 연결되어 있기 때문에, 서버 장애 시 데이터 손실 발생
+      
+    
+    
+      블록 스토리지는 큰 용량의 데이터를 처리하기에는 적합하지 않다.
+    
+  
+  대표적인 서비스
+    
+      EBS( Elastic Block Store )
+    
+  
+
+
+3. 파일 스토리지 ( File Storage )
+파일 스토리지에서 데이터 : 서버 인스턴스에 파일 시스템 인터페이스 방식으로 제공되는 데이터
+
+
+  대표적인 서비스( 고속으로 다수의 EC2 인스턴스를 통해 데이터에 접근 )
+    
+      EFS( Elastic File System )
+    
+  
+
+
+##
 ",
-            "wordcount": "43",
+            "wordcount": "230",
             "inLanguage": "ko",
             "dateCreated": "2023-04-16/",
             "datePublished": "2023-04-16/",
