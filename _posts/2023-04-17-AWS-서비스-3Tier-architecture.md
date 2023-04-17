@@ -91,29 +91,21 @@ comments: true
 
     ![ssh](/assets/img/AWS/ssh2.png)
 
-  - 인스턴스에 접속한 후, 필요한 개발 환경(git, npm, node) 등을 구축합니다.
+  - 인스턴스에 접속한 후, 필요한 개발 환경(git, npm, node) 등을 구축합니다.  
   
-        ```bash
-        sudo apt-get update
-        sudo apt-get install git nodejs npm 
-        ```
-    - curl 명령어를 사용하여 nvm 설치 스크립트를 다운로드합니다.
+    치트키
       ```bash
-      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+      sudo apt-get update
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+      nvm install --lts
+      # sleep 5
+      sudo apt-get install npm -y
+      ```
 
-      # 로드
-      source ~/.bashrc
-      ```
-      ```bash
-      nvm install 16.0.0
-      ```
-      ```bash
-      node -v
-      ```
-    - Git 설치
-      ```bash
-      sudo apt-get install git
-      ```
+
+
 
   - EC2에 브라우저를 통해 접근하려면 어떤 주소로 접근해야 하나요?
   - client 폴더의 ```.env``` 환경설정의 ```REACT_APP_API_URL``` 과 EC2의 주소는 어떤 관계가 있나요?
