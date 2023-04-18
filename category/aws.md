@@ -1,6 +1,6 @@
 ---
 layout: category
-title: aws
-slug: aws
+title: AWS
+slug: AWS
 description: AWS 카테고리
 ---

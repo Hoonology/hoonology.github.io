@@ -2,7 +2,7 @@
 date: 2023-04-16 18:00:00
 layout: post
 title: AWS 서비스 - 3 Tier Architecture 배포
-subtitle: AWS 서비스 VPC에 대하여
+subtitle: AWS 서비스  3 Tier Architecture에 대하여
 description: Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png 
