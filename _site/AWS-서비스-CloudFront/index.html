@@ -17,28 +17,28 @@
     
     
 
-    <title>Docker Image 다루기 2  | Hoonology</title>
-    <meta name="description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
+    <title>AWS 서비스 - 서비스 노출 | Hoonology</title>
+    <meta name="description" content="CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'">
     
-        <meta name="keywords" content="Docker, nginx, postgresql, 컨테이너, DockerCLI, CLI, 도커이미지, Docker_Compose">
+        <meta name="keywords" content="AWS, cloud, CloudFront">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Docker Image 다루기 2  | Hoonology">
-    <meta name="twitter:description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
+    <meta name="twitter:title" content="AWS 서비스 - 서비스 노출 | Hoonology">
+    <meta name="twitter:description" content="CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
-    <meta property="og:title" content="Docker Image 다루기 2  | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-    <meta property="og:description" content="두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI">
+    <meta property="og:url" content="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
+    <meta property="og:title" content="AWS 서비스 - 서비스 노출 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+    <meta property="og:description" content="CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+    <link rel="canonical" href="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-12T20:48:32+09:00">
+                        <time class="date" datetime="2023-04-18T09:00:00+09:00">
                             
 
 
-April 12, 2023
+April 18, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>4 min to read</span>
+                    <span>1 min to read</span>
                 </p>
-                <h1 class="post-title">Docker Image 다루기 2 </h1>
-                <p class="post-subtitle">Sprint - Docker Image - II</p>
+                <h1 class="post-title">AWS 서비스 - 서비스 노출</h1>
+                <p class="post-subtitle">AWS 서비스 서비스 노출에 대하여</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,254 +192,7 @@ April 12, 2023
                 <!-- Add your table of contents here -->
 
 
-                <!--more-->
-
-<h1 id="getting-started">Getting Started</h1>
-
-<ul>
-  <li>nginx 이미지를 기반으로 한 sebcontents/client 이미지를 이용하여 client 컨테이너를 생성합니다.</li>
-  <li>node 이미지를 기반으로 한 sebcontents/server 이미지를 이용하여 server 컨테이너를 생성합니다.
-<img src="/assets/img/Docker/docker.png" alt="docker" /></li>
-  <li>이번 실습에서는 localhost 의 8080 번 포트로 접속하면, sebcontents/client 이미지를 이용해 배포한 client 컨테이너의 80 번 포트로 연결됩니다.</li>
-  <li>위 그림은 매우 간략하게 표현되어 있습니다. 도커 네트워크에 대해서 좀 더 궁금하시다면 docker network, docker bridge 를 검색해 더 많은 정보를 찾을 수 있습니다</li>
-</ul>
-
-<h2 id="dockercompose-cli">docker-compose CLI</h2>
-
-<p><a href="https://docs.docker.com/compose/reference/">docker-compose CLI</a><br />
-아래 명령어로 Docker 컨테이너에서 여러 서비스를 빌드하고 관리</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose <span class="o">[</span>~|-|f ~|&lt;|arg&gt;...] <span class="o">[</span>options] <span class="o">[</span>COMMAND] <span class="o">[</span>ARGS...]
-</code></pre></div></div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Command</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>build</td>
-      <td>Build or rebuild services</td>
-    </tr>
-    <tr>
-      <td>bundle</td>
-      <td>Generate a Docker bundle from the Compose file</td>
-    </tr>
-    <tr>
-      <td>config</td>
-      <td>Validate and view the Compose file</td>
-    </tr>
-    <tr>
-      <td>create</td>
-      <td>Create services</td>
-    </tr>
-    <tr>
-      <td>down</td>
-      <td>Stop and remove containers, networks, images, and volumes</td>
-    </tr>
-    <tr>
-      <td>events</td>
-      <td>Receive real time events from containers</td>
-    </tr>
-    <tr>
-      <td>exec</td>
-      <td>Execute a command in a running container</td>
-    </tr>
-    <tr>
-      <td>help</td>
-      <td>Get help on a command</td>
-    </tr>
-    <tr>
-      <td>images</td>
-      <td>List images</td>
-    </tr>
-    <tr>
-      <td>kill</td>
-      <td>Kill containers</td>
-    </tr>
-    <tr>
-      <td>logs</td>
-      <td>View output from containers</td>
-    </tr>
-    <tr>
-      <td>pause</td>
-      <td>Pause services</td>
-    </tr>
-    <tr>
-      <td>port</td>
-      <td>Print the public port for a port binding</td>
-    </tr>
-    <tr>
-      <td>ps</td>
-      <td>List containers</td>
-    </tr>
-    <tr>
-      <td>pull</td>
-      <td>Pull service images</td>
-    </tr>
-    <tr>
-      <td>push</td>
-      <td>Push service images</td>
-    </tr>
-    <tr>
-      <td>restart</td>
-      <td>Restart services</td>
-    </tr>
-    <tr>
-      <td>rm</td>
-      <td>Remove stopped containers</td>
-    </tr>
-    <tr>
-      <td>run</td>
-      <td>Run a one-off command</td>
-    </tr>
-    <tr>
-      <td>scale</td>
-      <td>Set number of containers for a service</td>
-    </tr>
-    <tr>
-      <td>start</td>
-      <td>Start services</td>
-    </tr>
-    <tr>
-      <td>stop</td>
-      <td>Stop services</td>
-    </tr>
-    <tr>
-      <td>top</td>
-      <td>Display the running processes</td>
-    </tr>
-    <tr>
-      <td>unpause</td>
-      <td>Unpause services</td>
-    </tr>
-    <tr>
-      <td>up</td>
-      <td>Create and start containers</td>
-    </tr>
-    <tr>
-      <td>version</td>
-      <td>Show the Docker Compose version information</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="f-하나-이상의-compose-파일의-이름과-경로-지정"><code class="language-plaintext highlighter-rouge">~|-|f</code> 하나 이상의 Compose 파일의 이름과 경로 지정</h3>
-<h4 id="여러-compose-파일-지정-">여러 Compose 파일 지정</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose ~|-|f docker~|-|compose.yml ~|-|f docker-compose.admin.yml run backup_db
-</code></pre></div></div>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">docker~|-|compose.yml</code>로 지정할 수 있다.
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">webapp</span><span class="pi">:</span>
-  <span class="na">image</span><span class="pi">:</span> <span class="s">examples/web</span>
-  <span class="na">ports</span><span class="pi">:</span>
-    <span class="s">~|-| "8000:8000"</span>
-  <span class="na">volumes</span><span class="pi">:</span>
-    <span class="s">~|-| "/data"</span>
-</code></pre></div>    </div>
-    <p>여러 Compose 파일을 사용하는 경우 파일의 모든 경로는 로 지정된 첫 번째 구성 파일에 상대적입니다 <code class="language-plaintext highlighter-rouge">~|-|f. --project-directory</code>옵션을 사용하여 이 기본 경로를 재정의 할 수 있습니다 .</p>
-  </li>
-</ul>
-
-<h4 id="단일-compose-파일에-대한-경로-지정-">단일 Compose 파일에 대한 경로 지정</h4>
-
-<p>플래그를 사용하여 명령줄에서 또는 셸 또는 환경 파일에서 COMPOSE_FILE 환경 변수를 <code class="language-plaintext highlighter-rouge">~|-|f</code> 설정하여 <br />
-현재 디렉터리에 없는 Compose 파일의 경로를 지정할 수 있습니다.</p>
-
-<ul>
-  <li>어디서나 서비스 에 대한 postgres 이미지를 가져오기 위해 <code class="language-plaintext highlighter-rouge">docker compose pull</code> 과 같은 명령을 사용할 수 있습니다 .
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker compose ~|-|f ~/sandbox/rails/docker~|-|compose.yml pull db
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h3 id="dockercompose-cli-사용">docker-compose CLI 사용</h3>
-
-<ol>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">docker~|-|compse.yaml</code>에 정의된 이미지를 컨테이너로 <strong>실행</strong></p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose up ~|#| ~|-|d 옵션을 함께 사용하면, 컨테이너를 백그라운드로 실행할 수 있습니다.
-</code></pre></div>    </div>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">docker~|-|compose.yaml</code>에 정의된 이미지를 이용해 실행된 컨테이너를 <strong>종료</strong>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose down
-</code></pre></div>    </div>
-  </li>
-  <li>특정 이미지만 컨테이너로 실행
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker~|-|compose up <span class="o">{</span>특정 이미지<span class="o">}</span>
-</code></pre></div>    </div>
-  </li>
-</ol>
-
-<h1 id="요구사항">요구사항</h1>
-
-<p>두 개 이상의 도커 컨테이너를 연결하는 docker-compose를 사용해 보겠습니다.</p>
-
-<ul>
-  <li>다음의 설명에 따라 <code class="language-plaintext highlighter-rouge">docker~|-|compose.yaml</code> 파일을 생성하세요.
-    <ul>
-      <li>소스 코드는 이미 작성되어 있습니다.</li>
-      <li><code class="language-plaintext highlighter-rouge">docker~|-|compose up ~|-|d</code>을 통해 컨테이너를 구동하세요.</li>
-      <li>결과를 <code class="language-plaintext highlighter-rouge">localhost:8080</code> 혹은 <code class="language-plaintext highlighter-rouge">127.0.0.1:8080</code> 에서 확인하세요.</li>
-    </ul>
-  </li>
-</ul>
-
-<h1 id="quiz-3">Quiz 3</h1>
-
-<p>client와 server를 동시에 구동해 로그인 후 나타나는 단어를 확인하세요.</p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">docker~|-|compse.yaml</code>
-    <ul>
-      <li><strong><em>하나의 docker-compose에서 관리되는 컨테이너끼리는 동일한 docker network에서 구동됩니다.</em></strong><br />
-docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가 사용됩니다.</li>
-    </ul>
-  </li>
-</ul>
-
-<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.8'</span>
-
-<span class="na">services</span><span class="pi">:</span>
-  <span class="na">nginx</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">sebcontents/client</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s1">'</span><span class="s">always'</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="s">~|-| "8080:80"</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">client</span>
-
-  <span class="na">node</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">sebcontents/server</span>
-    <span class="na">restart</span><span class="pi">:</span> <span class="s1">'</span><span class="s">always'</span>
-    <span class="na">ports</span><span class="pi">:</span>
-      <span class="s">~|-| "4999:80"</span>
-    <span class="na">container_name</span><span class="pi">:</span> <span class="s">server</span>
-</code></pre></div></div>
-<ol>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>docker~</td>
-          <td>-</td>
-          <td>compose.yaml 혹은 docker~</td>
-          <td>-</td>
-          <td>compose.yml 파일을 위의 소스를 그대로 붙여넣어 생성합니다. 파일을 생성할 때 터미널의 위치는 무관합니다.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>yaml 파일이 있는 위치에서 <code class="language-plaintext highlighter-rouge">docker~|-|compose up ~|-|d</code> 명령어를 통해 yaml 파일을 실행합니다.
-<img src="/assets/img/Docker/dockerTerminal.png" alt="docker1" />
-<img src="/assets/img/Docker/dockerDesktop.png" alt="docker2" /></li>
-  <li>브라우저에서 <code class="language-plaintext highlighter-rouge">localhost:8080</code> 혹은 <code class="language-plaintext highlighter-rouge">127.0.0.1:8080</code> 에서 실행된 <strong>client 화면을 확인</strong>한 후, 로그인 합니다. 로그인 정보는 브라우저 화면을 확인하세요.
-<img src="/assets/img/Docker/login.png" alt="docker3" /></li>
-  <li>로그인 후 나오는 단어를 확인하세요. Quiz 3의 정답입니다.</li>
-</ol>
-
+                <h1 id="cloudfront">CloudFront</h1>
 
 
                 <!-- Pagination links -->
@@ -464,20 +217,20 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
                             </li>
                         
                             <li>
-                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
+                                    <h3>Docker Image 다루기 2 </h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>깃허브 블로그 만들기</h3>
+                                    <h3>AWS 서비스 - Storage</h3>
                                 </a>
                             </li>
                         
@@ -489,7 +242,7 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="4">
+            <div class="time-bar" data-minutes="1">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -509,13 +262,13 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
         </div>
     </div>
     
-    <a href="/AWS-%EA%B8%B0%EC%B4%88/" class="post-preview">
+    <a href="/YAML/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
             
         </div>
-        <h3 class="title">AWS 기초</h3>
+        <h3 class="title">YAML</h3>
     </a>
 </div>
 
@@ -531,11 +284,11 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI&quot;%20http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/%20via%20&#64;&hashtags=Docker,nginx,postgresql,컨테이너,DockerCLI,CLI,도커이미지,Docker_Compose"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/%20via%20&#64;&hashtags=AWS,cloud,CloudFront"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -558,7 +311,7 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/';
+        var disqus_url = '/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -702,265 +455,18 @@ docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Docker Image 다루기 2 ",
-            "headline": "Sprint - Docker Image - II",
-            "description": "두 개의 Docker Image를 다루는 방식을 연습합니다. - docker-compose CLI",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/",
-            "articleBody": "
-
-Getting Started
-
-
-  nginx 이미지를 기반으로 한 sebcontents/client 이미지를 이용하여 client 컨테이너를 생성합니다.
-  node 이미지를 기반으로 한 sebcontents/server 이미지를 이용하여 server 컨테이너를 생성합니다.
-
-  이번 실습에서는 localhost 의 8080 번 포트로 접속하면, sebcontents/client 이미지를 이용해 배포한 client 컨테이너의 80 번 포트로 연결됩니다.
-  위 그림은 매우 간략하게 표현되어 있습니다. 도커 네트워크에 대해서 좀 더 궁금하시다면 docker network, docker bridge 를 검색해 더 많은 정보를 찾을 수 있습니다
-
-
-docker-compose CLI
-
-docker-compose CLI
-아래 명령어로 Docker 컨테이너에서 여러 서비스를 빌드하고 관리
-docker compose [~|-|f ~|&amp;lt;|arg&amp;gt;...] [options] [COMMAND] [ARGS...]
-
-
-
-  
-    
-      Command
-      Description
-    
-  
-  
-    
-      build
-      Build or rebuild services
-    
-    
-      bundle
-      Generate a Docker bundle from the Compose file
-    
-    
-      config
-      Validate and view the Compose file
-    
-    
-      create
-      Create services
-    
-    
-      down
-      Stop and remove containers, networks, images, and volumes
-    
-    
-      events
-      Receive real time events from containers
-    
-    
-      exec
-      Execute a command in a running container
-    
-    
-      help
-      Get help on a command
-    
-    
-      images
-      List images
-    
-    
-      kill
-      Kill containers
-    
-    
-      logs
-      View output from containers
-    
-    
-      pause
-      Pause services
-    
-    
-      port
-      Print the public port for a port binding
-    
-    
-      ps
-      List containers
-    
-    
-      pull
-      Pull service images
-    
-    
-      push
-      Push service images
-    
-    
-      restart
-      Restart services
-    
-    
-      rm
-      Remove stopped containers
-    
-    
-      run
-      Run a one-off command
-    
-    
-      scale
-      Set number of containers for a service
-    
-    
-      start
-      Start services
-    
-    
-      stop
-      Stop services
-    
-    
-      top
-      Display the running processes
-    
-    
-      unpause
-      Unpause services
-    
-    
-      up
-      Create and start containers
-    
-    
-      version
-      Show the Docker Compose version information
-    
-  
-
-
-~|-|f 하나 이상의 Compose 파일의 이름과 경로 지정
-여러 Compose 파일 지정
-
-docker compose ~|-|f docker~|-|compose.yml ~|-|f docker-compose.admin.yml run backup_db
-
-
-  docker~|-|compose.yml로 지정할 수 있다.
-    webapp:
-  image: examples/web
-  ports:
-    ~|-| &quot;8000:8000&quot;
-  volumes:
-    ~|-| &quot;/data&quot;
-    
-    여러 Compose 파일을 사용하는 경우 파일의 모든 경로는 로 지정된 첫 번째 구성 파일에 상대적입니다 ~|-|f. --project-directory옵션을 사용하여 이 기본 경로를 재정의 할 수 있습니다 .
-  
-
-
-단일 Compose 파일에 대한 경로 지정
-
-플래그를 사용하여 명령줄에서 또는 셸 또는 환경 파일에서 COMPOSE_FILE 환경 변수를 ~|-|f 설정하여 
-현재 디렉터리에 없는 Compose 파일의 경로를 지정할 수 있습니다.
-
-
-  어디서나 서비스 에 대한 postgres 이미지를 가져오기 위해 docker compose pull 과 같은 명령을 사용할 수 있습니다 .
-    docker compose ~|-|f ~/sandbox/rails/docker~|-|compose.yml pull db
-    
-  
-
-
-docker-compose CLI 사용
-
-
-  
-    docker~|-|compse.yaml에 정의된 이미지를 컨테이너로 실행
-
-     docker~|-|compose up ~|#| ~|-|d 옵션을 함께 사용하면, 컨테이너를 백그라운드로 실행할 수 있습니다.
-    
-  
-  docker~|-|compose.yaml에 정의된 이미지를 이용해 실행된 컨테이너를 종료
-     docker~|-|compose down
-    
-  
-  특정 이미지만 컨테이너로 실행
-     docker~|-|compose up {특정 이미지}
-    
-  
-
-
-요구사항
-
-두 개 이상의 도커 컨테이너를 연결하는 docker-compose를 사용해 보겠습니다.
-
-
-  다음의 설명에 따라 docker~|-|compose.yaml 파일을 생성하세요.
-    
-      소스 코드는 이미 작성되어 있습니다.
-      docker~|-|compose up ~|-|d을 통해 컨테이너를 구동하세요.
-      결과를 localhost:8080 혹은 127.0.0.1:8080 에서 확인하세요.
-    
-  
-
-
-Quiz 3
-
-client와 server를 동시에 구동해 로그인 후 나타나는 단어를 확인하세요.
-
-  docker~|-|compse.yaml
-    
-      하나의 docker-compose에서 관리되는 컨테이너끼리는 동일한 docker network에서 구동됩니다.
-docker run 명령과 다르게 docker-compose 파일 안에서 기본 network가 사용됩니다.
-    
-  
-
-
-version: '3.8'
-
-services:
-  nginx:
-    image: sebcontents/client
-    restart: 'always'
-    ports:
-      ~|-| &quot;8080:80&quot;
-    container_name: client
-
-  node:
-    image: sebcontents/server
-    restart: 'always'
-    ports:
-      ~|-| &quot;4999:80&quot;
-    container_name: server
-
-
-  
-    
-      
-        
-          docker~
-          -
-          compose.yaml 혹은 docker~
-          -
-          compose.yml 파일을 위의 소스를 그대로 붙여넣어 생성합니다. 파일을 생성할 때 터미널의 위치는 무관합니다.
-        
-      
-    
-  
-  yaml 파일이 있는 위치에서 docker~|-|compose up ~|-|d 명령어를 통해 yaml 파일을 실행합니다.
-
-
-  브라우저에서 localhost:8080 혹은 127.0.0.1:8080 에서 실행된 client 화면을 확인한 후, 로그인 합니다. 로그인 정보는 브라우저 화면을 확인하세요.
-
-  로그인 후 나오는 단어를 확인하세요. Quiz 3의 정답입니다.
-
-
+            "name": "AWS 서비스 - 서비스 노출",
+            "headline": "AWS 서비스 서비스 노출에 대하여",
+            "description": "CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
+            "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/",
+            "articleBody": "CloudFront
 ",
-            "wordcount": "764",
+            "wordcount": "2",
             "inLanguage": "ko",
-            "dateCreated": "2023-04-12/",
-            "datePublished": "2023-04-12/",
-            "dateModified": "2023-04-12/",
+            "dateCreated": "2023-04-18/",
+            "datePublished": "2023-04-18/",
+            "dateModified": "2023-04-18/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -985,9 +491,9 @@ services:
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "docker",
-            "articleSection": "docker",
-            "keywords": ["Docker","nginx","postgresql","컨테이너","DockerCLI","CLI","도커이미지","Docker_Compose"]
+            "genre": "AWS",
+            "articleSection": "AWS",
+            "keywords": ["AWS","cloud","CloudFront"]
         }
         </script>
        </body>
