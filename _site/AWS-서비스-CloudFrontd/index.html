@@ -176,7 +176,7 @@ April 18, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>2 min to read</span>
                 </p>
                 <h1 class="post-title">(Sprint) 도메인 연결과 CDN 및 HTTPS적용</h1>
                 <p class="post-subtitle">도메인 연결과 CDN 및 HTTPS적용</p>
@@ -215,8 +215,8 @@ April 18, 2023
       <li>이때 해당 객체에 대한 퍼블릭 액세스를 허용해야 테스트를 통과할 수 있습니다.</li>
     </ul>
   </li>
-  <li>.env파일에 HTTPS 적용을 위한 환경설정으로 적절하게 작성합니다.</li>
-  <li>npm run test2 명령을 사용해 테스트가 통과하는지 확인합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">.env</code>파일에 HTTPS 적용을 위한 환경설정으로 적절하게 작성합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">npm run test2</code> 명령을 사용해 테스트가 통과하는지 확인합니다.</li>
   <li>실제로 웹 애플리케이션이 브라우저 상에서 HTTPS 프로토콜로 작동하는지 확인합니다.</li>
 </ul>
 
@@ -224,8 +224,17 @@ April 18, 2023
 <ul>
   <li>구매한 도메인을 기준으로 인증서를 발급 받습니다.
     <ul>
-      <li>인증서는 프론트엔드 Cloudfront 사용 리전인 us-east-1과 백엔드 Load Balancer 사용리전인 ap-northeast-2에서 발급 받아야 합니다.</li>
-      <li>발급 시, DNS 검증 가이드로 레퍼런스를 참고하세요.</li>
+      <li>
+        <p>도메인 구매 : Route 53에서 구매를해준다.
+<img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B81.png" alt="도메인구매1" />
+<img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png" alt="도메인구매2" /></p>
+      </li>
+      <li>인증서는 <code class="language-plaintext highlighter-rouge">프론트엔드 Cloudfront 사용 리전</code>인 <code class="language-plaintext highlighter-rouge">us-east-1</code>과 <code class="language-plaintext highlighter-rouge">백엔드 Load Balancer 사용리전</code>인 <code class="language-plaintext highlighter-rouge">ap-northeast-2</code>에서 발급 받아야 합니다.</li>
+      <li>발급 시, DNS 검증 가이드로 <a href="https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/dns-validation.html">레퍼런스</a>를 참고하세요.
+        <blockquote>
+          <p>도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.</p>
+        </blockquote>
+      </li>
       <li>이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.</li>
     </ul>
   </li>
@@ -279,29 +288,29 @@ April 18, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EA%B8%B0%EC%B4%88/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>AWS 기초</h3>
+                                    <h3>보안</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>깃허브 블로그 만들기</h3>
+                                    <h3>AWS 서비스 로드맵</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-AutoScalingGroup/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-3Tier-architecture/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>수평확장</h3>
+                                    <h3>(Sprint) 3 Tier Architecture 배포</h3>
                                 </a>
                             </li>
                         
@@ -313,7 +322,7 @@ April 18, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="2">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -563,8 +572,17 @@ Getting Started
 
   구매한 도메인을 기준으로 인증서를 발급 받습니다.
     
+      
+        도메인 구매 : Route 53에서 구매를해준다.
+
+
+      
       인증서는 프론트엔드 Cloudfront 사용 리전인 us-east-1과 백엔드 Load Balancer 사용리전인 ap-northeast-2에서 발급 받아야 합니다.
       발급 시, DNS 검증 가이드로 레퍼런스를 참고하세요.
+        
+          도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
+        
+      
       이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
     
   
@@ -604,7 +622,7 @@ Reference
   CloudFront 배포를 만들거나 업데이트할 때 지정하는 값
 
 ",
-            "wordcount": "322",
+            "wordcount": "398",
             "inLanguage": "ko",
             "dateCreated": "2023-04-18/",
             "datePublished": "2023-04-18/",
