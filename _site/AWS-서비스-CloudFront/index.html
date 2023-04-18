@@ -17,15 +17,15 @@
     
     
 
-    <title>AWS 서비스 - 서비스 노출 | Hoonology</title>
+    <title>서비스 노출 | Hoonology</title>
     <meta name="description" content="CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'">
     
-        <meta name="keywords" content="AWS, cloud, CloudFront">
+        <meta name="keywords" content="AWS, cloud, CloudFront, Route53">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AWS 서비스 - 서비스 노출 | Hoonology">
+    <meta name="twitter:title" content="서비스 노출 | Hoonology">
     <meta name="twitter:description" content="CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'">
 
     
@@ -36,7 +36,7 @@
 
     <!-- Social: Facebook / Open Graph -->
     <meta property="og:url" content="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
-    <meta property="og:title" content="AWS 서비스 - 서비스 노출 | Hoonology">
+    <meta property="og:title" content="서비스 노출 | Hoonology">
     <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
     <meta property="og:description" content="CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
@@ -167,7 +167,7 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-18T09:00:00+09:00">
+                        <time class="date" datetime="2023-04-18T11:00:00+09:00">
                             
 
 
@@ -176,9 +176,9 @@ April 18, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>4 min to read</span>
                 </p>
-                <h1 class="post-title">AWS 서비스 - 서비스 노출</h1>
+                <h1 class="post-title">서비스 노출</h1>
                 <p class="post-subtitle">AWS 서비스 서비스 노출에 대하여</p>
 
                 
@@ -193,6 +193,147 @@ April 18, 2023
 
 
                 <h1 id="cloudfront">CloudFront</h1>
+<p>AWS(Amazon Web Services)에서 제공하는 글로벌 콘텐츠 전송 네트워크(CDN) 서비스</p>
+<ul>
+  <li>CloudFront는 <strong>안정적이고 빠른 글로벌 콘텐츠 전송</strong>을 위한 AWS의 핵심 서비스 중 하나이다.</li>
+</ul>
+
+<blockquote>
+  <p>CloudFront는 <strong>세계 각지의 엣지 로케이션(Edge Location)</strong>을 사용하여 사용자가 콘텐츠에 빠르게 액세스할 수 있도록 합니다. 엣지 로케이션은 전 세계에 분산된 캐시 서버로, 사용자와 가장 가까운 엣지 로케이션에서 콘텐츠를 제공함으로써 지연 시간을 최소화합니다.</p>
+</blockquote>
+
+<blockquote>
+  <p>CloudFront는 다양한 유형의 콘텐츠를 지원합니다. 정적 웹 사이트, 동영상, 애플리케이션, API 등을 빠르고 안정적으로 전달할 수 있습니다. 또한, CloudFront는 AWS의 다른 서비스와 쉽게 통합할 수 있어 사용이 용이합니다.</p>
+</blockquote>
+
+<blockquote>
+  <p>CloudFront는 또한 다양한 보안 기능을 제공합니다. HTTPS를 사용하여 콘텐츠를 암호화하고, AWS WAF(Web Application Firewall)를 통해 웹 어플리케이션의 보안을 강화할 수 있습니다.</p>
+</blockquote>
+
+<h2 id="cloudfront-핵심-개념">CloudFront 핵심 개념</h2>
+<ul>
+  <li>엣지 로케이션은 주로 대도시에 위치한다. AWS 리전과의 위치가 같지는 않다.</li>
+  <li>엣지 캐시
+    <ul>
+      <li>지역별 엣지 캐시( CloudFront의 기본 기능 ) : 오리진 웹 서버와 엣지 코레이션 사이에 위치하여 사용자에게 직접 콘텐츠 전송</li>
+      <li>비교적 인기가 적은 엣지 로케이션에서 객체를 삭제해 인기가 많은 콘텐츠를 제공하기 위해 여유 공간 확보
+        <ul>
+          <li>지역별 엣지 캐시는 지역 로케이션 보다 높은 수준의 캐싱 능력을 바탕으로 캐싱 데이터를 오래 유지할 수 있게 된다.</li>
+          <li>사용자의 콘텐츠 요청에 오리진 웹 서버를 돌리지 않고 지역별 엣지 캐시로 사용자 요청에 대응하면서 콘텐츠 제공 성능이 높아진다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="cloudfront-활용과-적용">CloudFront 활용과 적용</h2>
+<h3 id="활용">활용</h3>
+<ul>
+  <li><strong>정적 콘텐츠 캐싱</strong> : 사진, 영상, 자바스크립트, 스타일시트 등의 정적 콘텐츠 전송 속도를 높여주고 사용자는 엣지 로케이션을 통해 요청한 콘텐츠를 제공 받는다.</li>
+  <li><strong>동적 콘텐츠 네트워크 최적화</strong> : 콘텐츠 가속화 기능 제공, EC2 서버에서 실행중인 애플리케이션 또는 웹사이트를 CloudFront와 <strong>통합</strong>할 수 있다.</li>
+  <li>DDoS 공격 대응 : CloudFront는 OSI 모델의 L3, L4, L7을 보호할 수 있는 AWS Shield, WAF를 통합하여 방어할 수 있다.
+    <ul>
+      <li>강화된 보안성 CloudFront는 SSL(HTTPS)방식의 보안 기능을 제공하며, 보안이 강화된 API, SSL/TSL 적용, advanced SSL 기능을 자동으로 적용할 수
+있습니다. 더불어 모든 인프라와 프로세스는 중요 콘텐츠의 보안 수준을 유지하기 위해 PCI, DDS, HIPAA, ISO 규정을 준수합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="적용">적용</h3>
+<h4 id="경로-패턴-매칭--애플리케이션의-url-경로-패턴에-따라-다양한-캐시-제어-동작-설정"><strong>경로 패턴 매칭</strong> : 애플리케이션의 URL 경로 패턴에 따라 다양한 캐시 제어 동작 설정</h4>
+<ul>
+  <li>경로 패턴에 따라 HTTP/HTTPS 프로토콜 설정, 헤어 또는 캐싱 옵션 설정, 쿠키 및 쿼리 문자열 포워딩 설정, 접근 제한등의 방식으로 특정 오리진으로 요청을 전송</li>
+</ul>
+
+<h4 id="헤더">헤더</h4>
+<ul>
+  <li>헤더 값을 통해 요청 헤더를 <strong>오리진 캐시</strong>로 포워딩
+    <ul>
+      <li>동일한 사이트를 접속한 노트북 사용자와 스마트폰 사용자의 요청에 각기 다른 반응을 제공</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="쿼리query-문자열-및-쿠키">쿼리(query) 문자열 및 쿠키</h4>
+<p>오리진으로 정보를 전달하기 위해 쿼리 문자열을 사용</p>
+<ul>
+  <li>하나 이상의 파라미터를 &amp; 기호로 연결한다.</li>
+</ul>
+
+<h4 id="서명-url-서명-쿠키">서명 URL, 서명 쿠키</h4>
+<ul>
+  <li>서명 URL<br />
+정적 콘텐츠(html 등)를 S3 버킷에 옮긴 뒤 CloudFront의 <strong>서명 URL 방식</strong>을 통하여 <strong>비인가 접근을 막을 수 있다.</strong>
+    <ul>
+      <li>만료일 및 만료 시간 등의 부가 정보가 포함돼 있어 콘텐츠에 대한 접근을 조금 더 세심하게 제어할 수 있다.</li>
+    </ul>
+  </li>
+  <li>서명 쿠키
+기능적인 부분은 서명 URL과 같음, 다른 점이라면, <strong>HTTP 쿠키에 추가 정보를 넣는다</strong>.
+    <ul>
+      <li>다수 객체에 대한 접근 제어, URL 변경 없는 동일 객체에 대한 접근 제어</li>
+      <li>Set-Cookie 헤더가 사용자 계정에 전달 -&gt; 사용자 디바이스의 쿠키에 적용
+        <ul>
+          <li>사용자가 제한 객체에 대한 접근 요청 시, 브라우저는 요청에 포함된 쿠키를 포워딩 -&gt; CloudFront가 쿠키 속성을 확인 후 접근 허용/차단 결정</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="오류-처리-기능">오류 처리 기능</h2>
+<p>콘텐츠 요청 시 오리진 서버가 HTTP 4xx, 5xx로 응답 -&gt; <strong>사용자에게 커스텀 오류 페이지 제공</strong></p>
+<ul>
+  <li>CloudFront는 S3에 정적 페이지 제공 여지 부여 -&gt; 최소 유지시간(TTL) 정의 -&gt; 캐시 오류를 얼마나 오래 유지할지 조절 가능</li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="route53">Route53</h1>
+<p><strong>관리형 DNS</strong>(Domain Name Service)</p>
+<ul>
+  <li>사용자의 요청을 <strong>EC2 인스턴스</strong>, <strong>ELB 로드밸런서</strong>, <strong>S3 버킷</strong> 등 AWS 내 인프라에 연결시킨다.</li>
+  <li>리전과 독립적으로 작동
+    <ul>
+      <li><strong>다수의 리전을 교차 연결</strong></li>
+      <li>다수의 리전과 VPC간 DNS 주소 변환 가능</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Route53의 주요 DNS 기록 타입</p>
+<ul>
+  <li>A 레코드 : 도메인 이름을 IPv4 주소에 매핑하는 레코드입니다.</li>
+  <li>AAAA 레코드 : 도메인 이름을 IPv6 주소에 매핑하는 레코드입니다.</li>
+  <li>CNAME 레코드 : 도메인 이름을 다른 도메인 이름에 매핑하는 레코드입니다.</li>
+  <li>MX 레코드 : 메일 서버를 식별하는 레코드입니다.</li>
+  <li>NS 레코드 : DNS 네임 서버를 식별하는 레코드입니다.</li>
+  <li>PTR 레코드 : IPv4 또는 IPv6 주소를 도메인 이름으로 매핑하는 레코드입니다.</li>
+  <li>SOA 레코드 : DNS 존의 속성을 식별하는 레코드입니다.</li>
+  <li>SPF 레코드 : 이메일 인증을 지원하는 레코드입니다.</li>
+  <li>SRV 레코드 : 도메인 이름에서 사용 가능한 서비스를 식별하는 레코드입니다.</li>
+  <li>TXT 레코드 : 도메인 이름에 대한 임의의 텍스트 정보를 포함하는 레코드입니다.</li>
+</ul>
+
+<h2 id="라우팅-정책-지원">라우팅 정책 지원</h2>
+<h3 id="가중치-라운드-로빈--weighted-round-robin-">가중치 라운드 로빈 ( Weighted Round Robin )</h3>
+<p>여러 리소스(예: EC2 인스턴스, 로드 밸런서, IP 주소)에 대한 트래픽을 가중치를 기반으로 분산하는 방식<br />
+각 리소스에 가중치를 할당하여, 더 큰 가중치가 있는 리소스는 더 많은 트래픽을 처리</p>
+
+<h3 id="지연-기반-라우팅--latency-based-routing-">지연 기반 라우팅 ( Latency-Based Routing )</h3>
+<p>사용자의 지리적 위치와 가장 가까운 위치에 있는 리소스로 DNS 쿼리를 전달하여, 지연 시간을 최소화하는 방식<br />
+이 방식은 사용자 경험을 향상시키고, 전 세계적으로 분산된 애플리케이션 및 서비스에 대해 효과적</p>
+
+<h3 id="장애-대응-라우팅failover-routing">장애 대응 라우팅(Failover Routing)</h3>
+<p>메인 리소스의 장애 상황 시 백업 리소스로 DNS 쿼리를 전환하여, 가용성을 높이는 방식<br />
+예를 들어, 주 서버에 장애가 발생할 경우, 백업 서버로 DNS 쿼리를 전환하여 서비스를 계속 제공할 수 있다.</p>
+
+<h3 id="지역-dns-라우팅geo-dns-routing">지역 DNS 라우팅(Geo DNS Routing)</h3>
+<p>사용자의 위치에 따라 지역별로 서로 다른 IP 주소를 반환하여, 지역별로 다른 애플리케이션 및 서비스에 대한 접근을 가능하게 한다. <br />
+이 방식은 지역별로 서로 다른 언어, 화폐, 세금 및 규제 등의 요구사항을 충족시키는 글로벌 애플리케이션에 적합</p>
+
+<p><br />
+<br /></p>
 
 
                 <!-- Pagination links -->
@@ -208,29 +349,29 @@ April 18, 2023
                         
                         
                             <li>
-                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-                                    
-                                    <h3>Docker Image 다루기 2 </h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-EC2/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>AWS 서비스 - Storage</h3>
+                                    <h3>AWS 서비스 - EC2</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/YAML/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                    
+                                    <h3>YAML</h3>
                                 </a>
                             </li>
                         
@@ -242,7 +383,7 @@ April 18, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="4">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -262,13 +403,13 @@ April 18, 2023
         </div>
     </div>
     
-    <a href="/YAML/" class="post-preview">
+    <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
             
         </div>
-        <h3 class="title">YAML</h3>
+        <h3 class="title">보안</h3>
     </a>
 </div>
 
@@ -284,7 +425,7 @@ April 18, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/%20via%20&#64;&hashtags=AWS,cloud,CloudFront"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/%20via%20&#64;&hashtags=AWS,cloud,CloudFront,Route53"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
@@ -455,14 +596,155 @@ April 18, 2023
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "AWS 서비스 - 서비스 노출",
+            "name": "서비스 노출",
             "headline": "AWS 서비스 서비스 노출에 대하여",
             "description": "CloudFront - CDN 서비스 ' 저지연성과 고속전송 속성을 지닌 콘텐츠 배포 기능 제공'",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
             "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/",
             "articleBody": "CloudFront
+AWS(Amazon Web Services)에서 제공하는 글로벌 콘텐츠 전송 네트워크(CDN) 서비스
+
+  CloudFront는 안정적이고 빠른 글로벌 콘텐츠 전송을 위한 AWS의 핵심 서비스 중 하나이다.
+
+
+
+  CloudFront는 세계 각지의 엣지 로케이션(Edge Location)을 사용하여 사용자가 콘텐츠에 빠르게 액세스할 수 있도록 합니다. 엣지 로케이션은 전 세계에 분산된 캐시 서버로, 사용자와 가장 가까운 엣지 로케이션에서 콘텐츠를 제공함으로써 지연 시간을 최소화합니다.
+
+
+
+  CloudFront는 다양한 유형의 콘텐츠를 지원합니다. 정적 웹 사이트, 동영상, 애플리케이션, API 등을 빠르고 안정적으로 전달할 수 있습니다. 또한, CloudFront는 AWS의 다른 서비스와 쉽게 통합할 수 있어 사용이 용이합니다.
+
+
+
+  CloudFront는 또한 다양한 보안 기능을 제공합니다. HTTPS를 사용하여 콘텐츠를 암호화하고, AWS WAF(Web Application Firewall)를 통해 웹 어플리케이션의 보안을 강화할 수 있습니다.
+
+
+CloudFront 핵심 개념
+
+  엣지 로케이션은 주로 대도시에 위치한다. AWS 리전과의 위치가 같지는 않다.
+  엣지 캐시
+    
+      지역별 엣지 캐시( CloudFront의 기본 기능 ) : 오리진 웹 서버와 엣지 코레이션 사이에 위치하여 사용자에게 직접 콘텐츠 전송
+      비교적 인기가 적은 엣지 로케이션에서 객체를 삭제해 인기가 많은 콘텐츠를 제공하기 위해 여유 공간 확보
+        
+          지역별 엣지 캐시는 지역 로케이션 보다 높은 수준의 캐싱 능력을 바탕으로 캐싱 데이터를 오래 유지할 수 있게 된다.
+          사용자의 콘텐츠 요청에 오리진 웹 서버를 돌리지 않고 지역별 엣지 캐시로 사용자 요청에 대응하면서 콘텐츠 제공 성능이 높아진다.
+        
+      
+    
+  
+
+
+CloudFront 활용과 적용
+활용
+
+  정적 콘텐츠 캐싱 : 사진, 영상, 자바스크립트, 스타일시트 등의 정적 콘텐츠 전송 속도를 높여주고 사용자는 엣지 로케이션을 통해 요청한 콘텐츠를 제공 받는다.
+  동적 콘텐츠 네트워크 최적화 : 콘텐츠 가속화 기능 제공, EC2 서버에서 실행중인 애플리케이션 또는 웹사이트를 CloudFront와 통합할 수 있다.
+  DDoS 공격 대응 : CloudFront는 OSI 모델의 L3, L4, L7을 보호할 수 있는 AWS Shield, WAF를 통합하여 방어할 수 있다.
+    
+      강화된 보안성 CloudFront는 SSL(HTTPS)방식의 보안 기능을 제공하며, 보안이 강화된 API, SSL/TSL 적용, advanced SSL 기능을 자동으로 적용할 수
+있습니다. 더불어 모든 인프라와 프로세스는 중요 콘텐츠의 보안 수준을 유지하기 위해 PCI, DDS, HIPAA, ISO 규정을 준수합니다.
+    
+  
+
+
+적용
+경로 패턴 매칭 : 애플리케이션의 URL 경로 패턴에 따라 다양한 캐시 제어 동작 설정
+
+  경로 패턴에 따라 HTTP/HTTPS 프로토콜 설정, 헤어 또는 캐싱 옵션 설정, 쿠키 및 쿼리 문자열 포워딩 설정, 접근 제한등의 방식으로 특정 오리진으로 요청을 전송
+
+
+헤더
+
+  헤더 값을 통해 요청 헤더를 오리진 캐시로 포워딩
+    
+      동일한 사이트를 접속한 노트북 사용자와 스마트폰 사용자의 요청에 각기 다른 반응을 제공
+    
+  
+
+
+쿼리(query) 문자열 및 쿠키
+오리진으로 정보를 전달하기 위해 쿼리 문자열을 사용
+
+  하나 이상의 파라미터를 &amp;amp; 기호로 연결한다.
+
+
+서명 URL, 서명 쿠키
+
+  서명 URL
+정적 콘텐츠(html 등)를 S3 버킷에 옮긴 뒤 CloudFront의 서명 URL 방식을 통하여 비인가 접근을 막을 수 있다.
+    
+      만료일 및 만료 시간 등의 부가 정보가 포함돼 있어 콘텐츠에 대한 접근을 조금 더 세심하게 제어할 수 있다.
+    
+  
+  서명 쿠키
+기능적인 부분은 서명 URL과 같음, 다른 점이라면, HTTP 쿠키에 추가 정보를 넣는다.
+    
+      다수 객체에 대한 접근 제어, URL 변경 없는 동일 객체에 대한 접근 제어
+      Set-Cookie 헤더가 사용자 계정에 전달 -&amp;gt; 사용자 디바이스의 쿠키에 적용
+        
+          사용자가 제한 객체에 대한 접근 요청 시, 브라우저는 요청에 포함된 쿠키를 포워딩 -&amp;gt; CloudFront가 쿠키 속성을 확인 후 접근 허용/차단 결정
+        
+      
+    
+  
+
+
+오류 처리 기능
+콘텐츠 요청 시 오리진 서버가 HTTP 4xx, 5xx로 응답 -&amp;gt; 사용자에게 커스텀 오류 페이지 제공
+
+  CloudFront는 S3에 정적 페이지 제공 여지 부여 -&amp;gt; 최소 유지시간(TTL) 정의 -&amp;gt; 캐시 오류를 얼마나 오래 유지할지 조절 가능
+
+
+
+
+Route53
+관리형 DNS(Domain Name Service)
+
+  사용자의 요청을 EC2 인스턴스, ELB 로드밸런서, S3 버킷 등 AWS 내 인프라에 연결시킨다.
+  리전과 독립적으로 작동
+    
+      다수의 리전을 교차 연결
+      다수의 리전과 VPC간 DNS 주소 변환 가능
+    
+  
+
+
+Route53의 주요 DNS 기록 타입
+
+  A 레코드 : 도메인 이름을 IPv4 주소에 매핑하는 레코드입니다.
+  AAAA 레코드 : 도메인 이름을 IPv6 주소에 매핑하는 레코드입니다.
+  CNAME 레코드 : 도메인 이름을 다른 도메인 이름에 매핑하는 레코드입니다.
+  MX 레코드 : 메일 서버를 식별하는 레코드입니다.
+  NS 레코드 : DNS 네임 서버를 식별하는 레코드입니다.
+  PTR 레코드 : IPv4 또는 IPv6 주소를 도메인 이름으로 매핑하는 레코드입니다.
+  SOA 레코드 : DNS 존의 속성을 식별하는 레코드입니다.
+  SPF 레코드 : 이메일 인증을 지원하는 레코드입니다.
+  SRV 레코드 : 도메인 이름에서 사용 가능한 서비스를 식별하는 레코드입니다.
+  TXT 레코드 : 도메인 이름에 대한 임의의 텍스트 정보를 포함하는 레코드입니다.
+
+
+라우팅 정책 지원
+가중치 라운드 로빈 ( Weighted Round Robin )
+여러 리소스(예: EC2 인스턴스, 로드 밸런서, IP 주소)에 대한 트래픽을 가중치를 기반으로 분산하는 방식
+각 리소스에 가중치를 할당하여, 더 큰 가중치가 있는 리소스는 더 많은 트래픽을 처리
+
+지연 기반 라우팅 ( Latency-Based Routing )
+사용자의 지리적 위치와 가장 가까운 위치에 있는 리소스로 DNS 쿼리를 전달하여, 지연 시간을 최소화하는 방식
+이 방식은 사용자 경험을 향상시키고, 전 세계적으로 분산된 애플리케이션 및 서비스에 대해 효과적
+
+장애 대응 라우팅(Failover Routing)
+메인 리소스의 장애 상황 시 백업 리소스로 DNS 쿼리를 전환하여, 가용성을 높이는 방식
+예를 들어, 주 서버에 장애가 발생할 경우, 백업 서버로 DNS 쿼리를 전환하여 서비스를 계속 제공할 수 있다.
+
+지역 DNS 라우팅(Geo DNS Routing)
+사용자의 위치에 따라 지역별로 서로 다른 IP 주소를 반환하여, 지역별로 다른 애플리케이션 및 서비스에 대한 접근을 가능하게 한다. 
+이 방식은 지역별로 서로 다른 언어, 화폐, 세금 및 규제 등의 요구사항을 충족시키는 글로벌 애플리케이션에 적합
+
+
+
 ",
-            "wordcount": "2",
+            "wordcount": "851",
             "inLanguage": "ko",
             "dateCreated": "2023-04-18/",
             "datePublished": "2023-04-18/",
@@ -493,7 +775,7 @@ April 18, 2023
             "mainEntityOfPage": "True",
             "genre": "AWS",
             "articleSection": "AWS",
-            "keywords": ["AWS","cloud","CloudFront"]
+            "keywords": ["AWS","cloud","CloudFront","Route53"]
         }
         </script>
        </body>

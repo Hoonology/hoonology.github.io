@@ -1,7 +1,7 @@
 ---
 date: 2023-04-18 00:00:00
 layout: post
-title: AWS 서비스 - 수평확장
+title: 수평확장
 subtitle: AWS 서비스 수평확장에 대하여
 description: Auto Scaling - Auto Scaling Group, Elastic Load Balancing(ELB)의 장점과 설명 
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png

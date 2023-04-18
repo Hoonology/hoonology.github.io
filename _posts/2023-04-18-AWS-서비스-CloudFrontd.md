@@ -1,9 +1,9 @@
 ---
-date: 2023-04-18 03:00:00
+date: 2023-04-18 03:30:00
 layout: post
-title: AWS 서비스 - 도메인 연결과 CDN 및 HTTPS적용
+title: (Sprint) 도메인 연결과 CDN 및 HTTPS적용
 subtitle: 도메인 연결과 CDN 및 HTTPS적용
-description: [Sprint] 도메인 연결과 CDN 및 HTTPS적용 
+description: (Sprint) 도메인 연결과 CDN 및 HTTPS적용 
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png 
 category: AWS
@@ -17,6 +17,7 @@ author: Hoonology
 comments: true
 
 ---
+
 # 도메인 연결과 CDN 및 HTTPS 적용
 ## Prerequisite
 - Sprint1인 HTTP 배포를 완료해야 합니다.
@@ -67,4 +68,3 @@ Reference
 - [Application Load Balancer용 HTTPS 리스너 생성](https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html)
 - [CloudFront 배포 생성](https://docs.aws.amazon.com/ko_kr/ko_kr/AmazonCloudFront/latest/DeveloperGuide/distribution-web-creating-console.html)
 - [CloudFront 배포를 만들거나 업데이트할 때 지정하는 값](https://docs.aws.amazon.com/ko_kr/ko_kr/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html)
-

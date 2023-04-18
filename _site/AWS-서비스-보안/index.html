@@ -17,28 +17,28 @@
     
     
 
-    <title>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기 | Hoonology</title>
-    <meta name="description" content="실패를 하지 않는 두려움과 시도의 즐거움 - 트러블슈팅">
+    <title>보안 | Hoonology</title>
+    <meta name="description" content="Certificate Manager, IAM 에 대하여">
     
-        <meta name="keywords" content="github, blog">
+        <meta name="keywords" content="AWS, cloud, Certificate Manager, ACM, IAM">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기 | Hoonology">
-    <meta name="twitter:description" content="실패를 하지 않는 두려움과 시도의 즐거움 - 트러블슈팅">
+    <meta name="twitter:title" content="보안 | Hoonology">
+    <meta name="twitter:description" content="Certificate Manager, IAM 에 대하여">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
-    <meta property="og:title" content="깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기 | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-    <meta property="og:description" content="실패를 하지 않는 두려움과 시도의 즐거움 - 트러블슈팅">
+    <meta property="og:url" content="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
+    <meta property="og:title" content="보안 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+    <meta property="og:description" content="Certificate Manager, IAM 에 대하여">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+    <link rel="canonical" href="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-08T21:00:00+09:00">
+                        <time class="date" datetime="2023-04-18T12:00:00+09:00">
                             
 
 
-April 8, 2023
+April 18, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
                     <span>1 min to read</span>
                 </p>
-                <h1 class="post-title">깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h1>
-                <p class="post-subtitle">깃허브 블로그를 만들어보자</p>
+                <h1 class="post-title">보안</h1>
+                <p class="post-subtitle">AWS 서비스 보안에 대하여</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,131 +192,66 @@ April 8, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="chirpy-theme">Chirpy Theme</h1>
-<p>아래 블로그에서 chirpy 테마에 대한 모든 설치 방법이 잘 나와있다.<br />
-https://www.irgroup.org/posts/jekyll-chirpy/</p>
+                <h1 id="certificate-manager">Certificate Manager</h1>
 
-<p>먼저 https://github.com/cotes2020/jekyll-theme-chirpy/fork 에서  포크 한 뒤,</p>
+<h2 id="aws-certificate-manager">AWS Certificate Manager</h2>
+<p>AWS 서비스 및 연결된 내부 리소스에 사용할 공인 및 사설 SSL/TLS(Secure Sockets Layer/전송 계층 보안) 인증서를 손쉽게 프로비저닝, 관리 및 배포할 수 있도록 지원하는 서비스입니다. SSL/TLS 인증서는 네트워크 통신을 보호하고 인터넷상에서 웹 사이트의 자격 증명과 프라이빗 네트워크상에서 리소스의 자격 증명을 설정하는 데 사용됩니다. AWS Certificate Manager는 SSL/TLS 인증서를 구매, 업로드 및 갱신하는 데 드는 시간 소모적인 수동 프로세스를 대신 처리합니다.</p>
 
-<p>로컬 환경에 클론하고 CUI 환경에서 클론한 폴더로 이동한 뒤 아래 명령어 실행한다.</p>
+<h3 id="acm-사용">ACM 사용</h3>
+<p>사용할 TLS/SSL 인증서를 AWS 계정으로 요청하거나 가져옵니다.
+도메인 이름 시스템(DNS) 또는 이메일 검증을 통해 요청된 인증서의 도메인 소유권을 검증하여 인증서 발급을 완료합니다.
+Elastic Load Balancing(ELB), Amazon CloudFront 등과 같은 다양한 AWS 서비스에서 새로 발급되거나 가져온 인증서를 사용합니다.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>tools/init
-<span class="o">[</span>INFO] Initialization successful!  &lt;<span class="nt">--</span> 이런 메세지가 나오면 성공입니다.
-</code></pre></div></div>
-<p>아래 파일들이 삭제 된다.</p>
+<h2 id="reference">Reference</h2>
+<p><a href="https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/acm-overview.html">https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/acm-overview.html</a></p>
+
+<h1 id="iam">IAM</h1>
+
+<p>Server Deployment Pipeline 실습 중 EC2 인스턴스의 Role 설정에 사용되었던 IAM 서비스는 어떤 서비스일까요?</p>
+<blockquote>
+  <p>AWS Identity and Access Management(IAM)은 AWS 리소스에 대한 액세스를 안전하게 제어할 수 있는 웹 서비스이다.</p>
+</blockquote>
+
+<p>IAM 서비스는 AWS 내에서 자격 증명(Authentication)에 대해 지원하고 제어합니다.</p>
 <ul>
-  <li>.travis.yml</li>
-  <li>_posts 폴더 하위의 파일들</li>
-  <li>docs 폴더</li>
+  <li>User와 User Group 설정을 통해 AWS 계정에 대한 리소스 접근과 관리 권한을 다른 사람에게 부여하고, Role 설정을 통해 AWS 서비스 간 접근 권한을 부여</li>
 </ul>
 
-<h2 id="의존성이-있는-모듈을-모두-설치를-위해-로컬에서-실행해본다">의존성이 있는 모듈을 모두 설치를 위해 로컬에서 실행해본다.</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="c"># 번들 설치</span>
-jekyll serve <span class="c"># 실행</span>
-</code></pre></div></div>
-<p>위 명령어를 모두 실행했을 때 이상이 없음을 확인한다.</p>
-
-<h2 id="_configyml-커스터마이징"><code class="language-plaintext highlighter-rouge">_configyml</code> 커스터마이징</h2>
-<p>https://www.irgroup.org/posts/jekyll-chirpy/<br />
-이 페이지에 잘 나와있다.</p>
-
-<h3 id="conf-파일-상세내용">conf 파일 상세내용</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>항목</th>
-      <th>값</th>
-      <th>설명</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>lang</td>
-      <td>ko</td>
-      <td>언어를 한글로 설정합니다. 기본값은 en입니다.</td>
-    </tr>
-    <tr>
-      <td>timezone</td>
-      <td>Asia/Seoul</td>
-      <td>서울 표준시로 설정합니다.</td>
-    </tr>
-    <tr>
-      <td>title</td>
-      <td>아무거나~</td>
-      <td>블로그 제목을 넣어 줍니다.</td>
-    </tr>
-    <tr>
-      <td>tagline</td>
-      <td>아무거나~</td>
-      <td>title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.</td>
-    </tr>
-    <tr>
-      <td>description</td>
-      <td>아무거나~</td>
-      <td>SEO를 위한 키워드들을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>url</td>
-      <td><a href="https://focuschange-test.github.io">https://focuschange-test.github.io</a></td>
-      <td>내 블로그로 실제 접속할 URL을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>github</td>
-      <td>github id</td>
-      <td>본인의 GitHub 아이디를 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>twitter.username</td>
-      <td>twitter id</td>
-      <td>트위터를 사용한다면 아이디를 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>social.name</td>
-      <td>이름</td>
-      <td>포스트 등에 표시할 나의 이름을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>social.email</td>
-      <td>이메일</td>
-      <td>나의 이메일 계정을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>social.links</td>
-      <td>소셜 링크들</td>
-      <td>트위터, 페이스북 등 내가 사용하고 있는 소셜 서비스의 나의 홈 URL을 입력합니다.</td>
-    </tr>
-    <tr>
-      <td>theme_mode</td>
-      <td>light or dark</td>
-      <td>원하는 테마 스킨을 선택합니다. 기본은 light입니다.</td>
-    </tr>
-    <tr>
-      <td>avatar</td>
-      <td>이미지 경로</td>
-      <td>블로그 왼쪽 상단에 표시될 나의 아바타 이미지를 설정합니다.</td>
-    </tr>
-    <tr>
-      <td>toc</td>
-      <td>true</td>
-      <td>포스팅된 글의 오른쪽에 목차를 표시합니다.</td>
-    </tr>
-    <tr>
-      <td>paginate</td>
-      <td>10</td>
-      <td>한 목록에 몇 개의 글을 표시해 줄 것인지 선택합니다.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="gemfilelock을-ignore하기">Gemfile.lock을 ignore하기</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano .ignore
-<span class="c"># 아래 내용 추가 -&gt; ? 빌드/배포 에러 방지하기 위해 올리지 않도록 하는 것</span>
-Gemfile.lock
-</code></pre></div></div>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push <span class="nt">-u</span> origin master
-</code></pre></div></div>
+<h2 id="aws-iam-service">AWS IAM Service</h2>
+<ul>
+  <li>
+    <p>IAM이란 무엇인가요?
+<a href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/introduction.html">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/introduction.html</a></p>
+  </li>
+  <li>
+    <p>IAM 자격 증명(사용자, 사용자 그룹 및 역할)<br />
+<a href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id.html">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id.html</a></p>
+  </li>
+  <li>
+    <p>IAM 사용자<br />
+<a href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_users.html">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_users.html</a></p>
+  </li>
+  <li>
+    <p>IAM 사용자 그룹<br />
+<a href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_groups.html">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_groups.html</a></p>
+  </li>
+  <li>
+    <p>IAM 역할 용어 및 개념<br />
+<a href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_terms-and-concepts.html">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_terms-and-concepts.html</a></p>
+  </li>
+  <li>
+    <p>AWS 서비스에 대한 액세스 권한 제공<br />
+<a href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_common-scenarios_services.html">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_common-scenarios_services.html</a></p>
+  </li>
+  <li>
+    <p>IAM의 정책 및 권한<br />
+<a href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies.html#access_policies-json">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies.html#access_policies-json</a></p>
+  </li>
+  <li>
+    <p>IAM의 보안 모범 사례<br />
+<a href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/best-practices.html">https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/best-practices.html</a></p>
+  </li>
+</ul>
 
 
 
@@ -333,29 +268,29 @@ Gemfile.lock
                         
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-AutoScalingGroup/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>서비스 노출</h3>
+                                    <h3>수평확장</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-3Tier-architecture/">
+                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
-                                    <h3>(Sprint) 3 Tier Architecture 배포</h3>
+                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>Docker Image 다루기 2 </h3>
+                                    <h3>AWS 서비스 - Storage</h3>
                                 </a>
                             </li>
                         
@@ -387,13 +322,13 @@ Gemfile.lock
         </div>
     </div>
     
-    <a href="/Docker-CLI-Part1/" class="post-preview">
+    <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFrontd/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
             
         </div>
-        <h3 class="title">Docker CLI</h3>
+        <h3 class="title">(Sprint) 도메인 연결과 CDN 및 HTTPS적용</h3>
     </a>
 </div>
 
@@ -409,11 +344,11 @@ Gemfile.lock
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;실패를 하지 않는 두려움과 시도의 즐거움 - 트러블슈팅&quot;%20http://localhost:4000/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/%20via%20&#64;&hashtags=github,blog"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Certificate Manager, IAM 에 대하여&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/%20via%20&#64;&hashtags=AWS,cloud,Certificate Manager,ACM,IAM"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -436,7 +371,7 @@ Gemfile.lock
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/';
+        var disqus_url = '/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -580,143 +515,78 @@ Gemfile.lock
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기",
-            "headline": "깃허브 블로그를 만들어보자",
-            "description": "실패를 하지 않는 두려움과 시도의 즐거움 - 트러블슈팅",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png",
-            "url": "http://localhost:4000/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/",
-            "articleBody": "Chirpy Theme
-아래 블로그에서 chirpy 테마에 대한 모든 설치 방법이 잘 나와있다.
-https://www.irgroup.org/posts/jekyll-chirpy/
+            "name": "보안",
+            "headline": "AWS 서비스 보안에 대하여",
+            "description": "Certificate Manager, IAM 에 대하여",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
+            "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/",
+            "articleBody": "Certificate Manager
 
-먼저 https://github.com/cotes2020/jekyll-theme-chirpy/fork 에서  포크 한 뒤,
+AWS Certificate Manager
+AWS 서비스 및 연결된 내부 리소스에 사용할 공인 및 사설 SSL/TLS(Secure Sockets Layer/전송 계층 보안) 인증서를 손쉽게 프로비저닝, 관리 및 배포할 수 있도록 지원하는 서비스입니다. SSL/TLS 인증서는 네트워크 통신을 보호하고 인터넷상에서 웹 사이트의 자격 증명과 프라이빗 네트워크상에서 리소스의 자격 증명을 설정하는 데 사용됩니다. AWS Certificate Manager는 SSL/TLS 인증서를 구매, 업로드 및 갱신하는 데 드는 시간 소모적인 수동 프로세스를 대신 처리합니다.
 
-로컬 환경에 클론하고 CUI 환경에서 클론한 폴더로 이동한 뒤 아래 명령어 실행한다.
+ACM 사용
+사용할 TLS/SSL 인증서를 AWS 계정으로 요청하거나 가져옵니다.
+도메인 이름 시스템(DNS) 또는 이메일 검증을 통해 요청된 인증서의 도메인 소유권을 검증하여 인증서 발급을 완료합니다.
+Elastic Load Balancing(ELB), Amazon CloudFront 등과 같은 다양한 AWS 서비스에서 새로 발급되거나 가져온 인증서를 사용합니다.
 
-sudo tools/init
-[INFO] Initialization successful!  &amp;lt;-- 이런 메세지가 나오면 성공입니다.
+Reference
+https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/acm-overview.html
 
-아래 파일들이 삭제 된다.
+IAM
 
-  .travis.yml
-  _posts 폴더 하위의 파일들
-  docs 폴더
+Server Deployment Pipeline 실습 중 EC2 인스턴스의 Role 설정에 사용되었던 IAM 서비스는 어떤 서비스일까요?
+
+  AWS Identity and Access Management(IAM)은 AWS 리소스에 대한 액세스를 안전하게 제어할 수 있는 웹 서비스이다.
 
 
-의존성이 있는 모듈을 모두 설치를 위해 로컬에서 실행해본다.
-bundle # 번들 설치
-jekyll serve # 실행
+IAM 서비스는 AWS 내에서 자격 증명(Authentication)에 대해 지원하고 제어합니다.
 
-위 명령어를 모두 실행했을 때 이상이 없음을 확인한다.
+  User와 User Group 설정을 통해 AWS 계정에 대한 리소스 접근과 관리 권한을 다른 사람에게 부여하고, Role 설정을 통해 AWS 서비스 간 접근 권한을 부여
 
-_configyml 커스터마이징
-https://www.irgroup.org/posts/jekyll-chirpy/
-이 페이지에 잘 나와있다.
 
-conf 파일 상세내용
-
+AWS IAM Service
 
   
-    
-      항목
-      값
-      설명
-    
+    IAM이란 무엇인가요?
+https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/introduction.html
   
   
-    
-      lang
-      ko
-      언어를 한글로 설정합니다. 기본값은 en입니다.
-    
-    
-      timezone
-      Asia/Seoul
-      서울 표준시로 설정합니다.
-    
-    
-      title
-      아무거나~
-      블로그 제목을 넣어 줍니다.
-    
-    
-      tagline
-      아무거나~
-      title 아래에 작은 글씨로 부연설명을 넣을 수 있습니다.
-    
-    
-      description
-      아무거나~
-      SEO를 위한 키워드들을 입력합니다.
-    
-    
-      url
-      https://focuschange-test.github.io
-      내 블로그로 실제 접속할 URL을 입력합니다.
-    
-    
-      github
-      github id
-      본인의 GitHub 아이디를 입력합니다.
-    
-    
-      twitter.username
-      twitter id
-      트위터를 사용한다면 아이디를 입력합니다.
-    
-    
-      social.name
-      이름
-      포스트 등에 표시할 나의 이름을 입력합니다.
-    
-    
-      social.email
-      이메일
-      나의 이메일 계정을 입력합니다.
-    
-    
-      social.links
-      소셜 링크들
-      트위터, 페이스북 등 내가 사용하고 있는 소셜 서비스의 나의 홈 URL을 입력합니다.
-    
-    
-      theme_mode
-      light or dark
-      원하는 테마 스킨을 선택합니다. 기본은 light입니다.
-    
-    
-      avatar
-      이미지 경로
-      블로그 왼쪽 상단에 표시될 나의 아바타 이미지를 설정합니다.
-    
-    
-      toc
-      true
-      포스팅된 글의 오른쪽에 목차를 표시합니다.
-    
-    
-      paginate
-      10
-      한 목록에 몇 개의 글을 표시해 줄 것인지 선택합니다.
-    
+    IAM 자격 증명(사용자, 사용자 그룹 및 역할)
+https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id.html
   
-
-
-Gemfile.lock을 ignore하기
-nano .ignore
-# 아래 내용 추가 -&amp;gt; ? 빌드/배포 에러 방지하기 위해 올리지 않도록 하는 것
-Gemfile.lock
-
-
-git push -u origin master
+  
+    IAM 사용자
+https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_users.html
+  
+  
+    IAM 사용자 그룹
+https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_groups.html
+  
+  
+    IAM 역할 용어 및 개념
+https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_terms-and-concepts.html
+  
+  
+    AWS 서비스에 대한 액세스 권한 제공
+https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_common-scenarios_services.html
+  
+  
+    IAM의 정책 및 권한
+https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies.html#access_policies-json
+  
+  
+    IAM의 보안 모범 사례
+https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/best-practices.html
+  
 
 
 ",
-            "wordcount": "314",
+            "wordcount": "257",
             "inLanguage": "ko",
-            "dateCreated": "2023-04-08/",
-            "datePublished": "2023-04-08/",
-            "dateModified": "2023-04-08/",
+            "dateCreated": "2023-04-18/",
+            "datePublished": "2023-04-18/",
+            "dateModified": "2023-04-18/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -741,9 +611,9 @@ git push -u origin master
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "blog",
-            "articleSection": "blog",
-            "keywords": ["github","blog"]
+            "genre": "AWS",
+            "articleSection": "AWS",
+            "keywords": ["AWS","cloud","Certificate Manager","ACM","IAM"]
         }
         </script>
        </body>

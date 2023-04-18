@@ -3,15 +3,31 @@
   
   
     {
-      "title"    : "AWS 서비스 - 서비스 노출",
-      "tags"     : "AWS, cloud, and CloudFront",
+      "title"    : "(Sprint) 도메인 연결과 CDN 및 HTTPS적용",
+      "tags"     : "AWS, cloud, CloudFront, Route53, and Sprint",
+      "categories" : "AWS",
+      "url"      : "/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFrontd/",
+      "date"     : "04/18/2023"
+    } ,
+  
+    {
+      "title"    : "보안",
+      "tags"     : "AWS, cloud, Certificate Manager, ACM, and IAM",
+      "categories" : "AWS",
+      "url"      : "/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/",
+      "date"     : "04/18/2023"
+    } ,
+  
+    {
+      "title"    : "서비스 노출",
+      "tags"     : "AWS, cloud, CloudFront, and Route53",
       "categories" : "AWS",
       "url"      : "/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/",
       "date"     : "04/18/2023"
     } ,
   
     {
-      "title"    : "AWS 서비스 - 수평확장",
+      "title"    : "수평확장",
       "tags"     : "AWS, cloud, EC2, Auto Scaling Group, 로드밸런싱, Elastic Load Balancing, and ELB",
       "categories" : "AWS",
       "url"      : "/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-AutoScalingGroup/",
@@ -19,7 +35,7 @@
     } ,
   
     {
-      "title"    : "AWS 서비스 - 3 Tier Architecture 배포",
+      "title"    : "(Sprint) 3 Tier Architecture 배포",
       "tags"     : "AWS, cloud, EC2, 인스턴스, and 3티어아키텍처",
       "categories" : "AWS",
       "url"      : "/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-3Tier-architecture/",
