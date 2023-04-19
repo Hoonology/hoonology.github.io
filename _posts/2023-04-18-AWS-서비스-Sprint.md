@@ -78,18 +78,111 @@ comments: true
 
 
   - 인증서는 ```프론트엔드 Cloudfront 사용 리전```인 ```us-east-1```과 ```백엔드 Load Balancer 사용리전```인 ```ap-northeast-2```에서 발급 받아야 합니다.
+  ![리전별](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png)  
+  <p align = "center">[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. </p>
+
+  ![리전별2](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%842.png)
+  <p align = "center">[사진] 정규화된 도메인 이름에 와일드카드 붙이기 </p>
+
+  ![리전별3](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%843.png)
+  <p align = "center">[사진] 리전 버지니아 북부에서 인증서 발급 완료(프론트엔드 Cloudfront 사용) </p>
+
+  ![리전별4](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%844.png)
+
+  <p align = "center">[사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) </p>
   - 발급 시, DNS 검증 가이드로 [레퍼런스](https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/dns-validation.html)를 참고하세요.
   > 도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
 
   - 이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
 - 인증까지 최소 30분의 시간이 소요될 수 있습니다.
 
+
+
+
 ### 2. 백엔드 HTTPS 적용
 - 애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
+![로드밸런서](/assets/img/aws/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.png)
+<p align = "center">[사진] Create load balancer 클릭</p>
+
+- 우리는 HTTP와 HTTPS를 다룰 것이기 때문에, 첫 번째를 누른다.
+![create](/assets/img/AWS/ApplicationLoadBalancer.png)
+<p align = "center">[사진] 로드밸런서 타입 - Application Load Balancer 선택</p>
+
+- 로드밸런서 만들기
+  - 로드밸런서 이름
+  - Internet-facing
+![create](/assets/img/AWS/%08Create.png)
+<p align = "center">[사진] Create Application Load Balancer</p>
+
+- Network mapping
+  - VPC : default
+![mapping](/assets/img/AWS/%08mapping.png)
+<p align = "center">[사진] Create Application Load Balancer</p>
+
+- 보안그룹과 Listeners and routing
+  - 로드밸런서는 하나 이상의 Listener가 있어야한다.
+  - 로드밸런서가 받아서 분산을 시키든 무언가를 할텐데, 받는 친구도 있어야한다. 그게 리스너다.
+  - **'나에게 80으로 들어오는 것을 타겟그룹으로 보내라'** 라는 로직하에, 타겟 그룹이 필요하다.
+![보안그룹](/assets/img/AWS/%EB%B3%B4%EC%95%88%EA%B7%B8%EB%A3%B9.png)
+<p align = "center">[사진] Security groups & Listeners and routing</p>
+
+- 난 타겟 그룹 설정이 안돼있어서 새로 만들어줬다.
+  - Instances 를 선택한 이유 : 타겟으로 하고 싶은 것이 EC2 인스턴스 안에 돌아가는 서버이기 때문
+![타겟그룹2](/assets/img/AWS/%ED%83%80%EA%B2%9F%EA%B7%B8%EB%A3%B92.png)
+<p align = "center">[사진] Create taget group</p>
+
+- 타겟그룹을 만든 뒤 토글을 눌러 선택 
+![타겟그룹](/assets/img/aws/%ED%83%80%EC%BC%93%EA%B7%B8%EB%A3%B9.png)
+<p align = "center">[사진] Listeners and routing </p>
+
+- 헬스체크
+![헬스체크](/assets/img/aws/%ED%97%AC%EC%8A%A4%EC%B2%B4%ED%81%AC.png)
+<p align = "center">[사진] Edit health check settings </p>
+
+- sample 로 지정된 repository에서는 200번이 아닌, 201번으로 설정해줘서 바꿔야한다.
+  - Advanced health check settings 토글 클릭
+![토글](/assets/img/AWS/advanced.png)
+<p align = "center">[사진] Advanced health check settings 토글 클릭 후 나오는 화면 </p>
+
+- success code : 201로 수정(샘플 참조)
+![advanced](/assets/img/AWS/advanced_201.png)
+<p align = "center">[사진] success code를 201로 수정 </p>
+
+- 로드밸런서 상태 확인
+  - 사진에는 hoonology라고 나오는데, 나중에 hoonology-rb로 변경했다.
+![load](/assets/img/AWS/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C%EC%8A%A4.png)
+
+- Unhealthy 해결하기
+  - EC2 재 연결 -> 새로운 IP가 부여 -> ssh 연결 시 해당 IP를 입력
+  ![EC2재연결](/assets/img/AWS/%EC%83%88%EB%A1%9C%EC%9A%B4IP.png)  
+  <p align = "center">[사진] 새로 부여 받은 IP 주소 - 퍼블릭 IPv4주소 </p>
+  ![ssh연결](/assets/img/AWS/ssh%EC%97%B0%EA%B2%B0.png)
+<p align = "center">[사진] 새로 부여 받은 IP주소로 할당 </p>
+
+![ssh연결완료](/assets/img/AWS/%EC%97%B0%EA%B2%B0%EC%99%84%EB%A3%8C.png)
+<p align = "center">[사진] EC2 연결완료 </p>
+
+- sample 디렉토리에 이동 후 아래 코드 실행
+  ```bash
+  sudo npm run start
+  ```
+  - 서버 구동 확인
+  ![sudo](/assets/img/AWS/sudo.png)
+  <p align = "center">[사진] 서버 구동 확인 </p>
+  - 인터넷을 통해 연결해본다.
+  ![연결확인](/assets/img/AWS/%EB%93%A4%EC%96%B4%EA%B0%80%EB%B3%B4%EA%B8%B0.png)
+  <p align = "center">[사진] IP주소로 접속 시 Hello World 문구 확인 가능 </p>
+
+  - healthy or unhealthy ?
+  ![healthy](/assets/img/AWS/healthy.png)
+
+
 - ALB의 리스너, 가용영역, 인증서를 설정합니다.
 - 대상 그룹(target group)을 등록합니다.
 - 로드밸런서 DNS 주소로 접속해, 테스트를 진행합니다.
 - 아래 레퍼런스를 참조하여, 스프린트를 진행합니다.
+
+
 
 ### 3. 프론트엔드 CDN 및 HTTPS 적용
 - Origin Domain을 설정해야 합니다.

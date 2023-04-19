@@ -35,7 +35,7 @@
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFrontd/">
+    <meta property="og:url" content="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint/">
     <meta property="og:title" content="(Sprint) 도메인 연결과 CDN 및 HTTPS적용 | Hoonology">
     <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
     <meta property="og:description" content="(Sprint) 도메인 연결과 CDN 및 HTTPS적용">
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFrontd/">
+    <link rel="canonical" href="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -176,7 +176,7 @@ April 18, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>2 min to read</span>
+                    <span>5 min to read</span>
                 </p>
                 <h1 class="post-title">(Sprint) 도메인 연결과 CDN 및 HTTPS적용</h1>
                 <p class="post-subtitle">도메인 연결과 CDN 및 HTTPS적용</p>
@@ -224,26 +224,206 @@ April 18, 2023
 <ul>
   <li>구매한 도메인을 기준으로 인증서를 발급 받습니다.
     <ul>
-      <li>
-        <p>도메인 구매 : Route 53에서 구매를해준다.
+      <li>도메인 구매 : <code class="language-plaintext highlighter-rouge">Route 53</code>에서 구매를해준다.
+        <ul>
+          <li>도메인 등록 클릭<br />
+( <code class="language-plaintext highlighter-rouge">hoonology.click</code>으로 등록했다.)
 <img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B81.png" alt="도메인구매1" />
-<img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png" alt="도메인구매2" /></p>
-      </li>
-      <li>인증서는 <code class="language-plaintext highlighter-rouge">프론트엔드 Cloudfront 사용 리전</code>인 <code class="language-plaintext highlighter-rouge">us-east-1</code>과 <code class="language-plaintext highlighter-rouge">백엔드 Load Balancer 사용리전</code>인 <code class="language-plaintext highlighter-rouge">ap-northeast-2</code>에서 발급 받아야 합니다.</li>
-      <li>발급 시, DNS 검증 가이드로 <a href="https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/dns-validation.html">레퍼런스</a>를 참고하세요.
+<code class="language-plaintext highlighter-rouge">Route53</code>에서 도메인 구매 후 도메인 등록 대기 
+<img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png" alt="도메인구매2" /></li>
+        </ul>
+
         <blockquote>
-          <p>도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.</p>
+          <p>S3의 이름이 <code class="language-plaintext highlighter-rouge">hoonology.com</code>으로 되어 있어서, <code class="language-plaintext highlighter-rouge">hoonology.click</code>으로 재설정한 뒤 인증 요청을 보냈다.</p>
         </blockquote>
+
+        <p>S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
+  <img src="/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png" alt="bucket" /></p>
+
+        <ul>
+          <li>
+            <p>도메인 등록 성공(시간이 좀 걸린다.)
+<img src="/assets/img/AWS/success.png" alt="success" /></p>
+          </li>
+          <li>
+            <p>Route53 등록 성공 확인 후<br />
+<code class="language-plaintext highlighter-rouge">CertificateManager</code>에 Route53에 등록한 도메인을 등록해준다.</p>
+            <ul>
+              <li>
+                <p>https는 빼줘야함
+<img src="/assets/img/AWS/certificateManager.png" alt="certificateManager" /></p>
+              </li>
+              <li>
+                <p>30분 ~ 1시간 정도 기다린다.
+<img src="/assets/img/AWS/Waitting.png" alt="wait" /></p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p><a href="https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html">로드밸런서 Reference</a></p>
+        <ul>
+          <li>HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.</li>
+        </ul>
       </li>
-      <li>이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.</li>
     </ul>
   </li>
+</ul>
+
+<p>사용자에게 애플리케이션 로드 밸런서가 있으면 콘솔에서 “리스너” 탭으로 이동하여 “만들기”를 클릭할 수 있습니다. 그런 다음 HTTPS 프로토콜을 선택하고 SSL 인증서를 제공하라는 메시지가 표시됩니다.</p>
+
+<p>프로토콜 및 인증서를 선택한 후 사용자는 포트 및 대상 그룹과 같은 수신기 설정을 구성할 수 있습니다. 설정이 구성되면 HTTPS 리스너가 생성되고 사용자 애플리케이션의 보안 트래픽을 처리할 준비가 됩니다.</p>
+
+<ul>
+  <li>인증서는 <code class="language-plaintext highlighter-rouge">프론트엔드 Cloudfront 사용 리전</code>인 <code class="language-plaintext highlighter-rouge">us-east-1</code>과 <code class="language-plaintext highlighter-rouge">백엔드 Load Balancer 사용리전</code>인 <code class="language-plaintext highlighter-rouge">ap-northeast-2</code>에서 발급 받아야 합니다.
+  <img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png" alt="리전별" /></li>
+</ul>
+<p align="center">[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. </p>
+
+<p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%842.png" alt="리전별2" /></p>
+<p align="center">[사진] 정규화된 도메인 이름에 와일드카드 붙이기 </p>
+
+<p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%843.png" alt="리전별3" /></p>
+<p align="center">[사진] 리전 버지니아 북부에서 인증서 발급 완료(프론트엔드 Cloudfront 사용) </p>
+
+<p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%844.png" alt="리전별4" /></p>
+
+<p align="center">[사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) </p>
+<ul>
+  <li>발급 시, DNS 검증 가이드로 <a href="https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/dns-validation.html">레퍼런스</a>를 참고하세요.
+    <blockquote>
+      <p>도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.</p>
+    </blockquote>
+  </li>
+  <li>이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.</li>
   <li>인증까지 최소 30분의 시간이 소요될 수 있습니다.</li>
 </ul>
 
 <h3 id="2-백엔드-https-적용">2. 백엔드 HTTPS 적용</h3>
 <ul>
-  <li>애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.</li>
+  <li>애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
+<img src="/assets/img/aws/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.png" alt="로드밸런서" /></li>
+</ul>
+<p align="center">[사진] Create load balancer 클릭</p>
+
+<ul>
+  <li>우리는 HTTP와 HTTPS를 다룰 것이기 때문에, 첫 번째를 누른다.
+<img src="/assets/img/AWS/ApplicationLoadBalancer.png" alt="create" /></li>
+</ul>
+<p align="center">[사진] 로드밸런서 타입 - Application Load Balancer 선택</p>
+
+<ul>
+  <li>로드밸런서 만들기
+    <ul>
+      <li>로드밸런서 이름</li>
+      <li>Internet-facing
+<img src="/assets/img/AWS/%08Create.png" alt="create" /></li>
+    </ul>
+  </li>
+</ul>
+<p align="center">[사진] Create Application Load Balancer</p>
+
+<ul>
+  <li>Network mapping
+    <ul>
+      <li>VPC : default
+<img src="/assets/img/AWS/%08mapping.png" alt="mapping" /></li>
+    </ul>
+  </li>
+</ul>
+<p align="center">[사진] Create Application Load Balancer</p>
+
+<ul>
+  <li>보안그룹과 Listeners and routing
+    <ul>
+      <li>로드밸런서는 하나 이상의 Listener가 있어야한다.</li>
+      <li>로드밸런서가 받아서 분산을 시키든 무언가를 할텐데, 받는 친구도 있어야한다. 그게 리스너다.</li>
+      <li><strong>‘나에게 80으로 들어오는 것을 타겟그룹으로 보내라’</strong> 라는 로직하에, 타겟 그룹이 필요하다.
+<img src="/assets/img/AWS/%EB%B3%B4%EC%95%88%EA%B7%B8%EB%A3%B9.png" alt="보안그룹" /></li>
+    </ul>
+  </li>
+</ul>
+<p align="center">[사진] Security groups &amp; Listeners and routing</p>
+
+<ul>
+  <li>난 타겟 그룹 설정이 안돼있어서 새로 만들어줬다.
+    <ul>
+      <li>Instances 를 선택한 이유 : 타겟으로 하고 싶은 것이 EC2 인스턴스 안에 돌아가는 서버이기 때문
+<img src="/assets/img/AWS/%ED%83%80%EA%B2%9F%EA%B7%B8%EB%A3%B92.png" alt="타겟그룹2" /></li>
+    </ul>
+  </li>
+</ul>
+<p align="center">[사진] Create taget group</p>
+
+<ul>
+  <li>타겟그룹을 만든 뒤 토글을 눌러 선택 
+<img src="/assets/img/aws/%ED%83%80%EC%BC%93%EA%B7%B8%EB%A3%B9.png" alt="타겟그룹" /></li>
+</ul>
+<p align="center">[사진] Listeners and routing </p>
+
+<ul>
+  <li>헬스체크
+<img src="/assets/img/aws/%ED%97%AC%EC%8A%A4%EC%B2%B4%ED%81%AC.png" alt="헬스체크" /></li>
+</ul>
+<p align="center">[사진] Edit health check settings </p>
+
+<ul>
+  <li>sample 로 지정된 repository에서는 200번이 아닌, 201번으로 설정해줘서 바꿔야한다.
+    <ul>
+      <li>Advanced health check settings 토글 클릭
+<img src="/assets/img/AWS/advanced.png" alt="토글" /></li>
+    </ul>
+  </li>
+</ul>
+<p align="center">[사진] Advanced health check settings 토글 클릭 후 나오는 화면 </p>
+
+<ul>
+  <li>success code : 201로 수정(샘플 참조)
+<img src="/assets/img/AWS/advanced_201.png" alt="advanced" /></li>
+</ul>
+<p align="center">[사진] success code를 201로 수정 </p>
+
+<ul>
+  <li>로드밸런서 상태 확인
+    <ul>
+      <li>사진에는 hoonology라고 나오는데, 나중에 hoonology-rb로 변경했다.
+<img src="/assets/img/AWS/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C%EC%8A%A4.png" alt="load" /></li>
+    </ul>
+  </li>
+  <li>Unhealthy 해결하기
+    <ul>
+      <li>EC2 재 연결 -&gt; 새로운 IP가 부여 -&gt; ssh 연결 시 해당 IP를 입력
+<img src="/assets/img/AWS/%EC%83%88%EB%A1%9C%EC%9A%B4IP.png" alt="EC2재연결" /></li>
+    </ul>
+    <p align="center">[사진] 새로 부여 받은 IP 주소 - 퍼블릭 IPv4주소 </p>
+    <p><img src="/assets/img/AWS/ssh%EC%97%B0%EA%B2%B0.png" alt="ssh연결" /></p>
+  </li>
+</ul>
+<p align="center">[사진] 새로 부여 받은 IP주소로 할당 </p>
+
+<p><img src="/assets/img/AWS/%EC%97%B0%EA%B2%B0%EC%99%84%EB%A3%8C.png" alt="ssh연결완료" /></p>
+<p align="center">[사진] EC2 연결완료 </p>
+
+<ul>
+  <li>sample 디렉토리에 이동 후 아래 코드 실행
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>npm run start
+</code></pre></div>    </div>
+    <ul>
+      <li>서버 구동 확인
+<img src="/assets/img/AWS/sudo.png" alt="sudo" /></li>
+    </ul>
+    <p align="center">[사진] 서버 구동 확인 </p>
+    <ul>
+      <li>인터넷을 통해 연결해본다.
+<img src="/assets/img/AWS/%EB%93%A4%EC%96%B4%EA%B0%80%EB%B3%B4%EA%B8%B0.png" alt="연결확인" /></li>
+    </ul>
+    <p align="center">[사진] IP주소로 접속 시 Hello World 문구 확인 가능 </p>
+
+    <ul>
+      <li>healthy or unhealthy ?
+<img src="/assets/img/AWS/healthy.png" alt="healthy" /></li>
+    </ul>
+  </li>
   <li>ALB의 리스너, 가용영역, 인증서를 설정합니다.</li>
   <li>대상 그룹(target group)을 등록합니다.</li>
   <li>로드밸런서 DNS 주소로 접속해, 테스트를 진행합니다.</li>
@@ -274,6 +454,17 @@ April 18, 2023
   <li><a href="https://docs.aws.amazon.com/ko_kr/ko_kr/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html">CloudFront 배포를 만들거나 업데이트할 때 지정하는 값</a></li>
 </ul>
 
+<p>&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;</p>
+
+<h1 id="회고">회고</h1>
+<h2 id="ec2-s3">EC2, S3</h2>
+<p>Route53에서 도메인 주소 등록해줘야하는데, 내가 S3의 이름을 ‘.com’으로 등록했던것을 발견한 뒤 수정을 ‘.click’으로 하면서 정리해야겠다고 생각해서 정리한다.</p>
+<blockquote>
+  <p>S3는 정적 웹사이트를 위해 빌드를 버켓에 담기 위해 쓴다.</p>
+</blockquote>
+
 
                 <!-- Pagination links -->
 
@@ -288,29 +479,29 @@ April 18, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
-                                    
-                                    <h3>보안</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
-                                    
-                                    <h3>AWS 서비스 로드맵</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
                                 <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-3Tier-architecture/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
                                     <h3>(Sprint) 3 Tier Architecture 배포</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/YAML/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                    
+                                    <h3>YAML</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Docker Image 다루기 2 </h3>
                                 </a>
                             </li>
                         
@@ -322,7 +513,7 @@ April 18, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="2">
+            <div class="time-bar" data-minutes="5">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -364,11 +555,11 @@ April 18, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;(Sprint) 도메인 연결과 CDN 및 HTTPS적용&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFrontd/%20via%20&#64;&hashtags=AWS,cloud,CloudFront,Route53,Sprint"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;(Sprint) 도메인 연결과 CDN 및 HTTPS적용&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint/%20via%20&#64;&hashtags=AWS,cloud,CloudFront,Route53,Sprint"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFrontd/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -391,7 +582,7 @@ April 18, 2023
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFrontd/';
+        var disqus_url = '/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -539,7 +730,7 @@ April 18, 2023
             "headline": "도메인 연결과 CDN 및 HTTPS적용",
             "description": "(Sprint) 도메인 연결과 CDN 및 HTTPS적용",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
-            "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFrontd/",
+            "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint/",
             "articleBody": "도메인 연결과 CDN 및 HTTPS 적용
 Prerequisite
 
@@ -572,26 +763,206 @@ Getting Started
 
   구매한 도메인을 기준으로 인증서를 발급 받습니다.
     
-      
-        도메인 구매 : Route 53에서 구매를해준다.
-
-
-      
-      인증서는 프론트엔드 Cloudfront 사용 리전인 us-east-1과 백엔드 Load Balancer 사용리전인 ap-northeast-2에서 발급 받아야 합니다.
-      발급 시, DNS 검증 가이드로 레퍼런스를 참고하세요.
+      도메인 구매 : Route 53에서 구매를해준다.
         
-          도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
+          도메인 등록 클릭
+( hoonology.click으로 등록했다.)
+
+Route53에서 도메인 구매 후 도메인 등록 대기 
+
+        
+
+        
+          S3의 이름이 hoonology.com으로 되어 있어서, hoonology.click으로 재설정한 뒤 인증 요청을 보냈다.
+        
+
+        S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
+  
+
+        
+          
+            도메인 등록 성공(시간이 좀 걸린다.)
+
+          
+          
+            Route53 등록 성공 확인 후
+CertificateManager에 Route53에 등록한 도메인을 등록해준다.
+            
+              
+                https는 빼줘야함
+
+              
+              
+                30분 ~ 1시간 정도 기다린다.
+
+              
+            
+          
+        
+
+        로드밸런서 Reference
+        
+          HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.
         
       
-      이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
     
   
+
+
+사용자에게 애플리케이션 로드 밸런서가 있으면 콘솔에서 “리스너” 탭으로 이동하여 “만들기”를 클릭할 수 있습니다. 그런 다음 HTTPS 프로토콜을 선택하고 SSL 인증서를 제공하라는 메시지가 표시됩니다.
+
+프로토콜 및 인증서를 선택한 후 사용자는 포트 및 대상 그룹과 같은 수신기 설정을 구성할 수 있습니다. 설정이 구성되면 HTTPS 리스너가 생성되고 사용자 애플리케이션의 보안 트래픽을 처리할 준비가 됩니다.
+
+
+  인증서는 프론트엔드 Cloudfront 사용 리전인 us-east-1과 백엔드 Load Balancer 사용리전인 ap-northeast-2에서 발급 받아야 합니다.
+  
+
+[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. 
+
+
+[사진] 정규화된 도메인 이름에 와일드카드 붙이기 
+
+
+[사진] 리전 버지니아 북부에서 인증서 발급 완료(프론트엔드 Cloudfront 사용) 
+
+
+
+[사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) 
+
+  발급 시, DNS 검증 가이드로 레퍼런스를 참고하세요.
+    
+      도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
+    
+  
+  이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
   인증까지 최소 30분의 시간이 소요될 수 있습니다.
 
 
 2. 백엔드 HTTPS 적용
 
   애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
+
+
+[사진] Create load balancer 클릭
+
+
+  우리는 HTTP와 HTTPS를 다룰 것이기 때문에, 첫 번째를 누른다.
+
+
+[사진] 로드밸런서 타입 - Application Load Balancer 선택
+
+
+  로드밸런서 만들기
+    
+      로드밸런서 이름
+      Internet-facing
+
+    
+  
+
+[사진] Create Application Load Balancer
+
+
+  Network mapping
+    
+      VPC : default
+
+    
+  
+
+[사진] Create Application Load Balancer
+
+
+  보안그룹과 Listeners and routing
+    
+      로드밸런서는 하나 이상의 Listener가 있어야한다.
+      로드밸런서가 받아서 분산을 시키든 무언가를 할텐데, 받는 친구도 있어야한다. 그게 리스너다.
+      ‘나에게 80으로 들어오는 것을 타겟그룹으로 보내라’ 라는 로직하에, 타겟 그룹이 필요하다.
+
+    
+  
+
+[사진] Security groups &amp;amp; Listeners and routing
+
+
+  난 타겟 그룹 설정이 안돼있어서 새로 만들어줬다.
+    
+      Instances 를 선택한 이유 : 타겟으로 하고 싶은 것이 EC2 인스턴스 안에 돌아가는 서버이기 때문
+
+    
+  
+
+[사진] Create taget group
+
+
+  타겟그룹을 만든 뒤 토글을 눌러 선택 
+
+
+[사진] Listeners and routing 
+
+
+  헬스체크
+
+
+[사진] Edit health check settings 
+
+
+  sample 로 지정된 repository에서는 200번이 아닌, 201번으로 설정해줘서 바꿔야한다.
+    
+      Advanced health check settings 토글 클릭
+
+    
+  
+
+[사진] Advanced health check settings 토글 클릭 후 나오는 화면 
+
+
+  success code : 201로 수정(샘플 참조)
+
+
+[사진] success code를 201로 수정 
+
+
+  로드밸런서 상태 확인
+    
+      사진에는 hoonology라고 나오는데, 나중에 hoonology-rb로 변경했다.
+
+    
+  
+  Unhealthy 해결하기
+    
+      EC2 재 연결 -&amp;gt; 새로운 IP가 부여 -&amp;gt; ssh 연결 시 해당 IP를 입력
+
+    
+    [사진] 새로 부여 받은 IP 주소 - 퍼블릭 IPv4주소 
+    
+  
+
+[사진] 새로 부여 받은 IP주소로 할당 
+
+
+[사진] EC2 연결완료 
+
+
+  sample 디렉토리에 이동 후 아래 코드 실행
+    sudo npm run start
+    
+    
+      서버 구동 확인
+
+    
+    [사진] 서버 구동 확인 
+    
+      인터넷을 통해 연결해본다.
+
+    
+    [사진] IP주소로 접속 시 Hello World 문구 확인 가능 
+
+    
+      healthy or unhealthy ?
+
+    
+  
   ALB의 리스너, 가용영역, 인증서를 설정합니다.
   대상 그룹(target group)을 등록합니다.
   로드밸런서 DNS 주소로 접속해, 테스트를 진행합니다.
@@ -621,8 +992,19 @@ Reference
   CloudFront 배포 생성
   CloudFront 배포를 만들거나 업데이트할 때 지정하는 값
 
+
+&amp;lt;/br&amp;gt;
+&amp;lt;/br&amp;gt;
+&amp;lt;/br&amp;gt;
+
+회고
+EC2, S3
+Route53에서 도메인 주소 등록해줘야하는데, 내가 S3의 이름을 ‘.com’으로 등록했던것을 발견한 뒤 수정을 ‘.click’으로 하면서 정리해야겠다고 생각해서 정리한다.
+
+  S3는 정적 웹사이트를 위해 빌드를 버켓에 담기 위해 쓴다.
+
 ",
-            "wordcount": "398",
+            "wordcount": "1061",
             "inLanguage": "ko",
             "dateCreated": "2023-04-18/",
             "datePublished": "2023-04-18/",
