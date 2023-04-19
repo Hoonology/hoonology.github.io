@@ -63,10 +63,12 @@ comments: true
 
   ```CertificateManager```에 Route53에 등록한 도메인을 등록해준다.
   
-    - https는 빼줘야함
+   - https는 빼줘야함
+
 ![certificateManager](/assets/img/AWS/certificateManager.png)
 
   - 30분 ~ 1시간 정도 기다린다.
+
 ![wait](/assets/img/AWS/Waitting.png)
 
 [로드밸런서 Reference](https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html)
@@ -85,9 +87,10 @@ comments: true
 
 ## 2. Route53 레코드 등록
 - 백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.
-- 백엔드는 [https://api.yourdomain.click](https://api.yourdomain.click)으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 [https://www.yourdomain.click](https://www.yourdomain.click)으로 접속 시, Cloudfront로 연결되어야 합니다.
+- 백엔드는 [https://api.yourdomain.click](https://api.yourdomain.click)으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 [https://www.yourdomain.click](https://www.yourdomain.click)으로 접속 시, ```Cloudfront```로 연결되어야 합니다.
 
-  - 인증서는 ```프론트엔드 Cloudfront 사용 리전```인 ```us-east-1```과 ```백엔드 Load Balancer 사용리전```인 ```ap-northeast-2```에서 발급 받아야 합니다.
+- 인증서는 ```프론트엔드 Cloudfront 사용 리전```인 ```us-east-1```과   
+```백엔드 Load Balancer 사용리전```인 ```ap-northeast-2```에서 발급 받아야 합니다.
 ![리전별](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png)  
   <p align = "center">[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. </p>
 

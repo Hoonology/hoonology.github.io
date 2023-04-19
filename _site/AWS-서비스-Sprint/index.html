@@ -260,13 +260,17 @@ April 18, 2023
 
 <p><code class="language-plaintext highlighter-rouge">CertificateManager</code>에 Route53에 등록한 도메인을 등록해준다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- https는 빼줘야함 ![certificateManager](/assets/img/AWS/certificateManager.png)
-</code></pre></div></div>
+<ul>
+  <li>https는 빼줘야함</li>
+</ul>
+
+<p><img src="/assets/img/AWS/certificateManager.png" alt="certificateManager" /></p>
 
 <ul>
-  <li>30분 ~ 1시간 정도 기다린다.
-<img src="/assets/img/AWS/Waitting.png" alt="wait" /></li>
+  <li>30분 ~ 1시간 정도 기다린다.</li>
 </ul>
+
+<p><img src="/assets/img/AWS/Waitting.png" alt="wait" /></p>
 
 <p><a href="https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html">로드밸런서 Reference</a></p>
 <ul>
@@ -281,12 +285,11 @@ April 18, 2023
 <ul>
   <li>백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.</li>
   <li>
-    <p>백엔드는 <a href="https://api.yourdomain.click">https://api.yourdomain.click</a>으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 <a href="https://www.yourdomain.click">https://www.yourdomain.click</a>으로 접속 시, Cloudfront로 연결되어야 합니다.</p>
-
-    <ul>
-      <li>인증서는 <code class="language-plaintext highlighter-rouge">프론트엔드 Cloudfront 사용 리전</code>인 <code class="language-plaintext highlighter-rouge">us-east-1</code>과 <code class="language-plaintext highlighter-rouge">백엔드 Load Balancer 사용리전</code>인 <code class="language-plaintext highlighter-rouge">ap-northeast-2</code>에서 발급 받아야 합니다.
-<img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png" alt="리전별" /></li>
-    </ul>
+    <p>백엔드는 <a href="https://api.yourdomain.click">https://api.yourdomain.click</a>으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 <a href="https://www.yourdomain.click">https://www.yourdomain.click</a>으로 접속 시, <code class="language-plaintext highlighter-rouge">Cloudfront</code>로 연결되어야 합니다.</p>
+  </li>
+  <li>인증서는 <code class="language-plaintext highlighter-rouge">프론트엔드 Cloudfront 사용 리전</code>인 <code class="language-plaintext highlighter-rouge">us-east-1</code>과<br />
+<code class="language-plaintext highlighter-rouge">백엔드 Load Balancer 사용리전</code>인 <code class="language-plaintext highlighter-rouge">ap-northeast-2</code>에서 발급 받아야 합니다.
+<img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png" alt="리전별" />
     <p align="center">[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. </p>
   </li>
 </ul>
@@ -509,29 +512,29 @@ April 18, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EA%B8%B0%EC%B4%88/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-EC2/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>AWS 기초</h3>
+                                    <h3>AWS 서비스 - EC2</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Docker/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>Docker</h3>
+                                    <h3>AWS 서비스 - Storage</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
+                                    <h3>AWS 서비스 로드맵</h3>
                                 </a>
                             </li>
                         
@@ -829,11 +832,15 @@ Getting Started
 
 CertificateManager에 Route53에 등록한 도메인을 등록해준다.
 
-- https는 빼줘야함 ![certificateManager](/assets/img/AWS/certificateManager.png)
+
+  https는 빼줘야함
+
+
 
 
 
   30분 ~ 1시간 정도 기다린다.
+
 
 
 
@@ -851,11 +858,10 @@ CertificateManager에 Route53에 등록한 도메인을 등록해준다.
   백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.
   
     백엔드는 https://api.yourdomain.click으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 https://www.yourdomain.click으로 접속 시, Cloudfront로 연결되어야 합니다.
+  
+  인증서는 프론트엔드 Cloudfront 사용 리전인 us-east-1과
+백엔드 Load Balancer 사용리전인 ap-northeast-2에서 발급 받아야 합니다.
 
-    
-      인증서는 프론트엔드 Cloudfront 사용 리전인 us-east-1과 백엔드 Load Balancer 사용리전인 ap-northeast-2에서 발급 받아야 합니다.
-
-    
     [사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. 
   
 
@@ -1064,7 +1070,7 @@ Route53에서 도메인 주소 등록해줘야하는데, 내가 S3의 이름을 
 와일드카드로 도메인을 인증 -&amp;gt; 대체도메인도 마찬가지
 
 ",
-            "wordcount": "1086",
+            "wordcount": "1087",
             "inLanguage": "ko",
             "dateCreated": "2023-04-18/",
             "datePublished": "2023-04-18/",
