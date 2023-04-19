@@ -176,7 +176,7 @@ April 18, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>5 min to read</span>
+                    <span>6 min to read</span>
                 </p>
                 <h1 class="post-title">(Sprint) 도메인 연결과 CDN 및 HTTPS적용</h1>
                 <p class="post-subtitle">도메인 연결과 CDN 및 HTTPS적용</p>
@@ -220,7 +220,7 @@ April 18, 2023
   <li>실제로 웹 애플리케이션이 브라우저 상에서 HTTPS 프로토콜로 작동하는지 확인합니다.</li>
 </ul>
 
-<h3 id="1-certificate-manager를-통한-도메인-인증서-발급">1. Certificate Manager를 통한 도메인 인증서 발급</h3>
+<h2 id="1-certificate-manager를-통한-도메인-인증서-발급">1. Certificate Manager를 통한 도메인 인증서 발급</h2>
 <ul>
   <li>구매한 도메인을 기준으로 인증서를 발급 받습니다.
     <ul>
@@ -237,10 +237,11 @@ April 18, 2023
           <p>S3의 이름이 <code class="language-plaintext highlighter-rouge">hoonology.com</code>으로 되어 있어서, <code class="language-plaintext highlighter-rouge">hoonology.click</code>으로 재설정한 뒤 인증 요청을 보냈다.</p>
         </blockquote>
 
-        <p>S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
-  <img src="/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png" alt="bucket" /></p>
-
         <ul>
+          <li>
+            <p>S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
+  <img src="/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png" alt="bucket" /></p>
+          </li>
           <li>
             <p>도메인 등록 성공(시간이 좀 걸린다.)
 <img src="/assets/img/AWS/success.png" alt="success" /></p>
@@ -274,32 +275,41 @@ April 18, 2023
 
 <p>프로토콜 및 인증서를 선택한 후 사용자는 포트 및 대상 그룹과 같은 수신기 설정을 구성할 수 있습니다. 설정이 구성되면 HTTPS 리스너가 생성되고 사용자 애플리케이션의 보안 트래픽을 처리할 준비가 됩니다.</p>
 
+<h2 id="2-route53-레코드-등록">2. Route53 레코드 등록</h2>
 <ul>
-  <li>인증서는 <code class="language-plaintext highlighter-rouge">프론트엔드 Cloudfront 사용 리전</code>인 <code class="language-plaintext highlighter-rouge">us-east-1</code>과 <code class="language-plaintext highlighter-rouge">백엔드 Load Balancer 사용리전</code>인 <code class="language-plaintext highlighter-rouge">ap-northeast-2</code>에서 발급 받아야 합니다.
-  <img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png" alt="리전별" /></li>
-</ul>
-<p align="center">[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. </p>
+  <li>백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.</li>
+  <li>
+    <p>백엔드는 <a href="https://api.yourdomain.click">https://api.yourdomain.click</a>으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 <a href="https://www.yourdomain.click">https://www.yourdomain.click</a>으로 접속 시, Cloudfront로 연결되어야 합니다.</p>
 
-<p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%842.png" alt="리전별2" /></p>
-<p align="center">[사진] 정규화된 도메인 이름에 와일드카드 붙이기 </p>
+    <ul>
+      <li>인증서는 <code class="language-plaintext highlighter-rouge">프론트엔드 Cloudfront 사용 리전</code>인 <code class="language-plaintext highlighter-rouge">us-east-1</code>과 <code class="language-plaintext highlighter-rouge">백엔드 Load Balancer 사용리전</code>인 <code class="language-plaintext highlighter-rouge">ap-northeast-2</code>에서 발급 받아야 합니다.
+<img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png" alt="리전별" /></li>
+    </ul>
+    <p align="center">[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. </p>
 
-<p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%843.png" alt="리전별3" /></p>
-<p align="center">[사진] 리전 버지니아 북부에서 인증서 발급 완료(프론트엔드 Cloudfront 사용) </p>
+    <p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%842.png" alt="리전별2" /></p>
+    <p align="center">[사진] 정규화된 도메인 이름에 와일드카드 붙이기 </p>
 
-<p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%844.png" alt="리전별4" /></p>
+    <p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%843.png" alt="리전별3" /></p>
+    <p align="center">[사진] 리전 버지니아 북부에서 인증서 발급 완료(프론트엔드 Cloudfront 사용) </p>
 
-<p align="center">[사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) </p>
-<ul>
-  <li>발급 시, DNS 검증 가이드로 <a href="https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/dns-validation.html">레퍼런스</a>를 참고하세요.
-    <blockquote>
-      <p>도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.</p>
-    </blockquote>
+    <p><img src="/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%844.png" alt="리전별4" /></p>
+
+    <p align="center">[사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) </p>
+
+    <ul>
+      <li>발급 시, DNS 검증 가이드로 <a href="https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/dns-validation.html">레퍼런스</a>를 참고하세요.
+        <blockquote>
+          <p>도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.</p>
+        </blockquote>
+      </li>
+      <li>이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.</li>
+    </ul>
   </li>
-  <li>이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.</li>
   <li>인증까지 최소 30분의 시간이 소요될 수 있습니다.</li>
 </ul>
 
-<h3 id="2-백엔드-https-적용">2. 백엔드 HTTPS 적용</h3>
+<h2 id="3-백엔드-https-적용">3. 백엔드 HTTPS 적용</h2>
 <ul>
   <li>애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
 <img src="/assets/img/aws/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.png" alt="로드밸런서" /></li>
@@ -379,7 +389,7 @@ April 18, 2023
 
 <ul>
   <li>success code : 201로 수정(샘플 참조)
-<img src="/assets/img/AWS/advanced_201.png" alt="advanced" /></li>
+  <img src="/assets/img/AWS/advanced_201.png" alt="advanced" /></li>
 </ul>
 <p align="center">[사진] success code를 201로 수정 </p>
 
@@ -396,6 +406,7 @@ April 18, 2023
 <img src="/assets/img/AWS/%EC%83%88%EB%A1%9C%EC%9A%B4IP.png" alt="EC2재연결" /></li>
     </ul>
     <p align="center">[사진] 새로 부여 받은 IP 주소 - 퍼블릭 IPv4주소 </p>
+
     <p><img src="/assets/img/AWS/ssh%EC%97%B0%EA%B2%B0.png" alt="ssh연결" /></p>
   </li>
 </ul>
@@ -414,9 +425,10 @@ April 18, 2023
     </ul>
     <p align="center">[사진] 서버 구동 확인 </p>
     <ul>
-      <li>인터넷을 통해 연결해본다.
-<img src="/assets/img/AWS/%EB%93%A4%EC%96%B4%EA%B0%80%EB%B3%B4%EA%B8%B0.png" alt="연결확인" /></li>
+      <li>인터넷을 통해 연결해본다.</li>
     </ul>
+
+    <p><img src="/assets/img/AWS/%EB%93%A4%EC%96%B4%EA%B0%80%EB%B3%B4%EA%B8%B0.png" alt="연결확인" /></p>
     <p align="center">[사진] IP주소로 접속 시 Hello World 문구 확인 가능 </p>
 
     <ul>
@@ -432,19 +444,25 @@ April 18, 2023
 
 <h3 id="3-프론트엔드-cdn-및-https-적용">3. 프론트엔드 CDN 및 HTTPS 적용</h3>
 <ul>
-  <li>Origin Domain을 설정해야 합니다.</li>
-  <li>Viewer protocol policy는 Redirect HTTP to HTTPS로 지정해야 합니다.</li>
-  <li>Certificate Manager에서 발급받은 인증서를 사용해야 합니다.</li>
+  <li>Origin Domain을 설정해야 합니다.
+    <ul>
+      <li>CloudFront 배포 생성
+<img src="/assets/img/AWS/cloudfront.png" alt="cloudfront" /></li>
+      <li>원본 생성
+<img src="/assets/img/AWS/origin.png" alt="cloudfront" /></li>
+    </ul>
+  </li>
+  <li>
+    <p>Redirect HTTP to HTTPS
+<img src="/assets/img/AWS/origin_cache.png" alt="cloudfront" /></p>
+  </li>
+  <li>
+    <p>Certificate Manager에서 발급받은 인증서를 사용해야 합니다.</p>
+  </li>
   <li>Default root object 부분에 index.html을 작성해야 합니다.</li>
   <li>대체도메인과 인증 받은 도메인의 이름이 같아야 합니다.</li>
   <li>생성된 배포의 Distribution domain name으로 접속이 되는지 확인합니다.</li>
   <li>아래 레퍼런스를 참조하여, 스프린트를 진행합니다.</li>
-</ul>
-
-<h3 id="4-route53-레코드-등록">4. Route53 레코드 등록</h3>
-<ul>
-  <li>백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.</li>
-  <li>백엔드는 <a href="https://api.yourdomain.click">https://api.yourdomain.click</a>으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 <a href="https://www.yourdomain.click">https://www.yourdomain.click</a>으로 접속 시, Cloudfront로 연결되어야 합니다.</li>
 </ul>
 
 <p>Reference</p>
@@ -465,6 +483,9 @@ April 18, 2023
   <p>S3는 정적 웹사이트를 위해 빌드를 버켓에 담기 위해 쓴다.</p>
 </blockquote>
 
+<p>와일드카드로 도메인을 인증 -&gt; 대체도메인도 마찬가지</p>
+
+
 
                 <!-- Pagination links -->
 
@@ -479,11 +500,20 @@ April 18, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-3Tier-architecture/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>(Sprint) 3 Tier Architecture 배포</h3>
+                                    <h3>보안</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-AutoScalingGroup/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                    
+                                    <h3>수평확장</h3>
                                 </a>
                             </li>
                         
@@ -496,15 +526,6 @@ April 18, 2023
                                 </a>
                             </li>
                         
-                            <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-                                    
-                                    <h3>Docker Image 다루기 2 </h3>
-                                </a>
-                            </li>
-                        
                     </ul>
                 </aside>
             
@@ -513,7 +534,7 @@ April 18, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="5">
+            <div class="time-bar" data-minutes="6">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -776,10 +797,11 @@ Route53에서 도메인 구매 후 도메인 등록 대기
           S3의 이름이 hoonology.com으로 되어 있어서, hoonology.click으로 재설정한 뒤 인증 요청을 보냈다.
         
 
-        S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
-  
-
         
+          
+            S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
+  
+          
           
             도메인 등록 성공(시간이 좀 걸린다.)
 
@@ -813,32 +835,41 @@ CertificateManager에 Route53에 등록한 도메인을 등록해준다.
 
 프로토콜 및 인증서를 선택한 후 사용자는 포트 및 대상 그룹과 같은 수신기 설정을 구성할 수 있습니다. 설정이 구성되면 HTTPS 리스너가 생성되고 사용자 애플리케이션의 보안 트래픽을 처리할 준비가 됩니다.
 
+2. Route53 레코드 등록
 
-  인증서는 프론트엔드 Cloudfront 사용 리전인 us-east-1과 백엔드 Load Balancer 사용리전인 ap-northeast-2에서 발급 받아야 합니다.
+  백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.
   
+    백엔드는 https://api.yourdomain.click으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 https://www.yourdomain.click으로 접속 시, Cloudfront로 연결되어야 합니다.
 
-[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. 
-
-
-[사진] 정규화된 도메인 이름에 와일드카드 붙이기 
-
-
-[사진] 리전 버지니아 북부에서 인증서 발급 완료(프론트엔드 Cloudfront 사용) 
-
-
-
-[사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) 
-
-  발급 시, DNS 검증 가이드로 레퍼런스를 참고하세요.
     
-      도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
+      인증서는 프론트엔드 Cloudfront 사용 리전인 us-east-1과 백엔드 Load Balancer 사용리전인 ap-northeast-2에서 발급 받아야 합니다.
+
+    
+    [사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. 
+
+    
+    [사진] 정규화된 도메인 이름에 와일드카드 붙이기 
+
+    
+    [사진] 리전 버지니아 북부에서 인증서 발급 완료(프론트엔드 Cloudfront 사용) 
+
+    
+
+    [사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) 
+
+    
+      발급 시, DNS 검증 가이드로 레퍼런스를 참고하세요.
+        
+          도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
+        
+      
+      이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
     
   
-  이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
   인증까지 최소 30분의 시간이 소요될 수 있습니다.
 
 
-2. 백엔드 HTTPS 적용
+3. 백엔드 HTTPS 적용
 
   애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
 
@@ -918,7 +949,7 @@ CertificateManager에 Route53에 등록한 도메인을 등록해준다.
 
 
   success code : 201로 수정(샘플 참조)
-
+  
 
 [사진] success code를 201로 수정 
 
@@ -935,6 +966,7 @@ CertificateManager에 Route53에 등록한 도메인을 등록해준다.
 
     
     [사진] 새로 부여 받은 IP 주소 - 퍼블릭 IPv4주소 
+
     
   
 
@@ -954,6 +986,7 @@ CertificateManager에 Route53에 등록한 도메인을 등록해준다.
     [사진] 서버 구동 확인 
     
       인터넷을 통해 연결해본다.
+    
 
     
     [사진] IP주소로 접속 시 Hello World 문구 확인 가능 
@@ -972,18 +1005,24 @@ CertificateManager에 Route53에 등록한 도메인을 등록해준다.
 3. 프론트엔드 CDN 및 HTTPS 적용
 
   Origin Domain을 설정해야 합니다.
-  Viewer protocol policy는 Redirect HTTP to HTTPS로 지정해야 합니다.
-  Certificate Manager에서 발급받은 인증서를 사용해야 합니다.
+    
+      CloudFront 배포 생성
+
+      원본 생성
+
+    
+  
+  
+    Redirect HTTP to HTTPS
+
+  
+  
+    Certificate Manager에서 발급받은 인증서를 사용해야 합니다.
+  
   Default root object 부분에 index.html을 작성해야 합니다.
   대체도메인과 인증 받은 도메인의 이름이 같아야 합니다.
   생성된 배포의 Distribution domain name으로 접속이 되는지 확인합니다.
   아래 레퍼런스를 참조하여, 스프린트를 진행합니다.
-
-
-4. Route53 레코드 등록
-
-  백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.
-  백엔드는 https://api.yourdomain.click으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 https://www.yourdomain.click으로 접속 시, Cloudfront로 연결되어야 합니다.
 
 
 Reference
@@ -1003,8 +1042,11 @@ Route53에서 도메인 주소 등록해줘야하는데, 내가 S3의 이름을 
 
   S3는 정적 웹사이트를 위해 빌드를 버켓에 담기 위해 쓴다.
 
+
+와일드카드로 도메인을 인증 -&amp;gt; 대체도메인도 마찬가지
+
 ",
-            "wordcount": "1061",
+            "wordcount": "1090",
             "inLanguage": "ko",
             "dateCreated": "2023-04-18/",
             "datePublished": "2023-04-18/",

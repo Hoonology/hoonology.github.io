@@ -37,7 +37,7 @@ comments: true
 - ```npm run test2``` 명령을 사용해 테스트가 통과하는지 확인합니다.
 - 실제로 웹 애플리케이션이 브라우저 상에서 HTTPS 프로토콜로 작동하는지 확인합니다.
 
-### 1. Certificate Manager를 통한 도메인 인증서 발급
+## 1. Certificate Manager를 통한 도메인 인증서 발급
 - 구매한 도메인을 기준으로 인증서를 발급 받습니다.
   - 도메인 구매 : ```Route 53```에서 구매를해준다.  
     - 도메인 등록 클릭  
@@ -49,7 +49,7 @@ comments: true
     > S3의 이름이 ```hoonology.com```으로 되어 있어서, ```hoonology.click```으로 재설정한 뒤 인증 요청을 보냈다.
 
 
-      S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
+      - S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
       ![bucket](/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png)
 
     - 도메인 등록 성공(시간이 좀 걸린다.)
@@ -77,6 +77,10 @@ comments: true
 
 
 
+## 2. Route53 레코드 등록
+- 백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.
+- 백엔드는 [https://api.yourdomain.click](https://api.yourdomain.click)으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 [https://www.yourdomain.click](https://www.yourdomain.click)으로 접속 시, Cloudfront로 연결되어야 합니다.
+
   - 인증서는 ```프론트엔드 Cloudfront 사용 리전```인 ```us-east-1```과 ```백엔드 Load Balancer 사용리전```인 ```ap-northeast-2```에서 발급 받아야 합니다.
   ![리전별](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png)  
   <p align = "center">[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. </p>
@@ -90,8 +94,9 @@ comments: true
   ![리전별4](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%844.png)
 
   <p align = "center">[사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) </p>
+  
   - 발급 시, DNS 검증 가이드로 [레퍼런스](https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/dns-validation.html)를 참고하세요.
-  > 도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
+    > 도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
 
   - 이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
 - 인증까지 최소 30분의 시간이 소요될 수 있습니다.
@@ -99,7 +104,7 @@ comments: true
 
 
 
-### 2. 백엔드 HTTPS 적용
+## 3. 백엔드 HTTPS 적용
 - 애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
 ![로드밸런서](/assets/img/aws/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.png)
 <p align = "center">[사진] Create load balancer 클릭</p>
@@ -144,9 +149,9 @@ comments: true
 ![토글](/assets/img/AWS/advanced.png)
 <p align = "center">[사진] Advanced health check settings 토글 클릭 후 나오는 화면 </p>
 
-- success code : 201로 수정(샘플 참조)
-![advanced](/assets/img/AWS/advanced_201.png)
-<p align = "center">[사진] success code를 201로 수정 </p>
+  - success code : 201로 수정(샘플 참조)
+  ![advanced](/assets/img/AWS/advanced_201.png)
+  <p align = "center">[사진] success code를 201로 수정 </p>
 
 - 로드밸런서 상태 확인
   - 사진에는 hoonology라고 나오는데, 나중에 hoonology-rb로 변경했다.
@@ -156,6 +161,7 @@ comments: true
   - EC2 재 연결 -> 새로운 IP가 부여 -> ssh 연결 시 해당 IP를 입력
   ![EC2재연결](/assets/img/AWS/%EC%83%88%EB%A1%9C%EC%9A%B4IP.png)  
   <p align = "center">[사진] 새로 부여 받은 IP 주소 - 퍼블릭 IPv4주소 </p>
+
   ![ssh연결](/assets/img/AWS/ssh%EC%97%B0%EA%B2%B0.png)
 <p align = "center">[사진] 새로 부여 받은 IP주소로 할당 </p>
 
@@ -170,6 +176,7 @@ comments: true
   ![sudo](/assets/img/AWS/sudo.png)
   <p align = "center">[사진] 서버 구동 확인 </p>
   - 인터넷을 통해 연결해본다.
+
   ![연결확인](/assets/img/AWS/%EB%93%A4%EC%96%B4%EA%B0%80%EB%B3%B4%EA%B8%B0.png)
   <p align = "center">[사진] IP주소로 접속 시 Hello World 문구 확인 가능 </p>
 
@@ -186,16 +193,21 @@ comments: true
 
 ### 3. 프론트엔드 CDN 및 HTTPS 적용
 - Origin Domain을 설정해야 합니다.
-- Viewer protocol policy는 Redirect HTTP to HTTPS로 지정해야 합니다.
+  - CloudFront 배포 생성
+![cloudfront](/assets/img/AWS/cloudfront.png)
+  - 원본 생성
+![cloudfront](/assets/img/AWS/origin.png)
+
+- Redirect HTTP to HTTPS
+![cloudfront](/assets/img/AWS/origin_cache.png)
+
 - Certificate Manager에서 발급받은 인증서를 사용해야 합니다.
+
 - Default root object 부분에 index.html을 작성해야 합니다.
 - 대체도메인과 인증 받은 도메인의 이름이 같아야 합니다.
 - 생성된 배포의 Distribution domain name으로 접속이 되는지 확인합니다.
 - 아래 레퍼런스를 참조하여, 스프린트를 진행합니다.
 
-### 4. Route53 레코드 등록
-- 백엔드와 프론트엔드의 별칭 레코드를 Route53 호스팅 영역에 생성합니다.
-- 백엔드는 [https://api.yourdomain.click](https://api.yourdomain.click)으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 [https://www.yourdomain.click](https://www.yourdomain.click)으로 접속 시, Cloudfront로 연결되어야 합니다.
 
 Reference
 - [Application Load Balancer용 HTTPS 리스너 생성](https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html)
@@ -212,3 +224,6 @@ Reference
 ## EC2, S3 
 Route53에서 도메인 주소 등록해줘야하는데, 내가 S3의 이름을 '.com'으로 등록했던것을 발견한 뒤 수정을 '.click'으로 하면서 정리해야겠다고 생각해서 정리한다.
 > S3는 정적 웹사이트를 위해 빌드를 버켓에 담기 위해 쓴다.  
+
+와일드카드로 도메인을 인증 -> 대체도메인도 마찬가지
+
