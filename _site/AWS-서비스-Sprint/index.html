@@ -227,46 +227,46 @@ April 18, 2023
       <li>도메인 구매 : <code class="language-plaintext highlighter-rouge">Route 53</code>에서 구매를해준다.
         <ul>
           <li>도메인 등록 클릭<br />
-( <code class="language-plaintext highlighter-rouge">hoonology.click</code>으로 등록했다.)
-<img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B81.png" alt="도메인구매1" />
-<code class="language-plaintext highlighter-rouge">Route53</code>에서 도메인 구매 후 도메인 등록 대기 
-<img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png" alt="도메인구매2" /></li>
-        </ul>
-
-        <blockquote>
-          <p>S3의 이름이 <code class="language-plaintext highlighter-rouge">hoonology.com</code>으로 되어 있어서, <code class="language-plaintext highlighter-rouge">hoonology.click</code>으로 재설정한 뒤 인증 요청을 보냈다.</p>
-        </blockquote>
-
-        <ul>
-          <li>
-            <p>S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
-  <img src="/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png" alt="bucket" /></p>
-          </li>
-          <li>
-            <p>도메인 등록 성공(시간이 좀 걸린다.)
-<img src="/assets/img/AWS/success.png" alt="success" /></p>
-          </li>
-          <li>
-            <p>Route53 등록 성공 확인 후<br />
-<code class="language-plaintext highlighter-rouge">CertificateManager</code>에 Route53에 등록한 도메인을 등록해준다.</p>
-            <ul>
-              <li>
-                <p>https는 빼줘야함
-<img src="/assets/img/AWS/certificateManager.png" alt="certificateManager" /></p>
-              </li>
-              <li>
-                <p>30분 ~ 1시간 정도 기다린다.
-<img src="/assets/img/AWS/Waitting.png" alt="wait" /></p>
-              </li>
-            </ul>
-          </li>
-        </ul>
-
-        <p><a href="https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html">로드밸런서 Reference</a></p>
-        <ul>
-          <li>HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.</li>
+( <code class="language-plaintext highlighter-rouge">hoonology.click</code>으로 등록했다.)</li>
         </ul>
       </li>
+    </ul>
+
+    <p><img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B81.png" alt="도메인구매1" />
+  <code class="language-plaintext highlighter-rouge">Route53</code>에서 도메인 구매 후 도메인 등록 대기 
+<img src="/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png" alt="도메인구매2" /></p>
+
+    <blockquote>
+      <p>S3의 이름이 <code class="language-plaintext highlighter-rouge">hoonology.com</code>으로 되어 있어서, <code class="language-plaintext highlighter-rouge">hoonology.click</code>으로 재설정한 뒤 인증 요청을 보냈다.</p>
+    </blockquote>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록  ![bucket](/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png)
+</code></pre></div>    </div>
+
+    <ul>
+      <li>
+        <p>도메인 등록 성공(시간이 좀 걸린다.)
+<img src="/assets/img/AWS/success.png" alt="success" /></p>
+      </li>
+      <li>
+        <p>Route53 등록 성공 확인 후<br />
+  <code class="language-plaintext highlighter-rouge">CertificateManager</code>에 Route53에 등록한 도메인을 등록해준다.</p>
+        <ul>
+          <li>
+            <p>https는 빼줘야함
+<img src="/assets/img/AWS/certificateManager.png" alt="certificateManager" /></p>
+          </li>
+          <li>
+            <p>30분 ~ 1시간 정도 기다린다.
+<img src="/assets/img/AWS/Waitting.png" alt="wait" /></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <p><a href="https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html">로드밸런서 Reference</a></p>
+    <ul>
+      <li>HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.</li>
     </ul>
   </li>
 </ul>
@@ -311,9 +311,11 @@ April 18, 2023
 
 <h2 id="3-백엔드-https-적용">3. 백엔드 HTTPS 적용</h2>
 <ul>
-  <li>애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
-<img src="/assets/img/aws/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.png" alt="로드밸런서" /></li>
+  <li>애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.</li>
 </ul>
+
+<p><img src="/assets/img/aws/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.png" alt="로드밸런서" /></p>
+
 <p align="center">[사진] Create load balancer 클릭</p>
 
 <ul>
@@ -500,29 +502,29 @@ April 18, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>보안</h3>
+                                    <h3>서비스 노출</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-AutoScalingGroup/">
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>수평확장</h3>
+                                    <h3>Docker Image 다루기 2 </h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/YAML/">
+                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
-                                    <h3>YAML</h3>
+                                    <h3>깃허브 블로그 만들기</h3>
                                 </a>
                             </li>
                         
@@ -788,45 +790,45 @@ Getting Started
         
           도메인 등록 클릭
 ( hoonology.click으로 등록했다.)
-
-Route53에서 도메인 구매 후 도메인 등록 대기 
-
-        
-
-        
-          S3의 이름이 hoonology.com으로 되어 있어서, hoonology.click으로 재설정한 뒤 인증 요청을 보냈다.
-        
-
-        
-          
-            S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
-  
-          
-          
-            도메인 등록 성공(시간이 좀 걸린다.)
-
-          
-          
-            Route53 등록 성공 확인 후
-CertificateManager에 Route53에 등록한 도메인을 등록해준다.
-            
-              
-                https는 빼줘야함
-
-              
-              
-                30분 ~ 1시간 정도 기다린다.
-
-              
-            
-          
-        
-
-        로드밸런서 Reference
-        
-          HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.
         
       
+    
+
+    
+  Route53에서 도메인 구매 후 도메인 등록 대기 
+
+
+    
+      S3의 이름이 hoonology.com으로 되어 있어서, hoonology.click으로 재설정한 뒤 인증 요청을 보냈다.
+    
+
+    - S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록  ![bucket](/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png)
+    
+
+    
+      
+        도메인 등록 성공(시간이 좀 걸린다.)
+
+      
+      
+        Route53 등록 성공 확인 후
+  CertificateManager에 Route53에 등록한 도메인을 등록해준다.
+        
+          
+            https는 빼줘야함
+
+          
+          
+            30분 ~ 1시간 정도 기다린다.
+
+          
+        
+      
+    
+
+    로드밸런서 Reference
+    
+      HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.
     
   
 
@@ -872,6 +874,8 @@ CertificateManager에 Route53에 등록한 도메인을 등록해준다.
 3. 백엔드 HTTPS 적용
 
   애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
+
+
 
 
 [사진] Create load balancer 클릭
@@ -1046,7 +1050,7 @@ Route53에서 도메인 주소 등록해줘야하는데, 내가 S3의 이름을 
 와일드카드로 도메인을 인증 -&amp;gt; 대체도메인도 마찬가지
 
 ",
-            "wordcount": "1090",
+            "wordcount": "1092",
             "inLanguage": "ko",
             "dateCreated": "2023-04-18/",
             "datePublished": "2023-04-18/",

@@ -42,26 +42,27 @@ comments: true
   - 도메인 구매 : ```Route 53```에서 구매를해준다.  
     - 도메인 등록 클릭  
     ( ```hoonology.click```으로 등록했다.)
-    ![도메인구매1](/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B81.png)
+
+  ![도메인구매1](/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B81.png)
     ```Route53```에서 도메인 구매 후 도메인 등록 대기 
-    ![도메인구매2](/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png)
+  ![도메인구매2](/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png)
     
     > S3의 이름이 ```hoonology.com```으로 되어 있어서, ```hoonology.click```으로 재설정한 뒤 인증 요청을 보냈다.
 
 
       - S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
-      ![bucket](/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png)
+  ![bucket](/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png)
 
     - 도메인 등록 성공(시간이 좀 걸린다.)
-    ![success](/assets/img/AWS/success.png)
+  ![success](/assets/img/AWS/success.png)
 
     - Route53 등록 성공 확인 후  
     ```CertificateManager```에 Route53에 등록한 도메인을 등록해준다.
       - https는 빼줘야함
-    ![certificateManager](/assets/img/AWS/certificateManager.png)
+  ![certificateManager](/assets/img/AWS/certificateManager.png)
 
       - 30분 ~ 1시간 정도 기다린다.
-      ![wait](/assets/img/AWS/Waitting.png)
+  ![wait](/assets/img/AWS/Waitting.png)
 
     [로드밸런서 Reference](https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html)
     - HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.
@@ -106,7 +107,9 @@ comments: true
 
 ## 3. 백엔드 HTTPS 적용
 - 애플리케이션 로드밸런서(Application Load Balancer)를 생성합니다.
+
 ![로드밸런서](/assets/img/aws/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.png)
+
 <p align = "center">[사진] Create load balancer 클릭</p>
 
 - 우리는 HTTP와 HTTPS를 다룰 것이기 때문에, 첫 번째를 누른다.
