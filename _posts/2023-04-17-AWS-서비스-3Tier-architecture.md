@@ -29,10 +29,71 @@ comments: true
 ## Getting Started
 - EC2, S3, RDS와 Repository의 소스코드를 가지고 웹 애플리케이션을 배포하기 위해 어떤 아키텍처를 가져야하는지 이해해야 합니다.
   - 아키텍처에 따라 어떤 과정을 먼저 진행해야 할지 확인합니다.
+
+
+### 서버 배포 ( EC2 )
+- EC2 콘솔을 통해 EC2 인스턴스를 생성한다.
+  ![인스턴스시작](/assets/img/AWS/%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%8B%9C%EC%9E%91.png)
+    - 이름 설정 - OS 설정(Ubuntu - arm 아키텍처 선택) - ```pem 키``` 생성
+
+### EC2 인스턴스 연결 
+AWS에서 빌린 인스턴스(PC)는 일반적인 PC처럼 내 앞에 놓여있지 않는다.  
+내 앞에 있지 않은 PC를 어떻게 사용할 수 있을까?
+![Connect](/assets/img/AWS/EC2InstanceConnect.png)
+
+원격 접속을 통해 사용할 수 있다 !  
+이 때 필요한 것이 인스턴스를 생성할 때 다운로드 한 키페어 파일(```.pem```)이다.
+
+![pem](/assets/img/AWS/pem.png)
+
+
+ - EC2 인스턴스 생성 후 [SSH 프로토콜을 통해 인스턴스에 접속](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html#AccessingInstancesLinuxSSHClient)합니다.
+
+ ![instanceConnect](/assets/img/AWS/Instance_connect.png)
+
+  - SSH 클라이언트를 사용하여 Linux 인스턴스에 연결하려면 다음 프로시저를 사용하세요. 
+    - 터미널 창에서 ssh 명령을 사용하여 인스턴스에 연결합니다. 프라이빗 키(.pem)의 경로와 파일 이름, 인스턴스의 사용자 이름 및 인스턴스의 퍼블릭 DNS 이름 또는 IPv6 주소를 지정합니다. 
+    - SSH 프로토콜 사용시 ```.pem```파일의 권한을 확인하고, 적절하게 권한을 부여해야 합니다. ( .pem이 있는 폴더에서 실행해야함 )
+
+      ```bash
+      chmod 400 hoonology_practice_0419.pem
+      ```
+      > chmod400 : 4(소유자_나) / 0(그룹) / 0(전체)  
+        읽기(4),쓰기(2),실행(1) 세가지 숫자 조합으로 권한 부여  
+        ex) chmod700-> 소유자 7(4+2+1)에게 읽기, 쓰기, 사용 권한을 준다.
+    - 파일 권한 설정 후 ssh 명령어를 통해 인스턴스에 접속 가능
+      ```bash
+      ssh -i "hoonology_practice_0419.pem" ubuntu@ec2-13-125-221-67.ap-northeast-2.compute.amazonaws.com      
+      ```
+
+    ![ssh](/assets/img/AWS/ssh2.png)
+
+
+  - 인스턴스에 접속한 후, 필요한 개발 환경(git, npm, node) 등을 구축합니다.  
+  
+    치트키
+      ```bash
+      sudo apt-get update
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+      nvm install --lts
+      # sleep 5
+      sudo apt-get install npm -y
+      ```
+
+
 - 먼저 각 ```client``` , ```server``` 디렉토리에서 dependencies를 ```npm install``` 을 통해 설치합니다.
 - 클라이언트와 서버 디렉토리에 각각 위치한 ```.env.example``` 파일을 보며 어떤 환경변수들이 정의되어 있는지 확인합니다.
 ![1](/assets/img/AWS/1.png)
 ![2](/assets/img/AWS/2.png)
+
+1. ```.env```로 이름을 변경한다.
+2. 정적 웹 페이지를 빌드하는 과정을 시작한다.
+  > 빌드란 작성한 코드의 불필요한 데이터를 없애고, 통합 및 압축하여 배포하기 이상적인 상태를 만드는 과정을 말합니다. 빌드 과정을 통하여 코드를 담고 있는 데이터의 용량이 줄어들고, 웹 사이트의 로딩 속도가 빨라집니다.
+3. .env 파일을 확인한다.  
+```.env``` 파일의 파일명이 제대로 적혀있는지, 환경 변수에 담긴 서버의 주소는 문제가 없는지 확인합니다. 참고로 요청을 보내는 서버의 주소를 환경 변수에 담을 때는 필히 'http://' 나 'https://'를 포함해야 합니다.  
+> 밑에 S3 과정을 완료하고 버킷에 빌드한 내용을 담는다.
 
 
 ### 클라이언트 배포 (S3)
@@ -66,49 +127,13 @@ comments: true
 - ```.env``` 파일의 테스트에 필요한 환경변수를 채워넣습니다.
 - ```client``` 디렉토리에서 ```npm run test1``` 명령을 사용해 테스트를 전부 통과하는지 확인하고, 웹 애플리케이션이 정상적으로 배포되어 작동하는지 확인합니다.
 - 테스트가 모두 통과되면 제출하고, 다음 HTTPS 스프린트로 넘어갑니다.
-
-### 서버 배포 ( EC2 )
-- EC2 콘솔을 통해 EC2 인스턴스를 생성한다.
-  ![인스턴스시작](/assets/img/AWS/%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%8B%9C%EC%9E%91.png)
-    - 이름 설정 - OS 설정(Ubuntu - arm 아키텍처 선택) - pem 키 생성
-  - EC2 인스턴스 생성 후 [SSH 프로토콜을 통해 인스턴스에 접속](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html#AccessingInstancesLinuxSSHClient)합니다.
-    - SSH 클라이언트를 사용하여 Linux 인스턴스에 연결하려면 다음 프로시저를 사용하세요. 
-      - 터미널 창에서 ssh 명령을 사용하여 인스턴스에 연결합니다. 프라이빗 키(.pem)의 경로와 파일 이름, 인스턴스의 사용자 이름 및 인스턴스의 퍼블릭 DNS 이름 또는 IPv6 주소를 지정합니다. 
-      - (퍼블릭 DNS) 인스턴스의 퍼블릭 DNS 이름을 사용하여 연결하려면 다음 명령을 입력합니다.  
-      ```ssh -i /path/key-pair-name.pem instance-user-name@instance-public-dns-name```  
-      =  ```ssh -i /path/key-pair-name.pem ec2-user@<인스턴스 ID>```
-      ```bash
-      ssh -i "devops04-ec2.pem" ubuntu@ec2-3-27-74-212.ap-southeast-2.compute.amazonaws.com
-      ```
-
-
-  - SSH 프로토콜 사용시 ```.pem```파일의 권한을 확인하고, 적절하게 권한을 부여해야 합니다. ( .pem이 있는 폴더에서 실행해야함 )
-    ```bash
-    # 권한 부여
-    chmod 400 devops04-ec2.pem
-    ssh -i "devops04-ec2.pem" ubuntu@ec2-3-27-74-212.ap-southeast-2.compute.amazonaws.com
-    ```
-
-    ![ssh](/assets/img/AWS/ssh2.png)
-
-  - 인스턴스에 접속한 후, 필요한 개발 환경(git, npm, node) 등을 구축합니다.  
-  
-    치트키
-      ```bash
-      sudo apt-get update
-      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-      [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-      nvm install --lts
-      # sleep 5
-      sudo apt-get install npm -y
-      ```
+---
 
 
 
 
-  - EC2에 브라우저를 통해 접근하려면 어떤 주소로 접근해야 하나요?
-  - client 폴더의 ```.env``` 환경설정의 ```REACT_APP_API_URL``` 과 EC2의 주소는 어떤 관계가 있나요?
+- EC2에 브라우저를 통해 접근하려면 어떤 주소로 접근해야 하나요?
+- client 폴더의 ```.env``` 환경설정의 ```REACT_APP_API_URL``` 과 EC2의 주소는 어떤 관계가 있나요?
 - 간단한 서버 애플리케이션을 생성하고 EC2 인스턴스에 코드를 가져와야 합니다.
 - 소스코드와 테스트 코드를 참고하여, 서버 코드가 어떻게 구성되어 있는지 확인합니다.
 - 서버를 실행시키고 브라우저에서 서버에 접속할 수 있어야 합니다.

@@ -37,6 +37,44 @@ comments: true
 - ```npm run test2``` 명령을 사용해 테스트가 통과하는지 확인합니다.
 - 실제로 웹 애플리케이션이 브라우저 상에서 HTTPS 프로토콜로 작동하는지 확인합니다.
 
+## 0. 보안그룹(Security Group)
+#### 1. 보안그룹은 AWS에서 임대한 인스턴스의 **가상 방화벽**이다.  
+#### 2. 인바운드( 인스턴스로 들어가는 트래픽 )와 아웃바운드( 인스턴스에서 나가는 트래픽 )에 대한 규칙을 설정할 수 있다.
+
+![보안그룹](/assets/img/AWS/SecurityGroup.png)
+<p align = "center"> [사진] 인바운드 규칙</p>
+
+![outbound](/assets/img/AWS/outbound.png)
+<p align = "center"> [사진] 아웃바운드 규칙</p>
+
+### 보안그룹 설정
+인스턴스 탭의 우측에서 해당 인스턴스가 어떤 보안그룹에 속해있는지 확인할 수 있다.
+![Which](/assets/img/AWS/WhichGroup.png)
+
+
+#### 인바운드 규칙 설정
+![inbound](/assets/img/AWS/InboundRule.png)
+![inbound2](/assets/img/AWS/InboundRule2.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 1. Certificate Manager를 통한 도메인 인증서 발급
 - 구매한 도메인을 기준으로 인증서를 발급 받습니다.
   - 도메인 구매 : ```Route 53```에서 구매를해준다.  
@@ -139,7 +177,7 @@ comments: true
   - 로드밸런서는 하나 이상의 Listener가 있어야한다.
   - 로드밸런서가 받아서 분산을 시키든 무언가를 할텐데, 받는 친구도 있어야한다. 그게 리스너다.
   - **'나에게 80으로 들어오는 것을 타겟그룹으로 보내라'** 라는 로직하에, 타겟 그룹이 필요하다.
-![보안그룹](/assets/img/AWS/%EB%B3%B4%EC%95%88%EA%B7%B8%EB%A3%B9.png)
+![보안그룹](/assets/img/AWS/security%20groups.png)
 <p align = "center">[사진] Security groups & Listeners and routing</p>
 
 - 난 타겟 그룹 설정이 안돼있어서 새로 만들어줬다.
@@ -198,15 +236,42 @@ sudo npm run start
 - healthy or unhealthy ?
 ![healthy](/assets/img/AWS/healthy.png)
 
+> 서버가 죽어있으면 unhealthy로 나온다. 서버를 종료하지 않고 80번 포트에서 실행이 되도록 한다.
+
+
 
 - ALB의 리스너, 가용영역, 인증서를 설정합니다.
 - 대상 그룹(target group)을 등록합니다.
 - 로드밸런서 DNS 주소로 접속해, 테스트를 진행합니다.
 - 아래 레퍼런스를 참조하여, 스프린트를 진행합니다.
 
+### [인스턴스] / [시작템플릿]
+![startT](/assets/img/AWS/startTemplate.png)
+EC2 만드는 것 처럼 하면 된다.
+- 키페어는 무엇이며 .. 등등
+
+### 3. Auto Scaling
+![auto](/assets/img/AWS/auto.png)
+![auto2](/assets/img/AWS/auto2.png)
+가용 영역은 여러개 분산 시키는 것이 좋다. (4개 정도)  
+한 곳에 몰려있는 것은 비추천
+![auto3](/assets/img/AWS/auto3.png)
+로드밸런서와 오토스켈링은 따로 쓸 수 있지만, 같이 쓰면 효과가 강력하기에 같이 쓰도록 한다.
+![auto4](/assets/img/AWS/auto4.png)
+최대 : 사용자가 늘어난다고 정의했지만 무한히 늘어나면 안되니깐, 최대 어디 까지 늘것인지 설정  
+최소 : 트래픽이 줄어들 때 몇까지 줄어들 것인지 (최소한 몇개 까진 돌아가야한다는 것을 설정)
+![auto5](/assets/img/AWS/auto5.png)
+대상 추적 크기 조정 정책 : 언제 스케일링을 통해서 변할(늘고 줄) 것인지 설정하는 것
+![auto6](/assets/img/AWS/auto6.png)
 
 
-### 3. 프론트엔드 CDN 및 HTTPS 적용
+
+
+### 4. 프론트엔드 CDN 및 HTTPS 적용 - CloudFront
+캐싱을 해가지고 클라이언트에게 배포를 전달해주는 것 !
+
+![cloudFront](/assets/img/AWS/cloudFront2.png)
+
 - Origin Domain을 설정해야 합니다.
   - CloudFront 배포 생성
 ![cloudfront](/assets/img/AWS/cloudfront.png)
@@ -242,3 +307,7 @@ Route53에서 도메인 주소 등록해줘야하는데, 내가 S3의 이름을 
 
 와일드카드로 도메인을 인증 -> 대체도메인도 마찬가지
 
+- HTTPS로 보안이 된 것을 통신하고 싶다. 
+  - 이것이 로직의 핵심
+
+- '클라 - 서버' : EC2로 만드는 것(VPC 안에서)
