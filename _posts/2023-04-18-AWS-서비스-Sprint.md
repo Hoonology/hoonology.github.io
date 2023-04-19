@@ -43,29 +43,34 @@ comments: true
     - 도메인 등록 클릭  
     ( ```hoonology.click```으로 등록했다.)
 
-  ![도메인구매1](/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B81.png)
+
+![도메인구매1](/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B81.png)
     ```Route53```에서 도메인 구매 후 도메인 등록 대기 
-  ![도메인구매2](/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png)
+![도메인구매2](/assets/img/AWS/%EB%8F%84%EB%A9%94%EC%9D%B82.png)
     
-    > S3의 이름이 ```hoonology.com```으로 되어 있어서, ```hoonology.click```으로 재설정한 뒤 인증 요청을 보냈다.
+  > S3의 이름이 ```hoonology.com```으로 되어 있어서, ```hoonology.click```으로 재설정한 뒤 인증 요청을 보냈다.
 
 
-      - S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
-  ![bucket](/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png)
+  - S3를 만들 때, 정책 아래와 같이 수정하는거 잊지 않도록 
 
-    - 도메인 등록 성공(시간이 좀 걸린다.)
-  ![success](/assets/img/AWS/success.png)
+![bucket](/assets/img/AWS/%EB%B2%84%EC%BA%A3%EC%A0%95%EC%B1%85.png)
 
-    - Route53 등록 성공 확인 후  
-    ```CertificateManager```에 Route53에 등록한 도메인을 등록해준다.
-      - https는 빼줘야함
-  ![certificateManager](/assets/img/AWS/certificateManager.png)
+  - 도메인 등록 성공(시간이 좀 걸린다.)
 
-      - 30분 ~ 1시간 정도 기다린다.
-  ![wait](/assets/img/AWS/Waitting.png)
+![success](/assets/img/AWS/success.png)
 
-    [로드밸런서 Reference](https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html)
-    - HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.
+  - Route53 등록 성공 확인 후  
+
+  ```CertificateManager```에 Route53에 등록한 도메인을 등록해준다.
+  
+    - https는 빼줘야함
+![certificateManager](/assets/img/AWS/certificateManager.png)
+
+  - 30분 ~ 1시간 정도 기다린다.
+![wait](/assets/img/AWS/Waitting.png)
+
+[로드밸런서 Reference](https://docs.aws.amazon.com/ko_kr/ko_kr/elasticloadbalancing/latest/application/create-https-listener.html)
+  - HTTPS 수신기는 클라이언트와 서버 간의 보안 HTTPS 트래픽을 처리하는 데 사용됩니다. AWS Management Console을 사용하여 HTTPS 리스너를 생성하려면 사용자의 AWS 계정에 이미 생성된 애플리케이션 로드 밸런서가 있어야 합니다.
 
 
 사용자에게 애플리케이션 로드 밸런서가 있으면 콘솔에서 "리스너" 탭으로 이동하여 "만들기"를 클릭할 수 있습니다. 그런 다음 HTTPS 프로토콜을 선택하고 SSL 인증서를 제공하라는 메시지가 표시됩니다.
@@ -83,23 +88,23 @@ comments: true
 - 백엔드는 [https://api.yourdomain.click](https://api.yourdomain.click)으로 접속 시, 로드밸런서로 연결되어야 하며, 프론트엔드는 [https://www.yourdomain.click](https://www.yourdomain.click)으로 접속 시, Cloudfront로 연결되어야 합니다.
 
   - 인증서는 ```프론트엔드 Cloudfront 사용 리전```인 ```us-east-1```과 ```백엔드 Load Balancer 사용리전```인 ```ap-northeast-2```에서 발급 받아야 합니다.
-  ![리전별](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png)  
+![리전별](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%84.png)  
   <p align = "center">[사진] 리전 두개를 선택한 뒤 인증서 요청을 해야한다. </p>
 
-  ![리전별2](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%842.png)
+![리전별2](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%842.png)
   <p align = "center">[사진] 정규화된 도메인 이름에 와일드카드 붙이기 </p>
 
-  ![리전별3](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%843.png)
+![리전별3](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%843.png)
   <p align = "center">[사진] 리전 버지니아 북부에서 인증서 발급 완료(프론트엔드 Cloudfront 사용) </p>
 
-  ![리전별4](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%844.png)
+![리전별4](/assets/img/AWS/%EB%A6%AC%EC%A0%84%EB%B3%844.png)
 
   <p align = "center">[사진] 리전 서울에서 인증서 발급 완료(Load Balancer 사용) </p>
   
   - 발급 시, DNS 검증 가이드로 [레퍼런스](https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/dns-validation.html)를 참고하세요.
     > 도메인 이름 시스템(DNS)은 네트워크에 연결되는 리소스를 위한 디렉터리 서비스입니다. DNS 공급자는 도메인을 정의하는 레코드가 포함된 데이터베이스를 유지 관리합니다. DNS 검증을 선택하면 ACM은 이 데이터베이스에 추가해야 하는 하나 이상의 CNAME 레코드를 제공합니다. 이 레코드에는 사용자가 도메인을 통제함을 증명하는 역할을 하는 고유한 키-값 페어가 포함되어 있습니다.
 
-  - 이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
+- 이후에 DNS 공급자로 Route53을 이용합니다. Route53에 레코드 생성과정을 반드시 거쳐야합니다.
 - 인증까지 최소 30분의 시간이 소요될 수 있습니다.
 
 
@@ -144,7 +149,9 @@ comments: true
 <p align = "center">[사진] Listeners and routing </p>
 
 - 헬스체크
+
 ![헬스체크](/assets/img/aws/%ED%97%AC%EC%8A%A4%EC%B2%B4%ED%81%AC.png)
+
 <p align = "center">[사진] Edit health check settings </p>
 
 - sample 로 지정된 repository에서는 200번이 아닌, 201번으로 설정해줘서 바꿔야한다.
@@ -162,29 +169,31 @@ comments: true
 
 - Unhealthy 해결하기
   - EC2 재 연결 -> 새로운 IP가 부여 -> ssh 연결 시 해당 IP를 입력
-  ![EC2재연결](/assets/img/AWS/%EC%83%88%EB%A1%9C%EC%9A%B4IP.png)  
-  <p align = "center">[사진] 새로 부여 받은 IP 주소 - 퍼블릭 IPv4주소 </p>
+![EC2재연결](/assets/img/AWS/%EC%83%88%EB%A1%9C%EC%9A%B4IP.png)  
+<p align = "center">[사진] 새로 부여 받은 IP 주소 - 퍼블릭 IPv4주소 </p>
 
-  ![ssh연결](/assets/img/AWS/ssh%EC%97%B0%EA%B2%B0.png)
+![ssh연결](/assets/img/AWS/ssh%EC%97%B0%EA%B2%B0.png)
 <p align = "center">[사진] 새로 부여 받은 IP주소로 할당 </p>
 
 ![ssh연결완료](/assets/img/AWS/%EC%97%B0%EA%B2%B0%EC%99%84%EB%A3%8C.png)
 <p align = "center">[사진] EC2 연결완료 </p>
 
 - sample 디렉토리에 이동 후 아래 코드 실행
-  ```bash
-  sudo npm run start
-  ```
-  - 서버 구동 확인
-  ![sudo](/assets/img/AWS/sudo.png)
-  <p align = "center">[사진] 서버 구동 확인 </p>
-  - 인터넷을 통해 연결해본다.
 
-  ![연결확인](/assets/img/AWS/%EB%93%A4%EC%96%B4%EA%B0%80%EB%B3%B4%EA%B8%B0.png)
-  <p align = "center">[사진] IP주소로 접속 시 Hello World 문구 확인 가능 </p>
+```bash
+sudo npm run start
+```
+- 서버 구동 확인
+![sudo](/assets/img/AWS/sudo.png)
+<p align = "center">[사진] 서버 구동 확인 </p>
 
-  - healthy or unhealthy ?
-  ![healthy](/assets/img/AWS/healthy.png)
+- 인터넷을 통해 연결해본다.
+
+![연결확인](/assets/img/AWS/%EB%93%A4%EC%96%B4%EA%B0%80%EB%B3%B4%EA%B8%B0.png)
+<p align = "center">[사진] IP주소로 접속 시 Hello World 문구 확인 가능 </p>
+
+- healthy or unhealthy ?
+![healthy](/assets/img/AWS/healthy.png)
 
 
 - ALB의 리스너, 가용영역, 인증서를 설정합니다.
