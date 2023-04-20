@@ -176,7 +176,7 @@ April 18, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>6 min to read</span>
+                    <span>7 min to read</span>
                 </p>
                 <h1 class="post-title">(Sprint) 도메인 연결과 CDN 및 HTTPS적용</h1>
                 <p class="post-subtitle">도메인 연결과 CDN 및 HTTPS적용</p>
@@ -219,6 +219,24 @@ April 18, 2023
   <li><code class="language-plaintext highlighter-rouge">npm run test2</code> 명령을 사용해 테스트가 통과하는지 확인합니다.</li>
   <li>실제로 웹 애플리케이션이 브라우저 상에서 HTTPS 프로토콜로 작동하는지 확인합니다.</li>
 </ul>
+
+<h2 id="0-보안그룹security-group">0. 보안그룹(Security Group)</h2>
+<h4 id="1-보안그룹은-aws에서-임대한-인스턴스의-가상-방화벽이다">1. 보안그룹은 AWS에서 임대한 인스턴스의 <strong>가상 방화벽</strong>이다.</h4>
+<h4 id="2-인바운드-인스턴스로-들어가는-트래픽-와-아웃바운드-인스턴스에서-나가는-트래픽-에-대한-규칙을-설정할-수-있다">2. 인바운드( 인스턴스로 들어가는 트래픽 )와 아웃바운드( 인스턴스에서 나가는 트래픽 )에 대한 규칙을 설정할 수 있다.</h4>
+
+<p><img src="/assets/img/AWS/SecurityGroup.png" alt="보안그룹" /></p>
+<p align="center"> [사진] 인바운드 규칙</p>
+
+<p><img src="/assets/img/AWS/outbound.png" alt="outbound" /></p>
+<p align="center"> [사진] 아웃바운드 규칙</p>
+
+<h3 id="보안그룹-설정">보안그룹 설정</h3>
+<p>인스턴스 탭의 우측에서 해당 인스턴스가 어떤 보안그룹에 속해있는지 확인할 수 있다.
+<img src="/assets/img/AWS/WhichGroup.png" alt="Which" /></p>
+
+<h4 id="인바운드-규칙-설정">인바운드 규칙 설정</h4>
+<p><img src="/assets/img/AWS/InboundRule.png" alt="inbound" />
+<img src="/assets/img/AWS/InboundRule2.png" alt="inbound2" /></p>
 
 <h2 id="1-certificate-manager를-통한-도메인-인증서-발급">1. Certificate Manager를 통한 도메인 인증서 발급</h2>
 <ul>
@@ -356,7 +374,7 @@ April 18, 2023
       <li>로드밸런서는 하나 이상의 Listener가 있어야한다.</li>
       <li>로드밸런서가 받아서 분산을 시키든 무언가를 할텐데, 받는 친구도 있어야한다. 그게 리스너다.</li>
       <li><strong>‘나에게 80으로 들어오는 것을 타겟그룹으로 보내라’</strong> 라는 로직하에, 타겟 그룹이 필요하다.
-<img src="/assets/img/AWS/%EB%B3%B4%EC%95%88%EA%B7%B8%EB%A3%B9.png" alt="보안그룹" /></li>
+<img src="/assets/img/AWS/security%20groups.png" alt="보안그룹" /></li>
     </ul>
   </li>
 </ul>
@@ -444,17 +462,47 @@ April 18, 2023
 <p align="center">[사진] IP주소로 접속 시 Hello World 문구 확인 가능 </p>
 
 <ul>
-  <li>
-    <p>healthy or unhealthy ?
-<img src="/assets/img/AWS/healthy.png" alt="healthy" /></p>
-  </li>
+  <li>healthy or unhealthy ?
+<img src="/assets/img/AWS/healthy.png" alt="healthy" /></li>
+</ul>
+
+<blockquote>
+  <p>서버가 죽어있으면 unhealthy로 나온다. 서버를 종료하지 않고 80번 포트에서 실행이 되도록 한다.</p>
+</blockquote>
+
+<ul>
   <li>ALB의 리스너, 가용영역, 인증서를 설정합니다.</li>
   <li>대상 그룹(target group)을 등록합니다.</li>
   <li>로드밸런서 DNS 주소로 접속해, 테스트를 진행합니다.</li>
   <li>아래 레퍼런스를 참조하여, 스프린트를 진행합니다.</li>
 </ul>
 
-<h3 id="3-프론트엔드-cdn-및-https-적용">3. 프론트엔드 CDN 및 HTTPS 적용</h3>
+<h3 id="인스턴스--시작템플릿">[인스턴스] / [시작템플릿]</h3>
+<p><img src="/assets/img/AWS/startTemplate.png" alt="startT" />
+EC2 만드는 것 처럼 하면 된다.</p>
+<ul>
+  <li>키페어는 무엇이며 .. 등등</li>
+</ul>
+
+<h3 id="3-auto-scaling">3. Auto Scaling</h3>
+<p><img src="/assets/img/AWS/auto.png" alt="auto" />
+<img src="/assets/img/AWS/auto2.png" alt="auto2" />
+가용 영역은 여러개 분산 시키는 것이 좋다. (4개 정도)<br />
+한 곳에 몰려있는 것은 비추천
+<img src="/assets/img/AWS/auto3.png" alt="auto3" />
+로드밸런서와 오토스켈링은 따로 쓸 수 있지만, 같이 쓰면 효과가 강력하기에 같이 쓰도록 한다.
+<img src="/assets/img/AWS/auto4.png" alt="auto4" />
+최대 : 사용자가 늘어난다고 정의했지만 무한히 늘어나면 안되니깐, 최대 어디 까지 늘것인지 설정<br />
+최소 : 트래픽이 줄어들 때 몇까지 줄어들 것인지 (최소한 몇개 까진 돌아가야한다는 것을 설정)
+<img src="/assets/img/AWS/auto5.png" alt="auto5" />
+대상 추적 크기 조정 정책 : 언제 스케일링을 통해서 변할(늘고 줄) 것인지 설정하는 것
+<img src="/assets/img/AWS/auto6.png" alt="auto6" /></p>
+
+<h3 id="4-프론트엔드-cdn-및-https-적용---cloudfront">4. 프론트엔드 CDN 및 HTTPS 적용 - CloudFront</h3>
+<p>캐싱을 해가지고 클라이언트에게 배포를 전달해주는 것 !</p>
+
+<p><img src="/assets/img/AWS/cloudFront2.png" alt="cloudFront" /></p>
+
 <ul>
   <li>Origin Domain을 설정해야 합니다.
     <ul>
@@ -503,7 +551,10 @@ April 18, 2023
       <li>이것이 로직의 핵심</li>
     </ul>
   </li>
-  <li>‘클라 - 서버’ : EC2로 만드는 것(VPC 안에서)</li>
+  <li>
+    <p>‘클라 - 서버’ : EC2로 만드는 것(VPC 안에서)</p>
+  </li>
+  <li>로드밸런서로 접속하는건 <code class="language-plaintext highlighter-rouge">http</code>로 , Route53으로 DNS 접속하는 것은 https로 접근한다.</li>
 </ul>
 
 
@@ -520,29 +571,29 @@ April 18, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-VPC/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>AWS 서비스 - VPC</h3>
+                                    <h3>보안</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-EC2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>깃허브 블로그 만들기</h3>
+                                    <h3>AWS 서비스 - EC2</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/YAML/">
+                                <a href="/CI%EB%8F%84%EA%B5%AC2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
                                     
-                                    <h3>YAML</h3>
+                                    <h3>CI/CD - 빌드와 언어별 빌드 도구</h3>
                                 </a>
                             </li>
                         
@@ -554,7 +605,7 @@ April 18, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="6">
+            <div class="time-bar" data-minutes="7">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -574,13 +625,13 @@ April 18, 2023
         </div>
     </div>
     
-    <a href="/YAML/" class="post-preview">
+    <a href="/CI_CD_%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
             
         </div>
-        <h3 class="title">YAML</h3>
+        <h3 class="title">CI/CD 파이프라인_지속적 배포</h3>
     </a>
 </div>
 
@@ -798,6 +849,24 @@ Getting Started
   .env파일에 HTTPS 적용을 위한 환경설정으로 적절하게 작성합니다.
   npm run test2 명령을 사용해 테스트가 통과하는지 확인합니다.
   실제로 웹 애플리케이션이 브라우저 상에서 HTTPS 프로토콜로 작동하는지 확인합니다.
+
+
+0. 보안그룹(Security Group)
+1. 보안그룹은 AWS에서 임대한 인스턴스의 가상 방화벽이다.
+2. 인바운드( 인스턴스로 들어가는 트래픽 )와 아웃바운드( 인스턴스에서 나가는 트래픽 )에 대한 규칙을 설정할 수 있다.
+
+
+ [사진] 인바운드 규칙
+
+
+ [사진] 아웃바운드 규칙
+
+보안그룹 설정
+인스턴스 탭의 우측에서 해당 인스턴스가 어떤 보안그룹에 속해있는지 확인할 수 있다.
+
+
+인바운드 규칙 설정
+
 
 
 1. Certificate Manager를 통한 도메인 인증서 발급
@@ -1024,17 +1093,47 @@ sudo npm run start
 [사진] IP주소로 접속 시 Hello World 문구 확인 가능 
 
 
-  
-    healthy or unhealthy ?
+  healthy or unhealthy ?
 
-  
+
+
+
+  서버가 죽어있으면 unhealthy로 나온다. 서버를 종료하지 않고 80번 포트에서 실행이 되도록 한다.
+
+
+
   ALB의 리스너, 가용영역, 인증서를 설정합니다.
   대상 그룹(target group)을 등록합니다.
   로드밸런서 DNS 주소로 접속해, 테스트를 진행합니다.
   아래 레퍼런스를 참조하여, 스프린트를 진행합니다.
 
 
-3. 프론트엔드 CDN 및 HTTPS 적용
+[인스턴스] / [시작템플릿]
+
+EC2 만드는 것 처럼 하면 된다.
+
+  키페어는 무엇이며 .. 등등
+
+
+3. Auto Scaling
+
+
+가용 영역은 여러개 분산 시키는 것이 좋다. (4개 정도)
+한 곳에 몰려있는 것은 비추천
+
+로드밸런서와 오토스켈링은 따로 쓸 수 있지만, 같이 쓰면 효과가 강력하기에 같이 쓰도록 한다.
+
+최대 : 사용자가 늘어난다고 정의했지만 무한히 늘어나면 안되니깐, 최대 어디 까지 늘것인지 설정
+최소 : 트래픽이 줄어들 때 몇까지 줄어들 것인지 (최소한 몇개 까진 돌아가야한다는 것을 설정)
+
+대상 추적 크기 조정 정책 : 언제 스케일링을 통해서 변할(늘고 줄) 것인지 설정하는 것
+
+
+4. 프론트엔드 CDN 및 HTTPS 적용 - CloudFront
+캐싱을 해가지고 클라이언트에게 배포를 전달해주는 것 !
+
+
+
 
   Origin Domain을 설정해야 합니다.
     
@@ -1083,10 +1182,13 @@ Route53에서 도메인 주소 등록해줘야하는데, 내가 S3의 이름을 
       이것이 로직의 핵심
     
   
-  ‘클라 - 서버’ : EC2로 만드는 것(VPC 안에서)
+  
+    ‘클라 - 서버’ : EC2로 만드는 것(VPC 안에서)
+  
+  로드밸런서로 접속하는건 http로 , Route53으로 DNS 접속하는 것은 https로 접근한다.
 
 ",
-            "wordcount": "1109",
+            "wordcount": "1345",
             "inLanguage": "ko",
             "dateCreated": "2023-04-18/",
             "datePublished": "2023-04-18/",

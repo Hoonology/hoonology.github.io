@@ -131,6 +131,48 @@
     
     
         <url>
+            <loc>http://localhost:4000/CI_CD_Sprint/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%A3%BC%EB%8F%84-%EA%B0%9C%EB%B0%9C/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/%EC%A7%80%EC%86%8D%EC%A0%81-%ED%86%B5%ED%95%A9/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/CI%EB%8F%84%EA%B5%AC2/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/CI%EB%8F%84%EA%B5%AC/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/CI_CD_%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-20</lastmod>
+        </url>
+    
+        <url>
             <loc>http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
@@ -208,14 +250,14 @@
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/</loc>
+            <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-12</lastmod>
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/</loc>
+            <loc>http://localhost:4000/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/view-all/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-12</lastmod>
@@ -236,7 +278,35 @@
         </url>
     
         <url>
+            <loc>http://localhost:4000/Docker/5/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/9/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/10/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
             <loc>http://localhost:4000/Docker/11/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-04-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/Docker/12/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-11</lastmod>
@@ -285,13 +355,6 @@
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker/5/</loc>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-            <lastmod>2023-04-11</lastmod>
-        </url>
-    
-        <url>
             <loc>http://localhost:4000/Docker/6/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
@@ -313,24 +376,10 @@
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker/9/</loc>
+            <loc>http://localhost:4000/YAML/2/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
-            <lastmod>2023-04-11</lastmod>
-        </url>
-    
-        <url>
-            <loc>http://localhost:4000/Docker/10/</loc>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-            <lastmod>2023-04-11</lastmod>
-        </url>
-    
-        <url>
-            <loc>http://localhost:4000/Docker/12/</loc>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-            <lastmod>2023-04-11</lastmod>
+            <lastmod>2023-04-09</lastmod>
         </url>
     
         <url>
@@ -342,13 +391,6 @@
     
         <url>
             <loc>http://localhost:4000/YAML/</loc>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-            <lastmod>2023-04-09</lastmod>
-        </url>
-    
-        <url>
-            <loc>http://localhost:4000/YAML/2/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-09</lastmod>
