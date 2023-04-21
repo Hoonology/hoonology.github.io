@@ -6,7 +6,7 @@ subtitle: Github Actions에 대하여
 description: 유닛 테스트 통과 -> Node.js CI 적용
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png 
-category: CI/CD
+category: CICD
 tags:
   - Github Action
   
