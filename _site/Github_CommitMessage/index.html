@@ -17,28 +17,28 @@
     
     
 
-    <title>AWS 서비스 - Storage | Hoonology</title>
-    <meta name="description" content="Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델">
+    <title>깃허브 커밋 메시지 컨벤션 - CI를 위하여 | Hoonology</title>
+    <meta name="description" content="Github Commit Mesaage 규칙을 알아보자">
     
-        <meta name="keywords" content="AWS, cloud, EC2, 인스턴스, S3, EFS, EBS">
+        <meta name="keywords" content="환경변수">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AWS 서비스 - Storage | Hoonology">
-    <meta name="twitter:description" content="Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델">
+    <meta name="twitter:title" content="깃허브 커밋 메시지 컨벤션 - CI를 위하여 | Hoonology">
+    <meta name="twitter:description" content="Github Commit Mesaage 규칙을 알아보자">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/">
-    <meta property="og:title" content="AWS 서비스 - Storage | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
-    <meta property="og:description" content="Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델">
+    <meta property="og:url" content="http://localhost:4000/Github_CommitMessage/">
+    <meta property="og:title" content="깃허브 커밋 메시지 컨벤션 - CI를 위하여 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+    <meta property="og:description" content="Github Commit Mesaage 규칙을 알아보자">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/">
+    <link rel="canonical" href="http://localhost:4000/Github_CommitMessage/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-16T09:00:00+09:00">
+                        <time class="date" datetime="2023-04-21T09:02:30+09:00">
                             
 
 
-April 16, 2023
+April 21, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>3 min to read</span>
+                    <span>2 min to read</span>
                 </p>
-                <h1 class="post-title">AWS 서비스 - Storage</h1>
-                <p class="post-subtitle">AWS 서비스 Storage에 대하여</p>
+                <h1 class="post-title">깃허브 커밋 메시지 컨벤션 - CI를 위하여</h1>
+                <p class="post-subtitle">Github Commit Message</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,171 +192,84 @@ April 16, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="aws-storage">AWS Storage</h1>
-<h2 id="1-객체-스토리지--object-storage-">1. 객체 스토리지 ( Object Storage )</h2>
-<p>객체 : 문서, 영상, 이미지 등(<strong>비정형 데이터</strong>) 비교적 단순한 구조에 메타데이터를 포함하고 있는 데이터</p>
-<blockquote>
-  <p>인터넷으로 연결된 API를 통해 데이터를 애플리케이션에 제공
-데이터를 객체로 저장하며 메타데이터와 데이터로 구성</p>
-</blockquote>
+                <h1 id="환경변수">환경변수</h1>
+<p>운영체제 혹은 소프트웨어가, 각기 다른 컴퓨터 또는 사용자마다 별도로 가질 수 있는 고유한 정보를 담는 데 사용하는 변수</p>
 
+<h1 id="환경변수가-필요한-이유">환경변수가 필요한 이유</h1>
 <ul>
-  <li>장점
-    <blockquote>
-      <ul>
-        <li>대규모 데이터 저장 가능</li>
-        <li>높은 확장성, 내구성, 가용성, 보안성 및 저렴한 비용</li>
-        <li>객체 단위로 데이터 처리 -&gt; 객체에 대한 접근이 빠름</li>
-      </ul>
-    </blockquote>
-  </li>
-  <li>단점
-    <blockquote>
-      <ul>
-        <li>파일 단위로 접근하는 것이 아니기 때문에 일부 응용 프로그램에서는 적합하지 않다.</li>
-        <li>객체 단위로 데이터를 처리하기 때문에 작은 파일에 대한 처리 비용이 높아진다.</li>
-      </ul>
-    </blockquote>
-  </li>
-</ul>
-
-<h2 id="2-블록-스토리지--block-storage-">2. 블록 스토리지 ( Block Storage )</h2>
-<p><strong>블록 스토리지에서의 데이터</strong> : 서버 인스턴스에 디스크 볼륨의 형태로 제공되는 데이터</p>
-<blockquote>
-  <p>EC2 인스턴스에 포함된 볼륨에 <strong>고속으로 접근</strong> 가능</p>
-</blockquote>
-
-<ul>
-  <li>장점
-    <blockquote>
-      <ul>
-        <li>블록 단위로 데이터를 처리 -&gt; 블록 단위로 데이터를 읽고 쓰기가 가능</li>
-        <li>서버 디스크로 사용할 수 있어서 높은 처리 속도를 가짐</li>
-        <li>데이터의 신뢰성 및 성능을 높이기 위해 RAID 기술 사용 -&gt; 높은 성능 및 안정성</li>
-      </ul>
-    </blockquote>
-  </li>
-  <li>단점
-    <blockquote>
-      <ul>
-        <li>블록 스토리지는 서버에 직접 연결되어 있기 때문에, 서버 장애 시 데이터 손실 발생</li>
-        <li>블록 스토리지는 큰 용량의 데이터를 처리하기에는 적합하지 않다.</li>
-      </ul>
-    </blockquote>
-  </li>
-  <li>대표적인 서비스
+  <li>배포되는 기능 마다 설정이 달라질 수 있기 때문이다.
     <ul>
-      <li>EBS( Elastic Block Store )</li>
+      <li>새로운 배포마다 새로운 기능들을 배포하게 됨으로써 설정값이 바귄다.</li>
+      <li>코드의 버전을 관리하는 것처럼 설정값의 버전을 관리할 필요가 있다.</li>
+    </ul>
+  </li>
+  <li>환경변수를 통해 설정을 분리하는 이유
+    <ul>
+      <li>환경 변수는 코드 변경 없이 배포 때마다 쉽게 변경할 수 있다.</li>
+      <li>설정 파일과 달리 잘못해서 코드 저장소에 올라갈 가능성이 적다.</li>
+      <li>다른 설정 매커니즘과 달리 언어나 OS에 의존하지 않는다.</li>
+      <li>설정을 환경 변수를 통해 분리해야 하는 이유에 대한 레퍼런스 : <a href="https://12factor.net/config">https://12factor.net/config</a></li>
     </ul>
   </li>
 </ul>
 
-<h2 id="3-파일-스토리지--file-storage-">3. 파일 스토리지 ( File Storage )</h2>
-<p><strong>파일 스토리지에서 데이터</strong> : 서버 인스턴스에 파일 시스템 인터페이스 방식으로 제공되는 데이터</p>
-
+<h2 id="환경변수-예시">환경변수 예시</h2>
 <ul>
-  <li>대표적인 서비스( 고속으로 다수의 EC2 인스턴스를 통해 데이터에 접근 )
+  <li>Linux 운영체제: export 명령어</li>
+  <li>코드를 통해 환경 변수를 설정하는 법
     <ul>
-      <li>EFS( Elastic File System )</li>
+      <li>node.js → process.env</li>
     </ul>
   </li>
-  <li>장점
-    <blockquote>
-      <ul>
-        <li>파일 단위로 데이터 저장 -&gt; 개별 파일에 대한 액세스와 수정이 용이, 백업하거나 이전하기가 용이</li>
-        <li>다중 액세스, 공유 파일, 고정 크기 파일 및 용량 풀링</li>
-        <li>애플리케이션과의 호환성</li>
-      </ul>
-    </blockquote>
-  </li>
-  <li>단점
-    <blockquote>
-      <ul>
-        <li>대용량의 데이터를 처리하기엔 비효율성 발생 ( 디스크 공간의0 비효율 )</li>
-        <li>파일의 이름과 경로가 유일한 식별자 -&gt; 동일한 이름의 파일을 다른 경로에 저장 불가</li>
-        <li>파일의 공유와 동시 수정이 어려움</li>
-        <li>단일 서버에서 사용되는 방식이라 확장성 제한</li>
-      </ul>
-    </blockquote>
+  <li>서비스 내에서 환경 변수를 설정하는 법
+    <ul>
+      <li>GitHub Action</li>
+    </ul>
   </li>
 </ul>
 
-<h1 id="s3">S3</h1>
-<p>S3 ( Simple Storage Service ) : AWS에서 제공하는 클라우드 스토리지 서비스</p>
-<h2 id="s3의-이점--1-높은-확장성">S3의 이점 : 1. 높은 확장성</h2>
+<hr />
+
+<h1 id="sprint---코드로부터-환경-변수-분리">Sprint - 코드로부터 환경 변수 분리</h1>
+
+<h2 id="bare-minimum-requirement">Bare minimum requirement</h2>
 <ul>
-  <li>무한한 스토리지 용량 확장 가능 ( 저장된 파일의 유실 가능성 0.000001%)
-    <ul>
-      <li>한 곳의 가용 영역이 재난이나 사고로 인해 가동이 불가능해지더라도 다른 가용 영역에 백업을 해놓은 데이터를 활용하여 문제없이 서버가 가동분에</li>
-      <li>AWS에서 제공하는 서비스들은 높은 가용성과 내구성을 보장</li>
-    </ul>
-  </li>
-  <li>다양한 스토리지 클래스 제공
-    <ul>
-      <li><strong>Standard 클래스</strong> ( <strong>범용적인 목적</strong>으로 사용 ) - 데이터에 빠른 속도로 접근, 데이터 액세스 요청에 대한 처리 속도 빠름
-        <ul>
-          <li>가장 일반적으로 사용되는 스토리지 클래스</li>
-          <li>데이터에 <strong>자주 액세스</strong>해야할 경우 사용</li>
-          <li>보관 비용이 높다.</li>
-        </ul>
-      </li>
-      <li><strong>Glacier 클래스</strong> : ( <strong>장기적인 보관</strong> 목적으로 사용 )
-        <ul>
-          <li>데이터에 느린 속도로 액세스</li>
-          <li>보관 비용이 저렴하다.</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>Standard-IA</li>
-  <li>One Zone-IA</li>
-  <li>S3 Glacier Deep Archive</li>
+  <li>GitHub Action을 이용하여 CI 상에서 Mini node server를 Docker 이미지로 만든 후, 여러분의 Docker Hub에 push하세요.</li>
 </ul>
 
-<h2 id="s3의-이점--2-정적-웹-사이트-호스팅-가능">S3의 이점 : 2. 정적 웹 사이트 호스팅 가능</h2>
-<blockquote>
-  <p>정적 파일 : 서버의 개입 없이 클라이언트에 제공될 수 있는 파일<br />
-  웹 호스팅 : <strong>서버의 한 공간</strong>을 빌려줘서 웹 사이트의 배포와 운영이 가능하게 만들어주는 서비스<br />
-  S3에서는 <code class="language-plaintext highlighter-rouge">버킷</code>을 통한 정적 웹 사이트 호스팅이 가능하다.</p>
-</blockquote>
+<h2 id="get-started">Get Started</h2>
+<p>본 스프린트는 앞서 GitHub Action으로 진행한 빌드/테스트 자동화가 끝나고 진행되는 스프린트입니다.</p>
 
-<blockquote>
-  <p><code class="language-plaintext highlighter-rouge">버킷</code> : AWS의 객체 스토리지 서비스인 Amazon S3에서 데이터를 저장하는 논리적인 컨테이너, S3에서 <strong>객체를 저장하는 기본 단위</strong><br />
-( 객체를 담는 바구니, 최상위 디렉토리 )</p>
-  <ul>
-    <li>데이터 저장 : 객체는 개별 파일로써 버킷에 저장, 해당 버킷에 고유한 키를 갖는다.</li>
-    <li>권한 관리 : 객체에 대한 액세스 권한 설정</li>
-    <li>데이터 관리 : 수명 주기 설정, 버전 관리, 액세스 로깅, 이벤트 알림</li>
-    <li>키-값 페어 형식으로 데이터를 저장</li>
-  </ul>
-</blockquote>
-
-<blockquote>
-  <p><code class="language-plaintext highlighter-rouge">객체</code> : 버킷에 담기는 파일</p>
-  <ul>
-    <li>‘파일 + 메타데이터’로 구성</li>
-    <li>고유한 키를 가짐</li>
-    <li>URL 주소를 통해서 객체에 접근 가능</li>
-    <li>URL 형식 : http://[버킷 name].S3.amazonaws.com/[객체의 key]</li>
-  </ul>
-</blockquote>
-
-<p><img src="/assets/img/AWS/%EB%B2%84%ED%82%B7.png" alt="버킷" /></p>
-
+<h3 id="1-ci-상에서-주어진-dockerfile을-이용해-docker-이미지를-빌드할-수-있도록-workflow를-새로-만드세요">1. CI 상에서 주어진 Dockerfile을 이용해 Docker 이미지를 빌드할 수 있도록, workflow를 새로 만드세요.</h3>
 <ul>
-  <li>
-    <p>S3 사용 시 얻는 이점 : 정적 웹 사이트 호스팅이 가능</p>
-
+  <li>다음 <a href="https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-docker-hub">레퍼런스</a>를 참고해서 Docker 빌드용 GitHub Action workflow를 만드세요.</li>
+  <li>workflow를 추가한다고 해서 GitHub Action이 즉시 작동하지는 않을 것입니다.</li>
+  <li>repository에서 오른쪽 사이드바를 살펴보면, Release -&gt; Create a new release 링크가 존재합니다. 이 링크를 누르고 새로운 릴리스를 발행합니다. 설정은 다음과 같이 진행합니다.
     <ul>
-      <li>정적 파일 : 서버의 개입 없이 생성된 파일</li>
-      <li>동적 파일 : 클라이언트가 서버에 요청을 보내면, 서버가 요청에 맞추어 그 자리에서 생성한 파일</li>
+      <li>Choose a tag: v1.0.0</li>
+      <li>Release title 및 Release notes는 여러분이 자유롭게 입력하세요.</li>
     </ul>
-
-    <p>S3에서는 버킷이 사용자들이 정적 웹 사이트를 배포할 수 있는 공간을 제공<br />
-버킷이라는 저장 공간에 정적 파일을 업로드하고 버킷을 정적 웹 사이트 호스팅 용도로 구성하면 정적 웹 사이트를 배포할 수 있다.</p>
+  </li>
+  <li>Publish release 후에 GitHub Action이 작동하나요?
+    <ul>
+      <li>Q. 왜 작동이 되는 걸까요? 아까는 왜 안 됐을까요?</li>
+    </ul>
   </li>
 </ul>
 
+<h3 id="2-인증-정보에-대한-환경-변수를-만드세요">2. 인증 정보에 대한 환경 변수를 만드세요.</h3>
+<p>1번 과정을 통해 GitHub Action을 실행하면 그 결과는 실패로 나타날 것입니다. 무엇이 잘못되었는지 먼저 로그를 살펴보세요.</p>
+
+<ul>
+  <li>Q. 왜 실패했을까요? 로그에서 그 이유를 찾아보세요.</li>
+</ul>
+
+<p>Workflow YAML 파일을 자세히 살펴보면, DOCKER_USERNAME 및 DOCKER_PASSWORD라는 환경 변수가 존재합니다. 말 그대로 아이디와 비밀번호와 같은 민감정보를 YAML 코드에 입력해서 git commit 기록으로 남겨둔다면, 더 이상은 그 비밀번호를 사용할 수 없게 될 것입니다. (돌이킬 수 없어요!)</p>
+
+<p>GitHub에서는 이러한 환경 변수를 안전하게 보관할 수 있는 기능을 제공합니다. Settings -&gt; Secrets에서 환경 변수를 설정하세요.</p>
+
+<h3 id="3-dockerfile-빌드-결과를-확인하고-docker-hub에-이미지가-제대로-push-되었는지-확인하세요">3. Dockerfile 빌드 결과를 확인하고, Docker Hub에 이미지가 제대로 push 되었는지 확인하세요.</h3>
+<p>앞서 이 과정을 다 잘 따라왔다면, 여러분 각 개인의 Docker Hub에는 mini-node-server 이미지가 성공적으로 push되어 있을 겁니다. <code class="language-plaintext highlighter-rouge">https://hub.docker.com/u/&lt;여러분_아이디&gt;</code>에 들어가서 결과를 확인해 보세요.</p>
 
 
                 <!-- Pagination links -->
@@ -372,11 +285,20 @@ April 16, 2023
                         
                         
                             <li>
-                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
+                                    <h3>서비스 노출</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Sprint-%EC%BD%94%EB%93%9C%EB%A1%9C%EB%B6%80%ED%84%B0-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98-%EB%B6%84%EB%A6%AC/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                    
+                                    <h3>(Sprint) - 환경변수와 코드로 부터 환경변수 분리</h3>
                                 </a>
                             </li>
                         
@@ -389,15 +311,6 @@ April 16, 2023
                                 </a>
                             </li>
                         
-                            <li>
-                                <a href="/Github_CommitMessage/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 커밋 메시지 컨벤션 - CI를 위하여</h3>
-                                </a>
-                            </li>
-                        
                     </ul>
                 </aside>
             
@@ -406,7 +319,7 @@ April 16, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="3">
+            <div class="time-bar" data-minutes="2">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -426,13 +339,13 @@ April 16, 2023
         </div>
     </div>
     
-    <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-VPC/" class="post-preview">
+    <a href="/YAML/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
             
         </div>
-        <h3 class="title">AWS 서비스 - VPC</h3>
+        <h3 class="title">YAML</h3>
     </a>
 </div>
 
@@ -448,11 +361,11 @@ April 16, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델&quot;%20http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/%20via%20&#64;&hashtags=AWS,cloud,EC2,인스턴스,S3,EFS,EBS"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Github Commit Mesaage 규칙을 알아보자&quot;%20http://localhost:4000/Github_CommitMessage/%20via%20&#64;&hashtags=환경변수"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/Github_CommitMessage/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -475,7 +388,7 @@ April 16, 2023
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/';
+        var disqus_url = '/Github_CommitMessage/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -619,182 +532,95 @@ April 16, 2023
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "AWS 서비스 - Storage",
-            "headline": "AWS 서비스 Storage에 대하여",
-            "description": "Storage - 클라우드 컴퓨팅 제공업체를 통해 데이터와 파일을 인터넷에 저장할 수 있는 클라우드 컴퓨팅 모델",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
-            "url": "http://localhost:4000/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Storage/",
-            "articleBody": "AWS Storage
-1. 객체 스토리지 ( Object Storage )
-객체 : 문서, 영상, 이미지 등(비정형 데이터) 비교적 단순한 구조에 메타데이터를 포함하고 있는 데이터
+            "name": "깃허브 커밋 메시지 컨벤션 - CI를 위하여",
+            "headline": "Github Commit Message",
+            "description": "Github Commit Mesaage 규칙을 알아보자",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png",
+            "url": "http://localhost:4000/Github_CommitMessage/",
+            "articleBody": "환경변수
+운영체제 혹은 소프트웨어가, 각기 다른 컴퓨터 또는 사용자마다 별도로 가질 수 있는 고유한 정보를 담는 데 사용하는 변수
 
-  인터넷으로 연결된 API를 통해 데이터를 애플리케이션에 제공
-데이터를 객체로 저장하며 메타데이터와 데이터로 구성
+환경변수가 필요한 이유
 
-
-
-  장점
+  배포되는 기능 마다 설정이 달라질 수 있기 때문이다.
     
-      
-        대규모 데이터 저장 가능
-        높은 확장성, 내구성, 가용성, 보안성 및 저렴한 비용
-        객체 단위로 데이터 처리 -&amp;gt; 객체에 대한 접근이 빠름
-      
+      새로운 배포마다 새로운 기능들을 배포하게 됨으로써 설정값이 바귄다.
+      코드의 버전을 관리하는 것처럼 설정값의 버전을 관리할 필요가 있다.
     
   
-  단점
+  환경변수를 통해 설정을 분리하는 이유
     
-      
-        파일 단위로 접근하는 것이 아니기 때문에 일부 응용 프로그램에서는 적합하지 않다.
-        객체 단위로 데이터를 처리하기 때문에 작은 파일에 대한 처리 비용이 높아진다.
-      
+      환경 변수는 코드 변경 없이 배포 때마다 쉽게 변경할 수 있다.
+      설정 파일과 달리 잘못해서 코드 저장소에 올라갈 가능성이 적다.
+      다른 설정 매커니즘과 달리 언어나 OS에 의존하지 않는다.
+      설정을 환경 변수를 통해 분리해야 하는 이유에 대한 레퍼런스 : https://12factor.net/config
     
   
 
 
-2. 블록 스토리지 ( Block Storage )
-블록 스토리지에서의 데이터 : 서버 인스턴스에 디스크 볼륨의 형태로 제공되는 데이터
+환경변수 예시
 
-  EC2 인스턴스에 포함된 볼륨에 고속으로 접근 가능
-
-
-
-  장점
+  Linux 운영체제: export 명령어
+  코드를 통해 환경 변수를 설정하는 법
     
-      
-        블록 단위로 데이터를 처리 -&amp;gt; 블록 단위로 데이터를 읽고 쓰기가 가능
-        서버 디스크로 사용할 수 있어서 높은 처리 속도를 가짐
-        데이터의 신뢰성 및 성능을 높이기 위해 RAID 기술 사용 -&amp;gt; 높은 성능 및 안정성
-      
+      node.js → process.env
     
   
-  단점
+  서비스 내에서 환경 변수를 설정하는 법
     
-      
-        블록 스토리지는 서버에 직접 연결되어 있기 때문에, 서버 장애 시 데이터 손실 발생
-        블록 스토리지는 큰 용량의 데이터를 처리하기에는 적합하지 않다.
-      
+      GitHub Action
     
-  
-  대표적인 서비스
-    
-      EBS( Elastic Block Store )
-    
-  
-
-
-3. 파일 스토리지 ( File Storage )
-파일 스토리지에서 데이터 : 서버 인스턴스에 파일 시스템 인터페이스 방식으로 제공되는 데이터
-
-
-  대표적인 서비스( 고속으로 다수의 EC2 인스턴스를 통해 데이터에 접근 )
-    
-      EFS( Elastic File System )
-    
-  
-  장점
-    
-      
-        파일 단위로 데이터 저장 -&amp;gt; 개별 파일에 대한 액세스와 수정이 용이, 백업하거나 이전하기가 용이
-        다중 액세스, 공유 파일, 고정 크기 파일 및 용량 풀링
-        애플리케이션과의 호환성
-      
-    
-  
-  단점
-    
-      
-        대용량의 데이터를 처리하기엔 비효율성 발생 ( 디스크 공간의0 비효율 )
-        파일의 이름과 경로가 유일한 식별자 -&amp;gt; 동일한 이름의 파일을 다른 경로에 저장 불가
-        파일의 공유와 동시 수정이 어려움
-        단일 서버에서 사용되는 방식이라 확장성 제한
-      
-    
-  
-
-
-S3
-S3 ( Simple Storage Service ) : AWS에서 제공하는 클라우드 스토리지 서비스
-S3의 이점 : 1. 높은 확장성
-
-  무한한 스토리지 용량 확장 가능 ( 저장된 파일의 유실 가능성 0.000001%)
-    
-      한 곳의 가용 영역이 재난이나 사고로 인해 가동이 불가능해지더라도 다른 가용 영역에 백업을 해놓은 데이터를 활용하여 문제없이 서버가 가동분에
-      AWS에서 제공하는 서비스들은 높은 가용성과 내구성을 보장
-    
-  
-  다양한 스토리지 클래스 제공
-    
-      Standard 클래스 ( 범용적인 목적으로 사용 ) - 데이터에 빠른 속도로 접근, 데이터 액세스 요청에 대한 처리 속도 빠름
-        
-          가장 일반적으로 사용되는 스토리지 클래스
-          데이터에 자주 액세스해야할 경우 사용
-          보관 비용이 높다.
-        
-      
-      Glacier 클래스 : ( 장기적인 보관 목적으로 사용 )
-        
-          데이터에 느린 속도로 액세스
-          보관 비용이 저렴하다.
-        
-      
-    
-  
-  Standard-IA
-  One Zone-IA
-  S3 Glacier Deep Archive
-
-
-S3의 이점 : 2. 정적 웹 사이트 호스팅 가능
-
-  정적 파일 : 서버의 개입 없이 클라이언트에 제공될 수 있는 파일
-  웹 호스팅 : 서버의 한 공간을 빌려줘서 웹 사이트의 배포와 운영이 가능하게 만들어주는 서비스
-  S3에서는 버킷을 통한 정적 웹 사이트 호스팅이 가능하다.
-
-
-
-  버킷 : AWS의 객체 스토리지 서비스인 Amazon S3에서 데이터를 저장하는 논리적인 컨테이너, S3에서 객체를 저장하는 기본 단위
-( 객체를 담는 바구니, 최상위 디렉토리 )
-  
-    데이터 저장 : 객체는 개별 파일로써 버킷에 저장, 해당 버킷에 고유한 키를 갖는다.
-    권한 관리 : 객체에 대한 액세스 권한 설정
-    데이터 관리 : 수명 주기 설정, 버전 관리, 액세스 로깅, 이벤트 알림
-    키-값 페어 형식으로 데이터를 저장
-  
-
-
-
-  객체 : 버킷에 담기는 파일
-  
-    ‘파일 + 메타데이터’로 구성
-    고유한 키를 가짐
-    URL 주소를 통해서 객체에 접근 가능
-    URL 형식 : http://[버킷 name].S3.amazonaws.com/[객체의 key]
   
 
 
 
 
+Sprint - 코드로부터 환경 변수 분리
 
-  
-    S3 사용 시 얻는 이점 : 정적 웹 사이트 호스팅이 가능
+Bare minimum requirement
 
+  GitHub Action을 이용하여 CI 상에서 Mini node server를 Docker 이미지로 만든 후, 여러분의 Docker Hub에 push하세요.
+
+
+Get Started
+본 스프린트는 앞서 GitHub Action으로 진행한 빌드/테스트 자동화가 끝나고 진행되는 스프린트입니다.
+
+1. CI 상에서 주어진 Dockerfile을 이용해 Docker 이미지를 빌드할 수 있도록, workflow를 새로 만드세요.
+
+  다음 레퍼런스를 참고해서 Docker 빌드용 GitHub Action workflow를 만드세요.
+  workflow를 추가한다고 해서 GitHub Action이 즉시 작동하지는 않을 것입니다.
+  repository에서 오른쪽 사이드바를 살펴보면, Release -&amp;gt; Create a new release 링크가 존재합니다. 이 링크를 누르고 새로운 릴리스를 발행합니다. 설정은 다음과 같이 진행합니다.
     
-      정적 파일 : 서버의 개입 없이 생성된 파일
-      동적 파일 : 클라이언트가 서버에 요청을 보내면, 서버가 요청에 맞추어 그 자리에서 생성한 파일
+      Choose a tag: v1.0.0
+      Release title 및 Release notes는 여러분이 자유롭게 입력하세요.
     
-
-    S3에서는 버킷이 사용자들이 정적 웹 사이트를 배포할 수 있는 공간을 제공
-버킷이라는 저장 공간에 정적 파일을 업로드하고 버킷을 정적 웹 사이트 호스팅 용도로 구성하면 정적 웹 사이트를 배포할 수 있다.
+  
+  Publish release 후에 GitHub Action이 작동하나요?
+    
+      Q. 왜 작동이 되는 걸까요? 아까는 왜 안 됐을까요?
+    
   
 
 
+2. 인증 정보에 대한 환경 변수를 만드세요.
+1번 과정을 통해 GitHub Action을 실행하면 그 결과는 실패로 나타날 것입니다. 무엇이 잘못되었는지 먼저 로그를 살펴보세요.
+
+
+  Q. 왜 실패했을까요? 로그에서 그 이유를 찾아보세요.
+
+
+Workflow YAML 파일을 자세히 살펴보면, DOCKER_USERNAME 및 DOCKER_PASSWORD라는 환경 변수가 존재합니다. 말 그대로 아이디와 비밀번호와 같은 민감정보를 YAML 코드에 입력해서 git commit 기록으로 남겨둔다면, 더 이상은 그 비밀번호를 사용할 수 없게 될 것입니다. (돌이킬 수 없어요!)
+
+GitHub에서는 이러한 환경 변수를 안전하게 보관할 수 있는 기능을 제공합니다. Settings -&amp;gt; Secrets에서 환경 변수를 설정하세요.
+
+3. Dockerfile 빌드 결과를 확인하고, Docker Hub에 이미지가 제대로 push 되었는지 확인하세요.
+앞서 이 과정을 다 잘 따라왔다면, 여러분 각 개인의 Docker Hub에는 mini-node-server 이미지가 성공적으로 push되어 있을 겁니다. https://hub.docker.com/u/&amp;lt;여러분_아이디&amp;gt;에 들어가서 결과를 확인해 보세요.
 ",
-            "wordcount": "669",
+            "wordcount": "392",
             "inLanguage": "ko",
-            "dateCreated": "2023-04-16/",
-            "datePublished": "2023-04-16/",
-            "dateModified": "2023-04-16/",
+            "dateCreated": "2023-04-21/",
+            "datePublished": "2023-04-21/",
+            "dateModified": "2023-04-21/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -819,9 +645,9 @@ S3의 이점 : 2. 정적 웹 사이트 호스팅 가능
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "AWS",
-            "articleSection": "AWS",
-            "keywords": ["AWS","cloud","EC2","인스턴스","S3","EFS","EBS"]
+            "genre": "Github",
+            "articleSection": "Github",
+            "keywords": ["환경변수"]
         }
         </script>
        </body>

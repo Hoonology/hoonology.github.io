@@ -3,6 +3,22 @@
   
   
     {
+      "title"    : "깃허브 커밋 메시지 컨벤션 - CI를 위하여",
+      "tags"     : "환경변수",
+      "categories" : "Github",
+      "url"      : "/Github_CommitMessage/",
+      "date"     : "04/21/2023"
+    } ,
+  
+    {
+      "title"    : "(Sprint) - 환경변수와 코드로 부터 환경변수 분리",
+      "tags"     : "환경변수, Docker, and 도커",
+      "categories" : "CICD",
+      "url"      : "/Sprint-%EC%BD%94%EB%93%9C%EB%A1%9C%EB%B6%80%ED%84%B0-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98-%EB%B6%84%EB%A6%AC/",
+      "date"     : "04/21/2023"
+    } ,
+  
+    {
       "title"    : "(Sprint) Github Actions를 이용한 빌드 및 테스트 자동화",
       "tags"     : "Github Action",
       "categories" : "CICD",
@@ -86,7 +102,7 @@
       "title"    : "(Sprint) 3 Tier Architecture 배포",
       "tags"     : "AWS, cloud, EC2, 인스턴스, and 3티어아키텍처",
       "categories" : "AWS",
-      "url"      : "/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-3Tier-architecture/",
+      "url"      : "/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint-3Tier-architecture/",
       "date"     : "04/17/2023"
     } ,
   
