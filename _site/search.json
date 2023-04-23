@@ -4,7 +4,7 @@
   
     {
       "title"    : "깃허브 커밋 메시지 컨벤션 - CI를 위하여",
-      "tags"     : "환경변수",
+      "tags"     : "커밋, 커밋메시지, commit, 컨벤션, and Commit Message Convention",
       "categories" : "Github",
       "url"      : "/Github_CommitMessage/",
       "date"     : "04/21/2023"
