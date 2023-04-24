@@ -176,7 +176,7 @@ April 21, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>2 min to read</span>
+                    <span>3 min to read</span>
                 </p>
                 <h1 class="post-title">(Sprint) - 환경변수와 코드로 부터 환경변수 분리</h1>
                 <p class="post-subtitle">환경변수는 무엇이며 왜 필요한가, 어떻게 환경변수를 분리하는가</p>
@@ -271,6 +271,55 @@ April 21, 2023
 <h3 id="3-dockerfile-빌드-결과를-확인하고-docker-hub에-이미지가-제대로-push-되었는지-확인하세요">3. Dockerfile 빌드 결과를 확인하고, Docker Hub에 이미지가 제대로 push 되었는지 확인하세요.</h3>
 <p>앞서 이 과정을 다 잘 따라왔다면, 여러분 각 개인의 Docker Hub에는 mini-node-server 이미지가 성공적으로 push되어 있을 겁니다. <code class="language-plaintext highlighter-rouge">https://hub.docker.com/u/&lt;여러분_아이디&gt;</code>에 들어가서 결과를 확인해 보세요.</p>
 
+<hr />
+
+<h1 id="docker">docker</h1>
+<ul>
+  <li>어떤 OS에서도 같은 환경을 만들어주는 것입니다</li>
+  <li>그래서 서버에 Docker만 깔고 배포를 해도 됩니다</li>
+</ul>
+
+<h2 id="container">container</h2>
+
+<p>컨테이너(container): 기본적으로 호스트(host) 컴퓨터에서 돌아가고 있는 하나의 프로세스입니다.<br />
+하지만, 일반 프로세스와는 다르게 container는 host 컴퓨터와 그 위에서 돌아가는 다른 프로세스들로부터
+격리되도록 설계되어 있습니다.</p>
+
+<h2 id="image">Image</h2>
+
+<dl>
+  <dt>이미지(image) = container image</dt>
+  <dd>애플리케이션 코드 뿐만 아니라 애플리케이션 실행에 필요한 최소한의 환경(언어 런타임, 라이브러리 패키지 등)을 포함하고 있는 바이너리(binary) 파일입니다.</dd>
+</dl>
+
+<ul>
+  <li>하나의 image로 부터 동일한 container를 계속해서 만들어낼 수 있으며,
+동시에 여러 개의 container를 띄울 수도 있어서 확장성(scalability)이 좋습니다.</li>
+  <li>어떤 컴퓨터에서든지 Docker만 깔려 있다면 이 image를 내려받아 container로 구동하면
+동일하게 작동하는 애플리케이션을 얻을 수 있습니다.</li>
+</ul>
+
+<h2 id="container-vs-image">Container vs. Image</h2>
+<p>Image는 container의 스냅샷을 떠놓은 것으로 생각하면 됩니다.</p>
+
+<p>반대로 container는 컴퓨터에서 살아서 돌아가고 있는 image의 한 인스턴스(instance)라고 생각할 수 있습니다.</p>
+
+<p>image를 실행시키면(run) 이미지가 container가 되고, 컨테이너가 실행되면서
+컨테이너 안에 포함되어 있는 실행되도록 조치되어있는 프로그램이 실행되게 됩니다.</p>
+
+<h3 id="dockerfile이란">Dockerfile이란?</h3>
+<p>하나의 이미지(내가 구축한 환경을 스냅샷 찍어둔 것)를 만들기 위한 과정으로
+(==&gt; Docker 이미지가 빌드(build)될 때 거쳐야하는 단계를 정의하고 있음)
+이 ‘이미지’만 있으면 다른 컴퓨터에서도 똑같은 환경을 올릴 수 있다.</p>
+
+<ul>
+  <li>프로젝트 최상위 디렉터리에 Dockerfile을 생성한다.</li>
+  <li>Docker는 이 Dockerfile에 나열된 명령문을 차례로 수행하며 이미지를 생성한다.</li>
+  <li>하나의 Docker 이미지는 base 이미지부터 시작해서 기존 이미지위에 새로운 이미지를</li>
+  <li>중첩해서 여러 단계의 이미지 층(layer)을 쌓아가며 만들어진다.</li>
+</ul>
+
+
 
                 <!-- Pagination links -->
 
@@ -285,29 +334,29 @@ April 21, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
+                                <a href="/Github_CommitMessage/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 커밋 메시지 컨벤션 - CI를 위하여</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint-3Tier-architecture/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>서비스 노출</h3>
+                                    <h3>(Sprint) 3 Tier Architecture 배포</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/YAML/">
+                                <a href="/%EB%B0%B0%ED%8F%AC%EC%9E%90%EB%8F%99%ED%99%94/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>YAML</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%A3%BC%EB%8F%84-%EA%B0%9C%EB%B0%9C/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
-                                    
-                                    <h3>테스트 주도 개발</h3>
+                                    <h3>배포자동화</h3>
                                 </a>
                             </li>
                         
@@ -319,7 +368,7 @@ April 21, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="2">
+            <div class="time-bar" data-minutes="3">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -615,8 +664,57 @@ GitHub에서는 이러한 환경 변수를 안전하게 보관할 수 있는 기
 
 3. Dockerfile 빌드 결과를 확인하고, Docker Hub에 이미지가 제대로 push 되었는지 확인하세요.
 앞서 이 과정을 다 잘 따라왔다면, 여러분 각 개인의 Docker Hub에는 mini-node-server 이미지가 성공적으로 push되어 있을 겁니다. https://hub.docker.com/u/&amp;lt;여러분_아이디&amp;gt;에 들어가서 결과를 확인해 보세요.
+
+
+
+docker
+
+  어떤 OS에서도 같은 환경을 만들어주는 것입니다
+  그래서 서버에 Docker만 깔고 배포를 해도 됩니다
+
+
+container
+
+컨테이너(container): 기본적으로 호스트(host) 컴퓨터에서 돌아가고 있는 하나의 프로세스입니다.
+하지만, 일반 프로세스와는 다르게 container는 host 컴퓨터와 그 위에서 돌아가는 다른 프로세스들로부터
+격리되도록 설계되어 있습니다.
+
+Image
+
+
+  이미지(image) = container image
+  애플리케이션 코드 뿐만 아니라 애플리케이션 실행에 필요한 최소한의 환경(언어 런타임, 라이브러리 패키지 등)을 포함하고 있는 바이너리(binary) 파일입니다.
+
+
+
+  하나의 image로 부터 동일한 container를 계속해서 만들어낼 수 있으며,
+동시에 여러 개의 container를 띄울 수도 있어서 확장성(scalability)이 좋습니다.
+  어떤 컴퓨터에서든지 Docker만 깔려 있다면 이 image를 내려받아 container로 구동하면
+동일하게 작동하는 애플리케이션을 얻을 수 있습니다.
+
+
+Container vs. Image
+Image는 container의 스냅샷을 떠놓은 것으로 생각하면 됩니다.
+
+반대로 container는 컴퓨터에서 살아서 돌아가고 있는 image의 한 인스턴스(instance)라고 생각할 수 있습니다.
+
+image를 실행시키면(run) 이미지가 container가 되고, 컨테이너가 실행되면서
+컨테이너 안에 포함되어 있는 실행되도록 조치되어있는 프로그램이 실행되게 됩니다.
+
+Dockerfile이란?
+하나의 이미지(내가 구축한 환경을 스냅샷 찍어둔 것)를 만들기 위한 과정으로
+(==&amp;gt; Docker 이미지가 빌드(build)될 때 거쳐야하는 단계를 정의하고 있음)
+이 ‘이미지’만 있으면 다른 컴퓨터에서도 똑같은 환경을 올릴 수 있다.
+
+
+  프로젝트 최상위 디렉터리에 Dockerfile을 생성한다.
+  Docker는 이 Dockerfile에 나열된 명령문을 차례로 수행하며 이미지를 생성한다.
+  하나의 Docker 이미지는 base 이미지부터 시작해서 기존 이미지위에 새로운 이미지를
+  중첩해서 여러 단계의 이미지 층(layer)을 쌓아가며 만들어진다.
+
+
 ",
-            "wordcount": "392",
+            "wordcount": "601",
             "inLanguage": "ko",
             "dateCreated": "2023-04-21/",
             "datePublished": "2023-04-21/",
