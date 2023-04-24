@@ -176,7 +176,7 @@ April 24, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>2 min to read</span>
+                    <span>3 min to read</span>
                 </p>
                 <h1 class="post-title">(Sprint)클라이언트 배포 파이프라인</h1>
                 <p class="post-subtitle">클라이언트 배포 파이프라인에 대하여</p>
@@ -283,8 +283,20 @@ April 24, 2023
 <img src="/assets/img/CICD/select8.png" alt="create" />
 <img src="/assets/img/CICD/select9.png" alt="create" />
 <img src="/assets/img/CICD/select10.png" alt="create" />
-<img src="/assets/img/CICD/select11.png" alt="create" />
-<img src="/assets/img/CICD/select12.png" alt="create" /></p>
+<img src="/assets/img/CICD/select11.png" alt="create" /></p>
+
+<h1 id="오류-발생">오류 발생</h1>
+
+<p><img src="/assets/img/CICD/select12.png" alt="create" />
+<img src="/assets/img/CICD/fail.png" alt="fail" /></p>
+
+<p>빌드 로그를 보면, buildspec.yml에 작성된 명령어가 실제로 정상적으로 작동하는지, 빌드 과정의 라이프 사이클이 어떻게 흘러가는지, 정확히 어떤 오류가 발생했는지 확인 가능합니다.</p>
+
+<p>테일 로그 기능은 어떤 역할을 할까요? 클릭해서 확인해 봅시다.
+<img src="/assets/img/CICD/tail.png" alt="fail" /></p>
+
+<p>태초마을로 가서 런타임 Standard - 이미지 aws/codebuild/standard 5.0으로 바꾸니깐 됨
+<img src="/assets/img/CICD/succe.png" alt="success" /></p>
 
 
                 <!-- Pagination links -->
@@ -300,29 +312,29 @@ April 24, 2023
                         
                         
                             <li>
-                                <a href="/Github_CommitMessage/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 커밋 메시지 컨벤션 - CI를 위하여</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/YAML/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
-                                    
-                                    <h3>YAML</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/CI_CD_Sprint/">
+                                <a href="/CI%EB%8F%84%EA%B5%AC2/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
                                     
-                                    <h3>(Sprint) Github Actions를 이용한 빌드 및 테스트 자동화</h3>
+                                    <h3>CI/CD - 빌드와 언어별 빌드 도구</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Docker Image 다루기 1</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%A3%BC%EB%8F%84-%EA%B0%9C%EB%B0%9C/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                    
+                                    <h3>테스트 주도 개발</h3>
                                 </a>
                             </li>
                         
@@ -334,7 +346,7 @@ April 24, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="2">
+            <div class="time-bar" data-minutes="3">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -645,8 +657,20 @@ CodePipeline 메인 콘솔에 접속
 
 
 
+오류 발생
+
+
+
+
+빌드 로그를 보면, buildspec.yml에 작성된 명령어가 실제로 정상적으로 작동하는지, 빌드 과정의 라이프 사이클이 어떻게 흘러가는지, 정확히 어떤 오류가 발생했는지 확인 가능합니다.
+
+테일 로그 기능은 어떤 역할을 할까요? 클릭해서 확인해 봅시다.
+
+
+태초마을로 가서 런타임 Standard - 이미지 aws/codebuild/standard 5.0으로 바꾸니깐 됨
+
 ",
-            "wordcount": "486",
+            "wordcount": "541",
             "inLanguage": "ko",
             "dateCreated": "2023-04-24/",
             "datePublished": "2023-04-24/",
