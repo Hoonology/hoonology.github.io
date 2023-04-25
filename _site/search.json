@@ -3,6 +3,14 @@
   
   
     {
+      "title"    : "(Sprint) 환경 변수 설정",
+      "tags"     : "AWS, cloud, 배포자동화, and S3",
+      "categories" : "AWS",
+      "url"      : "/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/",
+      "date"     : "04/25/2023"
+    } ,
+  
+    {
       "title"    : "(Sprint)서버 배포 파이프라인",
       "tags"     : "AWS, cloud, 배포자동화, and S3",
       "categories" : "AWS",
