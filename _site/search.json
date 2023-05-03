@@ -3,8 +3,56 @@
   
   
     {
+      "title"    : "MSA - 마이크로서비스",
+      "tags"     : "아키텍처 and 마이크로서비스",
+      "categories" : "docker",
+      "url"      : "/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4/",
+      "date"     : "04/30/2023"
+    } ,
+  
+    {
+      "title"    : "Milestone 4 - WAS , mongoDB 클러스터에서 서비스화",
+      "tags"     : "Fastify and milestone",
+      "categories" : "docker",
+      "url"      : "/MileStone5/",
+      "date"     : "04/30/2023"
+    } ,
+  
+    {
+      "title"    : "Milestone 4 - WAS , mongoDB 클러스터에서 서비스화",
+      "tags"     : "Fastify",
+      "categories" : "docker",
+      "url"      : "/MileStone4/",
+      "date"     : "04/30/2023"
+    } ,
+  
+    {
+      "title"    : "Milestone 1",
+      "tags"     : "Fastify",
+      "categories" : "docker",
+      "url"      : "/MileStone1/",
+      "date"     : "04/26/2023"
+    } ,
+  
+    {
+      "title"    : "Docker Compose",
+      "tags"     : "Docker, compose, and Docker Compose",
+      "categories" : "docker",
+      "url"      : "/Docker-Compse/",
+      "date"     : "04/26/2023"
+    } ,
+  
+    {
+      "title"    : "Test",
+      "tags"     : "test",
+      "categories" : "AWS",
+      "url"      : "/Test/",
+      "date"     : "04/26/2023"
+    } ,
+  
+    {
       "title"    : "(Sprint) 환경 변수 설정",
-      "tags"     : "AWS, cloud, 배포자동화, and S3",
+      "tags"     : "AWS, cloud, and 환경변수",
       "categories" : "AWS",
       "url"      : "/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/",
       "date"     : "04/25/2023"
