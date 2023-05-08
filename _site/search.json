@@ -4,7 +4,7 @@
   
     {
       "title"    : "CQRS",
-      "tags"     : "CQRS",
+      "tags"     : "CQRS, kafka, SQS, and Kinesis",
       "categories" : "docker",
       "url"      : "/CQRS/",
       "date"     : "05/08/2023"
@@ -12,7 +12,7 @@
   
     {
       "title"    : "API 디자인과 프로세스 간 통신",
-      "tags"     : "API디자인, 프로세스간통신, 동기, 비동기, 메시지브로커, REST_API, and JSON",
+      "tags"     : "API디자인, 프로세스간통신, 동기, 비동기, 메시지브로커, REST_API, JSON, kafka, Amazon SQS, and Amazon Kinesis",
       "categories" : "docker",
       "url"      : "/API-%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B0%84-%ED%86%B5%EC%8B%A0/",
       "date"     : "05/08/2023"
