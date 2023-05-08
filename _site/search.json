@@ -3,6 +3,14 @@
   
   
     {
+      "title"    : "CQRS",
+      "tags"     : "CQRS",
+      "categories" : "docker",
+      "url"      : "/CQRS/",
+      "date"     : "05/08/2023"
+    } ,
+  
+    {
       "title"    : "API 디자인과 프로세스 간 통신",
       "tags"     : "API디자인, 프로세스간통신, 동기, 비동기, 메시지브로커, REST_API, and JSON",
       "categories" : "docker",
