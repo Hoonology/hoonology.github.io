@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    <title>API 디자인과 프로세스 간 통신 | Hoonology</title>
+    <meta name="description" content="프로세스 간 통신(Inter-process communication, IPC)">
+    
+        <meta name="keywords" content="API디자인, 프로세스간통신, 동기, 비동기, 메시지브로커, REST_API, JSON">
+    
+
+    <!-- Social: Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="API 디자인과 프로세스 간 통신 | Hoonology">
+    <meta name="twitter:description" content="프로세스 간 통신(Inter-process communication, IPC)">
+
+    
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
+    
+    
+    
+
+    <!-- Social: Facebook / Open Graph -->
+    <meta property="og:url" content="http://localhost:4000/API-%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B0%84-%ED%86%B5%EC%8B%A0/">
+    <meta property="og:title" content="API 디자인과 프로세스 간 통신 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
+    <meta property="og:description" content="프로세스 간 통신(Inter-process communication, IPC)">
+    <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/icons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/icons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/icons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/icons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/icons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/icons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/icons/apple-touch-icon-152x152.png" />
+
+    <!-- Windows 8 Tile Icons -->
+    <meta name="application-name" content="Hoonology">
+    <meta name="msapplication-TileColor" content="#141414">
+    <meta name="msapplication-square70x70logo" content="smalltile.png" />
+    <meta name="msapplication-square150x150logo" content="mediumtile.png" />
+    <meta name="msapplication-wide310x150logo" content="widetile.png" />
+    <meta name="msapplication-square310x310logo" content="largetile.png" />
+    
+    <!-- Android Lolipop Theme Color -->
+    <meta name="theme-color" content="#141414">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="canonical" href="http://localhost:4000/API-%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B0%84-%ED%86%B5%EC%8B%A0/">
+    <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
+
+    <!-- Include extra styles -->
+    
+
+    <!-- JavaScript enabled/disabled -->
+    <script>
+        document.querySelector('html').classList.remove('no-js');
+    </script>
+</head>
+
+    <body class="has-push-menu">
+        
+
+
+
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" display="none" version="1.1"><defs><symbol id="icon-menu" viewBox="0 0 1024 1024"><path class="path1" d="M128 213.333h768q17.667 0 30.167 12.5t12.5 30.167-12.5 30.167-30.167 12.5h-768q-17.667 0-30.167-12.5t-12.5-30.167 12.5-30.167 30.167-12.5zM128 725.333h768q17.667 0 30.167 12.5t12.5 30.167-12.5 30.167-30.167 12.5h-768q-17.667 0-30.167-12.5t-12.5-30.167 12.5-30.167 30.167-12.5zM128 469.333h768q17.667 0 30.167 12.5t12.5 30.167-12.5 30.167-30.167 12.5h-768q-17.667 0-30.167-12.5t-12.5-30.167 12.5-30.167 30.167-12.5z"/></symbol><symbol id="icon-search" viewBox="0 0 951 1024"><path class="path1" d="M658.286 475.429q0-105.714-75.143-180.857t-180.857-75.143-180.857 75.143-75.143 180.857 75.143 180.857 180.857 75.143 180.857-75.143 75.143-180.857zM950.857 950.857q0 29.714-21.714 51.429t-51.429 21.714q-30.857 0-51.429-21.714l-196-195.429q-102.286 70.857-228 70.857-81.714 0-156.286-31.714t-128.571-85.714-85.714-128.571-31.714-156.286 31.714-156.286 85.714-128.571 128.571-85.714 156.286-31.714 156.286 31.714 128.571 85.714 85.714 128.571 31.714 156.286q0 125.714-70.857 228l196 196q21.143 21.143 21.143 51.429z"/></symbol><symbol id="icon-close" viewBox="0 0 1000 1000"><path d="M969.8,870.3c27,27.7,27,71.8,0,99.1C955.7,983,937.9,990,920,990c-17.9,0-35.7-7-49.7-20.7L500,599L129.6,969.4C115.6,983,97.8,990,79.9,990s-35.7-7-49.7-20.7c-27-27.3-27-71.4,0-99.1L400.9,500L30.3,129.3c-27-27.3-27-71.4,0-99.1c27.3-27,71.8-27,99.4,0L500,400.9L870.4,30.2c27.7-27,71.8-27,99.4,0c27,27.7,27,71.8,0,99.1L599.1,500L969.8,870.3z"/></symbol><symbol id="icon-twitter" viewBox="0 0 951 1024"><path class="path1" d="M925.714 233.143q-38.286 56-92.571 95.429 0.571 8 0.571 24 0 74.286-21.714 148.286t-66 142-105.429 120.286-147.429 83.429-184.571 31.143q-154.857 0-283.429-82.857 20 2.286 44.571 2.286 128.571 0 229.143-78.857-60-1.143-107.429-36.857t-65.143-91.143q18.857 2.857 34.857 2.857 24.571 0 48.571-6.286-64-13.143-106-63.714t-42-117.429v-2.286q38.857 21.714 83.429 23.429-37.714-25.143-60-65.714t-22.286-88q0-50.286 25.143-93.143 69.143 85.143 168.286 136.286t212.286 56.857q-4.571-21.714-4.571-42.286 0-76.571 54-130.571t130.571-54q80 0 134.857 58.286 62.286-12 117.143-44.571-21.143 65.714-81.143 101.714 53.143-5.714 106.286-28.571z"/></symbol><symbol id="icon-facebook" viewBox="0 0 585 1024"><path class="path1" d="M548 6.857v150.857h-89.714q-49.143 0-66.286 20.571t-17.143 61.714v108h167.429l-22.286 169.143h-145.143v433.714h-174.857v-433.714h-145.714v-169.143h145.714v-124.571q0-106.286 59.429-164.857t158.286-58.571q84 0 130.286 6.857z"/></symbol><symbol id="icon-clock" viewBox="0 0 1000 1000"><path d="M500,10C229.8,10,10,229.8,10,500c0,270.2,219.8,490,490,490c270.2,0,490-219.8,490-490C990,229.8,770.2,10,500,10z M500,910.2c-226.2,0-410.2-184-410.2-410.2c0-226.2,184-410.2,410.2-410.2c226.2,0,410.2,184,410.2,410.2C910.2,726.1,726.2,910.2,500,910.2z M753.1,374c8.2,11.9,5.2,28.1-6.6,36.3L509.9,573.7c-4.4,3.1-9.6,4.6-14.8,4.6c-4.1,0-8.3-1-12.1-3c-8.6-4.5-14-13.4-14-23.1V202.5c0-14.4,11.7-26.1,26.1-26.1c14.4,0,26.1,11.7,26.1,26.1v300l195.6-135.1C728.7,359.2,744.9,362.1,753.1,374z"/></symbol><symbol id="icon-calendar" viewBox="0 0 1000 1000"><path d="M920,500v420H80V500H920 M990,430H10v490c0,38.7,31.3,70,70,70h840c38.7,0,70-31.3,70-70V430L990,430z"/><path d="M850,80v105c0,57.9-47.2,105-105,105c-58,0-105-47.1-105-105V80H360v105c0,57.9-47.2,105-105,105c-58,0-105-47.1-105-105V80C72.8,80,10,142.7,10,220v140h980V220C990,142.7,927.2,80,850,80z"/><path d="M255,10c-19.3,0-35,15.8-35,35v140c0,19.2,15.7,35,35,35c19.3,0,35-15.8,35-35V45C290,25.8,274.3,10,255,10z"/><path d="M745,10c-19.3,0-35,15.8-35,35v140c0,19.2,15.7,35,35,35c19.3,0,35-15.8,35-35V45C780,25.8,764.3,10,745,10z"/></symbol><symbol id="icon-github" viewBox="0 0 12 14"><path d="M6 1q1.633 0 3.012 0.805t2.184 2.184 0.805 3.012q0 1.961-1.145 3.527t-2.957 2.168q-0.211 0.039-0.312-0.055t-0.102-0.234q0-0.023 0.004-0.598t0.004-1.051q0-0.758-0.406-1.109 0.445-0.047 0.801-0.141t0.734-0.305 0.633-0.52 0.414-0.82 0.16-1.176q0-0.93-0.617-1.609 0.289-0.711-0.062-1.594-0.219-0.070-0.633 0.086t-0.719 0.344l-0.297 0.187q-0.727-0.203-1.5-0.203t-1.5 0.203q-0.125-0.086-0.332-0.211t-0.652-0.301-0.664-0.105q-0.352 0.883-0.062 1.594-0.617 0.68-0.617 1.609 0 0.664 0.16 1.172t0.41 0.82 0.629 0.523 0.734 0.305 0.801 0.141q-0.305 0.281-0.383 0.805-0.164 0.078-0.352 0.117t-0.445 0.039-0.512-0.168-0.434-0.488q-0.148-0.25-0.379-0.406t-0.387-0.187l-0.156-0.023q-0.164 0-0.227 0.035t-0.039 0.090 0.070 0.109 0.102 0.094l0.055 0.039q0.172 0.078 0.34 0.297t0.246 0.398l0.078 0.18q0.102 0.297 0.344 0.48t0.523 0.234 0.543 0.055 0.434-0.027l0.18-0.031q0 0.297 0.004 0.691t0.004 0.426q0 0.141-0.102 0.234t-0.312 0.055q-1.812-0.602-2.957-2.168t-1.145-3.527q0-1.633 0.805-3.012t2.184-2.184 3.012-0.805zM2.273 9.617q0.023-0.055-0.055-0.094-0.078-0.023-0.102 0.016-0.023 0.055 0.055 0.094 0.070 0.047 0.102-0.016zM2.516 9.883q0.055-0.039-0.016-0.125-0.078-0.070-0.125-0.023-0.055 0.039 0.016 0.125 0.078 0.078 0.125 0.023zM2.75 10.234q0.070-0.055 0-0.148-0.062-0.102-0.133-0.047-0.070 0.039 0 0.141t0.133 0.055zM3.078 10.562q0.062-0.062-0.031-0.148-0.094-0.094-0.156-0.023-0.070 0.062 0.031 0.148 0.094 0.094 0.156 0.023zM3.523 10.758q0.023-0.086-0.102-0.125-0.117-0.031-0.148 0.055t0.102 0.117q0.117 0.047 0.148-0.047zM4.016 10.797q0-0.102-0.133-0.086-0.125 0-0.125 0.086 0 0.102 0.133 0.086 0.125 0 0.125-0.086zM4.469 10.719q-0.016-0.086-0.141-0.070-0.125 0.023-0.109 0.117t0.141 0.062 0.109-0.109z"></path></symbol><symbol id="icon-medium" viewBox="0 0 1000 1000"><path d="M336.5,240.2v641.5c0,9.1-2.3,16.9-6.8,23.2s-11.2,9.6-20,9.6c-6.2,0-12.2-1.5-18-4.4L37.3,782.7c-7.7-3.6-14.1-9.8-19.4-18.3S10,747.4,10,739V115.5c0-7.3,1.8-13.5,5.5-18.6c3.6-5.1,8.9-7.7,15.9-7.7c5.1,0,13.1,2.7,24.1,8.2l279.5,140C335.9,238.6,336.5,239.5,336.5,240.2L336.5,240.2z M371.5,295.5l292,473.6l-292-145.5V295.5z M990,305.3v576.4c0,9.1-2.6,16.5-7.7,22.1c-5.1,5.7-12,8.5-20.8,8.5s-17.3-2.4-25.7-7.1L694.7,784.9L990,305.3z M988.4,239.7c0,1.1-46.8,77.6-140.3,229.4C754.6,621,699.8,709.8,683.8,735.7L470.5,389l177.2-288.2c6.2-10.2,15.7-15.3,28.4-15.3c5.1,0,9.8,1.1,14.2,3.3l295.9,147.7C987.6,237.1,988.4,238.2,988.4,239.7L988.4,239.7z"/></symbol><symbol id="icon-instagram" viewBox="0 0 489.84 489.84"><path d="M249.62,50.46c65.4,0,73.14.25,99,1.43C372.47,53,385.44,57,394.07,60.32a75.88,75.88,0,0,1,28.16,18.32,75.88,75.88,0,0,1,18.32,28.16c3.35,8.63,7.34,21.6,8.43,45.48,1.18,25.83,1.43,33.57,1.43,99s-0.25,73.14-1.43,99c-1.09,23.88-5.08,36.85-8.43,45.48a81.11,81.11,0,0,1-46.48,46.48c-8.63,3.35-21.6,7.34-45.48,8.43-25.82,1.18-33.57,1.43-99,1.43s-73.15-.25-99-1.43c-23.88-1.09-36.85-5.08-45.48-8.43A75.88,75.88,0,0,1,77,423.86,75.88,75.88,0,0,1,58.69,395.7c-3.35-8.63-7.34-21.6-8.43-45.48-1.18-25.83-1.43-33.57-1.43-99s0.25-73.14,1.43-99c1.09-23.88,5.08-36.85,8.43-45.48A75.88,75.88,0,0,1,77,78.64a75.88,75.88,0,0,1,28.16-18.32c8.63-3.35,21.6-7.34,45.48-8.43,25.83-1.18,33.57-1.43,99-1.43m0-44.13c-66.52,0-74.86.28-101,1.47s-43.87,5.33-59.45,11.38A120.06,120.06,0,0,0,45.81,47.44,120.06,120.06,0,0,0,17.56,90.82C11.5,106.4,7.36,124.2,6.17,150.27s-1.47,34.46-1.47,101,0.28,74.86,1.47,101,5.33,43.87,11.38,59.45a120.06,120.06,0,0,0,28.25,43.38,120.06,120.06,0,0,0,43.38,28.25c15.58,6.05,33.38,10.19,59.45,11.38s34.46,1.47,101,1.47,74.86-.28,101-1.47,43.87-5.33,59.45-11.38a125.24,125.24,0,0,0,71.63-71.63c6.05-15.58,10.19-33.38,11.38-59.45s1.47-34.46,1.47-101-0.28-74.86-1.47-101-5.33-43.87-11.38-59.45a120.06,120.06,0,0,0-28.25-43.38,120.06,120.06,0,0,0-43.38-28.25C394.47,13.13,376.67,9,350.6,7.8s-34.46-1.47-101-1.47h0Z" transform="translate(-4.7 -6.33)" /><path d="M249.62,125.48A125.77,125.77,0,1,0,375.39,251.25,125.77,125.77,0,0,0,249.62,125.48Zm0,207.41a81.64,81.64,0,1,1,81.64-81.64A81.64,81.64,0,0,1,249.62,332.89Z" transform="translate(-4.7 -6.33)"/><circle cx="375.66" cy="114.18" r="29.39" /></symbol><symbol id="icon-linkedin" viewBox="0 0 12 14"><path d="M2.727 4.883v7.742h-2.578v-7.742h2.578zM2.891 2.492q0.008 0.57-0.395 0.953t-1.059 0.383h-0.016q-0.641 0-1.031-0.383t-0.391-0.953q0-0.578 0.402-0.957t1.051-0.379 1.039 0.379 0.398 0.957zM12 8.187v4.437h-2.57v-4.141q0-0.82-0.316-1.285t-0.988-0.465q-0.492 0-0.824 0.27t-0.496 0.668q-0.086 0.234-0.086 0.633v4.32h-2.57q0.016-3.117 0.016-5.055t-0.008-2.313l-0.008-0.375h2.57v1.125h-0.016q0.156-0.25 0.32-0.438t0.441-0.406 0.68-0.34 0.895-0.121q1.336 0 2.148 0.887t0.813 2.598z"></path></symbol><symbol id="icon-heart" viewBox="0 0 34 30"><path d="M17,29.7 L16.4,29.2 C3.5,18.7 0,15 0,9 C0,4 4,0 9,0 C13.1,0 15.4,2.3 17,4.1 C18.6,2.3 20.9,0 25,0 C30,0 34,4 34,9 C34,15 30.5,18.7 17.6,29.2 L17,29.7 Z M9,2 C5.1,2 2,5.1 2,9 C2,14.1 5.2,17.5 17,27.1 C28.8,17.5 32,14.1 32,9 C32,5.1 28.9,2 25,2 C21.5,2 19.6,4.1 18.1,5.8 L17,7.1 L15.9,5.8 C14.4,4.1 12.5,2 9,2 Z" id="Shape"></path></symbol><symbol id="icon-arrow-right" viewBox="0 0 25.452 25.452"><path d="M4.471,24.929v-2.004l12.409-9.788c0.122-0.101,0.195-0.251,0.195-0.411c0-0.156-0.073-0.31-0.195-0.409L4.471,2.526V0.522c0-0.2,0.115-0.384,0.293-0.469c0.18-0.087,0.396-0.066,0.552,0.061l15.47,12.202c0.123,0.1,0.195,0.253,0.195,0.409c0,0.16-0.072,0.311-0.195,0.411L5.316,25.34c-0.155,0.125-0.372,0.147-0.552,0.061C4.586,25.315,4.471,25.13,4.471,24.929z"/></symbol><symbol id="icon-star" viewBox="0 0 48 48"><path fill="currentColor" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"/><path fill="#ffffff" d="M24,11l3.898,7.898l8.703,1.301l-6.301,6.102l1.5,8.699L24,30.898L16.199,35l1.5-8.699l-6.301-6.102  l8.703-1.301L24,11z"/></symbol><symbol id="icon-read" viewBox="0 0 32 32"><path fill="currentColor" d="M29,4H3C1.343,4,0,5.343,0,7v18c0,1.657,1.343,3,3,3h10c0,0.552,0.448,1,1,1h4c0.552,0,1-0.448,1-1h10  c1.657,0,3-1.343,3-3V7C32,5.343,30.657,4,29,4z M29,5v20H18.708c-0.618,0-1.236,0.146-1.789,0.422l-0.419,0.21V5H29z M15.5,5  v20.632l-0.419-0.21C14.528,25.146,13.91,25,13.292,25H3V5H15.5z M31,25c0,1.103-0.897,2-2,2H18v1h-4v-1H3c-1.103,0-2-0.897-2-2V7  c0-0.737,0.405-1.375,1-1.722V25c0,0.552,0.448,1,1,1h10.292c0.466,0,0.925,0.108,1.342,0.317l0.919,0.46  c0.141,0.07,0.294,0.106,0.447,0.106c0.153,0,0.306-0.035,0.447-0.106l0.919-0.46C17.783,26.108,18.242,26,18.708,26H29  c0.552,0,1-0.448,1-1V5.278C30.595,5.625,31,6.263,31,7V25z M6,12.5C6,12.224,6.224,12,6.5,12h5c0.276,0,0.5,0.224,0.5,0.5  S11.776,13,11.5,13h-5C6.224,13,6,12.776,6,12.5z M6,14.5C6,14.224,6.224,14,6.5,14h5c0.276,0,0.5,0.224,0.5,0.5S11.776,15,11.5,15  h-5C6.224,15,6,14.776,6,14.5z M6,16.5C6,16.224,6.224,16,6.5,16h5c0.276,0,0.5,0.224,0.5,0.5S11.776,17,11.5,17h-5  C6.224,17,6,16.776,6,16.5z M20,12.5c0-0.276,0.224-0.5,0.5-0.5h5c0.276,0,0.5,0.224,0.5,0.5S25.776,13,25.5,13h-5  C20.224,13,20,12.776,20,12.5z M20,14.5c0-0.276,0.224-0.5,0.5-0.5h5c0.276,0,0.5,0.224,0.5,0.5S25.776,15,25.5,15h-5  C20.224,15,20,14.776,20,14.5z M20,16.5c0-0.276,0.224-0.5,0.5-0.5h5c0.276,0,0.5,0.224,0.5,0.5S25.776,17,25.5,17h-5  C20.224,17,20,16.776,20,16.5z"></path></symbol></defs></svg>
+
+        <header class="bar-header">
+    <a id="menu" role="button">
+        <svg id="open" class="icon-menu"><use xlink:href="#icon-menu"></use></svg>
+    </a>
+    <h1 class="logo">
+        <a href="/">
+            
+                Hoonology <span class="version"></span>
+            
+        </a>
+    </h1>
+    <a id="search" class="dosearch" role="button">
+        <svg class="icon-search"><use xlink:href="#icon-search"></use></svg>
+    </a>
+    
+</header>
+
+<div id="mask" class="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+    <nav id="navigation">
+      <h2>Menu</h2>
+      <ul>
+  
+    
+      <li>
+        <a href="http://localhost:4000/">Home</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/about">About</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/blog">Github Blog</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/yaml">YAML</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/docker">Docker</a>
+      </li>
+    
+  
+    
+  
+</ul>
+
+    </nav>
+</aside>
+
+<div class="search-wrapper">
+    <div class="search-form">
+        <input type="text" class="search-field" placeholder="Search">
+        <svg class="icon-remove-sign"><use xlink:href="#icon-close"></use></svg>
+        <ul class="search-results search-list"></ul>
+    </div>
+</div>
+
+
+
+        <section class="post two-columns">
+            <article role="article" class="post-content">
+                <p class="post-info">
+                    
+                        <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
+                        <time class="date" datetime="2023-05-08T09:00:00+09:00">
+                            
+
+
+May 8, 2023
+
+                        </time>
+                    
+                    <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
+                    <span>6 min to read</span>
+                </p>
+                <h1 class="post-title">API 디자인과 프로세스 간 통신</h1>
+                <p class="post-subtitle">Domain Driven Design</p>
+
+                
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png" alt="Featured image" class="post-cover">
+                
+
+                <!-- Pagination links -->
+
+
+
+                <!-- Add your table of contents here -->
+
+
+                <h1 id="api-디자인과-프로세스-간-통신">API 디자인과 프로세스 간 통신</h1>
+<h2 id="프로세스-간-통신">프로세스 간 통신</h2>
+
+<p>마이크로서비스 간의 통신이 아닌, 프로세스 간 통신 : <u> 마이크로서비스는 하나의 프로세스 단위 </u> 로 실행 된다.</p>
+
+<ul>
+  <li>‘서비스 - 서비스’간 통신에서는 인터페이스(Interface)가 존재, 그것의 요구에 따른 소통이 필요하다.</li>
+  <li>REST API</li>
+</ul>
+
+<h2 id="동기-비동기">동기 / 비동기</h2>
+
+<ul>
+  <li>HTTP 프로토콜 : TCP 또는 UDP 연결을 생성, 요청에 따라 <u>즉시 응답</u>이 오는 형태로 구현 = ‘<strong>동기적인 응답</strong> 제공’</li>
+  <li>HTTP는 컴퓨터와 컴퓨터 사이의 네트워크 통신이고, 이는 네트워크 지연에 따라 즉시 응답이 오지 않을 수도 있기 때문에 이를 <strong>비동기</strong>로 인식할 수 있다.
+    <ul>
+      <li>하지만 프로세스 간 통신의 관점에서 HTTP는 동기적인 메커니즘으로 분류한다.</li>
+      <li>어쨌든 서로 통신하는 두 컴퓨터는 모두 켜져 있어야 하며, 클라이언트는 서버가 제 때 응답을 줄 것이라고 기대하기 때문이다.</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>서비스</th>
+      <th>작업</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>동기</td>
+      <td>요청/응답</td>
+    </tr>
+    <tr>
+      <td>비동기</td>
+      <td>비동기 요청/응답 (단방향 알림 - 푸시 알림 등)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="일대일-및-일대다-통신">일대일 및 일대다 통신</h2>
+
+<p>뉴스레터 구독 서비스는 1:1로 커뮤니케이션하지 않고 구독자 모두에게 동일한 메시지를 제공하는 형태, 즉 일대다 커뮤니케이션 방식을 취한다.</p>
+<ul>
+  <li>HTTP가 일대일인지, 일대다 통신인지 파악하고자 한다면, 요청/응답으로 이뤄진 한 번의 트랜잭션에서 서버는 여러 클라이언트에게 동시에 응답을 전달하지 않는다.
+    <ul>
+      <li>서버가 여러 클라이언트를 상대할 수는 있지만, 그것은 단순 여러 번의 1:1 커뮤니케이션</li>
+      <li>즉, <strong>일대일 통신이다.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="프로세스-간의-직간접-연결">프로세스 간의 직/간접 연결</h2>
+
+<p>‘클라이언트’ - ‘서버’ 아키텍처에서 직접 연결을 구현</p>
+<ul>
+  <li>중간에 메시지 자체를 관리하는 연결 방식 존재 -&gt; 비동기 처리, 메시지를 주고 받을 수 있다.</li>
+</ul>
+
+<h2 id="json-javascript-object-notation-">JSON( JavaScript Object Notation )</h2>
+
+<p>데이터 교환을 위해 만들어진 객체 형태의 포맷</p>
+
+<ul>
+  <li>
+    <p>전송 가능한 조건 (transferable condition)</p>
+
+    <ul>
+      <li>수신자(reciever)와 발신자(sender)가 같은 프로그램을 사용한다.</li>
+      <li>문자열처럼 범용적으로 읽을 수 있어야 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="직렬화serialize-역직렬화deserialize-stringfy-parse">직렬화(serialize), 역직렬화(deserialize) - stringfy, parse</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">JSON.stringify</code> : Object type을 JSON으로 변환합니다.</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">transferableMessage</span> <span class="o">~|=|</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">transferableMessage</span><span class="p">)</span>  <span class="c1">// `{"sender":"김민지","receiver":"박민수","message":"민수야 오늘 저녁 같이 먹을래?","createdAt":"2022~|-|11~|-|11 10:10:10"}`</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">transferableMessage</span><span class="p">))</span> <span class="c1">// `string`</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">JSON.parse</code> : JSON을 Object type으로 변환
+```js
+let packet ~|=| <code class="language-plaintext highlighter-rouge">{"sender":"김코딩","receiver":"박해커","message":"해커야 오늘 저녁 같이 먹을래?","createdAt":"2021~|-|01~|-|12 10:10:10"}</code></li>
+</ul>
+
+<p>let obj ~|=| JSON.parse(packet)
+console.log(obj)
+/*</p>
+<ul>
+  <li>{</li>
+  <li>sender: “김민지”,</li>
+  <li>receiver: “박민수”,</li>
+  <li>message: “민수야 오늘 저녁 같이 먹을래?”,</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>createdAt: “2022~</td>
+          <td>-</td>
+          <td>11~</td>
+          <td>-</td>
+          <td>11 10:10:10”</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>}
+ */
+ console.log(typeof(obj))
+ // <code class="language-plaintext highlighter-rouge">object</code>
+ ```
+<img src="/assets/img/MicroService/ser_des.png" alt="input" /></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>자바스크립트 Object</th>
+      <th>JSON</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>키</td>
+      <td>키는 따옴표 없이 쓸 수 있음</td>
+      <td>반드시 큰 따옴표를 붙여야 함</td>
+    </tr>
+    <tr>
+      <td>문자열 값</td>
+      <td>문자열 값은 어떠한 형태의 따옴표도 사용 가능하다</td>
+      <td>반드시 큰 따옴표로 감싸야함</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>JSON은 키와 값 사이, 그리고 키-값 쌍 사이에는 공백이 있어서는 안 됨</p>
+</blockquote>
+
+<h2 id="action-">Action</h2>
+
+<ul>
+  <li>JSON 이전에 주로 사용하던 데이터 교환 포맷으로는 XML이 있습니다. JSON이 XML 보다 유리한 점이 무엇인가요?
+    <ul>
+      <li>더 간단하고 가벼움: JSON은 XML보다 더 간단하고 가벼운 형식이므로 더 쉽게 읽고 파싱</li>
+      <li>더 빠른 구문 분석: JSON은 XML과 같은 종료 태그 및 속성이 필요하지 않기 때문에 XML보다 구문 분석이 더 빠릅니다.</li>
+      <li>기본 지원: JSON은 대부분의 최신 프로그래밍 언어에서 기본적으로 지원되므로 코드에서 데이터를 보다 쉽게 ​​사용하고 조작할 수 있습니다.</li>
+      <li>웹 API에 적합: JSON은 XML보다 구문 분석이 쉽고 네트워크 트래픽이 적기 때문에 웹 API에 더 적합합니다.</li>
+    </ul>
+  </li>
+  <li>JSON 포맷은 텍스트 형식으로, VS Code와 같은 텍스트 에디터에서 읽을 수 있습니다. 반면 텍스트 에디터로 읽을 수 없는 바이너리(이진) 형식의 데이터 교환 포맷(예를 들어 protobuf)도 있습니다. 텍스트 형식의 데이터 교환 포맷과 이진 형식의 데이터 교환 포맷의 차이점과 장단점은 무엇인가요?
+    <ul>
+      <li>장점
+        <ul>
+          <li>더 작은 크기: 이진 형식은 일반적으로 텍스트 기반 형식보다 크기가 작기 때문에 전송 시간이 더 빠르고 네트워크 트래픽이 더 적을 수 있습니다.</li>
+          <li>더 효율적: 바이너리 형식은 구문 분석 및 변환할 필요 없이 메모리로 직접 읽을 수 있으므로 구문 분석 및 작업에 더 효율적입니다.</li>
+          <li>더 안전함: 바이너리 형식은 더 쉽게 암호화하거나 압축할 수 있으므로 텍스트 기반 형식보다 더 안전할 수 있습니다.</li>
+          <li>성능 향상: 바이너리 형식은 더 빠른 처리 시간과 더 낮은 메모리 오버헤드를 제공할 수 있기 때문에 성능이 중요한 응용 프로그램에서 자주 사용됩니다.</li>
+        </ul>
+      </li>
+      <li>단점
+        <ul>
+          <li>가독성이 떨어짐: 이진 형식은 텍스트 편집기에서 쉽게 보거나 편집할 수 없기 때문에 텍스트 기반 형식보다 가독성이 낮고 작업하기 어렵습니다.</li>
+          <li>플랫폼에 따라 다름: 이진 형식은 플랫폼에 따라 다를 수 있습니다. 즉, 서로 다른 시스템이나 아키텍처에서 제대로 작동하지 않을 수 있습니다.</li>
+          <li>상호 운용성이 낮음: 바이너리 형식은 특수 라이브러리나 작업 도구가 필요할 수 있으므로 텍스트 기반 형식보다 상호 운용성이 낮을 수 있습니다.</li>
+          <li>사람이 읽을 수 있는 메타데이터 부족: 이진 형식에는 사람이 읽을 수 있는 메타데이터가 부족한 경우가 많기 때문에 문제를 디버깅하거나 해결하기가 더 어렵습니다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="동기식-요청응답-통신-rest">동기식 요청/응답 통신 REST</h1>
+<h2 id="rest">REST</h2>
+
+<p>HTTP로 소통하는 프로세스 간 통신 규약</p>
+<ul>
+  <li>REST API : 웹에서 사용되는 데이터나 리소스를 HTTP URI로 표현, HTTP 프로토콜을 통해 요청과 응답을 정의하는 방식</li>
+</ul>
+
+<blockquote>
+  <p>HTTP 메시지의 <strong>Body 부분을 JSON</strong>의 형태로 다루고, HTTP <strong>헤더</strong>의 <strong>Content-Type</strong>의 값은 <code class="language-plaintext highlighter-rouge">application/json</code> 의 형태로 설정한다.</p>
+</blockquote>
+
+<h3 id="rest의-장점과-단점-">REST의 장점과 단점</h3>
+<h4 id="장점">장점</h4>
+
+<ul>
+  <li>포스트맨, curl 등의 도구로 간편하게 테스트 가능</li>
+  <li>요청/응답 통신을 직접 지원</li>
+  <li>시스템 아키텍처가 단순</li>
+</ul>
+
+<h4 id="단점">단점</h4>
+
+<ul>
+  <li>요청/응답만 지원</li>
+  <li>메시지를 주고 받을 떄 ‘클리언트’-‘서버’ 프로세스가 <strong>둘 다 실행</strong>이 되어야함</li>
+  <li>요청 한 번으로 여러 리소스를 조회하기 어렵다</li>
+  <li>메서드만으로는 한 번의 요청을 통해 이루어지는 다양한 작업들을 대표하기 어렵다</li>
+</ul>
+
+<h1 id="메시지-브로커를-이용한-비동기식-통신">메시지 브로커를 이용한 비동기식 통신</h1>
+
+<ul>
+  <li>‘동기적 방법’ : 요청을 보내는 즉시 수신자로 부터 응답이 오길 기대하는 방법
+    <ul>
+      <li>REST</li>
+    </ul>
+  </li>
+  <li>‘비동기적 방법’ : 요청을 일단 보내놓고 수신자가 받을 때 까지 보관했다가 처리하는 방법
+    <ul>
+      <li>수신자가 받기 전 까지 누군가는 메시지를 보관 -&gt; 메시지 브로커(메시지 큐)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="메시지-브로커가-필요한가">메시지 브로커가 필요한가?</h2>
+
+<ul>
+  <li>분산 애플리케이션의 장점 : 분산 애플리케이션에서 <strong>프로세스 간의 느슨한 결합</strong>(loosely coupled)을 제공하는 것<br />
+( <strong>메시지 브로커가 한 시스템의 장애가 다른 시스템에 주는 영향을 줄이도록 한다.</strong> )
+    <ul>
+      <li>일시정인 장애가 발생해도 복구 기간 동안 메시지 브로커가 메시지를 보관하여 데이터 유실을 막을 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/MicroService/Loosely.png" alt="loosely" /></p>
+
+<ul>
+  <li>강하게 결합된 시스템의 단점 : 서로 연결되어 있는 시스템 중 한 곳에서 장애가 발생했을 때 그 장애가 연결된 다른 시스템들에 영향</li>
+</ul>
+
+<p><img src="/assets/img/MicroService/Tightly.png" alt="tight" /></p>
+
+<h2 id="메시지-브로커의-특징">메시지 브로커의 특징</h2>
+
+<ul>
+  <li>프로그램 간의 직접 연결이 없다.
+    <ul>
+      <li>소비자 프로세스(메시지를 받는 사람)가 죽어있어도 생산자(메시지를 보내는 사람)는 메시지를 보낼 수 있음</li>
+      <li>생산자 프로세스가 죽어있어도 소비자는 메시지를 수신할 수 있음</li>
+    </ul>
+  </li>
+  <li>메시지 브로커에 있는 메시지는 소비자가 꺼낼 떄 까지 안전하게 보관된다.
+    <ul>
+      <li>메시지는 소비하기 전 까지 사라지지 않는다.</li>
+      <li>프로그램 간 통신은 시간과 독립적이다.</li>
+    </ul>
+  </li>
+  <li>통신이 이벤트에 의해 구동될 수 있다
+    <ul>
+      <li>큐의 상태에 따라 프로그램을 제어할 수 있다.</li>
+    </ul>
+  </li>
+  <li>확장에 용이하다
+    <ul>
+      <li>메시지 브로커는 여러 큐를 만들거나 수평 확장하여 메시지 부하 증가를 처리할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="메시지-브로커의-단점">메시지 브로커의 단점</h2>
+
+<ul>
+  <li>프로세스 간의 직접 연결에 비해 <strong>아키텍처가 복잡</strong></li>
+</ul>
+
+<h2 id="메시지-브로커-선택의-기준">메시지 브로커 선택의 기준</h2>
+
+<ul>
+  <li>종류 : Apache Kafka, Amazon Kinesis, Amazon SQS</li>
+  <li>선택 기준
+    <ul>
+      <li>프로그래밍 언어 지원 여부</li>
+      <li>메시징 표준 지원 여부</li>
+      <li>메시지 순서 보장 여부</li>
+      <li>전달 보장 여부: 어떤 종류의 전달을 보장하는가?</li>
+      <li>영속성: 브로커가 고장 나도 문제가 없도록 메시지가 디스크에 저장되는가?</li>
+      <li>내구성: 소비자가 메시지 브로커에 다시 접속할 경우, 접속이 중단된 시간에 전달된 메시지를 받을 수 있는가?</li>
+      <li>확장성</li>
+      <li>지연 시간</li>
+    </ul>
+  </li>
+</ul>
+
+
+
+                <!-- Pagination links -->
+
+
+            </article>
+
+            
+                <aside class="see-also">
+                    <h2>See also</h2>
+                    <ul>
+                        
+                        
+                        
+                            <li>
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                    
+                                    <h3>(Sprint) 도메인 연결과 CDN 및 HTTPS적용</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/(Sprint)%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                    
+                                    <h3>(Sprint)서버 배포 파이프라인</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                    
+                                    <h3>보안</h3>
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </aside>
+            
+
+        </section>
+
+        <!-- Add time bar only for pages without pagination -->
+        
+            <div class="time-bar" data-minutes="6">
+    <span class="time-completed"></span>
+    <span class="time-remaining"></span>
+    <div class="bar">
+        <span class="completed" style="width:0%;"></span>
+        <span class="remaining" style="width:100%;"></span>
+    </div>
+</div>
+
+            <div class="recommendation">
+    <div class="message">
+        <strong>Why don't you read something next?</strong>
+        <div>
+            <button>
+                <svg><use xlink:href="#icon-arrow-right"></use></svg>
+                <span>Go back to top</span>
+            </button>
+        </div>
+    </div>
+    
+    <a href="/YAML/" class="post-preview">
+        <div class="image">
+            
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+            
+        </div>
+        <h3 class="title">YAML</h3>
+    </a>
+</div>
+
+        
+
+        <!-- Show modal if the post is the last one -->
+        
+
+        <!-- Show modal before user leaves the page -->
+        
+
+        <!-- Add your newsletter subscription form here -->
+
+        <section class="share">
+    <h3>Share</h3>
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;프로세스 간 통신(Inter-process communication, IPC)&quot;%20http://localhost:4000/API-%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B0%84-%ED%86%B5%EC%8B%A0/%20via%20&#64;&hashtags=API디자인,프로세스간통신,동기,비동기,메시지브로커,REST_API,JSON"
+    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+        <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
+    </a>
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/API-%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B0%84-%ED%86%B5%EC%8B%A0/"
+    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
+    </a>
+</section>
+
+        
+
+
+        
+
+<section class="comments">
+    <h3>Comments</h3>
+    <div id="disqus_thread"></div>
+</section>
+<script type="text/javascript">
+    var disqus_loaded = false;
+
+    function load_disqus()
+    {
+        disqus_loaded = true;
+        var disqus_shortname = 'hoonology';
+        var disqus_title = '';
+        var disqus_url = '/API-%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B0%84-%ED%86%B5%EC%8B%A0/';
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        var ldr = document.getElementById('disqus_loader');
+    };
+    window.onscroll = function(e) {
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800)) {
+            //hit bottom of page
+            if (disqus_loaded==false)
+                load_disqus()
+        }
+    };
+</script>
+
+
+
+        <footer>
+    <p>
+      
+        <a href="https://github.com/hoonology" title="Github">
+          <svg><use xlink:href="#icon-github"></use></svg>
+        </a>
+      
+      
+      
+      
+      
+        <a href="https://www.instagram.com/ho.o_ny" title="Instagram">
+          <svg><use xlink:href="#icon-instagram"></use></svg>
+        </a>
+      
+      
+    </p>
+
+    <ul>
+  
+    
+      <li>
+        <a href="http://localhost:4000/">Home</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/about">About</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/blog">Github Blog</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/yaml">YAML</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/docker">Docker</a>
+      </li>
+    
+  
+    
+  
+</ul>
+
+
+    <!-- <p>
+      <span>Jekflix</span> was made with <svg class="love"><use xlink:href="#icon-heart"></use></svg> by <a href="https://rossener.com" target="_blank" class="creator">Thiago Rossener</a>
+    </p> -->
+</footer>
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "Hoonology",
+  "description": "Hoonology changes whole world.",
+  "url": "http://localhost:4000/",
+  "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:4000/assets/img/icons/mediumtile.png",
+      "width": "600",
+      "height": "315"
+  },
+  "sameAs": [
+    "https://github.com/hoonology","https://www.instagram.com/ho.o_ny"
+  ]
+}
+</script>
+
+<!-- Include the script that allows Netlify CMS login -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<!-- Include the website scripts -->
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Include Google Analytics script -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JJ0MLGN5R6"></script>
+<script>
+  var host = window.location.hostname;
+  if (host != 'localhost') {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-JJ0MLGN5R6');
+  }
+</script>
+  
+
+
+<!-- Include extra scripts -->
+
+
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "BlogPosting",
+            "name": "API 디자인과 프로세스 간 통신",
+            "headline": "Domain Driven Design",
+            "description": "프로세스 간 통신(Inter-process communication, IPC)",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png",
+            "url": "http://localhost:4000/API-%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B0%84-%ED%86%B5%EC%8B%A0/",
+            "articleBody": "API 디자인과 프로세스 간 통신
+프로세스 간 통신
+
+마이크로서비스 간의 통신이 아닌, 프로세스 간 통신 :  마이크로서비스는 하나의 프로세스 단위  로 실행 된다.
+
+
+  ‘서비스 - 서비스’간 통신에서는 인터페이스(Interface)가 존재, 그것의 요구에 따른 소통이 필요하다.
+  REST API
+
+
+동기 / 비동기
+
+
+  HTTP 프로토콜 : TCP 또는 UDP 연결을 생성, 요청에 따라 즉시 응답이 오는 형태로 구현 = ‘동기적인 응답 제공’
+  HTTP는 컴퓨터와 컴퓨터 사이의 네트워크 통신이고, 이는 네트워크 지연에 따라 즉시 응답이 오지 않을 수도 있기 때문에 이를 비동기로 인식할 수 있다.
+    
+      하지만 프로세스 간 통신의 관점에서 HTTP는 동기적인 메커니즘으로 분류한다.
+      어쨌든 서로 통신하는 두 컴퓨터는 모두 켜져 있어야 하며, 클라이언트는 서버가 제 때 응답을 줄 것이라고 기대하기 때문이다.
+    
+  
+
+
+
+  
+    
+      서비스
+      작업
+    
+  
+  
+    
+      동기
+      요청/응답
+    
+    
+      비동기
+      비동기 요청/응답 (단방향 알림 - 푸시 알림 등)
+    
+  
+
+
+일대일 및 일대다 통신
+
+뉴스레터 구독 서비스는 1:1로 커뮤니케이션하지 않고 구독자 모두에게 동일한 메시지를 제공하는 형태, 즉 일대다 커뮤니케이션 방식을 취한다.
+
+  HTTP가 일대일인지, 일대다 통신인지 파악하고자 한다면, 요청/응답으로 이뤄진 한 번의 트랜잭션에서 서버는 여러 클라이언트에게 동시에 응답을 전달하지 않는다.
+    
+      서버가 여러 클라이언트를 상대할 수는 있지만, 그것은 단순 여러 번의 1:1 커뮤니케이션
+      즉, 일대일 통신이다.
+    
+  
+
+
+프로세스 간의 직/간접 연결
+
+‘클라이언트’ - ‘서버’ 아키텍처에서 직접 연결을 구현
+
+  중간에 메시지 자체를 관리하는 연결 방식 존재 -&amp;gt; 비동기 처리, 메시지를 주고 받을 수 있다.
+
+
+JSON( JavaScript Object Notation )
+
+데이터 교환을 위해 만들어진 객체 형태의 포맷
+
+
+  
+    전송 가능한 조건 (transferable condition)
+
+    
+      수신자(reciever)와 발신자(sender)가 같은 프로그램을 사용한다.
+      문자열처럼 범용적으로 읽을 수 있어야 한다.
+    
+  
+
+
+직렬화(serialize), 역직렬화(deserialize) - stringfy, parse
+
+
+  JSON.stringify : Object type을 JSON으로 변환합니다.
+
+
+let transferableMessage ~|=| JSON.stringify(message)
+console.log(transferableMessage)  // `{&quot;sender&quot;:&quot;김민지&quot;,&quot;receiver&quot;:&quot;박민수&quot;,&quot;message&quot;:&quot;민수야 오늘 저녁 같이 먹을래?&quot;,&quot;createdAt&quot;:&quot;2022~|-|11~|-|11 10:10:10&quot;}`
+console.log(typeof(transferableMessage)) // `string`
+
+
+
+  JSON.parse : JSON을 Object type으로 변환
+```js
+let packet ~|=| {&quot;sender&quot;:&quot;김코딩&quot;,&quot;receiver&quot;:&quot;박해커&quot;,&quot;message&quot;:&quot;해커야 오늘 저녁 같이 먹을래?&quot;,&quot;createdAt&quot;:&quot;2021~|-|01~|-|12 10:10:10&quot;}
+
+
+let obj ~|=| JSON.parse(packet)
+console.log(obj)
+/*
+
+  {
+  sender: “김민지”,
+  receiver: “박민수”,
+  message: “민수야 오늘 저녁 같이 먹을래?”,
+  
+    
+      
+        
+          createdAt: “2022~
+          -
+          11~
+          -
+          11 10:10:10”
+        
+      
+    
+  
+  }
+ */
+ console.log(typeof(obj))
+ // object
+ ```
+
+
+
+
+  
+    
+       
+      자바스크립트 Object
+      JSON
+    
+  
+  
+    
+      키
+      키는 따옴표 없이 쓸 수 있음
+      반드시 큰 따옴표를 붙여야 함
+    
+    
+      문자열 값
+      문자열 값은 어떠한 형태의 따옴표도 사용 가능하다
+      반드시 큰 따옴표로 감싸야함
+    
+  
+
+
+
+  JSON은 키와 값 사이, 그리고 키-값 쌍 사이에는 공백이 있어서는 안 됨
+
+
+Action
+
+
+  JSON 이전에 주로 사용하던 데이터 교환 포맷으로는 XML이 있습니다. JSON이 XML 보다 유리한 점이 무엇인가요?
+    
+      더 간단하고 가벼움: JSON은 XML보다 더 간단하고 가벼운 형식이므로 더 쉽게 읽고 파싱
+      더 빠른 구문 분석: JSON은 XML과 같은 종료 태그 및 속성이 필요하지 않기 때문에 XML보다 구문 분석이 더 빠릅니다.
+      기본 지원: JSON은 대부분의 최신 프로그래밍 언어에서 기본적으로 지원되므로 코드에서 데이터를 보다 쉽게 ​​사용하고 조작할 수 있습니다.
+      웹 API에 적합: JSON은 XML보다 구문 분석이 쉽고 네트워크 트래픽이 적기 때문에 웹 API에 더 적합합니다.
+    
+  
+  JSON 포맷은 텍스트 형식으로, VS Code와 같은 텍스트 에디터에서 읽을 수 있습니다. 반면 텍스트 에디터로 읽을 수 없는 바이너리(이진) 형식의 데이터 교환 포맷(예를 들어 protobuf)도 있습니다. 텍스트 형식의 데이터 교환 포맷과 이진 형식의 데이터 교환 포맷의 차이점과 장단점은 무엇인가요?
+    
+      장점
+        
+          더 작은 크기: 이진 형식은 일반적으로 텍스트 기반 형식보다 크기가 작기 때문에 전송 시간이 더 빠르고 네트워크 트래픽이 더 적을 수 있습니다.
+          더 효율적: 바이너리 형식은 구문 분석 및 변환할 필요 없이 메모리로 직접 읽을 수 있으므로 구문 분석 및 작업에 더 효율적입니다.
+          더 안전함: 바이너리 형식은 더 쉽게 암호화하거나 압축할 수 있으므로 텍스트 기반 형식보다 더 안전할 수 있습니다.
+          성능 향상: 바이너리 형식은 더 빠른 처리 시간과 더 낮은 메모리 오버헤드를 제공할 수 있기 때문에 성능이 중요한 응용 프로그램에서 자주 사용됩니다.
+        
+      
+      단점
+        
+          가독성이 떨어짐: 이진 형식은 텍스트 편집기에서 쉽게 보거나 편집할 수 없기 때문에 텍스트 기반 형식보다 가독성이 낮고 작업하기 어렵습니다.
+          플랫폼에 따라 다름: 이진 형식은 플랫폼에 따라 다를 수 있습니다. 즉, 서로 다른 시스템이나 아키텍처에서 제대로 작동하지 않을 수 있습니다.
+          상호 운용성이 낮음: 바이너리 형식은 특수 라이브러리나 작업 도구가 필요할 수 있으므로 텍스트 기반 형식보다 상호 운용성이 낮을 수 있습니다.
+          사람이 읽을 수 있는 메타데이터 부족: 이진 형식에는 사람이 읽을 수 있는 메타데이터가 부족한 경우가 많기 때문에 문제를 디버깅하거나 해결하기가 더 어렵습니다.
+        
+      
+    
+  
+
+
+동기식 요청/응답 통신 REST
+REST
+
+HTTP로 소통하는 프로세스 간 통신 규약
+
+  REST API : 웹에서 사용되는 데이터나 리소스를 HTTP URI로 표현, HTTP 프로토콜을 통해 요청과 응답을 정의하는 방식
+
+
+
+  HTTP 메시지의 Body 부분을 JSON의 형태로 다루고, HTTP 헤더의 Content-Type의 값은 application/json 의 형태로 설정한다.
+
+
+REST의 장점과 단점
+장점
+
+
+  포스트맨, curl 등의 도구로 간편하게 테스트 가능
+  요청/응답 통신을 직접 지원
+  시스템 아키텍처가 단순
+
+
+단점
+
+
+  요청/응답만 지원
+  메시지를 주고 받을 떄 ‘클리언트’-‘서버’ 프로세스가 둘 다 실행이 되어야함
+  요청 한 번으로 여러 리소스를 조회하기 어렵다
+  메서드만으로는 한 번의 요청을 통해 이루어지는 다양한 작업들을 대표하기 어렵다
+
+
+메시지 브로커를 이용한 비동기식 통신
+
+
+  ‘동기적 방법’ : 요청을 보내는 즉시 수신자로 부터 응답이 오길 기대하는 방법
+    
+      REST
+    
+  
+  ‘비동기적 방법’ : 요청을 일단 보내놓고 수신자가 받을 때 까지 보관했다가 처리하는 방법
+    
+      수신자가 받기 전 까지 누군가는 메시지를 보관 -&amp;gt; 메시지 브로커(메시지 큐)
+    
+  
+
+
+메시지 브로커가 필요한가?
+
+
+  분산 애플리케이션의 장점 : 분산 애플리케이션에서 프로세스 간의 느슨한 결합(loosely coupled)을 제공하는 것
+( 메시지 브로커가 한 시스템의 장애가 다른 시스템에 주는 영향을 줄이도록 한다. )
+    
+      일시정인 장애가 발생해도 복구 기간 동안 메시지 브로커가 메시지를 보관하여 데이터 유실을 막을 수 있다.
+    
+  
+
+
+
+
+
+  강하게 결합된 시스템의 단점 : 서로 연결되어 있는 시스템 중 한 곳에서 장애가 발생했을 때 그 장애가 연결된 다른 시스템들에 영향
+
+
+
+
+메시지 브로커의 특징
+
+
+  프로그램 간의 직접 연결이 없다.
+    
+      소비자 프로세스(메시지를 받는 사람)가 죽어있어도 생산자(메시지를 보내는 사람)는 메시지를 보낼 수 있음
+      생산자 프로세스가 죽어있어도 소비자는 메시지를 수신할 수 있음
+    
+  
+  메시지 브로커에 있는 메시지는 소비자가 꺼낼 떄 까지 안전하게 보관된다.
+    
+      메시지는 소비하기 전 까지 사라지지 않는다.
+      프로그램 간 통신은 시간과 독립적이다.
+    
+  
+  통신이 이벤트에 의해 구동될 수 있다
+    
+      큐의 상태에 따라 프로그램을 제어할 수 있다.
+    
+  
+  확장에 용이하다
+    
+      메시지 브로커는 여러 큐를 만들거나 수평 확장하여 메시지 부하 증가를 처리할 수 있다.
+    
+  
+
+
+메시지 브로커의 단점
+
+
+  프로세스 간의 직접 연결에 비해 아키텍처가 복잡
+
+
+메시지 브로커 선택의 기준
+
+
+  종류 : Apache Kafka, Amazon Kinesis, Amazon SQS
+  선택 기준
+    
+      프로그래밍 언어 지원 여부
+      메시징 표준 지원 여부
+      메시지 순서 보장 여부
+      전달 보장 여부: 어떤 종류의 전달을 보장하는가?
+      영속성: 브로커가 고장 나도 문제가 없도록 메시지가 디스크에 저장되는가?
+      내구성: 소비자가 메시지 브로커에 다시 접속할 경우, 접속이 중단된 시간에 전달된 메시지를 받을 수 있는가?
+      확장성
+      지연 시간
+    
+  
+
+
+",
+            "wordcount": "1162",
+            "inLanguage": "ko",
+            "dateCreated": "2023-05-08/",
+            "datePublished": "2023-05-08/",
+            "dateModified": "2023-05-08/",
+            "author": {
+                "@type": "Person",
+                "name": "Mr. Anderson",
+                
+                "image": "/assets/img/uploads/profile.png",
+                
+                "jobTitle": "The One",
+                "url": "http://localhost:4000/authors/mranderson/",
+                "sameAs": [
+                    "https://github.com/github_username","https://www.facebook.com/facebook_username","https://twitter.com/twitter_username","https://medium.com/@medium_username","https://www.instagram.com/instagram_username","https://www.linkedin.com/in/linkedin_username"
+                ]
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Hoonology",
+                "url": "http://localhost:4000/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "http://localhost:4000/assets/img/blog-image.png",
+                    "width": "600",
+                    "height": "315"
+                }
+            },
+            "mainEntityOfPage": "True",
+            "genre": "docker",
+            "articleSection": "docker",
+            "keywords": ["API디자인","프로세스간통신","동기","비동기","메시지브로커","REST_API","JSON"]
+        }
+        </script>
+       </body>
+</html>
