@@ -56,3 +56,16 @@ paginate: true
 - 데이터베이스, 쿠버네티스 클러스터, 프로바이더(모니터링 서비스) 제공 
 ![db](/assets/img/Terraform/db.png)
 
+
+## Terraform 배포 워크플로우 표준화
+- Terraform의 구성 언어 : 선언적 = 원하는 최종의 상태를 설명한다.
+- 리소스 간의 종속성을 자동으로 계산하여 올바른 순서로 리소스를 생성하거나 삭제한다.
+![img](https://content.hashicorp.com/api/assets?product=tutorials&version=main&asset=public%2Fimg%2Fterraform%2Fterraform-iac.png)
+
+
+- Terraform으로 인프라를 배포하려면
+  - 범위 - 프로젝트의 인프라를 식별합니다.
+  - 작성자 - 인프라에 대한 구성을 작성합니다.
+  - 초기화 - Terraform이 인프라를 관리하는 데 필요한 플러그인을 설치합니다.
+  - 계획 - 구성과 일치하도록 Terraform이 수행할 변경 사항을 미리 봅니다.
+  - 적용 - 계획된 변경 사항을 적용합니다.

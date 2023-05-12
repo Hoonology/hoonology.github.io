@@ -262,6 +262,24 @@ May 12, 2023
 <img src="/assets/img/Terraform/db.png" alt="db" /></li>
 </ul>
 
+<h2 id="terraform-배포-워크플로우-표준화">Terraform 배포 워크플로우 표준화</h2>
+
+<ul>
+  <li>Terraform의 구성 언어 : 선언적 = 원하는 최종의 상태를 설명한다.</li>
+  <li>
+    <p>리소스 간의 종속성을 자동으로 계산하여 올바른 순서로 리소스를 생성하거나 삭제한다.
+<img src="https://content.hashicorp.com/api/assets?product=tutorials&amp;version=main&amp;asset=public%2Fimg%2Fterraform%2Fterraform-iac.png" alt="img" /></p>
+  </li>
+  <li>Terraform으로 인프라를 배포하려면
+    <ul>
+      <li>범위 - 프로젝트의 인프라를 식별합니다.</li>
+      <li>작성자 - 인프라에 대한 구성을 작성합니다.</li>
+      <li>초기화 - Terraform이 인프라를 관리하는 데 필요한 플러그인을 설치합니다.</li>
+      <li>계획 - 구성과 일치하도록 Terraform이 수행할 변경 사항을 미리 봅니다.</li>
+      <li>적용 - 계획된 변경 사항을 적용합니다.</li>
+    </ul>
+  </li>
+</ul>
 
 
                 <!-- Pagination links -->
@@ -277,20 +295,11 @@ May 12, 2023
                         
                         
                             <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-                                    
-                                    <h3>Docker Image 다루기 1</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-AutoScalingGroup/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>AWS 서비스 로드맵</h3>
+                                    <h3>수평확장</h3>
                                 </a>
                             </li>
                         
@@ -300,6 +309,15 @@ May 12, 2023
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
                                     
                                     <h3>CQRS</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/MileStone1/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Milestone 1</h3>
                                 </a>
                             </li>
                         
@@ -599,8 +617,26 @@ Terraform을 이용해서 여러 대의 서버를 만들고 싶으면 ?
 
 
 
+Terraform 배포 워크플로우 표준화
+
+
+  Terraform의 구성 언어 : 선언적 = 원하는 최종의 상태를 설명한다.
+  
+    리소스 간의 종속성을 자동으로 계산하여 올바른 순서로 리소스를 생성하거나 삭제한다.
+
+  
+  Terraform으로 인프라를 배포하려면
+    
+      범위 - 프로젝트의 인프라를 식별합니다.
+      작성자 - 인프라에 대한 구성을 작성합니다.
+      초기화 - Terraform이 인프라를 관리하는 데 필요한 플러그인을 설치합니다.
+      계획 - 구성과 일치하도록 Terraform이 수행할 변경 사항을 미리 봅니다.
+      적용 - 계획된 변경 사항을 적용합니다.
+    
+  
+
 ",
-            "wordcount": "264",
+            "wordcount": "339",
             "inLanguage": "ko",
             "dateCreated": "2023-05-12/",
             "datePublished": "2023-05-12/",
