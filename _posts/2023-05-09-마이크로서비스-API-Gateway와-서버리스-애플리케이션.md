@@ -6,7 +6,7 @@ subtitle: 독립적인 서비스 구성
 description: DynamoDB에 레코드를 추가하는 간단한 람다 함수를 하나 만들고, API Gateway를 통해 이를 호출하는 예제를 직접 실행해보자
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png
-category: docker
+category: msa
 tags:  
   - FaaS
   - Lambda

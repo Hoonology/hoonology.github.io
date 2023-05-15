@@ -6,7 +6,7 @@ subtitle: Terraform
 description: 왜 선언형 IaC 중, Terraform을 선택했는지 알아보자
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png
-category: docker
+category: Terraform
 tags:  
   - terraform
   - 테라폼
