@@ -176,7 +176,7 @@ May 12, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>5 min to read</span>
                 </p>
                 <h1 class="post-title">Terraform</h1>
                 <p class="post-subtitle">Terraform</p>
@@ -192,7 +192,7 @@ May 12, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h2 id="terraform">Terraform</h2>
+                <h1 id="terraform">Terraform</h1>
 
 <p><strong>Infra structure as Code</strong>를 구현하는 도구 ( HashiCorp의 오픈소스 )</p>
 <ul>
@@ -281,6 +281,128 @@ May 12, 2023
   </li>
 </ul>
 
+<h2 id="인프라-추적">인프라 추적</h2>
+
+<p>Terraform은 환경에 대한 정보 소스 역할을 하는 상태 파일에서 실제 인프라를 추적합니다. Terraform은 상태 파일을 사용하여 구성과 일치하도록 인프라에 대한 변경 사항을 결정합니다.</p>
+
+<h2 id="협업">협업</h2>
+
+<p>Terraform을 사용하면 원격 상태 백엔드로 인프라에서 협업할 수 있습니다. Terraform Cloud(최대 5명의 사용자에게 무료)를 사용하면 팀원과 상태를 안전하게 공유하고 Terraform이 실행할 수 있는 안정적인 환경을 제공하며 여러 사람이 한 번에 구성을 변경할 때 경합 상태를 방지할 수 있습니다.</p>
+
+<p>또한 Terraform Cloud를 GitHub, GitLab 등과 같은 버전 제어 시스템(VCS)에 연결하여 VCS에 대한 구성 변경 사항을 커밋할 때 인프라 변경 사항을 자동으로 제안할 수 있습니다. 이를 통해 애플리케이션 코드와 마찬가지로 버전 제어를 통해 인프라 변경 사항을 관리할 수 있습니다.</p>
+
+<h1 id="terraform-설치">Terraform 설치</h1>
+
+<p>최신 버전의 Terraform으로 업데이트하려면 먼저 Homebrew를 업데이트합니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew update
+</code></pre></div></div>
+
+<p>먼저 모든 Homebrew 패키지의 저장소인 HashiCorp 탭을 설치합니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew tap hashicorp/tap
+</code></pre></div></div>
+<p>이제 hashicorp/tap/terraform을 설치합니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| 이렇게 하면 서명된 바이너리가 설치되고 새로운 공식 릴리스가 나올 때마다 자동으로 업데이트됩니다.
+brew <span class="nb">install </span>hashicorp/tap/terraform
+</code></pre></div></div>
+
+<h2 id="m1-아키텍처-이슈">M1 아키텍처 이슈</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew <span class="nb">install </span>hashicorp/tap/terraform                                  130 ↵
+
+Error: Cannot <span class="nb">install </span><span class="k">in </span>Homebrew on ARM processor <span class="k">in </span>Intel default prefix <span class="o">(</span>/usr/local<span class="o">)!</span>
+Please create a new installation <span class="k">in</span> /opt/homebrew using one of the
+<span class="s2">"Alternative Installs"</span> from:
+  https://docs.brew.sh/Installation
+You can migrate your previously installed formula list with:
+  brew bundle dump
+</code></pre></div></div>
+<h2 id="해결">해결</h2>
+
+<p>Homebrew를 설치하기 전에 새 ARM 실리콘(M1 칩)용 <code class="language-plaintext highlighter-rouge">Rosetta2</code> 에뮬레이터를 설치해야 합니다. 방금 다음을 사용하여 터미널을 통해 <code class="language-plaintext highlighter-rouge">Rosetta2</code>를 설치했습니다.</p>
+
+<p>이렇게 하면 추가 버튼 클릭 없이 <code class="language-plaintext highlighter-rouge">rosetta2</code>가 설치됩니다.</p>
+
+<p>위의 Rosetta2를 설치한 후 <code class="language-plaintext highlighter-rouge">Homebrew cmd</code>를 사용하여 <strong>ARM M1 칩용 Homebrew</strong>를 설치할 수 있습니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">arch</span> ~|-|x86_64 /bin/bash ~|-|c <span class="s2">"</span><span class="si">$(</span>curl ~|-|fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+<p>M1 ARM용 Homebrew가 설치되면 이 Homebrew 명령을 사용하여 패키지를 설치합니다.arch -x86_64 brew install <package></package></p>
+
+<h2 id="다시-설치로-돌아와서-">다시 설치로 돌아와서</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">arch</span> ~|-|x86_64 brew <span class="nb">install </span>hashicorp/tap/terraform
+</code></pre></div></div>
+
+<p>## 설치 확인</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> terraform ~|-|help
+</code></pre></div></div>
+
+<p><img src="/assets/img/Terraform/terraform1.png" alt="terraform" /></p>
+
+<h3 id="탭-완성-활성화">탭 완성 활성화</h3>
+
+<p>Bash 또는 Zsh를 사용하는 경우 Terraform 명령에 대해 탭 완성을 활성화할 수 있습니다. 자동 완성을 활성화하려면 먼저 선택한 셸에 대한 구성 파일이 있는지 확인하십시오.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch</span> ~/.zshrc
+terraform ~|-|install~|-|autocomplete
+</code></pre></div></div>
+<p>자동 완성 지원이 설치되면 셸을 다시 시작해야 합니다.</p>
+
+<h2 id="빠른-시작">빠른 시작</h2>
+<h4 id="1-도커-열기">1. 도커 열기</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>open ~|-|a Docker
+</code></pre></div></div>
+<h4 id="2-디렉토리-생성">2. 디렉토리 생성</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>learn~|-|terraform~|-|docker~|-|container
+</code></pre></div></div>
+
+<h4 id="3-작업-디렉터리에서-maintf라는-파일을-만들고-다음-terraform-구성을-붙여넣습니다">3. 작업 디렉터리에서 <code class="language-plaintext highlighter-rouge">main.tf</code>라는 파일을 만들고 다음 Terraform 구성을 붙여넣습니다.</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terraform <span class="o">{</span>
+  required_providers <span class="o">{</span>
+    docker ~|<span class="o">=</span>| <span class="o">{</span>
+      <span class="nb">source</span>  ~|<span class="o">=</span>| <span class="s2">"kreuzwerker/docker"</span>
+      version ~|<span class="o">=</span>| <span class="s2">"~&gt; 3.0.1"</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+provider <span class="s2">"docker"</span> <span class="o">{}</span>
+
+resource <span class="s2">"docker_image"</span> <span class="s2">"nginx"</span> <span class="o">{</span>
+  name         ~|<span class="o">=</span>| <span class="s2">"nginx"</span>
+  keep_locally ~|<span class="o">=</span>| <span class="nb">false</span>
+<span class="o">}</span>
+
+resource <span class="s2">"docker_container"</span> <span class="s2">"nginx"</span> <span class="o">{</span>
+  image ~|<span class="o">=</span>| docker_image.nginx.image_id
+  name  ~|<span class="o">=</span>| <span class="s2">"tutorial"</span>
+
+  ports <span class="o">{</span>
+    internal ~|<span class="o">=</span>| 80
+    external ~|<span class="o">=</span>| 8000
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<h4 id="4-terraform이-docker와-상호-작용할-수-있도록-하는-공급자라는-플러그인을-다운로드하는-프로젝트를-초기화합니다">4. Terraform이 Docker와 상호 작용할 수 있도록 하는 공급자라는 플러그인을 다운로드하는 프로젝트를 초기화합니다.</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terraform init
+</code></pre></div></div>
+<h4 id="5-net으로-nginx-서버-컨테이너를-프로비저닝합니다-">5. .NET으로 NGINX 서버 컨테이너를 프로비저닝합니다.</h4>
+
+<p>Terraform이 apply 유형 확인을 요청하면 yes를 입력후 ENTER.</p>
+
+<p><img src="/assets/img/Terraform/terraform2.png" alt="terraform" /></p>
+
+<p>웹 브라우저에서 localhost:8000을 방문</p>
+
+<h4 id="6-컨테이너-중지">6. 컨테이너 중지</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terraform destroy
+</code></pre></div></div>
+
 
                 <!-- Pagination links -->
 
@@ -295,29 +417,29 @@ May 12, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-AutoScalingGroup/">
+                                <a href="/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>수평확장</h3>
+                                    <h3>(Sprint) 환경 변수 설정</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/CQRS/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
-                                    
-                                    <h3>CQRS</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/MileStone1/">
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Milestone 1</h3>
+                                    <h3>Docker Image 다루기 1</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                    
+                                    <h3>보안</h3>
                                 </a>
                             </li>
                         
@@ -329,7 +451,7 @@ May 12, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="5">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -635,8 +757,130 @@ Terraform 배포 워크플로우 표준화
     
   
 
+
+인프라 추적
+
+Terraform은 환경에 대한 정보 소스 역할을 하는 상태 파일에서 실제 인프라를 추적합니다. Terraform은 상태 파일을 사용하여 구성과 일치하도록 인프라에 대한 변경 사항을 결정합니다.
+
+협업
+
+Terraform을 사용하면 원격 상태 백엔드로 인프라에서 협업할 수 있습니다. Terraform Cloud(최대 5명의 사용자에게 무료)를 사용하면 팀원과 상태를 안전하게 공유하고 Terraform이 실행할 수 있는 안정적인 환경을 제공하며 여러 사람이 한 번에 구성을 변경할 때 경합 상태를 방지할 수 있습니다.
+
+또한 Terraform Cloud를 GitHub, GitLab 등과 같은 버전 제어 시스템(VCS)에 연결하여 VCS에 대한 구성 변경 사항을 커밋할 때 인프라 변경 사항을 자동으로 제안할 수 있습니다. 이를 통해 애플리케이션 코드와 마찬가지로 버전 제어를 통해 인프라 변경 사항을 관리할 수 있습니다.
+
+Terraform 설치
+
+최신 버전의 Terraform으로 업데이트하려면 먼저 Homebrew를 업데이트합니다.
+brew update
+
+
+먼저 모든 Homebrew 패키지의 저장소인 HashiCorp 탭을 설치합니다.
+brew tap hashicorp/tap
+
+이제 hashicorp/tap/terraform을 설치합니다.
+~|#| 이렇게 하면 서명된 바이너리가 설치되고 새로운 공식 릴리스가 나올 때마다 자동으로 업데이트됩니다.
+brew install hashicorp/tap/terraform
+
+
+M1 아키텍처 이슈
+
+$ brew install hashicorp/tap/terraform                                  130 ↵
+
+Error: Cannot install in Homebrew on ARM processor in Intel default prefix (/usr/local)!
+Please create a new installation in /opt/homebrew using one of the
+&quot;Alternative Installs&quot; from:
+  https://docs.brew.sh/Installation
+You can migrate your previously installed formula list with:
+  brew bundle dump
+
+해결
+
+Homebrew를 설치하기 전에 새 ARM 실리콘(M1 칩)용 Rosetta2 에뮬레이터를 설치해야 합니다. 방금 다음을 사용하여 터미널을 통해 Rosetta2를 설치했습니다.
+
+이렇게 하면 추가 버튼 클릭 없이 rosetta2가 설치됩니다.
+
+위의 Rosetta2를 설치한 후 Homebrew cmd를 사용하여 ARM M1 칩용 Homebrew를 설치할 수 있습니다.
+arch ~|-|x86_64 /bin/bash ~|-|c &quot;$(curl ~|-|fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;
+
+M1 ARM용 Homebrew가 설치되면 이 Homebrew 명령을 사용하여 패키지를 설치합니다.arch -x86_64 brew install 
+
+다시 설치로 돌아와서
+
+ arch ~|-|x86_64 brew install hashicorp/tap/terraform
+
+
+## 설치 확인
+ terraform ~|-|help
+
+
+
+
+탭 완성 활성화
+
+Bash 또는 Zsh를 사용하는 경우 Terraform 명령에 대해 탭 완성을 활성화할 수 있습니다. 자동 완성을 활성화하려면 먼저 선택한 셸에 대한 구성 파일이 있는지 확인하십시오.
+touch ~/.zshrc
+terraform ~|-|install~|-|autocomplete
+
+자동 완성 지원이 설치되면 셸을 다시 시작해야 합니다.
+
+빠른 시작
+1. 도커 열기
+
+open ~|-|a Docker
+
+2. 디렉토리 생성
+
+mkdir learn~|-|terraform~|-|docker~|-|container
+
+
+3. 작업 디렉터리에서 main.tf라는 파일을 만들고 다음 Terraform 구성을 붙여넣습니다.
+
+terraform {
+  required_providers {
+    docker ~|=| {
+      source  ~|=| &quot;kreuzwerker/docker&quot;
+      version ~|=| &quot;~&amp;gt; 3.0.1&quot;
+    }
+  }
+}
+
+provider &quot;docker&quot; {}
+
+resource &quot;docker_image&quot; &quot;nginx&quot; {
+  name         ~|=| &quot;nginx&quot;
+  keep_locally ~|=| false
+}
+
+resource &quot;docker_container&quot; &quot;nginx&quot; {
+  image ~|=| docker_image.nginx.image_id
+  name  ~|=| &quot;tutorial&quot;
+
+  ports {
+    internal ~|=| 80
+    external ~|=| 8000
+  }
+}
+
+
+
+4. Terraform이 Docker와 상호 작용할 수 있도록 하는 공급자라는 플러그인을 다운로드하는 프로젝트를 초기화합니다.
+
+terraform init
+
+5. .NET으로 NGINX 서버 컨테이너를 프로비저닝합니다.
+
+Terraform이 apply 유형 확인을 요청하면 yes를 입력후 ENTER.
+
+
+
+웹 브라우저에서 localhost:8000을 방문
+
+6. 컨테이너 중지
+
+terraform destroy
+
 ",
-            "wordcount": "339",
+            "wordcount": "909",
             "inLanguage": "ko",
             "dateCreated": "2023-05-12/",
             "datePublished": "2023-05-12/",
