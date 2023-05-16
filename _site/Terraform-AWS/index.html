@@ -17,16 +17,16 @@
     
     
 
-    <title>(Sprint) Terraform with AWS | Hoonology</title>
-    <meta name="description" content="왜 선언형 IaC 중, Terraform을 선택했는지 알아보자">
+    <title>(Sprint) Full Stack 애플리케이션 구성 | Hoonology</title>
+    <meta name="description" content="Terraform으로 AWS 서비스 구축하기 - EC2 RDS S3 구축 (1)">
     
         <meta name="keywords" content="terraform, 테라폼, IaC">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="(Sprint) Terraform with AWS | Hoonology">
-    <meta name="twitter:description" content="왜 선언형 IaC 중, Terraform을 선택했는지 알아보자">
+    <meta name="twitter:title" content="(Sprint) Full Stack 애플리케이션 구성 | Hoonology">
+    <meta name="twitter:description" content="Terraform으로 AWS 서비스 구축하기 - EC2 RDS S3 구축 (1)">
 
     
         <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
@@ -36,9 +36,9 @@
 
     <!-- Social: Facebook / Open Graph -->
     <meta property="og:url" content="http://localhost:4000/Terraform-AWS/">
-    <meta property="og:title" content="(Sprint) Terraform with AWS | Hoonology">
+    <meta property="og:title" content="(Sprint) Full Stack 애플리케이션 구성 | Hoonology">
     <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
-    <meta property="og:description" content="왜 선언형 IaC 중, Terraform을 선택했는지 알아보자">
+    <meta property="og:description" content="Terraform으로 AWS 서비스 구축하기 - EC2 RDS S3 구축 (1)">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -176,9 +176,9 @@ May 15, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>11 min to read</span>
                 </p>
-                <h1 class="post-title">(Sprint) Terraform with AWS</h1>
+                <h1 class="post-title">(Sprint) Full Stack 애플리케이션 구성</h1>
                 <p class="post-subtitle">Terraform</p>
 
                 
@@ -197,6 +197,510 @@ May 15, 2023
 <p>다음의 아키텍처를 terraform을 이용해 작성합니다.
 <img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/W6iTHPZQ1M80m-R0dsqZS-1642861410514.png" alt="Alt text" /></p>
 
+<h1 id="getting-started">Getting Started</h1>
+
+<p>IaC 코드를 작성하려면 먼저 AWS Management Console을 이용해 먼저 최종 인프라 상태를 만들어놓고, 잘 작동하는지 확인한 다음, 이를 해당하는 리소스를 하나씩 코드로 옮기는 방법을 사용하는 방식을 사용해 보면 좋습니다.</p>
+
+<p>다음 자습서를 순서대로 따라 합니다. 먼저 AWS Management Console을 통해 최종 결과물을 따라 해보고, 예상 상태가 무엇인지 먼저 파악해야 합니다.</p>
+
+<p>모든 리소스를 만들 때에는 반드시 이름을 붙여놓도록 합시다.</p>
+
+<h2 id="step-1-자습서-db-인스턴스에-사용할-amazon-vpc-생성">STEP 1: 자습서: DB 인스턴스에 사용할 Amazon VPC 생성</h2>
+
+<p><a href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateVPC.html">링크</a></p>
+
+<p><img src="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/images/con-VPC-sec-grp.png" alt="Alt text" /></p>
+<h4 id="1-vpc-및-서브넷-생성">1. VPC 및 서브넷 생성</h4>
+
+<ul>
+  <li>프라이빗 서브넷과 퍼블릭 서브넷이 각각 두 개, 총 네 개가 있어야 합니다.</li>
+</ul>
+
+<h4 id="프라이빗-서브넷과-퍼블릭-서브넷을-포함하는-vpc-생성">프라이빗 서브넷과 퍼블릭 서브넷을 포함하는 VPC 생성</h4>
+
+<p>다음은 퍼블릭 서브넷과 프라이빗 서브넷을 모두 포함하는 VPC를 생성하는 절차입니다.</p>
+
+<ul>
+  <li>VPC 및 서브넷을 생성하는 방법
+    <ul>
+      <li>Amazon VPC 콘솔을 엽니다</li>
+      <li>AWS Management Console의 오른쪽 상단에서 VPC를 생성할 리전을 선택합니다. 이 예에서는 미국 서부(오레곤) 리전을 사용합니다.</li>
+      <li>왼쪽 상단 모서리에서 VPC 대시보드를 선택합니다. VPC 생성을 시작하려면 VPC 생성을 선택합니다.</li>
+      <li>VPC 설정의 생성할 리소스에서 VPC 등을 선택합니다.</li>
+      <li>VPC 설정을 위해 다음 값을 설정합니다.
+        <ul>
+          <li>네임 태그 자동 생성 - tutorial</li>
+          <li>IPv4 CIDR block: - 10.0.0.0/16
+            <ul>
+              <li>이 블록은 10.0.0.0에서 10.0.255.255까지의 IP 주소 범위를 제공한다.</li>
+            </ul>
+          </li>
+          <li>IPv6 CIDR 블록 - No IPv6 CIDR Block(IPv6 CIDR 블록 없음)</li>
+          <li>테넌시 - 기본값</li>
+        </ul>
+      </li>
+      <li>서브넷
+        <ul>
+          <li>프라이빗 서브넷을 만들고 싶기 때문에 각 프라이빗 서브넷에 대해 /24 CIDR 블록을 사용하는 것이 일반적입니다.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p><img src="/assets/img/Terraform/subnet1.png" alt="subnet" /></p>
+    <ul>
+      <li>가용 영역(AZ)의 수 - 2</li>
+      <li>Customize AZs(AZ 사용자 지정) - 기본값을 유지합니다.</li>
+      <li>퍼블릭 서브넷 수 – 2</li>
+      <li>프라이빗 서브넷 수 – 2</li>
+      <li>
+        <p>Customize subnets CIDR blocks(서브넷 CIDR 블록 사용자 지정) - 기본값을 유지합니다.
+<img src="/assets/img/Terraform/subnet3.png" alt="subnet" />
+<img src="/assets/img/Terraform/subnet4.png" alt="subnet" />
+<img src="/assets/img/Terraform/subnet5.png" alt="subnet" />
+<img src="/assets/img/Terraform/subnet6.png" alt="subnet" />
+<img src="/assets/img/Terraform/subnet7.png" alt="subnet" /></p>
+      </li>
+      <li>NAT 게이트웨이($) – 없음
+        <ul>
+          <li>NAT 게이트웨이는 퍼블릭 서브넷이 아닌 프라이빗 서브넷의 리소스에 대한 인터넷 액세스를 제공하는 데 사용됩니다. 반면에 인터넷 게이트웨이는 퍼블릭 서브넷의 리소스가 인터넷에 직접 액세스할 수 있도록 합니다.</li>
+        </ul>
+      </li>
+      <li>VPC 엔드포인트 – 없음</li>
+      <li>DNS options(DNS 옵션) - 기본값을 유지합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="12-위-과정이-잘-안된다면-테라폼으로-작성해본다">1-2. 위 과정이 잘 안된다면 테라폼으로 작성해본다.</h4>
+
+<p><code class="language-plaintext highlighter-rouge">provider.tf</code> 파일 생성</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terraform <span class="o">{</span>
+  required_version ~|<span class="o">=</span>| <span class="s2">"&gt;~|=| 0.14.8"</span> 
+
+  required_providers <span class="o">{</span>
+      aws ~|<span class="o">=</span>| <span class="o">{</span>
+          <span class="nb">source</span> ~|<span class="o">=</span>| <span class="s2">"hashicorp/aws"</span>
+          version ~|<span class="o">=</span>| <span class="s2">"~&gt; 3.0"</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+provider <span class="s2">"aws"</span> <span class="o">{</span>
+  region     ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2"</span>
+  ~|#| access_key 와 secert_key 를 파일에 적어서 구현할 수는 있지만 권장하지 않습니다.
+  ~|#| access_key ~|<span class="o">=</span>| <span class="s2">"my~|-|access~|-|key"</span>
+  ~|#| secret_key ~|<span class="o">=</span>| <span class="s2">"my~|-|secret~|-|key"</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>초기화</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terraform init ~|-|upgrade
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">plan</code>은 실제로 리소스를 작성하기 전 리소스가 어떻게 생성되는지를 확인하는 명령어입니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| vpc.tf
+resource <span class="s2">"aws_vpc"</span> <span class="s2">"my~|-|vpc~|-|0515"</span> <span class="o">{</span>
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.0.0/16"</span>
+
+~|#| 네임태그
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"my~|-|vpc~|-|0515"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terraform plan
+</code></pre></div></div>
+<p><img src="/assets/img/Terraform/terraformPlan.png" alt="plan" /></p>
+
+<p>CloudFormation의 create-change-set , execute-change-set 조합과 같습니다.</p>
+
+<p>단순하게 plan 명령어만 입력하면 되기 때문에 CloudFormation을 사용하는 것보다 훨씬 빠르고 편하게 결과를 예측할 수 있습니다.</p>
+
+<p><img src="/assets/img/Terraform/terraformApply.png" alt="apply" /></p>
+
+<p>이제 AWS 콘솔로 가서 VPC에서 네임태그와 함께 올라가있는지 확인해줍니다.
+<img src="/assets/img/Terraform/vpcCheck.png" alt="vpcCheck" /></p>
+
+<h4 id="13-서브넷-작성">1-3. 서브넷 작성</h4>
+
+<p>EC2에 사용할 2개의 퍼블릭 서브넷과 RDS에 사용할 2개의 프라이빗 서브넷을 작성</p>
+
+<p>(파일은 사용자가 나누고 싶은대로 나눕니다.)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_subnet"</span> <span class="s2">"PublicSubnet01"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.0.0/24"</span>
+  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"public~|-|subnet01"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+resource <span class="s2">"aws_subnet"</span> <span class="s2">"PublicSubnet02"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.1.0/24"</span>
+  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"public~|-|subnet02"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_subnet"</span> <span class="s2">"PrivateSubnet01"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.2.0/24"</span>
+  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"private~|-|subnet01"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_subnet"</span> <span class="s2">"PrivateSubnet02"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.3.0/24"</span>
+  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"private~|-|subnet02"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="14-인터넷게이트웨이-igw-작성-">1-4. 인터넷게이트웨이 (IGW) 작성</h4>
+
+<p>인터넷 게이트웨이는 VPC에 연결하여 VPC가 인터넷과 통신할 수 있도록 해줍니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_internet_gateway"</span> <span class="s2">"my~|-|IGW~|-|0515"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"my~|-|IGW~|-|0515"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="15-라우팅테이블-작성">1-5. 라우팅테이블 작성</h4>
+
+<p>VPC를 생성하면 기본 라우팅 테이블이 함께 만들어집니다. 하지만 VPC를 보호하기 위해 기본 라우팅 테이블은 초기 설정을 그대로 두고 <strong>사용하지 않는 것을 권장</strong>합니다.</p>
+
+<p>라우팅 테이블을 작성하고 이를 서브넷과 연결해줍니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_route_table"</span> <span class="s2">"my~|-|public~|-|route01"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  route <span class="o">{</span>
+    cidr_block ~|<span class="o">=</span>| <span class="s2">"0.0.0.0/0"</span>
+    gateway_id ~|<span class="o">=</span>| aws_internet_gateway.my~|-|IGW~|-|0515.id
+  <span class="o">}</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"my~|-|public~|-|route01"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_route_table"</span> <span class="s2">"my~|-|public~|-|route02"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  route <span class="o">{</span>
+    cidr_block ~|<span class="o">=</span>| <span class="s2">"0.0.0.0/0"</span>
+    gateway_id ~|<span class="o">=</span>| aws_internet_gateway.my~|-|IGW~|-|0515.id
+  <span class="o">}</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"my~|-|public~|-|route02"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+~|#|~|#| 2. 프라이빗 라우팅 테이블 정의
+resource <span class="s2">"aws_route_table"</span> <span class="s2">"my~|-|private~|-|route01"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"my~|-|private~|-|route01"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_route_table"</span> <span class="s2">"my~|-|private~|-|route02"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"my~|-|private~|-|route02"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+~|#|~|#| 퍼블릭 라우팅 테이블 연결
+resource <span class="s2">"aws_route_table_association"</span> <span class="s2">"my~|-|public~|-|RT~|-|Assoication01"</span> <span class="o">{</span>
+  subnet_id ~|<span class="o">=</span>| aws_subnet.PublicSubnet01.id
+  route_table_id ~|<span class="o">=</span>| aws_route_table.my~|-|public~|-|route01.id
+<span class="o">}</span>
+resource <span class="s2">"aws_route_table_association"</span> <span class="s2">"my~|-|public~|-|RT~|-|Assoication02"</span> <span class="o">{</span>
+  subnet_id ~|<span class="o">=</span>| aws_subnet.PublicSubnet02.id
+  route_table_id ~|<span class="o">=</span>| aws_route_table.my~|-|public~|-|route02.id
+<span class="o">}</span>
+
+~|#|~|#| 프라이빗 라우팅 테이블 연결
+resource <span class="s2">"aws_route_table_association"</span> <span class="s2">"my~|-|private~|-|RT~|-|Assoication01"</span> <span class="o">{</span>
+  subnet_id ~|<span class="o">=</span>| aws_subnet.PrivateSubnet01.id
+  route_table_id ~|<span class="o">=</span>| aws_route_table.my~|-|private~|-|route01.id
+<span class="o">}</span>
+resource <span class="s2">"aws_route_table_association"</span> <span class="s2">"my~|-|private~|-|RT~|-|Assoication02"</span> <span class="o">{</span>
+  subnet_id ~|<span class="o">=</span>| aws_subnet.PrivateSubnet02.id
+  route_table_id ~|<span class="o">=</span>| aws_route_table.my~|-|private~|-|route02.id
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="2-vpc-보안-그룹-생성">2. VPC 보안 그룹 생성</h4>
+
+<ul>
+  <li>퍼블릭 웹 서버가 사용할 VPC 보안 그룹을 만들어야 합니다.</li>
+  <li>프라이빗 DB 웹 서버가 사용할 VPC 보안 그룹을 만들어야 합니다.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#|~|#| 퍼블릭 보안 그룹
+resource <span class="s2">"aws_security_group"</span> <span class="s2">"my~|-|public~|-|SG"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  name ~|<span class="o">=</span>| <span class="s2">"my public SG"</span>
+  description ~|<span class="o">=</span>| <span class="s2">"my public SG"</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"log public SG"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+~|#|~|#| 프라이빗 보안 그룹
+resource <span class="s2">"aws_security_group"</span> <span class="s2">"my~|-|private~|-|SG"</span> <span class="o">{</span>
+  vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+  name ~|<span class="o">=</span>| <span class="s2">"my private SG"</span>
+  description ~|<span class="o">=</span>| <span class="s2">"private SG"</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"log private SG"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+~|#|~|#| 퍼블릭 보안 그룹 규칙
+resource <span class="s2">"aws_security_group_rule"</span> <span class="s2">"my~|-|public~|-|SG~|-|Rules~|-|HTTPingress"</span> <span class="o">{</span>
+  <span class="nb">type</span> ~|<span class="o">=</span>| <span class="s2">"ingress"</span>
+  from_port ~|<span class="o">=</span>| 80
+  to_port ~|<span class="o">=</span>| 80
+  protocol ~|<span class="o">=</span>| <span class="s2">"TCP"</span>
+  cidr_blocks ~|<span class="o">=</span>| <span class="o">[</span> <span class="s2">"0.0.0.0/0"</span> <span class="o">]</span>
+  security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle <span class="o">{</span>
+    create_before_destroy ~|<span class="o">=</span>| <span class="nb">true</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_security_group_rule"</span> <span class="s2">"my~|-|public~|-|SG~|-|Rules~|-|HTTPegress"</span> <span class="o">{</span>
+  <span class="nb">type</span> ~|<span class="o">=</span>| <span class="s2">"egress"</span>
+  from_port ~|<span class="o">=</span>| 80
+  to_port ~|<span class="o">=</span>| 80
+  protocol ~|<span class="o">=</span>| <span class="s2">"TCP"</span>
+  cidr_blocks ~|<span class="o">=</span>| <span class="o">[</span> <span class="s2">"0.0.0.0/0"</span> <span class="o">]</span>
+  security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle <span class="o">{</span>
+    create_before_destroy ~|<span class="o">=</span>| <span class="nb">true</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_security_group_rule"</span> <span class="s2">"my~|-|public~|-|SG~|-|Rules~|-|HTTPSingress"</span> <span class="o">{</span>
+  <span class="nb">type</span> ~|<span class="o">=</span>| <span class="s2">"ingress"</span>
+  from_port ~|<span class="o">=</span>| 443
+  to_port ~|<span class="o">=</span>| 443
+  protocol ~|<span class="o">=</span>| <span class="s2">"TCP"</span>
+  cidr_blocks ~|<span class="o">=</span>| <span class="o">[</span> <span class="s2">"0.0.0.0/0"</span> <span class="o">]</span>
+  security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle <span class="o">{</span>
+    create_before_destroy ~|<span class="o">=</span>| <span class="nb">true</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_security_group_rule"</span> <span class="s2">"my~|-|public~|-|SG~|-|Rules~|-|HTTPSegress"</span> <span class="o">{</span>
+  <span class="nb">type</span> ~|<span class="o">=</span>| <span class="s2">"egress"</span>
+  from_port ~|<span class="o">=</span>| 443
+  to_port ~|<span class="o">=</span>| 443
+  protocol ~|<span class="o">=</span>| <span class="s2">"TCP"</span>
+  cidr_blocks ~|<span class="o">=</span>| <span class="o">[</span> <span class="s2">"0.0.0.0/0"</span> <span class="o">]</span>
+  security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle <span class="o">{</span>
+    create_before_destroy ~|<span class="o">=</span>| <span class="nb">true</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_security_group_rule"</span> <span class="s2">"my~|-|public~|-|SG~|-|Rules~|-|SSHingress"</span> <span class="o">{</span>
+  <span class="nb">type</span> ~|<span class="o">=</span>| <span class="s2">"ingress"</span>
+  from_port ~|<span class="o">=</span>| 22
+  to_port ~|<span class="o">=</span>| 22
+  protocol ~|<span class="o">=</span>| <span class="s2">"TCP"</span>
+  cidr_blocks ~|<span class="o">=</span>| <span class="o">[</span> <span class="s2">"~|-|~|-|~|-|.~|-|~|-|~|-|.~|-|~|-|~|-|.~|-|/32"</span> <span class="o">]</span> ~|#| your IP
+  security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle <span class="o">{</span>
+    create_before_destroy ~|<span class="o">=</span>| <span class="nb">true</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_security_group_rule"</span> <span class="s2">"my~|-|public~|-|SG~|-|Rules~|-|SSHegress"</span> <span class="o">{</span>
+  <span class="nb">type</span> ~|<span class="o">=</span>| <span class="s2">"egress"</span>
+  from_port ~|<span class="o">=</span>| 22
+  to_port ~|<span class="o">=</span>| 22
+  protocol ~|<span class="o">=</span>| <span class="s2">"TCP"</span>
+  cidr_blocks ~|<span class="o">=</span>| <span class="o">[</span> <span class="s2">"~|-|~|-|~|-|.~|-|~|-|~|-|.~|-|~|-|~|-|.~|-|/32"</span> <span class="o">]</span> ~|#| your IP
+  security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle <span class="o">{</span>
+    create_before_destroy ~|<span class="o">=</span>| <span class="nb">true</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+~|#|~|#|~|#| 프라이빗 보안 그룹 규칙 <span class="o">(</span> RDS <span class="o">)</span>
+resource <span class="s2">"aws_security_group_rule"</span> <span class="s2">"my~|-|private~|-|SG~|-|Rules~|-|RDSingress"</span> <span class="o">{</span>
+  <span class="nb">type</span> ~|<span class="o">=</span>| <span class="s2">"ingress"</span>
+  from_port ~|<span class="o">=</span>| 3306
+  to_port ~|<span class="o">=</span>| 3306
+  protocol ~|<span class="o">=</span>| <span class="s2">"TCP"</span>
+  security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|private~|-|SG.id
+  source_security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle <span class="o">{</span>
+    create_before_destroy ~|<span class="o">=</span>| <span class="nb">true</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+resource <span class="s2">"aws_security_group_rule"</span> <span class="s2">"my~|-|private~|-|SG~|-|Rules~|-|RDSegress"</span> <span class="o">{</span>
+  <span class="nb">type</span> ~|<span class="o">=</span>| <span class="s2">"egress"</span>
+  from_port ~|<span class="o">=</span>| 3306
+  to_port ~|<span class="o">=</span>| 3306
+  protocol ~|<span class="o">=</span>| <span class="s2">"TCP"</span>
+  security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|private~|-|SG.id
+  source_security_group_id ~|<span class="o">=</span>| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle <span class="o">{</span>
+    create_before_destroy ~|<span class="o">=</span>| <span class="nb">true</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><img src="/assets/img/Terraform/awsconsole1.png" alt="aws" />
+<img src="/assets/img/Terraform/awsconsole2.png" alt="aws" />
+<img src="/assets/img/Terraform/awsconsole3.png" alt="aws" /></p>
+
+<h4 id="3-db-서브넷-그룹-생성">3. DB 서브넷 그룹 생성</h4>
+
+<ul>
+  <li>RDS 인스턴스가 사용할 VPC 서브넷 그룹을 만들어야 합니다.</li>
+</ul>
+
+<h2 id="step-2-ec2-인스턴스-생성">STEP 2: EC2 인스턴스 생성</h2>
+
+<p>만들어야 하는 사양은 다음과 같습니다.</p>
+<ul>
+  <li>키 페어: 수동으로 만들고 EC2에 할당합니다.</li>
+  <li>AMI: Ubuntu Server 18</li>
+  <li>인스턴스 타입: t2.micro</li>
+  <li>사용자 데이터
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#|!/bin/bash
+<span class="nb">echo</span> <span class="s2">"Hello, World"</span> <span class="o">&gt;</span> index.html
+<span class="nb">nohup </span>busybox httpd ~|-|f ~|-|p <span class="k">${</span><span class="nv">var</span><span class="p">.server_port</span><span class="k">}</span> &amp;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="1-키페어-생성-">1. 키페어 생성</h4>
+
+<ul>
+  <li>키 페어 할당
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh~|-|keygen ~|-|t rsa ~|-|b 4069 ~|-|C <span class="o">{</span>자신의 메일<span class="o">}</span> ~|-|f <span class="s2">"./testPubkey"</span> ~|-|N <span class="s2">""</span>
+</code></pre></div>    </div>
+    <p>디렉토리에 <code class="language-plaintext highlighter-rouge">testPubkey</code> 라고 명명한 키 페어 파일이 생성된다.</p>
+  </li>
+</ul>
+
+<h4 id="2-ec2-생성">2. EC2 생성</h4>
+
+<p><code class="language-plaintext highlighter-rouge">ec2.tf</code> 작성</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  resource <span class="s2">"aws_key_pair"</span> <span class="s2">"ec2_key"</span> <span class="o">{</span>
+    key_name ~|<span class="o">=</span>| <span class="s2">"terraTest"</span>
+    public_key ~|<span class="o">=</span>| file<span class="o">(</span><span class="s2">"./testPubkey.pub"</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p>퍼블릭키 지정 2가지 방법</p>
+<ul>
+  <li>file로 지정</li>
+  <li>공개키 ssh-rsa 값</li>
+</ul>
+
+<h4 id="3-인스턴스-생성">3. 인스턴스 생성</h4>
+
+<p><a href="https://cloud-images.ubuntu.com/locator/ec2/">https://cloud-images.ubuntu.com/locator/ec2/</a><br />
+내 리전에 맞는 EC2 ami id를 찾아서 값을 대입한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_instance"</span> <span class="s2">"test_ec2"</span> <span class="o">{</span>
+  ami ~|<span class="o">=</span>| <span class="s2">"ami~|-|0da3b51b79ece2d3d"</span>
+  instance_type ~|<span class="o">=</span>| <span class="s2">"t2.micro"</span>
+  vpc_security_group_ids ~|<span class="o">=</span>| <span class="o">[</span> 
+    aws_security_group.my~|-|public~|-|SG.id,
+   <span class="o">]</span>
+  subnet_id ~|<span class="o">=</span>| aws_subnet.PublicSubnet01.id
+  key_name ~|<span class="o">=</span>| aws_key_pair.ec2_key.key_name
+  root_block_device <span class="o">{</span>
+    volume_size ~|<span class="o">=</span>| 200
+    volume_type ~|<span class="o">=</span>| <span class="s2">"gp3"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>위와 같이 작성 후 plan을 실행해본다.</p>
+
+<p><img src="/assets/img/Terraform/plan.png" alt="plan" /></p>
+
+<p>사용자 데이터를 넣어서 ec2.tf 파일을 완성시킨다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variable <span class="s2">"server_port"</span> <span class="o">{</span>
+  description ~|<span class="o">=</span>| <span class="s2">"The port number for the HTTP server"</span>
+  <span class="nb">type</span>        ~|<span class="o">=</span>| number
+  default     ~|<span class="o">=</span>| 8080
+<span class="o">}</span>
+
+resource <span class="s2">"aws_key_pair"</span> <span class="s2">"ec2_key"</span> <span class="o">{</span>
+  key_name   ~|<span class="o">=</span>| <span class="s2">"terraTest"</span>
+  public_key ~|<span class="o">=</span>| file<span class="o">(</span><span class="s2">"./testPubkey.pub"</span><span class="o">)</span>
+<span class="o">}</span>
+
+resource <span class="s2">"aws_instance"</span> <span class="s2">"test_ec2"</span> <span class="o">{</span>
+  ami                    ~|<span class="o">=</span>| <span class="s2">"ami~|-|0da3b51b79ece2d3d"</span>
+  instance_type          ~|<span class="o">=</span>| <span class="s2">"t2.micro"</span>
+  vpc_security_group_ids ~|<span class="o">=</span>| <span class="o">[</span>aws_security_group.my~|-|public~|-|SG.id]
+  subnet_id              ~|<span class="o">=</span>| aws_subnet.PublicSubnet01.id
+  key_name               ~|<span class="o">=</span>| aws_key_pair.ec2_key.key_name
+
+  root_block_device <span class="o">{</span>
+    volume_size ~|<span class="o">=</span>| 200
+    volume_type ~|<span class="o">=</span>| <span class="s2">"gp3"</span>
+  <span class="o">}</span>
+
+  user_data ~|<span class="o">=</span>| ~|&lt;|~|&lt;|~|-|EOF
+    ~|#|!/bin/bash
+    <span class="nb">echo</span> <span class="s2">"Hello, World"</span> <span class="o">&gt;</span> index.html
+    <span class="nb">nohup </span>busybox httpd ~|-|f ~|-|p <span class="k">${</span><span class="nv">var</span><span class="p">.server_port</span><span class="k">}</span> &amp;
+  EOF
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">terraform apply</code>를 실행해본다.</p>
+
+<h3 id="오류발생">오류발생</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>│ Error: Error launching <span class="nb">source </span>instance: InvalidParameterValue: The architecture 
+|<span class="s1">'i386,x86_64'</span> of the specified instance <span class="nb">type </span>does not match the architecture <span class="s1">'arm64'</span> of 
+|the specified AMI. Specify an instance <span class="nb">type </span>and an AMI that have matching architectures,
+| and try again. You can use <span class="s1">'describe~|-|instance~|-|types'</span> or <span class="s1">'describe~|-|images'</span> to discover
+| the architecture of the instance <span class="nb">type </span>or AMI.
+│       status code: 400, request <span class="nb">id</span>: 48898fa9~|-|1f54~|-|4ab4~|-|b7b8~|-|81b3063cfb7e
+│ 
+│   with aws_instance.test_ec2,
+│   on ec2.tf line 12, <span class="k">in </span>resource <span class="s2">"aws_instance"</span> <span class="s2">"test_ec2"</span>:
+│   12: resource <span class="s2">"aws_instance"</span> <span class="s2">"test_ec2"</span> <span class="o">{</span>
+</code></pre></div></div>
+<h3 id="오류-해결">오류 해결</h3>
+
+<ul>
+  <li>오류 내용 : 오류 메시지는 지정된 인스턴스 유형의 아키텍처와 사용하려는 AMI의 아키텍처 간에 불일치가 있음을 나타냅니다. 인스턴스 유형은 ‘i386’ 또는 ‘x86_64’의 아키텍처를 예상하지만 제공한 AMI의 아키텍처는 ‘arm64’입니다.</li>
+</ul>
+
+<blockquote>
+  <p>https://cloud-images.ubuntu.com/locator/ec2/ 사이트에서 내가 찾은 ami id가 arm64 기반으로 구성된 ubuntu18.04LTS라서 발생한 문제 같다.</p>
+</blockquote>
+
+<p>Ami ID를 “ami-0cb1d752d27600adb”로 바꿔줬더니 Apply가 성공했다.
+<img src="/assets/img/Terraform/deploy.png" alt="deploy" /></p>
+
+<h1 id="reference">Reference</h1>
+
+<p>https://dev.classmethod.jp/articles/build-multiple-services-with-terraform-04/</p>
+
+<h2 id="step-3-rds-생성">STEP 3: RDS 생성</h2>
+
+<p>RDS에 서브넷을 지정하기 위해선 1개의 서브넷만 필요하더라도 서브넷 그룹으로 지정해야합니다.<br />
+서브넷 그룹을 작성한 후 aws_db_instance리소스를 이용하여 RDS를 생성합니다.</p>
+
 
 
                 <!-- Pagination links -->
@@ -212,29 +716,29 @@ May 15, 2023
                         
                         
                             <li>
-                                <a href="/Github_CommitMessage/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 커밋 메시지 컨벤션 - CI를 위하여</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+                                <a href="/Docker/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker Image 다루기 2 </h3>
+                                    <h3>Docker</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Terraform/">
+                                <a href="/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>Terraform</h3>
+                                    <h3>(Sprint) 환경 변수 설정</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Docker-CLI-Part1/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Docker CLI</h3>
                                 </a>
                             </li>
                         
@@ -246,7 +750,7 @@ May 15, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="11">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -288,7 +792,7 @@ May 15, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;왜 선언형 IaC 중, Terraform을 선택했는지 알아보자&quot;%20http://localhost:4000/Terraform-AWS/%20via%20&#64;&hashtags=terraform,테라폼,IaC"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;Terraform으로 AWS 서비스 구축하기 - EC2 RDS S3 구축 (1)&quot;%20http://localhost:4000/Terraform-AWS/%20via%20&#64;&hashtags=terraform,테라폼,IaC"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
@@ -459,9 +963,9 @@ May 15, 2023
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "(Sprint) Terraform with AWS",
+            "name": "(Sprint) Full Stack 애플리케이션 구성",
             "headline": "Terraform",
-            "description": "왜 선언형 IaC 중, Terraform을 선택했는지 알아보자",
+            "description": "Terraform으로 AWS 서비스 구축하기 - EC2 RDS S3 구축 (1)",
             "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png",
             "url": "http://localhost:4000/Terraform-AWS/",
             "articleBody": "요구사항
@@ -469,8 +973,512 @@ May 15, 2023
 다음의 아키텍처를 terraform을 이용해 작성합니다.
 
 
+Getting Started
+
+IaC 코드를 작성하려면 먼저 AWS Management Console을 이용해 먼저 최종 인프라 상태를 만들어놓고, 잘 작동하는지 확인한 다음, 이를 해당하는 리소스를 하나씩 코드로 옮기는 방법을 사용하는 방식을 사용해 보면 좋습니다.
+
+다음 자습서를 순서대로 따라 합니다. 먼저 AWS Management Console을 통해 최종 결과물을 따라 해보고, 예상 상태가 무엇인지 먼저 파악해야 합니다.
+
+모든 리소스를 만들 때에는 반드시 이름을 붙여놓도록 합시다.
+
+STEP 1: 자습서: DB 인스턴스에 사용할 Amazon VPC 생성
+
+링크
+
+
+1. VPC 및 서브넷 생성
+
+
+  프라이빗 서브넷과 퍼블릭 서브넷이 각각 두 개, 총 네 개가 있어야 합니다.
+
+
+프라이빗 서브넷과 퍼블릭 서브넷을 포함하는 VPC 생성
+
+다음은 퍼블릭 서브넷과 프라이빗 서브넷을 모두 포함하는 VPC를 생성하는 절차입니다.
+
+
+  VPC 및 서브넷을 생성하는 방법
+    
+      Amazon VPC 콘솔을 엽니다
+      AWS Management Console의 오른쪽 상단에서 VPC를 생성할 리전을 선택합니다. 이 예에서는 미국 서부(오레곤) 리전을 사용합니다.
+      왼쪽 상단 모서리에서 VPC 대시보드를 선택합니다. VPC 생성을 시작하려면 VPC 생성을 선택합니다.
+      VPC 설정의 생성할 리소스에서 VPC 등을 선택합니다.
+      VPC 설정을 위해 다음 값을 설정합니다.
+        
+          네임 태그 자동 생성 - tutorial
+          IPv4 CIDR block: - 10.0.0.0/16
+            
+              이 블록은 10.0.0.0에서 10.0.255.255까지의 IP 주소 범위를 제공한다.
+            
+          
+          IPv6 CIDR 블록 - No IPv6 CIDR Block(IPv6 CIDR 블록 없음)
+          테넌시 - 기본값
+        
+      
+      서브넷
+        
+          프라이빗 서브넷을 만들고 싶기 때문에 각 프라이빗 서브넷에 대해 /24 CIDR 블록을 사용하는 것이 일반적입니다.
+        
+      
+    
+
+    
+    
+      가용 영역(AZ)의 수 - 2
+      Customize AZs(AZ 사용자 지정) - 기본값을 유지합니다.
+      퍼블릭 서브넷 수 – 2
+      프라이빗 서브넷 수 – 2
+      
+        Customize subnets CIDR blocks(서브넷 CIDR 블록 사용자 지정) - 기본값을 유지합니다.
+
+
+
+
+
+      
+      NAT 게이트웨이($) – 없음
+        
+          NAT 게이트웨이는 퍼블릭 서브넷이 아닌 프라이빗 서브넷의 리소스에 대한 인터넷 액세스를 제공하는 데 사용됩니다. 반면에 인터넷 게이트웨이는 퍼블릭 서브넷의 리소스가 인터넷에 직접 액세스할 수 있도록 합니다.
+        
+      
+      VPC 엔드포인트 – 없음
+      DNS options(DNS 옵션) - 기본값을 유지합니다.
+    
+  
+
+
+1-2. 위 과정이 잘 안된다면 테라폼으로 작성해본다.
+
+provider.tf 파일 생성
+terraform {
+  required_version ~|=| &quot;&amp;gt;~|=| 0.14.8&quot; 
+
+  required_providers {
+      aws ~|=| {
+          source ~|=| &quot;hashicorp/aws&quot;
+          version ~|=| &quot;~&amp;gt; 3.0&quot;
+      }
+  }
+}
+
+provider &quot;aws&quot; {
+  region     ~|=| &quot;ap~|-|northeast~|-|2&quot;
+  ~|#| access_key 와 secert_key 를 파일에 적어서 구현할 수는 있지만 권장하지 않습니다.
+  ~|#| access_key ~|=| &quot;my~|-|access~|-|key&quot;
+  ~|#| secret_key ~|=| &quot;my~|-|secret~|-|key&quot;
+}
+
+
+초기화
+terraform init ~|-|upgrade
+
+plan은 실제로 리소스를 작성하기 전 리소스가 어떻게 생성되는지를 확인하는 명령어입니다.
+
+~|#| vpc.tf
+resource &quot;aws_vpc&quot; &quot;my~|-|vpc~|-|0515&quot; {
+  cidr_block ~|=| &quot;10.0.0.0/16&quot;
+
+~|#| 네임태그
+  tags ~|=| {
+    Name ~|=| &quot;my~|-|vpc~|-|0515&quot;
+  }
+}
+
+
+terraform plan
+
+
+
+CloudFormation의 create-change-set , execute-change-set 조합과 같습니다.
+
+단순하게 plan 명령어만 입력하면 되기 때문에 CloudFormation을 사용하는 것보다 훨씬 빠르고 편하게 결과를 예측할 수 있습니다.
+
+
+
+이제 AWS 콘솔로 가서 VPC에서 네임태그와 함께 올라가있는지 확인해줍니다.
+
+
+1-3. 서브넷 작성
+
+EC2에 사용할 2개의 퍼블릭 서브넷과 RDS에 사용할 2개의 프라이빗 서브넷을 작성
+
+(파일은 사용자가 나누고 싶은대로 나눕니다.)
+
+resource &quot;aws_subnet&quot; &quot;PublicSubnet01&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  cidr_block ~|=| &quot;10.0.0.0/24&quot;
+  availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot;
+  tags ~|=| {
+    Name ~|=| &quot;public~|-|subnet01&quot;
+  }
+}
+
+resource &quot;aws_subnet&quot; &quot;PublicSubnet02&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  cidr_block ~|=| &quot;10.0.1.0/24&quot;
+  availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot;
+  tags ~|=| {
+    Name ~|=| &quot;public~|-|subnet02&quot;
+  }
+}
+resource &quot;aws_subnet&quot; &quot;PrivateSubnet01&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  cidr_block ~|=| &quot;10.0.2.0/24&quot;
+  availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot;
+  tags ~|=| {
+    Name ~|=| &quot;private~|-|subnet01&quot;
+  }
+}
+resource &quot;aws_subnet&quot; &quot;PrivateSubnet02&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  cidr_block ~|=| &quot;10.0.3.0/24&quot;
+  availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot;
+  tags ~|=| {
+    Name ~|=| &quot;private~|-|subnet02&quot;
+  }
+}
+
+
+1-4. 인터넷게이트웨이 (IGW) 작성
+
+인터넷 게이트웨이는 VPC에 연결하여 VPC가 인터넷과 통신할 수 있도록 해줍니다.
+
+resource &quot;aws_internet_gateway&quot; &quot;my~|-|IGW~|-|0515&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  tags ~|=| {
+    Name ~|=| &quot;my~|-|IGW~|-|0515&quot;
+  }
+}
+
+
+1-5. 라우팅테이블 작성
+
+VPC를 생성하면 기본 라우팅 테이블이 함께 만들어집니다. 하지만 VPC를 보호하기 위해 기본 라우팅 테이블은 초기 설정을 그대로 두고 사용하지 않는 것을 권장합니다.
+
+라우팅 테이블을 작성하고 이를 서브넷과 연결해줍니다.
+resource &quot;aws_route_table&quot; &quot;my~|-|public~|-|route01&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  route {
+    cidr_block ~|=| &quot;0.0.0.0/0&quot;
+    gateway_id ~|=| aws_internet_gateway.my~|-|IGW~|-|0515.id
+  }
+  tags ~|=| {
+    Name ~|=| &quot;my~|-|public~|-|route01&quot;
+  }
+}
+resource &quot;aws_route_table&quot; &quot;my~|-|public~|-|route02&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  route {
+    cidr_block ~|=| &quot;0.0.0.0/0&quot;
+    gateway_id ~|=| aws_internet_gateway.my~|-|IGW~|-|0515.id
+  }
+  tags ~|=| {
+    Name ~|=| &quot;my~|-|public~|-|route02&quot;
+  }
+}
+
+~|#|~|#| 2. 프라이빗 라우팅 테이블 정의
+resource &quot;aws_route_table&quot; &quot;my~|-|private~|-|route01&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+
+  tags ~|=| {
+    Name ~|=| &quot;my~|-|private~|-|route01&quot;
+  }
+}
+resource &quot;aws_route_table&quot; &quot;my~|-|private~|-|route02&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+
+  tags ~|=| {
+    Name ~|=| &quot;my~|-|private~|-|route02&quot;
+  }
+}
+
+~|#|~|#| 퍼블릭 라우팅 테이블 연결
+resource &quot;aws_route_table_association&quot; &quot;my~|-|public~|-|RT~|-|Assoication01&quot; {
+  subnet_id ~|=| aws_subnet.PublicSubnet01.id
+  route_table_id ~|=| aws_route_table.my~|-|public~|-|route01.id
+}
+resource &quot;aws_route_table_association&quot; &quot;my~|-|public~|-|RT~|-|Assoication02&quot; {
+  subnet_id ~|=| aws_subnet.PublicSubnet02.id
+  route_table_id ~|=| aws_route_table.my~|-|public~|-|route02.id
+}
+
+~|#|~|#| 프라이빗 라우팅 테이블 연결
+resource &quot;aws_route_table_association&quot; &quot;my~|-|private~|-|RT~|-|Assoication01&quot; {
+  subnet_id ~|=| aws_subnet.PrivateSubnet01.id
+  route_table_id ~|=| aws_route_table.my~|-|private~|-|route01.id
+}
+resource &quot;aws_route_table_association&quot; &quot;my~|-|private~|-|RT~|-|Assoication02&quot; {
+  subnet_id ~|=| aws_subnet.PrivateSubnet02.id
+  route_table_id ~|=| aws_route_table.my~|-|private~|-|route02.id
+}
+
+
+2. VPC 보안 그룹 생성
+
+
+  퍼블릭 웹 서버가 사용할 VPC 보안 그룹을 만들어야 합니다.
+  프라이빗 DB 웹 서버가 사용할 VPC 보안 그룹을 만들어야 합니다.
+
+
+~|#|~|#| 퍼블릭 보안 그룹
+resource &quot;aws_security_group&quot; &quot;my~|-|public~|-|SG&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  name ~|=| &quot;my public SG&quot;
+  description ~|=| &quot;my public SG&quot;
+  tags ~|=| {
+    Name ~|=| &quot;log public SG&quot;
+  }
+}
+
+~|#|~|#| 프라이빗 보안 그룹
+resource &quot;aws_security_group&quot; &quot;my~|-|private~|-|SG&quot; {
+  vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+  name ~|=| &quot;my private SG&quot;
+  description ~|=| &quot;private SG&quot;
+  tags ~|=| {
+    Name ~|=| &quot;log private SG&quot;
+  }
+}
+
+~|#|~|#| 퍼블릭 보안 그룹 규칙
+resource &quot;aws_security_group_rule&quot; &quot;my~|-|public~|-|SG~|-|Rules~|-|HTTPingress&quot; {
+  type ~|=| &quot;ingress&quot;
+  from_port ~|=| 80
+  to_port ~|=| 80
+  protocol ~|=| &quot;TCP&quot;
+  cidr_blocks ~|=| [ &quot;0.0.0.0/0&quot; ]
+  security_group_id ~|=| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle {
+    create_before_destroy ~|=| true
+  }
+}
+resource &quot;aws_security_group_rule&quot; &quot;my~|-|public~|-|SG~|-|Rules~|-|HTTPegress&quot; {
+  type ~|=| &quot;egress&quot;
+  from_port ~|=| 80
+  to_port ~|=| 80
+  protocol ~|=| &quot;TCP&quot;
+  cidr_blocks ~|=| [ &quot;0.0.0.0/0&quot; ]
+  security_group_id ~|=| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle {
+    create_before_destroy ~|=| true
+  }
+}
+resource &quot;aws_security_group_rule&quot; &quot;my~|-|public~|-|SG~|-|Rules~|-|HTTPSingress&quot; {
+  type ~|=| &quot;ingress&quot;
+  from_port ~|=| 443
+  to_port ~|=| 443
+  protocol ~|=| &quot;TCP&quot;
+  cidr_blocks ~|=| [ &quot;0.0.0.0/0&quot; ]
+  security_group_id ~|=| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle {
+    create_before_destroy ~|=| true
+  }
+}
+resource &quot;aws_security_group_rule&quot; &quot;my~|-|public~|-|SG~|-|Rules~|-|HTTPSegress&quot; {
+  type ~|=| &quot;egress&quot;
+  from_port ~|=| 443
+  to_port ~|=| 443
+  protocol ~|=| &quot;TCP&quot;
+  cidr_blocks ~|=| [ &quot;0.0.0.0/0&quot; ]
+  security_group_id ~|=| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle {
+    create_before_destroy ~|=| true
+  }
+}
+resource &quot;aws_security_group_rule&quot; &quot;my~|-|public~|-|SG~|-|Rules~|-|SSHingress&quot; {
+  type ~|=| &quot;ingress&quot;
+  from_port ~|=| 22
+  to_port ~|=| 22
+  protocol ~|=| &quot;TCP&quot;
+  cidr_blocks ~|=| [ &quot;~|-|~|-|~|-|.~|-|~|-|~|-|.~|-|~|-|~|-|.~|-|/32&quot; ] ~|#| your IP
+  security_group_id ~|=| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle {
+    create_before_destroy ~|=| true
+  }
+}
+resource &quot;aws_security_group_rule&quot; &quot;my~|-|public~|-|SG~|-|Rules~|-|SSHegress&quot; {
+  type ~|=| &quot;egress&quot;
+  from_port ~|=| 22
+  to_port ~|=| 22
+  protocol ~|=| &quot;TCP&quot;
+  cidr_blocks ~|=| [ &quot;~|-|~|-|~|-|.~|-|~|-|~|-|.~|-|~|-|~|-|.~|-|/32&quot; ] ~|#| your IP
+  security_group_id ~|=| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle {
+    create_before_destroy ~|=| true
+  }
+}
+
+~|#|~|#|~|#| 프라이빗 보안 그룹 규칙 ( RDS )
+resource &quot;aws_security_group_rule&quot; &quot;my~|-|private~|-|SG~|-|Rules~|-|RDSingress&quot; {
+  type ~|=| &quot;ingress&quot;
+  from_port ~|=| 3306
+  to_port ~|=| 3306
+  protocol ~|=| &quot;TCP&quot;
+  security_group_id ~|=| aws_security_group.my~|-|private~|-|SG.id
+  source_security_group_id ~|=| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle {
+    create_before_destroy ~|=| true
+  }
+}
+resource &quot;aws_security_group_rule&quot; &quot;my~|-|private~|-|SG~|-|Rules~|-|RDSegress&quot; {
+  type ~|=| &quot;egress&quot;
+  from_port ~|=| 3306
+  to_port ~|=| 3306
+  protocol ~|=| &quot;TCP&quot;
+  security_group_id ~|=| aws_security_group.my~|-|private~|-|SG.id
+  source_security_group_id ~|=| aws_security_group.my~|-|public~|-|SG.id
+  lifecycle {
+    create_before_destroy ~|=| true
+  }
+}
+
+
+
+
+
+
+
+3. DB 서브넷 그룹 생성
+
+
+  RDS 인스턴스가 사용할 VPC 서브넷 그룹을 만들어야 합니다.
+
+
+STEP 2: EC2 인스턴스 생성
+
+만들어야 하는 사양은 다음과 같습니다.
+
+  키 페어: 수동으로 만들고 EC2에 할당합니다.
+  AMI: Ubuntu Server 18
+  인스턴스 타입: t2.micro
+  사용자 데이터
+    ~|#|!/bin/bash
+echo &quot;Hello, World&quot; &amp;gt; index.html
+nohup busybox httpd ~|-|f ~|-|p ${var.server_port} &amp;amp;
+    
+  
+
+
+1. 키페어 생성
+
+
+  키 페어 할당
+    ssh~|-|keygen ~|-|t rsa ~|-|b 4069 ~|-|C {자신의 메일} ~|-|f &quot;./testPubkey&quot; ~|-|N &quot;&quot;
+    
+    디렉토리에 testPubkey 라고 명명한 키 페어 파일이 생성된다.
+  
+
+
+2. EC2 생성
+
+ec2.tf 작성
+  resource &quot;aws_key_pair&quot; &quot;ec2_key&quot; {
+    key_name ~|=| &quot;terraTest&quot;
+    public_key ~|=| file(&quot;./testPubkey.pub&quot;)
+  }
+
+퍼블릭키 지정 2가지 방법
+
+  file로 지정
+  공개키 ssh-rsa 값
+
+
+3. 인스턴스 생성
+
+https://cloud-images.ubuntu.com/locator/ec2/
+내 리전에 맞는 EC2 ami id를 찾아서 값을 대입한다.
+
+resource &quot;aws_instance&quot; &quot;test_ec2&quot; {
+  ami ~|=| &quot;ami~|-|0da3b51b79ece2d3d&quot;
+  instance_type ~|=| &quot;t2.micro&quot;
+  vpc_security_group_ids ~|=| [ 
+    aws_security_group.my~|-|public~|-|SG.id,
+   ]
+  subnet_id ~|=| aws_subnet.PublicSubnet01.id
+  key_name ~|=| aws_key_pair.ec2_key.key_name
+  root_block_device {
+    volume_size ~|=| 200
+    volume_type ~|=| &quot;gp3&quot;
+  }
+}
+
+위와 같이 작성 후 plan을 실행해본다.
+
+
+
+사용자 데이터를 넣어서 ec2.tf 파일을 완성시킨다.
+
+variable &quot;server_port&quot; {
+  description ~|=| &quot;The port number for the HTTP server&quot;
+  type        ~|=| number
+  default     ~|=| 8080
+}
+
+resource &quot;aws_key_pair&quot; &quot;ec2_key&quot; {
+  key_name   ~|=| &quot;terraTest&quot;
+  public_key ~|=| file(&quot;./testPubkey.pub&quot;)
+}
+
+resource &quot;aws_instance&quot; &quot;test_ec2&quot; {
+  ami                    ~|=| &quot;ami~|-|0da3b51b79ece2d3d&quot;
+  instance_type          ~|=| &quot;t2.micro&quot;
+  vpc_security_group_ids ~|=| [aws_security_group.my~|-|public~|-|SG.id]
+  subnet_id              ~|=| aws_subnet.PublicSubnet01.id
+  key_name               ~|=| aws_key_pair.ec2_key.key_name
+
+  root_block_device {
+    volume_size ~|=| 200
+    volume_type ~|=| &quot;gp3&quot;
+  }
+
+  user_data ~|=| ~|&amp;lt;|~|&amp;lt;|~|-|EOF
+    ~|#|!/bin/bash
+    echo &quot;Hello, World&quot; &amp;gt; index.html
+    nohup busybox httpd ~|-|f ~|-|p ${var.server_port} &amp;amp;
+  EOF
+}
+
+
+이제 terraform apply를 실행해본다.
+
+오류발생
+
+│ Error: Error launching source instance: InvalidParameterValue: The architecture 
+|'i386,x86_64' of the specified instance type does not match the architecture 'arm64' of 
+|the specified AMI. Specify an instance type and an AMI that have matching architectures,
+| and try again. You can use 'describe~|-|instance~|-|types' or 'describe~|-|images' to discover
+| the architecture of the instance type or AMI.
+│       status code: 400, request id: 48898fa9~|-|1f54~|-|4ab4~|-|b7b8~|-|81b3063cfb7e
+│ 
+│   with aws_instance.test_ec2,
+│   on ec2.tf line 12, in resource &quot;aws_instance&quot; &quot;test_ec2&quot;:
+│   12: resource &quot;aws_instance&quot; &quot;test_ec2&quot; {
+
+오류 해결
+
+
+  오류 내용 : 오류 메시지는 지정된 인스턴스 유형의 아키텍처와 사용하려는 AMI의 아키텍처 간에 불일치가 있음을 나타냅니다. 인스턴스 유형은 ‘i386’ 또는 ‘x86_64’의 아키텍처를 예상하지만 제공한 AMI의 아키텍처는 ‘arm64’입니다.
+
+
+
+  https://cloud-images.ubuntu.com/locator/ec2/ 사이트에서 내가 찾은 ami id가 arm64 기반으로 구성된 ubuntu18.04LTS라서 발생한 문제 같다.
+
+
+Ami ID를 “ami-0cb1d752d27600adb”로 바꿔줬더니 Apply가 성공했다.
+
+
+Reference
+
+https://dev.classmethod.jp/articles/build-multiple-services-with-terraform-04/
+
+STEP 3: RDS 생성
+
+RDS에 서브넷을 지정하기 위해선 1개의 서브넷만 필요하더라도 서브넷 그룹으로 지정해야합니다.
+서브넷 그룹을 작성한 후 aws_db_instance리소스를 이용하여 RDS를 생성합니다.
+
 ",
-            "wordcount": "12",
+            "wordcount": "2115",
             "inLanguage": "ko",
             "dateCreated": "2023-05-15/",
             "datePublished": "2023-05-15/",

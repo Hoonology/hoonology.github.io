@@ -3,7 +3,7 @@
   
   
     {
-      "title"    : "(Sprint) Terraform with AWS",
+      "title"    : "(Sprint) Full Stack 애플리케이션 구성",
       "tags"     : "terraform, 테라폼, and IaC",
       "categories" : "terraform",
       "url"      : "/Terraform-AWS/",
