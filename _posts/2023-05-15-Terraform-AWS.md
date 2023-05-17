@@ -134,8 +134,8 @@ EC2에 사용할 2개의 퍼블릭 서브넷과 RDS에 사용할 2개의 프라�
 ```bash
 resource "aws_subnet" "PublicSubnet01" {
   vpc_id = aws_vpc.my-vpc-0515.id
-  cidr_block = "10.0.0.0/24"
-  availability_zone = "ap-northeast-2c"
+  cidr_block = "10.0.1.0/24"
+  availability_zone = "ap-northeast-2a"
   tags = {
     Name = "public-subnet01"
   }
@@ -143,23 +143,23 @@ resource "aws_subnet" "PublicSubnet01" {
 
 resource "aws_subnet" "PublicSubnet02" {
   vpc_id = aws_vpc.my-vpc-0515.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone = "ap-northeast-2c"
+  cidr_block = "10.0.2.0/24"
+  availability_zone = "ap-northeast-2c" # b는 t2 micro 적용이 안된다.
   tags = {
     Name = "public-subnet02"
   }
 }
 resource "aws_subnet" "PrivateSubnet01" {
   vpc_id = aws_vpc.my-vpc-0515.id
-  cidr_block = "10.0.2.0/24"
-  availability_zone = "ap-northeast-2c"
+  cidr_block = "10.0.3.0/24"
+  availability_zone = "ap-northeast-2a"
   tags = {
     Name = "private-subnet01"
   }
 }
 resource "aws_subnet" "PrivateSubnet02" {
   vpc_id = aws_vpc.my-vpc-0515.id
-  cidr_block = "10.0.3.0/24"
+  cidr_block = "10.0.4.0/24"
   availability_zone = "ap-northeast-2c"
   tags = {
     Name = "private-subnet02"
@@ -517,3 +517,173 @@ https://dev.classmethod.jp/articles/build-multiple-services-with-terraform-04/
 RDS에 서브넷을 지정하기 위해선 1개의 서브넷만 필요하더라도 서브넷 그룹으로 지정해야합니다.  
 서브넷 그룹을 작성한 후 aws_db_instance리소스를 이용하여 RDS를 생성합니다.
 
+```bash
+resource "aws_db_instance" "my-rds" {
+  allocated_storage     = 20
+  engine                = "mysql"
+  engine_version        = "8.0.23"
+  instance_class        = "db.t3.micro"
+  name                  = "my-db-instance"
+  username              = "Iam_user"
+  password              = "12345678"
+
+# Storage ( 스토리지 섹션 기본 값으로 설정 )
+  # No changes, keeping the default values
+
+  # Connections
+  # No changes, keeping the default values
+
+  # Compute resource
+  # No changes, as the connection is established using depends_on
+
+  depends_on = [aws_instance.my-ec2]
+}
+```
+
+`depends_on = [aws_instance.my-ec2]`를 추가하면 RDS 인스턴스 생성이 EC2 인스턴스 생성에 따라 달라져 EC2 인스턴스가 RDS 인스턴스보다 먼저 생성되도록 합니다.
+
+### 오류 발생
+```bash
+ with aws_db_instance.my-rds,
+   on rds.tf line 1, in resource "aws_db_instance" "my-rds":
+    1: resource "aws_db_instance" "my-rds" {
+ 
+```
+### 오류 해결
+```bash
+resource "aws_db_instance" "my-rds" {
+  allocated_storage     = 20
+  engine                = "mysql"
+  engine_version        = "8.0.32"
+  instance_class        = "db.t3.micro"
+  username              = "Iam_user"
+  password              = "12345678"
+
+# Storage ( 스토리지 섹션 기본 값으로 설정 )
+  # No changes, keeping the default values
+
+  # Connections
+  # No changes, keeping the default values
+
+  # Compute resource
+  # No changes, as the connection is established using depends_on
+
+  depends_on = [aws_instance.my-ec2]
+    # Specify the subnet IDs for the RDS instance
+  db_subnet_group_name = aws_db_subnet_group.default.name
+}
+
+resource "aws_db_subnet_group" "default" {
+  name        = "default-subnet-group"
+  description = "Default subnet group for RDS"
+  subnet_ids  = [
+    aws_subnet.PrivateSubnet01.id,
+    aws_subnet.PrivateSubnet02.id,
+  ]
+  tags = {
+    Name = "DefaultSubnetGroup"
+  }
+}
+```
+
+어떻게 해결했는가
+```bash
+resource "aws_db_instance" "my-rds" {
+  allocated_storage     = 20
+  engine                = "mysql"
+  engine_version        = "8.0.23"
+  instance_class        = "db.t3.micro"
+  name                  = "my-db-instance" # 이것을 제거했다.
+  username              = "Iam_user"
+  password              = "12345678"
+```
+
+![rds](/assets/img/Terraform/rdsSuccess.png)
+
+## STEP 4: 애플리케이션 로드 밸런서 및 Auto Scaling Group 적용
+Auto Scaling Group은 최소 2개, 최대 10개로 설정해 놓습니다.
+
+![Alt text](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FvcF58%2FbtrPQylUByK%2FDnXLbuvUucsF7Juyp2KraK%2Fimg.png)
+
+작성된 주요 리소스는 다음과 같습니다.
+
+
+auto scaling이 관리하는 EC2 Instance를 alb가 자동으로 인식하여 트래픽을 부하분산합니다.
+
+![img](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcejJkj%2FbtrPQNpzO9a%2FQoy2f6N8vCkt2BtQHKq470%2Fimg.png)
+
+ALB는 외부 요청을 받는 Listener와 Target group으로 구성됩니다. 그리고 Auto Scaling group이 Target group으로 연결하면 구성이 끝납니다.
+
+![img](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fuj1XT%2FbtrPPwJvbTy%2FBCFRkpekd5pWB83C1X8g71%2Fimg.png)
+
+Auto scaling group에서 Targer group연결할때는 Load balancing과 Health checks필드를 설정
+
+
+
+AWS 콘솔 만들기를 통해 1:1로 비교해보고 코드를 작성해봅니다.
+
+```bash
+resource "aws_alb" "myALB" {
+  name = "my-alb"
+  internal = false
+  load_balancer_type = "application"
+  security_groups = [aws_security_group.my-public-SG.id]
+  subnets = [aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+  enable_cross_zone_load_balancing = true
+}
+```
+![lb](/assets/img/Terraform/LB.png)
+![lb2](/assets/img/Terraform/LB2.png)
+![lb3](/assets/img/Terraform/LB3.png)
+(사진으론 프라이빗이라고 돼있지만, 퍼블릭으로 선택해준다. )
+
+
+![sg1](/assets/img/Terraform/sg1.png)
+
+
+```bash
+# alb.tf
+resource "aws_alb" "myALB" {
+  name = "my-alb"
+  internal = false
+  load_balancer_type = "application"
+  security_groups = [aws_security_group.my-public-SG.id]
+  subnets = [aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+  enable_cross_zone_load_balancing = true
+}
+
+resource "aws_autoscaling_group" "my-ASG" {
+  name                 = "my-auto-scaling-group"
+  launch_configuration = aws_launch_configuration.my-lc.name
+  min_size             = 2
+  max_size             = 10
+  desired_capacity     = 2
+  target_group_arns    = [aws_lb_target_group.my-target-group.arn]
+  vpc_zone_identifier  = [aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+}
+
+resource "aws_lb_target_group" "my-target-group" {
+  name     = "my-target-group"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.my-vpc-0515.id
+}
+
+resource "aws_launch_configuration" "my-lc" {
+  name                 = "my-launch-configuration"
+  image_id             = "ami-0cb1d752d27600adb"
+  instance_type        = "t2.micro"
+  security_groups      = [aws_security_group.my-public-SG.id]
+  key_name             = aws_key_pair.ec2-key.key_name
+  associate_public_ip_address = true
+  user_data = <<-EOF
+    #!/bin/bash
+    echo "Hello, World" > index.html
+    nohup busybox httpd -f -p ${var.server_port} &
+  EOF
+}
+```
+
+![alb](/assets/img/Terraform/alb2.png)
+![alb](/assets/img/Terraform/alb3.png)
+![alb](/assets/img/Terraform/alb4.png)

@@ -176,7 +176,7 @@ May 15, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>11 min to read</span>
+                    <span>15 min to read</span>
                 </p>
                 <h1 class="post-title">(Sprint) Full Stack 애플리케이션 구성</h1>
                 <p class="post-subtitle">Terraform</p>
@@ -330,8 +330,8 @@ resource <span class="s2">"aws_vpc"</span> <span class="s2">"my~|-|vpc~|-|0515"<
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_subnet"</span> <span class="s2">"PublicSubnet01"</span> <span class="o">{</span>
   vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
-  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.0.0/24"</span>
-  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span>
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.1.0/24"</span>
+  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2a"</span>
   tags ~|<span class="o">=</span>| <span class="o">{</span>
     Name ~|<span class="o">=</span>| <span class="s2">"public~|-|subnet01"</span>
   <span class="o">}</span>
@@ -339,23 +339,23 @@ resource <span class="s2">"aws_vpc"</span> <span class="s2">"my~|-|vpc~|-|0515"<
 
 resource <span class="s2">"aws_subnet"</span> <span class="s2">"PublicSubnet02"</span> <span class="o">{</span>
   vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
-  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.1.0/24"</span>
-  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span>
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.2.0/24"</span>
+  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span> ~|#| b는 t2 micro 적용이 안된다.
   tags ~|<span class="o">=</span>| <span class="o">{</span>
     Name ~|<span class="o">=</span>| <span class="s2">"public~|-|subnet02"</span>
   <span class="o">}</span>
 <span class="o">}</span>
 resource <span class="s2">"aws_subnet"</span> <span class="s2">"PrivateSubnet01"</span> <span class="o">{</span>
   vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
-  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.2.0/24"</span>
-  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span>
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.3.0/24"</span>
+  availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2a"</span>
   tags ~|<span class="o">=</span>| <span class="o">{</span>
     Name ~|<span class="o">=</span>| <span class="s2">"private~|-|subnet01"</span>
   <span class="o">}</span>
 <span class="o">}</span>
 resource <span class="s2">"aws_subnet"</span> <span class="s2">"PrivateSubnet02"</span> <span class="o">{</span>
   vpc_id ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
-  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.3.0/24"</span>
+  cidr_block ~|<span class="o">=</span>| <span class="s2">"10.0.4.0/24"</span>
   availability_zone ~|<span class="o">=</span>| <span class="s2">"ap~|-|northeast~|-|2c"</span>
   tags ~|<span class="o">=</span>| <span class="o">{</span>
     Name ~|<span class="o">=</span>| <span class="s2">"private~|-|subnet02"</span>
@@ -701,6 +701,168 @@ resource <span class="s2">"aws_instance"</span> <span class="s2">"test_ec2"</spa
 <p>RDS에 서브넷을 지정하기 위해선 1개의 서브넷만 필요하더라도 서브넷 그룹으로 지정해야합니다.<br />
 서브넷 그룹을 작성한 후 aws_db_instance리소스를 이용하여 RDS를 생성합니다.</p>
 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_db_instance"</span> <span class="s2">"my~|-|rds"</span> <span class="o">{</span>
+  allocated_storage     ~|<span class="o">=</span>| 20
+  engine                ~|<span class="o">=</span>| <span class="s2">"mysql"</span>
+  engine_version        ~|<span class="o">=</span>| <span class="s2">"8.0.23"</span>
+  instance_class        ~|<span class="o">=</span>| <span class="s2">"db.t3.micro"</span>
+  name                  ~|<span class="o">=</span>| <span class="s2">"my~|-|db~|-|instance"</span>
+  username              ~|<span class="o">=</span>| <span class="s2">"Iam_user"</span>
+  password              ~|<span class="o">=</span>| <span class="s2">"12345678"</span>
+
+~|#| Storage <span class="o">(</span> 스토리지 섹션 기본 값으로 설정 <span class="o">)</span>
+  ~|#| No changes, keeping the default values
+
+  ~|#| Connections
+  ~|#| No changes, keeping the default values
+
+  ~|#| Compute resource
+  ~|#| No changes, as the connection is established using depends_on
+
+  depends_on ~|<span class="o">=</span>| <span class="o">[</span>aws_instance.my~|-|ec2]
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">depends_on = [aws_instance.my-ec2]</code>를 추가하면 RDS 인스턴스 생성이 EC2 인스턴스 생성에 따라 달라져 EC2 인스턴스가 RDS 인스턴스보다 먼저 생성되도록 합니다.</p>
+
+<h3 id="오류-발생">오류 발생</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> with aws_db_instance.my~|-|rds,
+   on rds.tf line 1, <span class="k">in </span>resource <span class="s2">"aws_db_instance"</span> <span class="s2">"my~|-|rds"</span>:
+    1: resource <span class="s2">"aws_db_instance"</span> <span class="s2">"my~|-|rds"</span> <span class="o">{</span>
+ 
+</code></pre></div></div>
+<h3 id="오류-해결-1">오류 해결</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_db_instance"</span> <span class="s2">"my~|-|rds"</span> <span class="o">{</span>
+  allocated_storage     ~|<span class="o">=</span>| 20
+  engine                ~|<span class="o">=</span>| <span class="s2">"mysql"</span>
+  engine_version        ~|<span class="o">=</span>| <span class="s2">"8.0.32"</span>
+  instance_class        ~|<span class="o">=</span>| <span class="s2">"db.t3.micro"</span>
+  username              ~|<span class="o">=</span>| <span class="s2">"Iam_user"</span>
+  password              ~|<span class="o">=</span>| <span class="s2">"12345678"</span>
+
+~|#| Storage <span class="o">(</span> 스토리지 섹션 기본 값으로 설정 <span class="o">)</span>
+  ~|#| No changes, keeping the default values
+
+  ~|#| Connections
+  ~|#| No changes, keeping the default values
+
+  ~|#| Compute resource
+  ~|#| No changes, as the connection is established using depends_on
+
+  depends_on ~|<span class="o">=</span>| <span class="o">[</span>aws_instance.my~|-|ec2]
+    ~|#| Specify the subnet IDs <span class="k">for </span>the RDS instance
+  db_subnet_group_name ~|<span class="o">=</span>| aws_db_subnet_group.default.name
+<span class="o">}</span>
+
+resource <span class="s2">"aws_db_subnet_group"</span> <span class="s2">"default"</span> <span class="o">{</span>
+  name        ~|<span class="o">=</span>| <span class="s2">"default~|-|subnet~|-|group"</span>
+  description ~|<span class="o">=</span>| <span class="s2">"Default subnet group for RDS"</span>
+  subnet_ids  ~|<span class="o">=</span>| <span class="o">[</span>
+    aws_subnet.PrivateSubnet01.id,
+    aws_subnet.PrivateSubnet02.id,
+  <span class="o">]</span>
+  tags ~|<span class="o">=</span>| <span class="o">{</span>
+    Name ~|<span class="o">=</span>| <span class="s2">"DefaultSubnetGroup"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>어떻게 해결했는가</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_db_instance"</span> <span class="s2">"my~|-|rds"</span> <span class="o">{</span>
+  allocated_storage     ~|<span class="o">=</span>| 20
+  engine                ~|<span class="o">=</span>| <span class="s2">"mysql"</span>
+  engine_version        ~|<span class="o">=</span>| <span class="s2">"8.0.23"</span>
+  instance_class        ~|<span class="o">=</span>| <span class="s2">"db.t3.micro"</span>
+  name                  ~|<span class="o">=</span>| <span class="s2">"my~|-|db~|-|instance"</span> ~|#| 이것을 제거했다.
+  username              ~|<span class="o">=</span>| <span class="s2">"Iam_user"</span>
+  password              ~|<span class="o">=</span>| <span class="s2">"12345678"</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/Terraform/rdsSuccess.png" alt="rds" /></p>
+
+<h2 id="step-4-애플리케이션-로드-밸런서-및-auto-scaling-group-적용">STEP 4: 애플리케이션 로드 밸런서 및 Auto Scaling Group 적용</h2>
+
+<p>Auto Scaling Group은 최소 2개, 최대 10개로 설정해 놓습니다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FvcF58%2FbtrPQylUByK%2FDnXLbuvUucsF7Juyp2KraK%2Fimg.png" alt="Alt text" /></p>
+
+<p>작성된 주요 리소스는 다음과 같습니다.</p>
+
+<p>auto scaling이 관리하는 EC2 Instance를 alb가 자동으로 인식하여 트래픽을 부하분산합니다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcejJkj%2FbtrPQNpzO9a%2FQoy2f6N8vCkt2BtQHKq470%2Fimg.png" alt="img" /></p>
+
+<p>ALB는 외부 요청을 받는 Listener와 Target group으로 구성됩니다. 그리고 Auto Scaling group이 Target group으로 연결하면 구성이 끝납니다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fuj1XT%2FbtrPPwJvbTy%2FBCFRkpekd5pWB83C1X8g71%2Fimg.png" alt="img" /></p>
+
+<p>Auto scaling group에서 Targer group연결할때는 Load balancing과 Health checks필드를 설정</p>
+
+<p>AWS 콘솔 만들기를 통해 1:1로 비교해보고 코드를 작성해봅니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_alb"</span> <span class="s2">"myALB"</span> <span class="o">{</span>
+  name ~|<span class="o">=</span>| <span class="s2">"my~|-|alb"</span>
+  internal ~|<span class="o">=</span>| <span class="nb">false
+  </span>load_balancer_type ~|<span class="o">=</span>| <span class="s2">"application"</span>
+  security_groups ~|<span class="o">=</span>| <span class="o">[</span>aws_security_group.my~|-|public~|-|SG.id]
+  subnets ~|<span class="o">=</span>| <span class="o">[</span>aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+  enable_cross_zone_load_balancing ~|<span class="o">=</span>| <span class="nb">true</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><img src="/assets/img/Terraform/LB.png" alt="lb" />
+<img src="/assets/img/Terraform/LB2.png" alt="lb2" />
+<img src="/assets/img/Terraform/LB3.png" alt="lb3" />
+(사진으론 프라이빗이라고 돼있지만, 퍼블릭으로 선택해준다. )</p>
+
+<p><img src="/assets/img/Terraform/sg1.png" alt="sg1" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| alb.tf
+resource <span class="s2">"aws_alb"</span> <span class="s2">"myALB"</span> <span class="o">{</span>
+  name ~|<span class="o">=</span>| <span class="s2">"my~|-|alb"</span>
+  internal ~|<span class="o">=</span>| <span class="nb">false
+  </span>load_balancer_type ~|<span class="o">=</span>| <span class="s2">"application"</span>
+  security_groups ~|<span class="o">=</span>| <span class="o">[</span>aws_security_group.my~|-|public~|-|SG.id]
+  subnets ~|<span class="o">=</span>| <span class="o">[</span>aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+  enable_cross_zone_load_balancing ~|<span class="o">=</span>| <span class="nb">true</span>
+<span class="o">}</span>
+
+resource <span class="s2">"aws_autoscaling_group"</span> <span class="s2">"my~|-|ASG"</span> <span class="o">{</span>
+  name                 ~|<span class="o">=</span>| <span class="s2">"my~|-|auto~|-|scaling~|-|group"</span>
+  launch_configuration ~|<span class="o">=</span>| aws_launch_configuration.my~|-|lc.name
+  min_size             ~|<span class="o">=</span>| 2
+  max_size             ~|<span class="o">=</span>| 10
+  desired_capacity     ~|<span class="o">=</span>| 2
+  target_group_arns    ~|<span class="o">=</span>| <span class="o">[</span>aws_lb_target_group.my~|-|target~|-|group.arn]
+  vpc_zone_identifier  ~|<span class="o">=</span>| <span class="o">[</span>aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+<span class="o">}</span>
+
+resource <span class="s2">"aws_lb_target_group"</span> <span class="s2">"my~|-|target~|-|group"</span> <span class="o">{</span>
+  name     ~|<span class="o">=</span>| <span class="s2">"my~|-|target~|-|group"</span>
+  port     ~|<span class="o">=</span>| 80
+  protocol ~|<span class="o">=</span>| <span class="s2">"HTTP"</span>
+  vpc_id   ~|<span class="o">=</span>| aws_vpc.my~|-|vpc~|-|0515.id
+<span class="o">}</span>
+
+resource <span class="s2">"aws_launch_configuration"</span> <span class="s2">"my~|-|lc"</span> <span class="o">{</span>
+  name                 ~|<span class="o">=</span>| <span class="s2">"my~|-|launch~|-|configuration"</span>
+  image_id             ~|<span class="o">=</span>| <span class="s2">"ami~|-|0cb1d752d27600adb"</span>
+  instance_type        ~|<span class="o">=</span>| <span class="s2">"t2.micro"</span>
+  security_groups      ~|<span class="o">=</span>| <span class="o">[</span>aws_security_group.my~|-|public~|-|SG.id]
+  key_name             ~|<span class="o">=</span>| aws_key_pair.ec2~|-|key.key_name
+  associate_public_ip_address ~|<span class="o">=</span>| <span class="nb">true
+  </span>user_data ~|<span class="o">=</span>| ~|&lt;|~|&lt;|~|-|EOF
+    ~|#|!/bin/bash
+    <span class="nb">echo</span> <span class="s2">"Hello, World"</span> <span class="o">&gt;</span> index.html
+    <span class="nb">nohup </span>busybox httpd ~|-|f ~|-|p <span class="k">${</span><span class="nv">var</span><span class="p">.server_port</span><span class="k">}</span> &amp;
+  EOF
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/Terraform/alb2.png" alt="alb" />
+<img src="/assets/img/Terraform/alb3.png" alt="alb" />
+<img src="/assets/img/Terraform/alb4.png" alt="alb" /></p>
 
 
                 <!-- Pagination links -->
@@ -716,29 +878,29 @@ resource <span class="s2">"aws_instance"</span> <span class="s2">"test_ec2"</spa
                         
                         
                             <li>
-                                <a href="/Docker/">
+                                <a href="/CI%EB%8F%84%EA%B5%AC2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
                                     
-                                    <h3>Docker</h3>
+                                    <h3>CI/CD - 빌드와 언어별 빌드 도구</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/">
+                                <a href="/%EB%B0%B0%ED%8F%AC%EC%9E%90%EB%8F%99%ED%99%94/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>(Sprint) 환경 변수 설정</h3>
+                                    <h3>배포자동화</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Docker-CLI-Part1/">
+                                <a href="/MileStone2/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker CLI</h3>
+                                    <h3>Milestone 1</h3>
                                 </a>
                             </li>
                         
@@ -750,7 +912,7 @@ resource <span class="s2">"aws_instance"</span> <span class="s2">"test_ec2"</spa
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="11">
+            <div class="time-bar" data-minutes="15">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -1106,8 +1268,8 @@ EC2에 사용할 2개의 퍼블릭 서브넷과 RDS에 사용할 2개의 프라�
 
 resource &quot;aws_subnet&quot; &quot;PublicSubnet01&quot; {
   vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
-  cidr_block ~|=| &quot;10.0.0.0/24&quot;
-  availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot;
+  cidr_block ~|=| &quot;10.0.1.0/24&quot;
+  availability_zone ~|=| &quot;ap~|-|northeast~|-|2a&quot;
   tags ~|=| {
     Name ~|=| &quot;public~|-|subnet01&quot;
   }
@@ -1115,23 +1277,23 @@ resource &quot;aws_subnet&quot; &quot;PublicSubnet01&quot; {
 
 resource &quot;aws_subnet&quot; &quot;PublicSubnet02&quot; {
   vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
-  cidr_block ~|=| &quot;10.0.1.0/24&quot;
-  availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot;
+  cidr_block ~|=| &quot;10.0.2.0/24&quot;
+  availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot; ~|#| b는 t2 micro 적용이 안된다.
   tags ~|=| {
     Name ~|=| &quot;public~|-|subnet02&quot;
   }
 }
 resource &quot;aws_subnet&quot; &quot;PrivateSubnet01&quot; {
   vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
-  cidr_block ~|=| &quot;10.0.2.0/24&quot;
-  availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot;
+  cidr_block ~|=| &quot;10.0.3.0/24&quot;
+  availability_zone ~|=| &quot;ap~|-|northeast~|-|2a&quot;
   tags ~|=| {
     Name ~|=| &quot;private~|-|subnet01&quot;
   }
 }
 resource &quot;aws_subnet&quot; &quot;PrivateSubnet02&quot; {
   vpc_id ~|=| aws_vpc.my~|-|vpc~|-|0515.id
-  cidr_block ~|=| &quot;10.0.3.0/24&quot;
+  cidr_block ~|=| &quot;10.0.4.0/24&quot;
   availability_zone ~|=| &quot;ap~|-|northeast~|-|2c&quot;
   tags ~|=| {
     Name ~|=| &quot;private~|-|subnet02&quot;
@@ -1477,8 +1639,170 @@ STEP 3: RDS 생성
 RDS에 서브넷을 지정하기 위해선 1개의 서브넷만 필요하더라도 서브넷 그룹으로 지정해야합니다.
 서브넷 그룹을 작성한 후 aws_db_instance리소스를 이용하여 RDS를 생성합니다.
 
+resource &quot;aws_db_instance&quot; &quot;my~|-|rds&quot; {
+  allocated_storage     ~|=| 20
+  engine                ~|=| &quot;mysql&quot;
+  engine_version        ~|=| &quot;8.0.23&quot;
+  instance_class        ~|=| &quot;db.t3.micro&quot;
+  name                  ~|=| &quot;my~|-|db~|-|instance&quot;
+  username              ~|=| &quot;Iam_user&quot;
+  password              ~|=| &quot;12345678&quot;
+
+~|#| Storage ( 스토리지 섹션 기본 값으로 설정 )
+  ~|#| No changes, keeping the default values
+
+  ~|#| Connections
+  ~|#| No changes, keeping the default values
+
+  ~|#| Compute resource
+  ~|#| No changes, as the connection is established using depends_on
+
+  depends_on ~|=| [aws_instance.my~|-|ec2]
+}
+
+
+depends_on = [aws_instance.my-ec2]를 추가하면 RDS 인스턴스 생성이 EC2 인스턴스 생성에 따라 달라져 EC2 인스턴스가 RDS 인스턴스보다 먼저 생성되도록 합니다.
+
+오류 발생
+
+ with aws_db_instance.my~|-|rds,
+   on rds.tf line 1, in resource &quot;aws_db_instance&quot; &quot;my~|-|rds&quot;:
+    1: resource &quot;aws_db_instance&quot; &quot;my~|-|rds&quot; {
+ 
+
+오류 해결
+
+resource &quot;aws_db_instance&quot; &quot;my~|-|rds&quot; {
+  allocated_storage     ~|=| 20
+  engine                ~|=| &quot;mysql&quot;
+  engine_version        ~|=| &quot;8.0.32&quot;
+  instance_class        ~|=| &quot;db.t3.micro&quot;
+  username              ~|=| &quot;Iam_user&quot;
+  password              ~|=| &quot;12345678&quot;
+
+~|#| Storage ( 스토리지 섹션 기본 값으로 설정 )
+  ~|#| No changes, keeping the default values
+
+  ~|#| Connections
+  ~|#| No changes, keeping the default values
+
+  ~|#| Compute resource
+  ~|#| No changes, as the connection is established using depends_on
+
+  depends_on ~|=| [aws_instance.my~|-|ec2]
+    ~|#| Specify the subnet IDs for the RDS instance
+  db_subnet_group_name ~|=| aws_db_subnet_group.default.name
+}
+
+resource &quot;aws_db_subnet_group&quot; &quot;default&quot; {
+  name        ~|=| &quot;default~|-|subnet~|-|group&quot;
+  description ~|=| &quot;Default subnet group for RDS&quot;
+  subnet_ids  ~|=| [
+    aws_subnet.PrivateSubnet01.id,
+    aws_subnet.PrivateSubnet02.id,
+  ]
+  tags ~|=| {
+    Name ~|=| &quot;DefaultSubnetGroup&quot;
+  }
+}
+
+
+어떻게 해결했는가
+resource &quot;aws_db_instance&quot; &quot;my~|-|rds&quot; {
+  allocated_storage     ~|=| 20
+  engine                ~|=| &quot;mysql&quot;
+  engine_version        ~|=| &quot;8.0.23&quot;
+  instance_class        ~|=| &quot;db.t3.micro&quot;
+  name                  ~|=| &quot;my~|-|db~|-|instance&quot; ~|#| 이것을 제거했다.
+  username              ~|=| &quot;Iam_user&quot;
+  password              ~|=| &quot;12345678&quot;
+
+
+
+
+STEP 4: 애플리케이션 로드 밸런서 및 Auto Scaling Group 적용
+
+Auto Scaling Group은 최소 2개, 최대 10개로 설정해 놓습니다.
+
+
+
+작성된 주요 리소스는 다음과 같습니다.
+
+auto scaling이 관리하는 EC2 Instance를 alb가 자동으로 인식하여 트래픽을 부하분산합니다.
+
+
+
+ALB는 외부 요청을 받는 Listener와 Target group으로 구성됩니다. 그리고 Auto Scaling group이 Target group으로 연결하면 구성이 끝납니다.
+
+
+
+Auto scaling group에서 Targer group연결할때는 Load balancing과 Health checks필드를 설정
+
+AWS 콘솔 만들기를 통해 1:1로 비교해보고 코드를 작성해봅니다.
+
+resource &quot;aws_alb&quot; &quot;myALB&quot; {
+  name ~|=| &quot;my~|-|alb&quot;
+  internal ~|=| false
+  load_balancer_type ~|=| &quot;application&quot;
+  security_groups ~|=| [aws_security_group.my~|-|public~|-|SG.id]
+  subnets ~|=| [aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+  enable_cross_zone_load_balancing ~|=| true
+}
+
+
+
+
+(사진으론 프라이빗이라고 돼있지만, 퍼블릭으로 선택해준다. )
+
+
+
+~|#| alb.tf
+resource &quot;aws_alb&quot; &quot;myALB&quot; {
+  name ~|=| &quot;my~|-|alb&quot;
+  internal ~|=| false
+  load_balancer_type ~|=| &quot;application&quot;
+  security_groups ~|=| [aws_security_group.my~|-|public~|-|SG.id]
+  subnets ~|=| [aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+  enable_cross_zone_load_balancing ~|=| true
+}
+
+resource &quot;aws_autoscaling_group&quot; &quot;my~|-|ASG&quot; {
+  name                 ~|=| &quot;my~|-|auto~|-|scaling~|-|group&quot;
+  launch_configuration ~|=| aws_launch_configuration.my~|-|lc.name
+  min_size             ~|=| 2
+  max_size             ~|=| 10
+  desired_capacity     ~|=| 2
+  target_group_arns    ~|=| [aws_lb_target_group.my~|-|target~|-|group.arn]
+  vpc_zone_identifier  ~|=| [aws_subnet.PublicSubnet01.id, aws_subnet.PublicSubnet02.id]
+}
+
+resource &quot;aws_lb_target_group&quot; &quot;my~|-|target~|-|group&quot; {
+  name     ~|=| &quot;my~|-|target~|-|group&quot;
+  port     ~|=| 80
+  protocol ~|=| &quot;HTTP&quot;
+  vpc_id   ~|=| aws_vpc.my~|-|vpc~|-|0515.id
+}
+
+resource &quot;aws_launch_configuration&quot; &quot;my~|-|lc&quot; {
+  name                 ~|=| &quot;my~|-|launch~|-|configuration&quot;
+  image_id             ~|=| &quot;ami~|-|0cb1d752d27600adb&quot;
+  instance_type        ~|=| &quot;t2.micro&quot;
+  security_groups      ~|=| [aws_security_group.my~|-|public~|-|SG.id]
+  key_name             ~|=| aws_key_pair.ec2~|-|key.key_name
+  associate_public_ip_address ~|=| true
+  user_data ~|=| ~|&amp;lt;|~|&amp;lt;|~|-|EOF
+    ~|#|!/bin/bash
+    echo &quot;Hello, World&quot; &amp;gt; index.html
+    nohup busybox httpd ~|-|f ~|-|p ${var.server_port} &amp;amp;
+  EOF
+}
+
+
+
+
+
 ",
-            "wordcount": "2115",
+            "wordcount": "2810",
             "inLanguage": "ko",
             "dateCreated": "2023-05-15/",
             "datePublished": "2023-05-15/",
