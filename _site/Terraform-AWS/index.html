@@ -176,7 +176,7 @@ May 15, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>15 min to read</span>
+                    <span>16 min to read</span>
                 </p>
                 <h1 class="post-title">(Sprint) Full Stack 애플리케이션 구성</h1>
                 <p class="post-subtitle">Terraform</p>
@@ -864,6 +864,41 @@ resource <span class="s2">"aws_launch_configuration"</span> <span class="s2">"my
 <img src="/assets/img/Terraform/alb3.png" alt="alb" />
 <img src="/assets/img/Terraform/alb4.png" alt="alb" /></p>
 
+<h3 id="오류-발생-1">오류 발생</h3>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">terraform destroy</code>를 통해 싸-악 날려버리면 그만인데, 오류 발생 ( 오히려 좋아 )</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>╷
+│ Error: final_snapshot_identifier is required when skip_final_snapshot is <span class="nb">false</span>
+│ 
+</code></pre></div></div>
+
+<h3 id="오류-해결-2">오류 해결</h3>
+
+<p>리소스를 제거하는 과정에서 최종 스냅샷과 관련된 문제가 있는 것으로 보입니다. 오류는 <code class="language-plaintext highlighter-rouge">skip_final_snapshot</code> 옵션이 <code class="language-plaintext highlighter-rouge">false</code>로 설정된 경우 최종 스냅샷 식별자가 필요하다고 나와 있습니다.</p>
+
+<p>이 오류를 해결하기 위해서는 Terraform 구성에서 <code class="language-plaintext highlighter-rouge">RDS 인스턴스 리소스 (aws_db_instance.my-rds)</code>에 <code class="language-plaintext highlighter-rouge">final_snapshot_identifier</code> 인자를 명시해야 합니다. 이 인자는 RDS 인스턴스가 제거되기 전에 생성될 최종 스냅샷의 이름을 결정합니다.</p>
+
+<p>다음은 RDS 인스턴스 리소스를 업데이트하여 final_snapshot_identifier 인자를 포함하는 예시(<strong>최종 스냅샷을 생성하는 방법</strong>)입니다:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_db_instance"</span> <span class="s2">"my~|-|rds"</span> <span class="o">{</span>
+  // 다른 구성 옵션
+
+  final_snapshot_identifier ~|<span class="o">=</span>| <span class="s2">"my~|-|rds~|-|final~|-|snapshot"</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>이후에 terraform apply를 실행하여 변경 사항을 적용하세요.</p>
+
+<p>혹은 aws_db_instance.my-rds 리소스에 skip_final_snapshot 옵션을 true로 설정하여 스냅샷을 건너뛸 수 있습니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource <span class="s2">"aws_db_instance"</span> <span class="s2">"my~|-|rds"</span> <span class="o">{</span>
+  // 다른 구성 옵션
+  
+   skip_final_snapshot ~|<span class="o">=</span>| <span class="nb">true</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>이후에 terraform apply를 실행하여 변경 사항을 적용하세요.</p>
+
 
                 <!-- Pagination links -->
 
@@ -878,29 +913,29 @@ resource <span class="s2">"aws_launch_configuration"</span> <span class="s2">"my
                         
                         
                             <li>
-                                <a href="/CI%EB%8F%84%EA%B5%AC2/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
-                                    
-                                    <h3>CI/CD - 빌드와 언어별 빌드 도구</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/%EB%B0%B0%ED%8F%AC%EC%9E%90%EB%8F%99%ED%99%94/">
+                                <a href="/(Sprint)%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EB%B0%B0%ED%8F%AC-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>배포자동화</h3>
+                                    <h3>(Sprint)클라이언트 배포 파이프라인</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/MileStone2/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-EC2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>Milestone 1</h3>
+                                    <h3>AWS 서비스 - EC2</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/%EC%A7%80%EC%86%8D%EC%A0%81-%ED%86%B5%ED%95%A9/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                    
+                                    <h3>CI/CD - 지속적 통합( CI )</h3>
                                 </a>
                             </li>
                         
@@ -912,7 +947,7 @@ resource <span class="s2">"aws_launch_configuration"</span> <span class="s2">"my
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="15">
+            <div class="time-bar" data-minutes="16">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -1801,8 +1836,43 @@ resource &quot;aws_launch_configuration&quot; &quot;my~|-|lc&quot; {
 
 
 
+
+오류 발생
+
+이제 terraform destroy를 통해 싸-악 날려버리면 그만인데, 오류 발생 ( 오히려 좋아 )
+
+╷
+│ Error: final_snapshot_identifier is required when skip_final_snapshot is false
+│ 
+
+
+오류 해결
+
+리소스를 제거하는 과정에서 최종 스냅샷과 관련된 문제가 있는 것으로 보입니다. 오류는 skip_final_snapshot 옵션이 false로 설정된 경우 최종 스냅샷 식별자가 필요하다고 나와 있습니다.
+
+이 오류를 해결하기 위해서는 Terraform 구성에서 RDS 인스턴스 리소스 (aws_db_instance.my-rds)에 final_snapshot_identifier 인자를 명시해야 합니다. 이 인자는 RDS 인스턴스가 제거되기 전에 생성될 최종 스냅샷의 이름을 결정합니다.
+
+다음은 RDS 인스턴스 리소스를 업데이트하여 final_snapshot_identifier 인자를 포함하는 예시(최종 스냅샷을 생성하는 방법)입니다:
+
+resource &quot;aws_db_instance&quot; &quot;my~|-|rds&quot; {
+  // 다른 구성 옵션
+
+  final_snapshot_identifier ~|=| &quot;my~|-|rds~|-|final~|-|snapshot&quot;
+}
+
+이후에 terraform apply를 실행하여 변경 사항을 적용하세요.
+
+혹은 aws_db_instance.my-rds 리소스에 skip_final_snapshot 옵션을 true로 설정하여 스냅샷을 건너뛸 수 있습니다.
+
+resource &quot;aws_db_instance&quot; &quot;my~|-|rds&quot; {
+  // 다른 구성 옵션
+  
+   skip_final_snapshot ~|=| true
+}
+
+이후에 terraform apply를 실행하여 변경 사항을 적용하세요.
 ",
-            "wordcount": "2810",
+            "wordcount": "2986",
             "inLanguage": "ko",
             "dateCreated": "2023-05-15/",
             "datePublished": "2023-05-15/",

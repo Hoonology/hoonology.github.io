@@ -687,3 +687,46 @@ resource "aws_launch_configuration" "my-lc" {
 ![alb](/assets/img/Terraform/alb2.png)
 ![alb](/assets/img/Terraform/alb3.png)
 ![alb](/assets/img/Terraform/alb4.png)
+
+### 오류 발생
+이제 `terraform destroy`를 통해 싸-악 날려버리면 그만인데, 오류 발생 ( 오히려 좋아 )
+
+```bash
+╷
+│ Error: final_snapshot_identifier is required when skip_final_snapshot is false
+│ 
+```
+
+### 오류 해결
+리소스를 제거하는 과정에서 최종 스냅샷과 관련된 문제가 있는 것으로 보입니다. 오류는 `skip_final_snapshot` 옵션이 `false`로 설정된 경우 최종 스냅샷 식별자가 필요하다고 나와 있습니다.
+
+이 오류를 해결하기 위해서는 Terraform 구성에서 `RDS 인스턴스 리소스 (aws_db_instance.my-rds)`에 `final_snapshot_identifier` 인자를 명시해야 합니다. 이 인자는 RDS 인스턴스가 제거되기 전에 생성될 최종 스냅샷의 이름을 결정합니다. 
+
+
+
+
+
+다음은 RDS 인스턴스 리소스를 업데이트하여 final_snapshot_identifier 인자를 포함하는 예시(**최종 스냅샷을 생성하는 방법**)입니다:
+
+
+
+```bash
+resource "aws_db_instance" "my-rds" {
+  // 다른 구성 옵션
+
+  final_snapshot_identifier = "my-rds-final-snapshot"
+}
+```
+이후에 terraform apply를 실행하여 변경 사항을 적용하세요.
+
+
+혹은 aws_db_instance.my-rds 리소스에 skip_final_snapshot 옵션을 true로 설정하여 스냅샷을 건너뛸 수 있습니다. 
+
+```bash
+resource "aws_db_instance" "my-rds" {
+  // 다른 구성 옵션
+  
+   skip_final_snapshot = true
+}
+```
+이후에 terraform apply를 실행하여 변경 사항을 적용하세요.
