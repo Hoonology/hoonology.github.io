@@ -174,6 +174,8 @@ spec:
 파드의 복제본을 자동으로 업데이트하게 해주는 명세이므로, 쿠버네티스에서 지원하는 배포 전략은 
 > 재생성(Recreate)과 롤링 배포(RollingUpdate)
 
+
+
 ## 디플로이먼트 실습
 
 ```bash
@@ -446,6 +448,7 @@ Kubernetes의 네 가지 서비스 유형인 `ClusterIP`, `NodePort`, `LoadBalan
 
 #### 4. ExternalName :
 
+쿠버네티스를 사용하지 않겠다 : headless를 쓰면 됨
 
 - ExternalName 서비스 유형을 사용하면 **외부 서비스를 DNS 이름에 매핑**하여 별칭을 제공할 수 있습니다.
 - 클러스터 내에서 서비스를 생성하는 대신 단순히 외부 서비스의 DNS 이름을 가리키는 **DNS CNAME** 레코드 역할을 합니다.
