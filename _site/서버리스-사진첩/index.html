@@ -394,11 +394,11 @@ May 10, 2023
                         
                         
                             <li>
-                                <a href="/Terraform/">
+                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
-                                    <h3>Terraform</h3>
+                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
                                 </a>
                             </li>
                         
@@ -412,11 +412,11 @@ May 10, 2023
                             </li>
                         
                             <li>
-                                <a href="/CI_CD_%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/">
+                                <a href="/(Sprint)%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EB%B0%B0%ED%8F%AC-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>CI/CD 파이프라인_지속적 배포</h3>
+                                    <h3>(Sprint)클라이언트 배포 파이프라인</h3>
                                 </a>
                             </li>
                         
@@ -684,7 +684,7 @@ exports.helloFromLambdaHandler ~|=| async (event, context) ~|=|&amp;gt; {
 
     console.log(context)
 
-    return 'Hello from Lambda!';
+    return &apos;Hello from Lambda!&apos;;
 }
 
 3. 빌드 후 배포합니다.
@@ -747,7 +747,7 @@ exports.helloFromLambdaHandler ~|=| async (event, context) ~|=|&amp;gt; {
 
     console.log(context)
 
-    return 'Hello from Lambda!';
+    return &apos;Hello from Lambda!&apos;;
 
 위와 같이 구성된 코드를 아래 요구 사항에 맞게 작성한다.
 
@@ -760,8 +760,8 @@ exports.helloFromLambdaHandler ~|=| async (event, context) ~|=|&amp;gt; {
   
 
 
-const AWS ~|=| require('aws~|-|sdk');
-const sharp ~|=| require('sharp');
+const AWS ~|=| require(&apos;aws~|-|sdk&apos;);
+const sharp ~|=| require(&apos;sharp&apos;);
 
 const s3 ~|=| new AWS.S3({
   accessKeyId: process.env.accessKeyId,
@@ -771,7 +771,7 @@ AWS.config.update({ region: process.env.REGION });
 
 exports.helloFromLambdaHandler ~|=| async (event, context) ~|=|&amp;gt; {
   const bucket ~|=| event.Records[0].s3.bucket.name;
-  const key ~|=| decodeURIComponent(event.Records[0].s3.object.key.replace(//g, ' '));
+  const key ~|=| decodeURIComponent(event.Records[0].s3.object.key.replace(//g, &apos; &apos;));
 
 // 원본 버킷으로부터 파일 읽기
   const s3Object ~|=| await s3.getObject({
@@ -787,19 +787,19 @@ exports.helloFromLambdaHandler ~|=| async (event, context) ~|=|&amp;gt; {
 
 // 대상 버킷으로 파일 쓰기
   const targetBucketName ~|=| process.env.THUMBNAIL_BUCKET_NAME;
-  const targetKey ~|=| `${key.split('.')[0]}~|-|thumbnail.jpg`;
+  const targetKey ~|=| `${key.split(&apos;.&apos;)[0]}~|-|thumbnail.jpg`;
 
   const result ~|=| await s3.putObject({
     Bucket: targetBucketName,
     Key: targetKey,
-    ContentType: 'image/jpeg',
+    ContentType: &apos;image/jpeg&apos;,
     Body: data,
-    ACL: 'public~|-|read'
+    ACL: &apos;public~|-|read&apos;
   }).promise();
 
   console.log(`Resized image ${key} and uploaded to ${targetBucketName}/${targetKey}`);
 
-  return 'Successfully processed image.';
+  return &apos;Successfully processed image.&apos;;
 };
 
 

@@ -3,6 +3,22 @@
   
   
     {
+      "title"    : "Kubernetes Workload",
+      "tags"     : "kubernetes, k8s, 오케스트레이션, and orchestrate",
+      "categories" : "k8s",
+      "url"      : "/k8s-Workload/",
+      "date"     : "05/18/2023"
+    } ,
+  
+    {
+      "title"    : "Kubernetes( k8s )",
+      "tags"     : "kubernetes, k8s, 오케스트레이션, and orchestrate",
+      "categories" : "k8s",
+      "url"      : "/k8s/",
+      "date"     : "05/17/2023"
+    } ,
+  
+    {
       "title"    : "(Sprint) Full Stack 애플리케이션 구성",
       "tags"     : "terraform, 테라폼, and IaC",
       "categories" : "terraform",
