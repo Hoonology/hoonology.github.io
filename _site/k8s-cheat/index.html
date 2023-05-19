@@ -17,28 +17,28 @@
     
     
 
-    <title>Milestone 4 - WAS , mongoDB 클러스터에서 서비스화 | Hoonology</title>
-    <meta name="description" content="Hoonology changes whole world.">
+    <title>쿠버네티스 치트 시트 | Hoonology</title>
+    <meta name="description" content="kubectl 명령어는 쉽고 직관적으로 구성되어 있습니다. 따라서 몇 가지 패턴만 알아두어도 쉽게 생성, 조회, 삭제 등이 가능합니다.">
     
-        <meta name="keywords" content="Fastify, milestone">
+        <meta name="keywords" content="kubernetes, k8s, pod, workload, 워크로드">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Milestone 4 - WAS , mongoDB 클러스터에서 서비스화 | Hoonology">
-    <meta name="twitter:description" content="Hoonology changes whole world.">
+    <meta name="twitter:title" content="쿠버네티스 치트 시트 | Hoonology">
+    <meta name="twitter:description" content="kubectl 명령어는 쉽고 직관적으로 구성되어 있습니다. 따라서 몇 가지 패턴만 알아두어도 쉽게 생성, 조회, 삭제 등이 가능합니다.">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/MileStone5/">
-    <meta property="og:title" content="Milestone 4 - WAS , mongoDB 클러스터에서 서비스화 | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
-    <meta property="og:description" content="Hoonology changes whole world.">
+    <meta property="og:url" content="http://localhost:4000/k8s-cheat/">
+    <meta property="og:title" content="쿠버네티스 치트 시트 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
+    <meta property="og:description" content="kubectl 명령어는 쉽고 직관적으로 구성되어 있습니다. 따라서 몇 가지 패턴만 알아두어도 쉽게 생성, 조회, 삭제 등이 가능합니다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/MileStone5/">
+    <link rel="canonical" href="http://localhost:4000/k8s-cheat/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-05-01T09:48:32+09:00">
+                        <time class="date" datetime="2023-05-19T09:10:00+09:00">
                             
 
 
-May 1, 2023
+May 19, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
                     <span>1 min to read</span>
                 </p>
-                <h1 class="post-title">Milestone 4 - WAS , mongoDB 클러스터에서 서비스화</h1>
-                <p class="post-subtitle">Milestone 4</p>
+                <h1 class="post-title">쿠버네티스 치트 시트</h1>
+                <p class="post-subtitle">Kubernetes, k8s</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,62 +192,40 @@ May 1, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="목표">목표</h1>
+                <h2 id="리소스-yaml-적용">리소스 YAML 적용</h2>
 
-<p>WAS에서 mongodb에 접속하고, 쿼리 해보면서 접속이 정상적인지 확인해 봅니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply ~|-|f ~|&lt;|파일이름&gt;
+</code></pre></div></div>
+<h2 id="리소스-조회">리소스 조회</h2>
 
-<h1 id="준비">준비</h1>
-
-<ol>
-  <li>Fastify CLI로 만든 프로젝트가 존재해야 합니다.</li>
-  <li>접속 대상이 되는 mongoDB 서버가 존재해야 합니다.</li>
-</ol>
-
-<h1 id="시작-">시작</h1>
-<h2 id="1-fastify용-mongodb-플러그인-설치">1. Fastify용 mongodb 플러그인 설치</h2>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i @fastify/mongodb
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get ~|&lt;|리소스종류&gt;                    ~|#| 목록 조회
+kubectl get all                  ~|#| 현재 네임스페이스에서 모든 리소스 조회
+kubectl describe ~|&lt;|리소스종류&gt; ~|&lt;|리소스이름&gt;     ~|#| 상세 조회
 </code></pre></div></div>
 
-<h2 id="2-mongodb-플러그인-적용">2. mongodb 플러그인 적용</h2>
+<h2 id="리소스-삭제">리소스 삭제</h2>
 
-<p>plugins/mongodb.js 파일을 하나 만들고 다음과 같이 내용을 채워 넣습니다.</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'use strict'</span>
-
-const fp ~|<span class="o">=</span>| require<span class="o">(</span><span class="s1">'fastify~|-|plugin'</span><span class="o">)</span>
-
-const <span class="o">{</span> MONGO_HOSTNAME, MONGO_USERNAME, MONGO_PASSWORD <span class="o">}</span> ~|<span class="o">=</span>| process.env
-
-module.exports ~|<span class="o">=</span>| fp<span class="o">(</span>async <span class="k">function</span> <span class="o">(</span>fastify, opts<span class="o">)</span> <span class="o">{</span>
-  const url ~|<span class="o">=</span>| <span class="sb">`</span>mongodb://<span class="k">${</span><span class="nv">MONGO_USERNAME</span><span class="k">}</span>:<span class="k">${</span><span class="nv">MONGO_PASSWORD</span><span class="k">}</span>@<span class="k">${</span><span class="nv">MONGO_HOSTNAME</span><span class="k">}</span>:27017/?authMechanism~|<span class="o">=</span>|DEFAULT<span class="sb">`</span>
-  console.log<span class="o">(</span>url<span class="o">)</span>
-
-  fastify.register<span class="o">(</span>require<span class="o">(</span><span class="s1">'@fastify/mongodb'</span><span class="o">)</span>, <span class="o">{</span>
-    forceClose: <span class="nb">true</span>,
-    url: url
-  <span class="o">})</span>
-<span class="o">})</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl delete ~|&lt;|리소스종류&gt; ~|&lt;|리소스이름&gt;
+kubectl delete ~|-|f ~|&lt;|파일이름&gt;
 </code></pre></div></div>
 
-<h2 id="3-배포하기-전-반드시-로컬에서-테스트해-봅시다">3. 배포하기 전, 반드시 로컬에서 테스트해 봅시다.</h2>
+<h2 id="파드-로그-조회">파드 로그 조회</h2>
 
-<p>무작정 배포부터 하지 않고, 꼭 로컬에서 테스트해야 합니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl logs ~|&lt;|파드이름&gt;
+</code></pre></div></div>
 
-<ul>
-  <li>로컬 테스트 방법
-    <ul>
-      <li>필요한 환경 변수를 <code class="language-plaintext highlighter-rouge">export</code> 명령을 이용해 주입합니다.</li>
-      <li><code class="language-plaintext highlighter-rouge">npm start</code> 명령을 이용해 실행 시 DB 접속에서 아무런 에러도 나지 않아야 합니다.</li>
-    </ul>
-  </li>
-  <li>도커 이미지 테스트 방법
-    <ul>
-      <li>도커 파일을 만들고 난 후, <code class="language-plaintext highlighter-rouge">~|-|~|-|env</code> 옵션을 이용해서 환경변수를 주입합니다. (<code class="language-plaintext highlighter-rouge">docker run ~|-|~|-|env MONGO_PASSWORD=secret</code>)</li>
-      <li>마찬가지로 아무런 연결 에러가 나지 않아야 합니다.</li>
-    </ul>
-  </li>
-</ul>
+<h2 id="클러스터-삭제-후-다시-생성">클러스터 삭제 후 다시 생성</h2>
 
+<p>클러스터에 문제가 생겼거나, 초기화하고 처음부터 다시 시작하고 싶을 때 이용합니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube delete ~|#| 삭제
+minikube start ~|#| 다시 생성
+</code></pre></div></div>
+
+<h2 id="기타">기타</h2>
+
+<p>명령어가 익숙하지 않으면 치트 시트를 출력해 놓고 필요한 명령을 찾아 쓰세요.</p>
+
+<p>➡️ <a href="https://kubernetes.io/ko/docs/reference/kubectl/cheatsheet/">쿠버네티스 치트 시트</a></p>
 
 
                 <!-- Pagination links -->
@@ -263,29 +241,29 @@ module.exports ~|<span class="o">=</span>| fp<span class="o">(</span>async <span
                         
                         
                             <li>
-                                <a href="/CI%EB%8F%84%EA%B5%AC2/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>CI/CD - 빌드와 언어별 빌드 도구</h3>
+                                    <h3>서비스 노출</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Sprint-%EC%BD%94%EB%93%9C%EB%A1%9C%EB%B6%80%ED%84%B0-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98-%EB%B6%84%EB%A6%AC/">
+                                <a href="/%EC%A7%80%EC%86%8D%EC%A0%81-%ED%86%B5%ED%95%A9/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
                                     
-                                    <h3>(Sprint) - 환경변수와 코드로 부터 환경변수 분리</h3>
+                                    <h3>CI/CD - 지속적 통합( CI )</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/MileStone1/">
+                                <a href="/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4-API-Gateway%EC%99%80-%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
                                     
-                                    <h3>Milestone 1</h3>
+                                    <h3>(Sprint) 마이크로서비스 - API Gateway와 서버리스 애플리케이션</h3>
                                 </a>
                             </li>
                         
@@ -317,13 +295,13 @@ module.exports ~|<span class="o">=</span>| fp<span class="o">(</span>async <span
         </div>
     </div>
     
-    <a href="/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4/" class="post-preview">
+    <a href="/YAML/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
             
         </div>
-        <h3 class="title">MSA - 마이크로서비스</h3>
+        <h3 class="title">YAML</h3>
     </a>
 </div>
 
@@ -339,11 +317,11 @@ module.exports ~|<span class="o">=</span>| fp<span class="o">(</span>async <span
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;&quot;%20http://localhost:4000/MileStone5/%20via%20&#64;&hashtags=Fastify,milestone"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;kubectl 명령어는 쉽고 직관적으로 구성되어 있습니다. 따라서 몇 가지 패턴만 알아두어도 쉽게 생성, 조회, 삭제 등이 가능합니다.&quot;%20http://localhost:4000/k8s-cheat/%20via%20&#64;&hashtags=kubernetes,k8s,pod,workload,워크로드"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/MileStone5/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/k8s-cheat/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -366,7 +344,7 @@ module.exports ~|<span class="o">=</span>| fp<span class="o">(</span>async <span
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/MileStone5/';
+        var disqus_url = '/k8s-cheat/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -510,73 +488,51 @@ module.exports ~|<span class="o">=</span>| fp<span class="o">(</span>async <span
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Milestone 4 - WAS , mongoDB 클러스터에서 서비스화",
-            "headline": "Milestone 4",
-            "description": "",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png",
-            "url": "http://localhost:4000/MileStone5/",
-            "articleBody": "목표
+            "name": "쿠버네티스 치트 시트",
+            "headline": "Kubernetes, k8s",
+            "description": "kubectl 명령어는 쉽고 직관적으로 구성되어 있습니다. 따라서 몇 가지 패턴만 알아두어도 쉽게 생성, 조회, 삭제 등이 가능합니다.",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png",
+            "url": "http://localhost:4000/k8s-cheat/",
+            "articleBody": "리소스 YAML 적용
 
-WAS에서 mongodb에 접속하고, 쿼리 해보면서 접속이 정상적인지 확인해 봅니다.
+kubectl apply ~|-|f ~|&amp;lt;|파일이름&amp;gt;
 
-준비
+리소스 조회
 
-
-  Fastify CLI로 만든 프로젝트가 존재해야 합니다.
-  접속 대상이 되는 mongoDB 서버가 존재해야 합니다.
-
-
-시작
-1. Fastify용 mongodb 플러그인 설치
-
-npm i @fastify/mongodb
+kubectl get ~|&amp;lt;|리소스종류&amp;gt;                    ~|#| 목록 조회
+kubectl get all                  ~|#| 현재 네임스페이스에서 모든 리소스 조회
+kubectl describe ~|&amp;lt;|리소스종류&amp;gt; ~|&amp;lt;|리소스이름&amp;gt;     ~|#| 상세 조회
 
 
-2. mongodb 플러그인 적용
+리소스 삭제
 
-plugins/mongodb.js 파일을 하나 만들고 다음과 같이 내용을 채워 넣습니다.
-&apos;use strict&apos;
-
-const fp ~|=| require(&apos;fastify~|-|plugin&apos;)
-
-const { MONGO_HOSTNAME, MONGO_USERNAME, MONGO_PASSWORD } ~|=| process.env
-
-module.exports ~|=| fp(async function (fastify, opts) {
-  const url ~|=| `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:27017/?authMechanism~|=|DEFAULT`
-  console.log(url)
-
-  fastify.register(require(&apos;@fastify/mongodb&apos;), {
-    forceClose: true,
-    url: url
-  })
-})
+kubectl delete ~|&amp;lt;|리소스종류&amp;gt; ~|&amp;lt;|리소스이름&amp;gt;
+kubectl delete ~|-|f ~|&amp;lt;|파일이름&amp;gt;
 
 
-3. 배포하기 전, 반드시 로컬에서 테스트해 봅시다.
+파드 로그 조회
 
-무작정 배포부터 하지 않고, 꼭 로컬에서 테스트해야 합니다.
-
-
-  로컬 테스트 방법
-    
-      필요한 환경 변수를 export 명령을 이용해 주입합니다.
-      npm start 명령을 이용해 실행 시 DB 접속에서 아무런 에러도 나지 않아야 합니다.
-    
-  
-  도커 이미지 테스트 방법
-    
-      도커 파일을 만들고 난 후, ~|-|~|-|env 옵션을 이용해서 환경변수를 주입합니다. (docker run ~|-|~|-|env MONGO_PASSWORD=secret)
-      마찬가지로 아무런 연결 에러가 나지 않아야 합니다.
-    
-  
+kubectl logs ~|&amp;lt;|파드이름&amp;gt;
 
 
+클러스터 삭제 후 다시 생성
+
+클러스터에 문제가 생겼거나, 초기화하고 처음부터 다시 시작하고 싶을 때 이용합니다.
+minikube delete ~|#| 삭제
+minikube start ~|#| 다시 생성
+
+
+기타
+
+명령어가 익숙하지 않으면 치트 시트를 출력해 놓고 필요한 명령을 찾아 쓰세요.
+
+➡️ 쿠버네티스 치트 시트
 ",
-            "wordcount": "214",
+            "wordcount": "119",
             "inLanguage": "ko",
-            "dateCreated": "2023-05-01/",
-            "datePublished": "2023-05-01/",
-            "dateModified": "2023-05-01/",
+            "dateCreated": "2023-05-19/",
+            "datePublished": "2023-05-19/",
+            "dateModified": "2023-05-19/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -601,9 +557,9 @@ module.exports ~|=| fp(async function (fastify, opts) {
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "docker",
-            "articleSection": "docker",
-            "keywords": ["Fastify","milestone"]
+            "genre": "k8s",
+            "articleSection": "k8s",
+            "keywords": ["kubernetes","k8s","pod","workload","워크로드"]
         }
         </script>
        </body>

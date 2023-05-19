@@ -3,6 +3,14 @@
   
   
     {
+      "title"    : "쿠버네티스 치트 시트",
+      "tags"     : "kubernetes, k8s, pod, workload, and 워크로드",
+      "categories" : "k8s",
+      "url"      : "/k8s-cheat/",
+      "date"     : "05/19/2023"
+    } ,
+  
+    {
       "title"    : "(Sprint) 3.0에서 2.0 버전으로 롤백하기",
       "tags"     : "kubernetes, k8s, pod, workload, and 워크로드",
       "categories" : "k8s",
