@@ -241,19 +241,22 @@ May 19, 2023
 <p>sebcontents/cozserver:1.0 이미지를 바탕으로 파드를 만들어봅시다.</p>
 
 <ul>
-  <li>보통 수동으로 하나하나 만들지 않으니깐, 간단하게 만들어보고 넘어간다.
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+  <li>보통 수동으로 하나하나 만들지 않으니깐, 간단하게 만들어보고 넘어간다.</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
 <span class="na">metadata</span><span class="pi">:</span>
-<span class="na">name</span><span class="pi">:</span> <span class="s">cozserver~|-|pod</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cozserver~|-|pod</span>
 <span class="na">spec</span><span class="pi">:</span>
-<span class="na">containers</span><span class="pi">:</span>
-  <span class="na">~|-| name</span><span class="pi">:</span> <span class="s">cozserver~|-|container</span>
-    <span class="s">image</span><span class="err">:</span> <span class="s">sebcontents/cozserver:1.0</span>
-    <span class="s">ports</span><span class="err">:</span>
-      <span class="na">~|-| containerPort</span><span class="pi">:</span> <span class="m">8080</span>
-</code></pre></div>    </div>
-  </li>
+  <span class="na">containers</span><span class="pi">:</span>
+    <span class="na">~|-| name</span><span class="pi">:</span> <span class="s">cozserver~|-|container</span>
+      <span class="s">image</span><span class="err">:</span> <span class="s">sebcontents/cozserver:1.0</span>
+      <span class="s">ports</span><span class="err">:</span>
+        <span class="na">~|-| containerPort</span><span class="pi">:</span> <span class="m">8080</span>
+</code></pre></div></div>
+
+<ul>
   <li>그리고 삭제해본다.
     <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl delete pod cozserver~|-|pod
 </code></pre></div>    </div>
@@ -384,29 +387,29 @@ REVISION  CHANGE~|-|CAUSE
                         
                         
                             <li>
-                                <a href="/API-%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B0%84-%ED%86%B5%EC%8B%A0/">
+                                <a href="/AWS-%EA%B8%B0%EC%B4%88/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>API 디자인과 프로세스 간 통신</h3>
+                                    <h3>AWS 기초</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
+                                <a href="/CI%EB%8F%84%EA%B5%AC2/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
                                     
-                                    <h3>서비스 노출</h3>
+                                    <h3>CI/CD - 빌드와 언어별 빌드 도구</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
+                                <a href="/k8s-Workload/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
                                     
-                                    <h3>보안</h3>
+                                    <h3>Kubernetes Workload</h3>
                                 </a>
                             </li>
                         
@@ -686,18 +689,21 @@ sebcontents/cozserver:1.0 이미지를 바탕으로 파드를 만들어봅시다
 
 
   보통 수동으로 하나하나 만들지 않으니깐, 간단하게 만들어보고 넘어간다.
-    apiVersion: v1
+
+
+apiVersion: v1
 kind: Pod
 metadata:
-name: cozserver~|-|pod
+  name: cozserver~|-|pod
 spec:
-containers:
-  ~|-| name: cozserver~|-|container
-    image: sebcontents/cozserver:1.0
-    ports:
-      ~|-| containerPort: 8080
-    
-  
+  containers:
+    ~|-| name: cozserver~|-|container
+      image: sebcontents/cozserver:1.0
+      ports:
+        ~|-| containerPort: 8080
+
+
+
   그리고 삭제해본다.
     kubectl delete pod cozserver~|-|pod
     
