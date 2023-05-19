@@ -3,8 +3,16 @@
   
   
     {
+      "title"    : "(Sprint) 3.0에서 2.0 버전으로 롤백하기",
+      "tags"     : "kubernetes, k8s, pod, workload, and 워크로드",
+      "categories" : "k8s",
+      "url"      : "/Sprint-k8s/",
+      "date"     : "05/19/2023"
+    } ,
+  
+    {
       "title"    : "Kubernetes Workload",
-      "tags"     : "kubernetes, k8s, 오케스트레이션, and orchestrate",
+      "tags"     : "kubernetes, k8s, pod, workload, and 워크로드",
       "categories" : "k8s",
       "url"      : "/k8s-Workload/",
       "date"     : "05/18/2023"

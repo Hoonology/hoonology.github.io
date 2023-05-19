@@ -20,7 +20,7 @@
     <title>Kubernetes Workload | Hoonology</title>
     <meta name="description" content="워크로드란, '쿠버네티스 상에서 작동되는 애플리케이션'을 의미하며, 클라우드 분야에서는 "어떤 애플리케이션을 실행할 때 필요한 IT 리소스의 집합”이라는 의미로 통용된다.">
     
-        <meta name="keywords" content="kubernetes, k8s, 오케스트레이션, orchestrate">
+        <meta name="keywords" content="kubernetes, k8s, pod, workload, 워크로드">
     
 
     <!-- Social: Twitter -->
@@ -176,7 +176,7 @@ May 18, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>4 min to read</span>
+                    <span>12 min to read</span>
                 </p>
                 <h1 class="post-title">Kubernetes Workload</h1>
                 <p class="post-subtitle">Kubernetes, k8s</p>
@@ -195,291 +195,422 @@ May 18, 2023
                 <h1 id="index">INDEX</h1>
 
 <ul>
-  <li><a href="#쿠버네티스--kubernetes-k8s">쿠버네티스</a></li>
-  <li><a href="#쿠버네티스-작동-원리">쿠버네티스 작동원리</a></li>
-  <li><a href="#쿠버네티스-설치">쿠버네티스 설치</a></li>
+  <li><a href="#쿠버네티스--kubernetes-k8s">파드(Pods)</a></li>
+  <li><a href="#디플로이먼트-deployment">디플로이먼트(Deployment)</a></li>
+  <li><a href="#서비스">서비스</a></li>
 </ul>
 
-<h1 id="쿠버네티스-kubernetes-k8s-">쿠버네티스 ( Kubernetes, k8s )</h1>
+<h1 id="파드pods">파드(Pods)</h1>
+
+<p>쿠버네티스의 배포 가능한 가장 작은 컴퓨팅 유닛, ‘논리적인 호스트’</p>
 
 <ul>
-  <li>오픈소스로 만들어진 컨테이너 오케이스트레이션 도구
-    <blockquote>
-      <p>오케스트레이션 : <strong>컨테이너화된 애플리케이션의 배포</strong>, <strong>확장 및 운영을 관리하고 자동화하는 프로세스</strong>입니다. 컨테이너는 애플리케이션과 해당 종속성을 패키징하는 가볍고 이식 가능한 방법을 제공하여 다양한 컴퓨팅 환경에서 일관되게 실행할 수 있도록 합니다.</p>
-    </blockquote>
-  </li>
+  <li>1개 이상의 애플리케이션 컨테이너</li>
+  <li>IP 주소</li>
+  <li>스토리지</li>
 </ul>
 
 <blockquote>
-  <p>“to plan and organize”</p>
+  <p>파드는 일시적이고, 언제나 삭제될 수 있음을 감안하고 만듭니다.</p>
 </blockquote>
 
-<ul>
-  <li>컨테이너화된 애플리케이션을 자동으로 배포, 스케일링하는 등의 관리 기능을 제공
-    <ul>
-      <li>각기 다른 환경(온프레미스 서버, VM, 클라우드)에 대응 가능</li>
-    </ul>
-  </li>
-  <li>수십~수백 개의 컨테이너를 관리하고자 할 때 보다 더 잘 관리하기 위한 툴
-    <ul>
-      <li>아키텍처의 변화 : 모놀리식 -&gt; 마이크로서비스(MSA)</li>
-      <li>컨테이너 개수 증가</li>
-      <li>확장성을 고려한 스케일링</li>
-    </ul>
-  </li>
-</ul>
+<p><img src="/assets/img/kubernetes/k8s_pod1.png" alt="pod" /></p>
 
 <blockquote>
-  <p>Google이 일주일에 수십억 개의 컨테이너들을 운영하게 해 준 원칙들에 따라 디자인되었기 때문에, 쿠버네티스는 운영팀의 규모를 늘리지 않고도 확장될 수 있습니다.</p>
+  <p>쿠버네티스에서는 ‘<strong>워크로드 리소스</strong>‘를 만들기 위해 <strong>YAML</strong> 파일과 같은 리소스 정의 파일을 사용합니다.</p>
 </blockquote>
 
-<h2 id="사용하지-말아야-할-상황">사용하지 말아야 할 상황</h2>
+<h4 id="워크로드란">워크로드란?</h4>
 
 <ul>
-  <li>여러 티어로 나뉘지 않은 모놀리식 아키텍처
-    <ul>
-      <li>모놀로식 아키텍처는 MSA 분해 전략을 세우는 것을 먼저 진행한다.</li>
-    </ul>
-  </li>
-  <li>컨테이너의 개수가 적은 경우
-    <ul>
-      <li>docker-compose로도 충분하다.</li>
-    </ul>
-  </li>
-  <li>단순한 아키텍처 + 스케일링이 필요하지 않은 경우</li>
+  <li>쿠버네티스 : “쿠버네티스 상에서 작동되는 애플리케이션”</li>
+  <li>클라우드 : “애플리케이션을 실행할 때 필요한 IT 리소스의 집합”</li>
 </ul>
 
-<h2 id="사용해야하는-상황">사용해야하는 상황</h2>
+<p>파드를 생성하기 위해서도 YAML을 사용합니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| practice_pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  ~|-| name: nginx
+    image: nginx:1.14.2
+    ports:
+    ~|-| containerPort: 80
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply ~|-|f practice_pod.yaml
+
+<span class="o">&gt;</span> pod/nginx created
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pods
+
+NAME    READY   STATUS              RESTARTS   AGE
+nginx   0/1     ContainerCreating   0          8s
+</code></pre></div></div>
+
+<h2 id="action-items">Action Items</h2>
+
+<p>Q. kubectl describe pod/nginx 명령을 이용해서 파드에 대한 자세한 정보를 볼 수 있습니다. 이 정보를 통해서 알 수 있는 내용은 무엇인가요?</p>
+<ul>
+  <li>Pod 메타데이터: 여기에는 Pod와 관련된 이름, 네임스페이스, 레이블 및 주석이 포함됩니다.</li>
+  <li>포드 상태: 실행 중인지, 대기 중인지, 종료되었는지 등 포드의 현재 상태를 제공합니다. 포드 컨테이너의 시작 및 종료 타임스탬프도 볼 수 있습니다.</li>
+  <li>포드 조건: 준비 상태, 예약, 초기화 또는 준비 여부와 같은 포드의 조건을 보여줍니다.</li>
+  <li>포드 이벤트: 이 섹션에는 수명 주기 동안 발생한 오류 또는 경고와 같은 포드와 관련된 최근 이벤트가 표시됩니다.</li>
+  <li>컨테이너: Pod 내에서 실행 중인 컨테이너에 대한 정보를 제공합니다. 여기에는 컨테이너 이름, 사용된 이미지 및 컨테이너의 현재 상태(실행 중, 대기 중, 종료됨)가 포함됩니다.</li>
+  <li>환경 변수: 포드 또는 컨테이너에 대해 환경 변수가 정의된 경우 여기에 나열됩니다.</li>
+  <li>볼륨 탑재: 포드에 탑재된 볼륨이 있는 경우 이 섹션에는 탑재 지점의 세부 정보가 표시됩니다.</li>
+  <li>네트워크: IP 주소, 포트, 네트워크 정책 등 포드의 네트워킹과 관련된 정보입니다.</li>
+  <li>리소스 사용량: Pod의 CPU 및 메모리 리소스 제한과 사용량에 대한 세부 정보를 제공합니다.</li>
+  <li>이벤트: 이 섹션에는 일정 결정, 컨테이너 충돌 또는 기타 중요한 알림과 같이 포드와 관련된 모든 관련 이벤트가 표시됩니다.</li>
+</ul>
+
+<p>Q. 방금 만든 파드를 지우기 위해서는 어떤 명령어를 사용하면 좋을까요? 공식 문서의 <a href="https://kubernetes.io/ko/docs/reference/kubectl/cheatsheet/#%EB%A6%AC%EC%86%8C%EC%8A%A4-%EC%82%AD%EC%A0%9C">치트 시트</a>를 참고하여 직접 지워봅시다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl delete ~|-|f ./pod.json          ~|#| pod.json에 지정된 유형 및 이름을 사용하여 파드 삭제
+kubectl delete pod unwanted ~|-|~|-|now     ~|#| 유예 시간 없이 즉시 파드 삭제
+kubectl delete pod,service baz foo    ~|#| <span class="s2">"baz"</span>, <span class="s2">"foo"</span>와 동일한 이름을 가진 파드와 서비스 삭제
+kubectl delete pods,services ~|-|l name~|<span class="o">=</span>|myLabel   ~|#| name~|<span class="o">=</span>|myLabel 라벨을 가진 파드와 서비스 삭제
+kubectl ~|-|n my~|-|ns delete pod,svc ~|-|~|-|all    ~|#| my~|-|ns 네임스페이스 내 모든 파드와 서비스 삭제
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl delete pod ~|&lt;|pod~|-|name&gt;
+</code></pre></div></div>
+
+<p><br />
+<br />
+<br /></p>
+
+<h1 id="디플로이먼트-deployment-">디플로이먼트( Deployment )</h1>
+
+<p><u>'배포'의 의미가 아닙니다.</u></p>
+
+<p><strong>파드의 교체 / 배치 (placement)와 관련된 명세</strong>입니다.</p>
+
+<p>위 파드 설명에서 언급했지만, <strong>파드는 일시적이고, 언제나 삭제될 수 있음을 감안</strong>하고 만들기 때문에 사용자가 직접 개별 파드를 만들 일이 많지 않습니다. 파드가 실행되는 공간인 노드가 만일 실패하는 경우, 그 안에서 실행되는 파드 역시 사용할 수 없게 됩니다.</p>
+
+<p><img src="https://d33wubrfki0l68.cloudfront.net/2475489eaf20163ec0f54ddc1d92aa8d4c87c96b/e7c81/images/docs/components-of-kubernetes.svg" alt="Alt text" /></p>
+
+<p>컨테이너를 수동으로 만들고 관리하는 것은 도커로 충분히 할 수 있습니다. 그렇다면 쿠버네티스를 쓰는 이유는 무엇일까요?<br />
+정답은 <strong>컨테이너를 오케스트레이션</strong>하는데 의의가 있습니다. 즉, 파드 장애 시 자동 복구 및 복제하는 일을 ‘자동’으로 처리하는 것입니다. AWS의 ECS(Elastic Container Service)가 있겠죠, 컨테이너의 로드 밸런싱과 오토 스케일링과 같은 일을 맡는다는 공통점이 있습니다.</p>
 
 <ul>
-  <li><strong>MSA를 컨테이너 방식</strong>으로 운영하는 조직이 확장성을 고려할 때</li>
-  <li>무중단(고가용성)을 제공해야할 때</li>
-  <li>자가치유, 배치실행, 구성관리, 로드밸런싱 등</li>
+  <li>디플로이먼트</li>
+  <li>스테이트풀셋</li>
+  <li>데몬셋</li>
 </ul>
 
+<p>위 세가지로 파드를 관리하는 것을 지향합니다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">~|#| Deployment</span>
+
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">nginx~|-|deployment</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">nginx</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">3</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">nginx</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="s">~|#| ~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|여기서부터 파드 템플릿 ~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|</span>
+    <span class="s">metadata</span><span class="err">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">nginx</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="na">~|-| name</span><span class="pi">:</span> <span class="s">nginx</span>
+        <span class="s">image</span><span class="err">:</span> <span class="s">nginx:1.14.2</span>
+        <span class="s">ports</span><span class="err">:</span>
+        <span class="na">~|-| containerPort</span><span class="pi">:</span> <span class="m">80</span>
+    <span class="s">~|#| ~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|여기까지 파드 템플릿 ~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|</span>
+</code></pre></div></div>
+
+<h2 id="그래서-디플로이먼트란-">그래서 디플로이먼트란 ?</h2>
+
+<p><em>” 파드를 업데이트하기 위한 <strong>선언적 명세</strong> “</em></p>
+
+<ul>
+  <li>파드를 원하는 개수만큼 실행</li>
+  <li>파드 업데이트</li>
+  <li>파드 롤백</li>
+</ul>
+
+<h2 id="review-다양한-배포-전략-">Review : 다양한 배포 전략</h2>
+
+<p>애플리케이션의 여러 복제본을 새 버전으로 업데이트 하는 방법</p>
+<ul>
+  <li><strong>재생성 : 이전 버전을 삭제하고 새 버전 생성</strong></li>
+  <li>블루/그린 배포 : 한 번에 이전 버전에서 새 버전으로 연결 전환</li>
+  <li><strong>롤링 배포 : 이전 버전을 Scale Down, 새 버전을 Scale Up = 단계별 교체 = 롤아웃(Rollout)</strong></li>
+  <li>카나리 배포 : 새 버전이 잘 작동한다고 판단되면 이전 버전을 교체</li>
+</ul>
+
+<h2 id="디플로이먼트는-어떤-전략-">디플로이먼트는 어떤 전략 ?</h2>
+
+<p>파드의 복제본을 자동으로 업데이트하게 해주는 명세이므로, 쿠버네티스에서 지원하는 배포 전략은</p>
 <blockquote>
-  <p>AWS의 제공요소와 유사하지만, <strong>비용문제</strong>를 고려했을 때 <strong>쿠버네티스</strong>를 사용합니다.</p>
+  <p>재생성(Recreate)과 롤링 배포(RollingUpdate)</p>
 </blockquote>
 
-<h3 id="사용-예시">사용 예시</h3>
+<h2 id="디플로이먼트-실습">디플로이먼트 실습</h2>
 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply ~|-|f ~|&lt;|디플로이먼트_파일&gt;
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create deployment kubernetes~|-|bootcamp ~|-|~|-|image~|<span class="o">=</span>|gcr.io/google~|-|samples/kubernetes~|-|bootcamp:v1
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get deployments
+
+NAME                  READY   UP~|-|TO~|-|DATE   AVAILABLE   AGE
+hello~|-|minikube        1/1     1            1           3h16m
+kubernetes~|-|bootcamp   1/1     1            1           57s
+nginx~|-|deployment      3/3     3            3           2m55s
+</code></pre></div></div>
+
+<h4 id="q-디플로이먼트가-지원하는-배포-전략에서-블루그린이나-카나리는-찾아볼-수-없습니다-어떻게-블루그린이나-카나리-배포를-할-수-있을까요">Q. 디플로이먼트가 지원하는 배포 전략에서 블루/그린이나 카나리는 찾아볼 수 없습니다. 어떻게 블루/그린이나 카나리 배포를 할 수 있을까요?</h4>
+<h4 id="블루그린-배포">블루/그린 배포:</h4>
+
+<p><img src="https://velog.velcdn.com/images/xgro/post/2ebfa180-c17c-4b65-85aa-9878a95a6be5/image.png" alt="Alt text" /></p>
 <ul>
-  <li>쿠버네티스를 통해 온프레미스 상에서 클라우드 인프라 구성함</li>
-  <li>저렴한 클라우드 서비스의 일부분을 도입하여 하이브리드의 형태로 구성</li>
-  <li>쿠버네티스로 구성한 인프라를 통째로 AWS에 마이그레이션
-    <ul>
-      <li>AWS EKS</li>
-    </ul>
-  </li>
+  <li>애플리케이션의 “파란색” 버전용과 “녹색” 버전용으로 두 개의 개별 배포를 만듭니다.</li>
+  <li>서비스를 사용하여 활성 버전을 노출합니다(처음에는 “파란색” 배포를 가리킴).</li>
+  <li>“그린” 배포에서 필요한 테스트 및 검증을 수행합니다.</li>
+  <li>“그린” 배포가 확인되고 준비되면 “그린” 배포를 가리키도록 서비스를 업데이트하여 트래픽을 새 버전으로 보냅니다.</li>
 </ul>
 
-<h4 id="기존-코드-버그-수정-및-업데이트-시-기존에는-모든-컨테이너를-종료하고-새로운-버전을-올린-뒤-컨테이너를-켜야한다">기존 : 코드 버그 수정 및 업데이트 시, 기존에는 모든 컨테이너를 종료하고 새로운 버전을 올린 뒤, 컨테이너를 켜야한다.</h4>
+<p><strong>Deployment Blue</strong><br />
+블루에 해당하는 ReplicaSet 생성</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ReplicaSet</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">replica1</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">ver</span><span class="pi">:</span> <span class="s">v1</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">pod1</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">ver</span><span class="pi">:</span> <span class="s">v1</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="na">~|-| name</span><span class="pi">:</span> <span class="s">container</span>
+        <span class="s">image</span><span class="err">:</span> <span class="s">kubetm/app:v1</span>
+      <span class="na">terminationGracePeriodSeconds</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
 
-<p><img src="/assets/img/kubernetes/k8s2.png" alt="ku" /></p>
+<p><strong>Service</strong><br />
+selector에 ver:v1을 지정하여 ReplicaSet의 Label과 동일하게 구성(ReplicaSet의 Pod와 연결)</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">svc~|-|3</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">ver</span><span class="pi">:</span> <span class="s">v1</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="na">~|-| port</span><span class="pi">:</span> <span class="m">8080</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">8080</span>
+</code></pre></div></div>
+<p><strong>Deployment Green</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">v2의 ReplicaSet을 생성(green)</span>
+
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ReplicaSet</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">replica2</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">ver</span><span class="pi">:</span> <span class="s">v2</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">pod1</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">ver</span><span class="pi">:</span> <span class="s">v2</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="na">~|-| name</span><span class="pi">:</span> <span class="s">container</span>
+        <span class="s">image</span><span class="err">:</span> <span class="s">kubetm/app:v2</span>
+      <span class="na">terminationGracePeriodSeconds</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+<p><strong>Service의 selector을 v2로 변경한다.</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">....</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">svc~|-|3</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">ver</span><span class="pi">:</span> <span class="s">v2</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="na">~|-| port</span><span class="pi">:</span> <span class="m">8080</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">8080</span>
+    <span class="s">....</span>
+</code></pre></div></div>
+
+<h4 id="카나리아-배포">카나리아 배포:</h4>
+
 <ul>
-  <li>웹사이트의 일시적인 다운 현상 발생</li>
+  <li>더 작고 제어된 릴리스인 애플리케이션의 카나리아 버전에 대한 새 배포를 만듭니다.</li>
+  <li>트래픽의 일부를 카나리아 배포로 점진적으로 전환하고 대부분은 여전히 ​​안정적인 버전으로 이동합니다.</li>
+  <li>카나리아 버전의 동작과 성능을 모니터링하고 분석합니다.</li>
+  <li>카나리아 버전의 성능이 좋으면 조금씩 트래픽을 늘려가세요.</li>
+  <li>문제가 발생하면 카나리아 배포를 신속하게 롤백하고 모든 트래픽을 안정적인 버전으로 되돌립니다.</li>
 </ul>
 
-<h4 id="쿠버네티스를-사용-컨테이너의-신규-버전을-차례대로-업데이트-">쿠버네티스를 사용 : 컨테이너의 신규 버전을 차례대로 업데이트</h4>
+<p>여러 레이블이 필요한 또 다른 시나리오는 <strong>동일한 컴포넌트의 다른 릴리스 또는 구성의 디플로이먼트를 구별하는 것</strong>입니다. 새 릴리스가 완전히 롤아웃되기 전에 실제 운영 트래픽을 수신할 수 있도록 새로운 애플리케이션 릴리스(파드 템플리트의 이미지 태그를 통해 지정됨)의 카나리 를 이전 릴리스와 나란히 배포하는 것이 일반적입니다.</p>
 
-<p><img src="/assets/img/kubernetes/k8s1.png" alt="ku" /></p>
-<ul>
-  <li>웹사이트의 다운 현상 X</li>
-</ul>
-
-<h3 id="웹사이트-배포-시-쿠버네티스의-필요성-">웹사이트 배포 시 쿠버네티스의 필요성</h3>
-
-<ul>
-  <li>도커 혹은 node.js를 사용하여 웹사이트를 AWS를 통해 배포하고자 한다면, 이 때는 도커를 업로드하고 배포하는 것이 전부이기에 쿠버네티스의 중요성을 알아야합니다.</li>
-  <li><strong>MSA</strong>를 갖고 있다면, 기능이 다양한 컨테이너가 존재하게 될텐데, 이 모든 컨테이너는 <strong>동시에 업로드</strong>가 되어야한다.
-    <ul>
-      <li>
-        <p>수 많은 컨테이너를 가질 때 문제가 생긴다. ( 컨테이너 하나가 죽으면 재빠르게 재시작을 해야한다. ) 
-<img src="/assets/img/kubernetes/k8s3.png" alt="ku" /></p>
-      </li>
-      <li>
-        <p>쿠버네티스가 그 죽은 컨테이너를 <strong>자동으로 재시작</strong>한다.
-<img src="/assets/img/kubernetes/k8s4.png" alt="ku" /></p>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-<h1 id="쿠버네티스-작동-원리">쿠버네티스 작동 원리</h1>
-<h2 id="쿠버네티스-아키텍처">쿠버네티스 아키텍처</h2>
-
-<ul>
-  <li>클러스터 구성 요소 : 제어판(Control Plane) 컴포넌트 + 워커 노드
-<img src="/assets/img/kubernetes/k8s5.png" alt="ku" /></li>
-</ul>
-
-<h3 id="1-워커노드">1. 워커노드</h3>
-
-<p>kubelet 이라는 프로세스가 작동하고, 다른 노드와 서로 통신하거나 컨테이너를 실행하는 태스크 실행</p>
 <ul>
   <li>
-    <p>한개 이상의 컨테이너 존재, 워커노드는 애플리케이션이 실행되고 있는 곳이다.
-<img src="/assets/img/kubernetes/k8s6.png" alt="ku" /></p>
-  </li>
-  <li>
-    <p>팟(Pod) : 컨테이너의 작동 정보, 볼륨
-<img src="/assets/img/kubernetes/k8s7.png" alt="ku" /></p>
-  </li>
-</ul>
+    <p>track 레이블을 사용하여 다른 릴리스를 구별할 수 있습니다.</p>
 
-<h3 id="2-제어판-control-plane-">2. 제어판 ( Control Plane )</h3>
-
-<p><img src="/assets/img/kubernetes/k8s8.png" alt="ku" />
-제어판은 클러스터가 잘 작동할수 있도록 도와줍니다.</p>
-
-<h4 id="21-api-서버">2-1. API 서버</h4>
-
-<p><img src="/assets/img/kubernetes/k8s9.png" alt="ku" />
-<img src="/assets/img/kubernetes/k8s10.png" alt="ku" /></p>
-
-<ul>
-  <li>모든 클러스터 관리의 입구 ( 명령을 내릴 수 있는 관문 )</li>
-  <li>쿠버네티스에서 제공되는 UI나 CLI등에서 클러스터 관리를 위해 뭔가 명령을 내리면 API가 호출된다.
     <ul>
-      <li>직접 호출도 가능</li>
+      <li>기본(primary), 안정(stable) 릴리스에는 값이 stable 인 track 레이블이 있습니다.</li>
     </ul>
   </li>
 </ul>
 
-<h4 id="22-컨트롤러-매니저">2-2. 컨트롤러 매니저</h4>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="na">name</span><span class="pi">:</span> <span class="s">frontend</span>
+     <span class="na">replicas</span><span class="pi">:</span> <span class="m">3</span>
+     <span class="s">...</span>
+     <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">guestbook</span>
+        <span class="na">tier</span><span class="pi">:</span> <span class="s">frontend</span>
+        <span class="na">track</span><span class="pi">:</span> <span class="s">stable</span>
+     <span class="s">...</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s">gb~|-|frontend:v3</span>
+</code></pre></div></div>
 
-<p><img src="/assets/img/kubernetes/k8s11.png" alt="ku" /></p>
+<p>그런 다음 <strong>서로 다른 값</strong>(예: canary)으로 <strong>track 레이블을 전달하는 방명록 프론트엔드의 새 릴리스를 생성</strong>하여, 두 세트의 파드가 <strong>겹치지 않도록</strong> 할 수 있습니다.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="na">name</span><span class="pi">:</span> <span class="s">frontend~|-|canary</span>
+     <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+     <span class="s">...</span>
+     <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">guestbook</span>
+        <span class="na">tier</span><span class="pi">:</span> <span class="s">frontend</span>
+        <span class="na">track</span><span class="pi">:</span> <span class="s">canary</span>
+     <span class="s">...</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s">gb~|-|frontend:v4</span>
+</code></pre></div></div>
+<p>프론트엔드 서비스는 레이블의 공통 서브셋을 선택하여(즉, track 레이블 생략) 두 레플리카 세트에 걸쳐 있으므로, <strong>트래픽이 두 애플리케이션으로 리디렉션됩니다</strong>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">selector</span><span class="pi">:</span>
+     <span class="na">app</span><span class="pi">:</span> <span class="s">guestbook</span>
+     <span class="na">tier</span><span class="pi">:</span> <span class="s">frontend</span>
+</code></pre></div></div>
+<p>안정 및 카나리 릴리스의 레플리카 수를 조정하여 실제 운영 트래픽을 수신할 각 릴리스의 비율을 결정합니다. 확신이 들면, 안정 릴리스의 track을 새로운 애플리케이션 릴리스로 업데이트하고 카나리를 제거할 수 있습니다.</p>
+
+<p>블루/그린 및 카나리아 배포 모두 트래픽 라우팅 및 모니터링을 신중하게 관리해야 합니다. Kubernetes 수신 컨트롤러, 서비스 메시(예: Istio) 또는 API 게이트웨이와 같은 도구를 활용하여 서로 다른 배포 또는 버전 간의 트래픽 라우팅을 제어할 수 있습니다.</p>
+
+<p><strong>블루/그린 및 카나리아 배포 전략을 기본적으로 지원하는 Jenkins, Spinnaker 또는 Argo CD와 같은 CI/CD(지속적인 통합 및 배포) 도구를 활용</strong>할 수 있습니다.</p>
+
+<p>이러한 접근 방식은 원활한 전환을 보장하고 배포 프로세스 중에 사용자에게 미치는 잠재적인 영향을 최소화하기 위해 신중한 계획, 테스트 및 모니터링이 필요하다는 점을 기억하십시오.</p>
+
+<h1 id="서비스">서비스</h1>
+<h2 id="파드를-외부로-노출시키기">파드를 외부로 노출시키기</h2>
+
+<p>클러스터 안에 파드는 각각 고유의 IP를 가지고 있지만, 직접 우리가 내부망에 접속할 수 있는 것은 아닙니다. 그럼 어떻게 파드 안에 서비스가 외부로 노출될 수 있을까요?</p>
+
+<p>앞서 디플로이먼트를 통해 파드의 복제본을 원하는 개수만큼 실행시킬 수 있다고 언급했습니다. 서비스 리소스는 이러한 파드 집합에 접근할 수 있게 하며, 파드가 교체되거나, 어떤 특정 파드에 문제가 생긴 경우에도 사용 가능한 파드를 찾아 알아서 접속할 수 있게 돕습니다.</p>
+
+<h3 id="쿠버네티스-네트워크-모델">쿠버네티스 네트워크 모델</h3>
+
+<p>클러스터의 <strong>모든 파드는 고유한 IP 주소를 갖는다</strong>. 이는 즉 파드간 연결을 명시적으로 만들 필요가 없으며 또한 컨테이너 포트를 호스트 포트에 매핑할 필요가 거의 없음을 의미한다. 이로 인해 포트 할당, 네이밍, 서비스 디스커버리, 로드 밸런싱, 애플리케이션 구성, 마이그레이션 관점에서 파드를 VM 또는 물리 호스트처럼 다룰 수 있는 깔끔하고 하위 호환성을 갖는 모델이 제시된다.</p>
+
+<p>쿠버네티스 IP 주소는 파드 범주에 존재하며, 파드 내의 컨테이너들은 IP 주소, MAC 주소를 포함하는 네트워크 네임스페이스를 공유한다. 이는 곧 파드 내의 컨테이너들이 각자의 포트에 localhost로 접근할 수 있음을 의미한다. 또한 파드 내의 컨테이너들이 포트 사용에 있어 서로 협조해야 하는데, 이는 VM 내 프로세스 간에도 마찬가지이다. 이러한 모델은 “파드 별 IP” 모델로 불린다.</p>
+
 <ul>
-  <li>클러스터에서 무슨 일이 발생하는지를 추적하는 역할
-    <ul>
-      <li>컨테이너가 죽거나 재시작되었을 경우, 컨트롤러 매니저는 이를 알 수 있다.</li>
-    </ul>
-  </li>
+  <li>파드는 <strong>NAT 없이 노드 상의 모든 파드와 통신</strong>할 수 있다.</li>
+  <li>노드 상의 에이전트(예: 시스템 데몬, kubelet)는 해당 노드의 모든 파드와 통신할 수 있다.</li>
 </ul>
 
-<h4 id="23-스케쥴러">2-3. 스케쥴러</h4>
+<h2 id="서비스-만들어보기">서비스 만들어보기</h2>
 
-<p><img src="/assets/img/kubernetes/k8s12.png" alt="ku" /></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">nginx</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">nginx ~|#| 배포하려는 파드를 지정합니다. 당연히 파드가 이미 실행중이어야 합니다.</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">LoadBalancer</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="na">~|-| name</span><span class="pi">:</span> <span class="s">nginx</span>
+    <span class="s">protocol</span><span class="err">:</span> <span class="s">TCP</span>
+    <span class="s">port</span><span class="err">:</span> <span class="m">80</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">80</span>
+</code></pre></div></div>
+<p>LoadBalancer로 서비스를 만들고, 백엔드에 cozserver라는 이름을 가진 파드 집합에 연결되도록 지정했습니다. 적용된 결과를 확인해 봅시다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>minikube tunnel
+
+✅  Tunnel successfully started
+
+📌  NOTE: Please <span class="k">do </span>not close this terminal as this process must stay alive <span class="k">for </span>the tunnel to be accessible ...
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span> kubectl get svc 
+
+NAME             TYPE        CLUSTER~|-|IP       EXTERNAL~|-|IP   PORT<span class="o">(</span>S<span class="o">)</span>          AGE
+hello~|-|minikube   NodePort    10.100.175.122   ~|&lt;|none&gt;        8080:32654/TCP   3h25m
+kubernetes       ClusterIP   10.96.0.1        ~|&lt;|none&gt;        443/TCP          3h31m
+</code></pre></div></div>
+
+<h4 id="q-서비스의-타입은-clusterip-nodeport-loadbalancer-externalname-네-가지가-있습니다-이들은-어떻게-다른가요">Q. 서비스의 타입은 ClusterIP, NodePort, LoadBalancer, ExternalName 네 가지가 있습니다. 이들은 어떻게 다른가요?</h4>
+
+<p>Kubernetes의 네 가지 서비스 유형인 <code class="language-plaintext highlighter-rouge">ClusterIP</code>, <code class="language-plaintext highlighter-rouge">NodePort</code>, <code class="language-plaintext highlighter-rouge">LoadBalancer</code> 및 <code class="language-plaintext highlighter-rouge">ExternalName</code>은 서로 다른 용도로 사용되며 고유한 특성이 있습니다.</p>
+
+<h4 id="1-cluster-ip-">1. Cluster IP :</h4>
+
 <ul>
-  <li>서버(노드) 리소스를 바탕으로 컨테이너(정확히는 pod)가 노드에 배치되게 만드는 역할을 담당</li>
-  <li>새로 생성된 컨테이너를 찾아 노드에 할당</li>
+  <li><strong>ClusterIP 서비스 유형은 Kubernetes의 기본 서비스 유형</strong>입니다.</li>
+  <li><strong>클러스터 내에서만 액세스할 수 있는 클러스터 내부 IP 주소에 서비스를 노출</strong>합니다.</li>
+  <li>클러스터 내 다른 내부 서비스에 대한 서비스 검색 및 로드 밸런싱을 제공합니다.</li>
+  <li>이 서비스 유형은 클러스터 내의 <strong>서로 다른 구성 요소 또는 마이크로 서비스 간의 통신에 적합</strong>합니다.</li>
 </ul>
 
-<h4 id="24-키값-저장소-etcd">2-4. 키-값 저장소 etcd</h4>
+<h4 id="2-nodeport-">2. NodePort :</h4>
 
-<p><img src="/assets/img/kubernetes/k8s13.png" alt="ku" /></p>
 <ul>
-  <li>클러스터 관리에 필요한 모든 데이터를 저장하는 공간</li>
-  <li>인프라를 원하는 상태로 만들기 위해서 정상 상태에 대한 snapshot 및 관리에 필요한 메타데이터가 어딘가에 저장되어야 하는데, ETCD는 바로 이를 담당한다.</li>
+  <li>NodePort 서비스 유형은 클러스터에서 선택한 <strong>각 노드의 정적 포트에 서비스를 노출</strong>합니다.</li>
+  <li>클러스터 노드의 IP 주소와 지정된 정적 포트에 접근하여 <strong>외부 트래픽이 서비스에 도달할 수 있도록</strong> 합니다.</li>
+  <li>이 서비스 유형은 일반적으로 <strong>개발 또는 테스트 목적</strong>으로 <strong>서비스를 외부에 노출</strong>해야 하는 시나리오에 유용합니다.</li>
+  <li><strong>외부 로드 밸런서 없이도</strong> <strong>클러스터 외부에서 서비스에 접근할 수 있는 방법</strong>을 제공합니다.</li>
 </ul>
 
-<h1 id="쿠버네티스-설치-및-실습">쿠버네티스 설치 및 실습</h1>
-<h2 id="minikube">minikube</h2>
+<h4 id="3-loadbalancer-">3. LoadBalancer :</h4>
 
-<p><a href="https://minikube.sigs.k8s.io/docs/start/">공식문서</a></p>
-<h3 id="설치">설치</h3>
+<ul>
+  <li>LoadBalancer 서비스 유형은 외부 로드 밸런서(예: 클라우드 공급자의 로드 밸런서)를 프로비저닝하여 서비스에 트래픽을 분산합니다.</li>
+  <li>자동으로 공인 IP 주소를 서비스에 할당하고 트래픽을 서비스로 라우팅하도록 외부 로드 밸런서를 구성합니다.</li>
+  <li>주로 인터넷이나 외부 클라이언트에 서비스를 노출해야 하고 부하 분산 기능이 필요할 때 사용하는 서비스 유형입니다.</li>
+  <li>일반적으로 트래픽을 여러 포드 또는 노드에 분산해야 하는 프로덕션 환경에서 사용됩니다.</li>
+</ul>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>minikube
-</code></pre></div></div>
-<h3 id="클러스터-시작">클러스터 시작</h3>
+<h4 id="4-externalname-">4. ExternalName :</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube start
-</code></pre></div></div>
-<p><img src="/assets/img/kubernetes/k8s_Install1.png" alt="ku" /></p>
+<p>쿠버네티스를 사용하지 않겠다 : headless를 쓰면 됨</p>
 
-<h3 id="클러스터와-상호작용">클러스터와 상호작용</h3>
+<ul>
+  <li>ExternalName 서비스 유형을 사용하면 <strong>외부 서비스를 DNS 이름에 매핑</strong>하여 별칭을 제공할 수 있습니다.</li>
+  <li>클러스터 내에서 서비스를 생성하는 대신 단순히 외부 서비스의 DNS 이름을 가리키는 <strong>DNS CNAME</strong> 레코드 역할을 합니다.</li>
+  <li>이 서비스 유형은 <strong>부하 분산 또는 프록시 기능을 제공하지 않으며 주로 외부 서비스와의 통합에 사용</strong>됩니다.</li>
+  <li>클러스터 내에서 DNS 이름으로 외부 서비스를 참조할 수 있어 <strong>외부 시스템과 원활한 통신</strong>이 가능합니다.</li>
+</ul>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pods ~|-|A
-</code></pre></div></div>
-
-<table>
-  <thead>
-    <tr>
-      <th>NAMESPACE</th>
-      <th>NAME</th>
-      <th>READY</th>
-      <th>STATUS</th>
-      <th>RESTARTS</th>
-      <th>AGE</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>kube-system</td>
-      <td>coredns-787d4945fb-lgtvz</td>
-      <td>1/1</td>
-      <td>Running</td>
-      <td>0</td>
-      <td>3m33s</td>
-    </tr>
-    <tr>
-      <td>kube-system</td>
-      <td>etcd-minikube</td>
-      <td>1/1</td>
-      <td>Running</td>
-      <td>0</td>
-      <td>3m46s</td>
-    </tr>
-    <tr>
-      <td>kube-system</td>
-      <td>kube-apiserver-minikube</td>
-      <td>1/1</td>
-      <td>Running</td>
-      <td>0</td>
-      <td>3m48s</td>
-    </tr>
-    <tr>
-      <td>kube-system</td>
-      <td>kube-controller-manager-minikube</td>
-      <td>1/1</td>
-      <td>Running</td>
-      <td>0</td>
-      <td>3m46s</td>
-    </tr>
-    <tr>
-      <td>kube-system</td>
-      <td>kube-proxy-q9h6b</td>
-      <td>1/1</td>
-      <td>Running</td>
-      <td>0</td>
-      <td>3m33s</td>
-    </tr>
-    <tr>
-      <td>kube-system</td>
-      <td>kube-scheduler-minikube</td>
-      <td>1/1</td>
-      <td>Running</td>
-      <td>0</td>
-      <td>3m48s</td>
-    </tr>
-    <tr>
-      <td>kube-system</td>
-      <td>storage-provisioner</td>
-      <td>1/1</td>
-      <td>Running</td>
-      <td>1 (3m3s ago)</td>
-      <td>3m45s</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="cozserver라는-이미지를-사용해-배포-가능한-리소스디플로이먼트-deployment를-생성합니다">cozserver라는 이미지를 사용해 배포 가능한 리소스(디플로이먼트, deployment)를 생성합니다.</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create deployment hello~|-|minikube ~|-|~|-|image~|<span class="o">=</span>|sebcontents/cozserver:1.0
-</code></pre></div></div>
-
-<h4 id="서비스service로-노출합니다">서비스(service)로 노출합니다.</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl expose deployment hello~|-|minikube ~|-|~|-|type~|<span class="o">=</span>|NodePort ~|-|~|-|port~|<span class="o">=</span>|8080
-</code></pre></div></div>
-
-<h4 id="로컬-클러스터를-호스트-컴퓨터에서-접속할-수-있도록-포트-포워딩을-합니다">로컬 클러스터를 호스트 컴퓨터에서 접속할 수 있도록 포트 포워딩을 합니다.</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl port~|-|forward service/hello~|-|minikube 3333:8080
-</code></pre></div></div>
-<p><img src="/assets/img/kubernetes/k8s_Install2.png" alt="ku" />
-<img src="/assets/img/kubernetes/k8s_Install3.png" alt="ku" /></p>
-
+<p>각 서비스 유형은 특정 용도에 사용되며 애플리케이션 및 인프라 설정의 요구 사항에 따라 다양한 기능을 제공합니다. 적절한 서비스 유형을 선택하여 클러스터 내외에서 서비스의 접근성과 가용성을 제어할 수 있습니다.</p>
 
 
                 <!-- Pagination links -->
@@ -495,29 +626,29 @@ May 18, 2023
                         
                         
                             <li>
-                                <a href="/%EB%8F%84%EB%A9%94%EC%9D%B8%EC%A3%BC%EB%8F%84%EC%84%A4%EA%B3%84%EC%99%80%EB%AA%A8%EB%86%80%EB%A6%AC%EC%8B%9D%EB%B6%84%ED%95%B4%EC%A0%84%EB%9E%B5/">
+                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
                                     
-                                    <h3>도메인 주도 설계와 모놀리식 분해 전략</h3>
+                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint-3Tier-architecture/">
+                                <a href="/(Sprint)%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>(Sprint) 3 Tier Architecture 배포</h3>
+                                    <h3>(Sprint)서버 배포 파이프라인</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5/">
+                                <a href="/MileStone5/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>AWS 서비스 로드맵</h3>
+                                    <h3>Milestone 4 - WAS , mongoDB 클러스터에서 서비스화</h3>
                                 </a>
                             </li>
                         
@@ -529,7 +660,7 @@ May 18, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="4">
+            <div class="time-bar" data-minutes="12">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -549,13 +680,13 @@ May 18, 2023
         </div>
     </div>
     
-    <a href="/YAML/" class="post-preview">
+    <a href="/Sprint-k8s/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
             
         </div>
-        <h3 class="title">YAML</h3>
+        <h3 class="title">(Sprint) 3.0에서 2.0 버전으로 롤백하기</h3>
     </a>
 </div>
 
@@ -571,7 +702,7 @@ May 18, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;워크로드란, '쿠버네티스 상에서 작동되는 애플리케이션'을 의미하며, 클라우드 분야에서는 "어떤 애플리케이션을 실행할 때 필요한 IT 리소스의 집합”이라는 의미로 통용된다.&quot;%20http://localhost:4000/k8s-Workload/%20via%20&#64;&hashtags=kubernetes,k8s,오케스트레이션,orchestrate"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;워크로드란, '쿠버네티스 상에서 작동되는 애플리케이션'을 의미하며, 클라우드 분야에서는 "어떤 애플리케이션을 실행할 때 필요한 IT 리소스의 집합”이라는 의미로 통용된다.&quot;%20http://localhost:4000/k8s-Workload/%20via%20&#64;&hashtags=kubernetes,k8s,pod,workload,워크로드"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
@@ -750,293 +881,424 @@ May 18, 2023
             "articleBody": "INDEX
 
 
-  쿠버네티스
-  쿠버네티스 작동원리
-  쿠버네티스 설치
+  파드(Pods)
+  디플로이먼트(Deployment)
+  서비스
 
 
-쿠버네티스 ( Kubernetes, k8s )
+파드(Pods)
+
+쿠버네티스의 배포 가능한 가장 작은 컴퓨팅 유닛, ‘논리적인 호스트’
 
 
-  오픈소스로 만들어진 컨테이너 오케이스트레이션 도구
+  1개 이상의 애플리케이션 컨테이너
+  IP 주소
+  스토리지
+
+
+
+  파드는 일시적이고, 언제나 삭제될 수 있음을 감안하고 만듭니다.
+
+
+
+
+
+  쿠버네티스에서는 ‘워크로드 리소스‘를 만들기 위해 YAML 파일과 같은 리소스 정의 파일을 사용합니다.
+
+
+워크로드란?
+
+
+  쿠버네티스 : “쿠버네티스 상에서 작동되는 애플리케이션”
+  클라우드 : “애플리케이션을 실행할 때 필요한 IT 리소스의 집합”
+
+
+파드를 생성하기 위해서도 YAML을 사용합니다.
+~|#| practice_pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  ~|-| name: nginx
+    image: nginx:1.14.2
+    ports:
+    ~|-| containerPort: 80
+
+
+kubectl apply ~|-|f practice_pod.yaml
+
+&amp;gt; pod/nginx created
+
+
+kubectl get pods
+
+NAME    READY   STATUS              RESTARTS   AGE
+nginx   0/1     ContainerCreating   0          8s
+
+
+Action Items
+
+Q. kubectl describe pod/nginx 명령을 이용해서 파드에 대한 자세한 정보를 볼 수 있습니다. 이 정보를 통해서 알 수 있는 내용은 무엇인가요?
+
+  Pod 메타데이터: 여기에는 Pod와 관련된 이름, 네임스페이스, 레이블 및 주석이 포함됩니다.
+  포드 상태: 실행 중인지, 대기 중인지, 종료되었는지 등 포드의 현재 상태를 제공합니다. 포드 컨테이너의 시작 및 종료 타임스탬프도 볼 수 있습니다.
+  포드 조건: 준비 상태, 예약, 초기화 또는 준비 여부와 같은 포드의 조건을 보여줍니다.
+  포드 이벤트: 이 섹션에는 수명 주기 동안 발생한 오류 또는 경고와 같은 포드와 관련된 최근 이벤트가 표시됩니다.
+  컨테이너: Pod 내에서 실행 중인 컨테이너에 대한 정보를 제공합니다. 여기에는 컨테이너 이름, 사용된 이미지 및 컨테이너의 현재 상태(실행 중, 대기 중, 종료됨)가 포함됩니다.
+  환경 변수: 포드 또는 컨테이너에 대해 환경 변수가 정의된 경우 여기에 나열됩니다.
+  볼륨 탑재: 포드에 탑재된 볼륨이 있는 경우 이 섹션에는 탑재 지점의 세부 정보가 표시됩니다.
+  네트워크: IP 주소, 포트, 네트워크 정책 등 포드의 네트워킹과 관련된 정보입니다.
+  리소스 사용량: Pod의 CPU 및 메모리 리소스 제한과 사용량에 대한 세부 정보를 제공합니다.
+  이벤트: 이 섹션에는 일정 결정, 컨테이너 충돌 또는 기타 중요한 알림과 같이 포드와 관련된 모든 관련 이벤트가 표시됩니다.
+
+
+Q. 방금 만든 파드를 지우기 위해서는 어떤 명령어를 사용하면 좋을까요? 공식 문서의 치트 시트를 참고하여 직접 지워봅시다.
+
+kubectl delete ~|-|f ./pod.json          ~|#| pod.json에 지정된 유형 및 이름을 사용하여 파드 삭제
+kubectl delete pod unwanted ~|-|~|-|now     ~|#| 유예 시간 없이 즉시 파드 삭제
+kubectl delete pod,service baz foo    ~|#| &quot;baz&quot;, &quot;foo&quot;와 동일한 이름을 가진 파드와 서비스 삭제
+kubectl delete pods,services ~|-|l name~|=|myLabel   ~|#| name~|=|myLabel 라벨을 가진 파드와 서비스 삭제
+kubectl ~|-|n my~|-|ns delete pod,svc ~|-|~|-|all    ~|#| my~|-|ns 네임스페이스 내 모든 파드와 서비스 삭제
+
+
+kubectl delete pod ~|&amp;lt;|pod~|-|name&amp;gt;
+
+
+
+
+
+
+디플로이먼트( Deployment )
+
+&apos;배포&apos;의 의미가 아닙니다.
+
+파드의 교체 / 배치 (placement)와 관련된 명세입니다.
+
+위 파드 설명에서 언급했지만, 파드는 일시적이고, 언제나 삭제될 수 있음을 감안하고 만들기 때문에 사용자가 직접 개별 파드를 만들 일이 많지 않습니다. 파드가 실행되는 공간인 노드가 만일 실패하는 경우, 그 안에서 실행되는 파드 역시 사용할 수 없게 됩니다.
+
+
+
+컨테이너를 수동으로 만들고 관리하는 것은 도커로 충분히 할 수 있습니다. 그렇다면 쿠버네티스를 쓰는 이유는 무엇일까요?
+정답은 컨테이너를 오케스트레이션하는데 의의가 있습니다. 즉, 파드 장애 시 자동 복구 및 복제하는 일을 ‘자동’으로 처리하는 것입니다. AWS의 ECS(Elastic Container Service)가 있겠죠, 컨테이너의 로드 밸런싱과 오토 스케일링과 같은 일을 맡는다는 공통점이 있습니다.
+
+
+  디플로이먼트
+  스테이트풀셋
+  데몬셋
+
+
+위 세가지로 파드를 관리하는 것을 지향합니다.
+
+~|#| Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx~|-|deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    ~|#| ~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|여기서부터 파드 템플릿 ~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      ~|-| name: nginx
+        image: nginx:1.14.2
+        ports:
+        ~|-| containerPort: 80
+    ~|#| ~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|여기까지 파드 템플릿 ~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|~|=|
+
+
+그래서 디플로이먼트란 ?
+
+” 파드를 업데이트하기 위한 선언적 명세 “
+
+
+  파드를 원하는 개수만큼 실행
+  파드 업데이트
+  파드 롤백
+
+
+Review : 다양한 배포 전략
+
+애플리케이션의 여러 복제본을 새 버전으로 업데이트 하는 방법
+
+  재생성 : 이전 버전을 삭제하고 새 버전 생성
+  블루/그린 배포 : 한 번에 이전 버전에서 새 버전으로 연결 전환
+  롤링 배포 : 이전 버전을 Scale Down, 새 버전을 Scale Up = 단계별 교체 = 롤아웃(Rollout)
+  카나리 배포 : 새 버전이 잘 작동한다고 판단되면 이전 버전을 교체
+
+
+디플로이먼트는 어떤 전략 ?
+
+파드의 복제본을 자동으로 업데이트하게 해주는 명세이므로, 쿠버네티스에서 지원하는 배포 전략은
+
+  재생성(Recreate)과 롤링 배포(RollingUpdate)
+
+
+디플로이먼트 실습
+
+kubectl apply ~|-|f ~|&amp;lt;|디플로이먼트_파일&amp;gt;
+
+
+kubectl create deployment kubernetes~|-|bootcamp ~|-|~|-|image~|=|gcr.io/google~|-|samples/kubernetes~|-|bootcamp:v1
+
+
+kubectl get deployments
+
+NAME                  READY   UP~|-|TO~|-|DATE   AVAILABLE   AGE
+hello~|-|minikube        1/1     1            1           3h16m
+kubernetes~|-|bootcamp   1/1     1            1           57s
+nginx~|-|deployment      3/3     3            3           2m55s
+
+
+Q. 디플로이먼트가 지원하는 배포 전략에서 블루/그린이나 카나리는 찾아볼 수 없습니다. 어떻게 블루/그린이나 카나리 배포를 할 수 있을까요?
+블루/그린 배포:
+
+
+
+  애플리케이션의 “파란색” 버전용과 “녹색” 버전용으로 두 개의 개별 배포를 만듭니다.
+  서비스를 사용하여 활성 버전을 노출합니다(처음에는 “파란색” 배포를 가리킴).
+  “그린” 배포에서 필요한 테스트 및 검증을 수행합니다.
+  “그린” 배포가 확인되고 준비되면 “그린” 배포를 가리키도록 서비스를 업데이트하여 트래픽을 새 버전으로 보냅니다.
+
+
+Deployment Blue
+블루에 해당하는 ReplicaSet 생성
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replica1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      ver: v1
+  template:
+    metadata:
+      name: pod1
+      labels:
+        ver: v1
+    spec:
+      containers:
+      ~|-| name: container
+        image: kubetm/app:v1
+      terminationGracePeriodSeconds: 0
+
+
+Service
+selector에 ver:v1을 지정하여 ReplicaSet의 Label과 동일하게 구성(ReplicaSet의 Pod와 연결)
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc~|-|3
+spec:
+  selector:
+    ver: v1
+  ports:
+  ~|-| port: 8080
+    protocol: TCP
+    targetPort: 8080
+
+Deployment Green
+v2의 ReplicaSet을 생성(green)
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replica2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      ver: v2
+  template:
+    metadata:
+      name: pod1
+      labels:
+        ver: v2
+    spec:
+      containers:
+      ~|-| name: container
+        image: kubetm/app:v2
+      terminationGracePeriodSeconds: 0
+
+Service의 selector을 v2로 변경한다.
+....
+kind: Service
+metadata:
+  name: svc~|-|3
+spec:
+  selector:
+    ver: v2
+  ports:
+  ~|-| port: 8080
+    protocol: TCP
+    targetPort: 8080
+    ....
+
+
+카나리아 배포:
+
+
+  더 작고 제어된 릴리스인 애플리케이션의 카나리아 버전에 대한 새 배포를 만듭니다.
+  트래픽의 일부를 카나리아 배포로 점진적으로 전환하고 대부분은 여전히 ​​안정적인 버전으로 이동합니다.
+  카나리아 버전의 동작과 성능을 모니터링하고 분석합니다.
+  카나리아 버전의 성능이 좋으면 조금씩 트래픽을 늘려가세요.
+  문제가 발생하면 카나리아 배포를 신속하게 롤백하고 모든 트래픽을 안정적인 버전으로 되돌립니다.
+
+
+여러 레이블이 필요한 또 다른 시나리오는 동일한 컴포넌트의 다른 릴리스 또는 구성의 디플로이먼트를 구별하는 것입니다. 새 릴리스가 완전히 롤아웃되기 전에 실제 운영 트래픽을 수신할 수 있도록 새로운 애플리케이션 릴리스(파드 템플리트의 이미지 태그를 통해 지정됨)의 카나리 를 이전 릴리스와 나란히 배포하는 것이 일반적입니다.
+
+
+  
+    track 레이블을 사용하여 다른 릴리스를 구별할 수 있습니다.
+
     
-      오케스트레이션 : 컨테이너화된 애플리케이션의 배포, 확장 및 운영을 관리하고 자동화하는 프로세스입니다. 컨테이너는 애플리케이션과 해당 종속성을 패키징하는 가볍고 이식 가능한 방법을 제공하여 다양한 컴퓨팅 환경에서 일관되게 실행할 수 있도록 합니다.
+      기본(primary), 안정(stable) 릴리스에는 값이 stable 인 track 레이블이 있습니다.
     
   
 
 
+     name: frontend
+     replicas: 3
+     ...
+     labels:
+        app: guestbook
+        tier: frontend
+        track: stable
+     ...
+     image: gb~|-|frontend:v3
 
-  “to plan and organize”
 
+그런 다음 서로 다른 값(예: canary)으로 track 레이블을 전달하는 방명록 프론트엔드의 새 릴리스를 생성하여, 두 세트의 파드가 겹치지 않도록 할 수 있습니다.
+     name: frontend~|-|canary
+     replicas: 1
+     ...
+     labels:
+        app: guestbook
+        tier: frontend
+        track: canary
+     ...
+     image: gb~|-|frontend:v4
 
+프론트엔드 서비스는 레이블의 공통 서브셋을 선택하여(즉, track 레이블 생략) 두 레플리카 세트에 걸쳐 있으므로, 트래픽이 두 애플리케이션으로 리디렉션됩니다.
 
-  컨테이너화된 애플리케이션을 자동으로 배포, 스케일링하는 등의 관리 기능을 제공
-    
-      각기 다른 환경(온프레미스 서버, VM, 클라우드)에 대응 가능
-    
-  
-  수십~수백 개의 컨테이너를 관리하고자 할 때 보다 더 잘 관리하기 위한 툴
-    
-      아키텍처의 변화 : 모놀리식 -&amp;gt; 마이크로서비스(MSA)
-      컨테이너 개수 증가
-      확장성을 고려한 스케일링
-    
-  
+  selector:
+     app: guestbook
+     tier: frontend
 
+안정 및 카나리 릴리스의 레플리카 수를 조정하여 실제 운영 트래픽을 수신할 각 릴리스의 비율을 결정합니다. 확신이 들면, 안정 릴리스의 track을 새로운 애플리케이션 릴리스로 업데이트하고 카나리를 제거할 수 있습니다.
 
+블루/그린 및 카나리아 배포 모두 트래픽 라우팅 및 모니터링을 신중하게 관리해야 합니다. Kubernetes 수신 컨트롤러, 서비스 메시(예: Istio) 또는 API 게이트웨이와 같은 도구를 활용하여 서로 다른 배포 또는 버전 간의 트래픽 라우팅을 제어할 수 있습니다.
 
-  Google이 일주일에 수십억 개의 컨테이너들을 운영하게 해 준 원칙들에 따라 디자인되었기 때문에, 쿠버네티스는 운영팀의 규모를 늘리지 않고도 확장될 수 있습니다.
+블루/그린 및 카나리아 배포 전략을 기본적으로 지원하는 Jenkins, Spinnaker 또는 Argo CD와 같은 CI/CD(지속적인 통합 및 배포) 도구를 활용할 수 있습니다.
 
+이러한 접근 방식은 원활한 전환을 보장하고 배포 프로세스 중에 사용자에게 미치는 잠재적인 영향을 최소화하기 위해 신중한 계획, 테스트 및 모니터링이 필요하다는 점을 기억하십시오.
 
-사용하지 말아야 할 상황
+서비스
+파드를 외부로 노출시키기
 
+클러스터 안에 파드는 각각 고유의 IP를 가지고 있지만, 직접 우리가 내부망에 접속할 수 있는 것은 아닙니다. 그럼 어떻게 파드 안에 서비스가 외부로 노출될 수 있을까요?
 
-  여러 티어로 나뉘지 않은 모놀리식 아키텍처
-    
-      모놀로식 아키텍처는 MSA 분해 전략을 세우는 것을 먼저 진행한다.
-    
-  
-  컨테이너의 개수가 적은 경우
-    
-      docker-compose로도 충분하다.
-    
-  
-  단순한 아키텍처 + 스케일링이 필요하지 않은 경우
+앞서 디플로이먼트를 통해 파드의 복제본을 원하는 개수만큼 실행시킬 수 있다고 언급했습니다. 서비스 리소스는 이러한 파드 집합에 접근할 수 있게 하며, 파드가 교체되거나, 어떤 특정 파드에 문제가 생긴 경우에도 사용 가능한 파드를 찾아 알아서 접속할 수 있게 돕습니다.
 
+쿠버네티스 네트워크 모델
 
-사용해야하는 상황
+클러스터의 모든 파드는 고유한 IP 주소를 갖는다. 이는 즉 파드간 연결을 명시적으로 만들 필요가 없으며 또한 컨테이너 포트를 호스트 포트에 매핑할 필요가 거의 없음을 의미한다. 이로 인해 포트 할당, 네이밍, 서비스 디스커버리, 로드 밸런싱, 애플리케이션 구성, 마이그레이션 관점에서 파드를 VM 또는 물리 호스트처럼 다룰 수 있는 깔끔하고 하위 호환성을 갖는 모델이 제시된다.
 
+쿠버네티스 IP 주소는 파드 범주에 존재하며, 파드 내의 컨테이너들은 IP 주소, MAC 주소를 포함하는 네트워크 네임스페이스를 공유한다. 이는 곧 파드 내의 컨테이너들이 각자의 포트에 localhost로 접근할 수 있음을 의미한다. 또한 파드 내의 컨테이너들이 포트 사용에 있어 서로 협조해야 하는데, 이는 VM 내 프로세스 간에도 마찬가지이다. 이러한 모델은 “파드 별 IP” 모델로 불린다.
 
-  MSA를 컨테이너 방식으로 운영하는 조직이 확장성을 고려할 때
-  무중단(고가용성)을 제공해야할 때
-  자가치유, 배치실행, 구성관리, 로드밸런싱 등
 
+  파드는 NAT 없이 노드 상의 모든 파드와 통신할 수 있다.
+  노드 상의 에이전트(예: 시스템 데몬, kubelet)는 해당 노드의 모든 파드와 통신할 수 있다.
 
 
-  AWS의 제공요소와 유사하지만, 비용문제를 고려했을 때 쿠버네티스를 사용합니다.
+서비스 만들어보기
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  selector:
+    app: nginx ~|#| 배포하려는 파드를 지정합니다. 당연히 파드가 이미 실행중이어야 합니다.
+  type: LoadBalancer
+  ports:
+  ~|-| name: nginx
+    protocol: TCP
+    port: 80
+    targetPort: 80
 
-사용 예시
+LoadBalancer로 서비스를 만들고, 백엔드에 cozserver라는 이름을 가진 파드 집합에 연결되도록 지정했습니다. 적용된 결과를 확인해 봅시다.
+$ minikube tunnel
 
+✅  Tunnel successfully started
 
-  쿠버네티스를 통해 온프레미스 상에서 클라우드 인프라 구성함
-  저렴한 클라우드 서비스의 일부분을 도입하여 하이브리드의 형태로 구성
-  쿠버네티스로 구성한 인프라를 통째로 AWS에 마이그레이션
-    
-      AWS EKS
-    
-  
+📌  NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
 
+$  kubectl get svc 
 
-기존 : 코드 버그 수정 및 업데이트 시, 기존에는 모든 컨테이너를 종료하고 새로운 버전을 올린 뒤, 컨테이너를 켜야한다.
+NAME             TYPE        CLUSTER~|-|IP       EXTERNAL~|-|IP   PORT(S)          AGE
+hello~|-|minikube   NodePort    10.100.175.122   ~|&amp;lt;|none&amp;gt;        8080:32654/TCP   3h25m
+kubernetes       ClusterIP   10.96.0.1        ~|&amp;lt;|none&amp;gt;        443/TCP          3h31m
 
 
+Q. 서비스의 타입은 ClusterIP, NodePort, LoadBalancer, ExternalName 네 가지가 있습니다. 이들은 어떻게 다른가요?
 
-  웹사이트의 일시적인 다운 현상 발생
+Kubernetes의 네 가지 서비스 유형인 ClusterIP, NodePort, LoadBalancer 및 ExternalName은 서로 다른 용도로 사용되며 고유한 특성이 있습니다.
 
+1. Cluster IP :
 
-쿠버네티스를 사용 : 컨테이너의 신규 버전을 차례대로 업데이트
 
+  ClusterIP 서비스 유형은 Kubernetes의 기본 서비스 유형입니다.
+  클러스터 내에서만 액세스할 수 있는 클러스터 내부 IP 주소에 서비스를 노출합니다.
+  클러스터 내 다른 내부 서비스에 대한 서비스 검색 및 로드 밸런싱을 제공합니다.
+  이 서비스 유형은 클러스터 내의 서로 다른 구성 요소 또는 마이크로 서비스 간의 통신에 적합합니다.
 
 
-  웹사이트의 다운 현상 X
+2. NodePort :
 
 
-웹사이트 배포 시 쿠버네티스의 필요성
+  NodePort 서비스 유형은 클러스터에서 선택한 각 노드의 정적 포트에 서비스를 노출합니다.
+  클러스터 노드의 IP 주소와 지정된 정적 포트에 접근하여 외부 트래픽이 서비스에 도달할 수 있도록 합니다.
+  이 서비스 유형은 일반적으로 개발 또는 테스트 목적으로 서비스를 외부에 노출해야 하는 시나리오에 유용합니다.
+  외부 로드 밸런서 없이도 클러스터 외부에서 서비스에 접근할 수 있는 방법을 제공합니다.
 
 
-  도커 혹은 node.js를 사용하여 웹사이트를 AWS를 통해 배포하고자 한다면, 이 때는 도커를 업로드하고 배포하는 것이 전부이기에 쿠버네티스의 중요성을 알아야합니다.
-  MSA를 갖고 있다면, 기능이 다양한 컨테이너가 존재하게 될텐데, 이 모든 컨테이너는 동시에 업로드가 되어야한다.
-    
-      
-        수 많은 컨테이너를 가질 때 문제가 생긴다. ( 컨테이너 하나가 죽으면 재빠르게 재시작을 해야한다. ) 
+3. LoadBalancer :
 
-      
-      
-        쿠버네티스가 그 죽은 컨테이너를 자동으로 재시작한다.
 
-      
-    
-  
+  LoadBalancer 서비스 유형은 외부 로드 밸런서(예: 클라우드 공급자의 로드 밸런서)를 프로비저닝하여 서비스에 트래픽을 분산합니다.
+  자동으로 공인 IP 주소를 서비스에 할당하고 트래픽을 서비스로 라우팅하도록 외부 로드 밸런서를 구성합니다.
+  주로 인터넷이나 외부 클라이언트에 서비스를 노출해야 하고 부하 분산 기능이 필요할 때 사용하는 서비스 유형입니다.
+  일반적으로 트래픽을 여러 포드 또는 노드에 분산해야 하는 프로덕션 환경에서 사용됩니다.
 
 
-쿠버네티스 작동 원리
-쿠버네티스 아키텍처
+4. ExternalName :
 
+쿠버네티스를 사용하지 않겠다 : headless를 쓰면 됨
 
-  클러스터 구성 요소 : 제어판(Control Plane) 컴포넌트 + 워커 노드
 
+  ExternalName 서비스 유형을 사용하면 외부 서비스를 DNS 이름에 매핑하여 별칭을 제공할 수 있습니다.
+  클러스터 내에서 서비스를 생성하는 대신 단순히 외부 서비스의 DNS 이름을 가리키는 DNS CNAME 레코드 역할을 합니다.
+  이 서비스 유형은 부하 분산 또는 프록시 기능을 제공하지 않으며 주로 외부 서비스와의 통합에 사용됩니다.
+  클러스터 내에서 DNS 이름으로 외부 서비스를 참조할 수 있어 외부 시스템과 원활한 통신이 가능합니다.
 
 
-1. 워커노드
-
-kubelet 이라는 프로세스가 작동하고, 다른 노드와 서로 통신하거나 컨테이너를 실행하는 태스크 실행
-
-  
-    한개 이상의 컨테이너 존재, 워커노드는 애플리케이션이 실행되고 있는 곳이다.
-
-  
-  
-    팟(Pod) : 컨테이너의 작동 정보, 볼륨
-
-  
-
-
-2. 제어판 ( Control Plane )
-
-
-제어판은 클러스터가 잘 작동할수 있도록 도와줍니다.
-
-2-1. API 서버
-
-
-
-
-
-  모든 클러스터 관리의 입구 ( 명령을 내릴 수 있는 관문 )
-  쿠버네티스에서 제공되는 UI나 CLI등에서 클러스터 관리를 위해 뭔가 명령을 내리면 API가 호출된다.
-    
-      직접 호출도 가능
-    
-  
-
-
-2-2. 컨트롤러 매니저
-
-
-
-  클러스터에서 무슨 일이 발생하는지를 추적하는 역할
-    
-      컨테이너가 죽거나 재시작되었을 경우, 컨트롤러 매니저는 이를 알 수 있다.
-    
-  
-
-
-2-3. 스케쥴러
-
-
-
-  서버(노드) 리소스를 바탕으로 컨테이너(정확히는 pod)가 노드에 배치되게 만드는 역할을 담당
-  새로 생성된 컨테이너를 찾아 노드에 할당
-
-
-2-4. 키-값 저장소 etcd
-
-
-
-  클러스터 관리에 필요한 모든 데이터를 저장하는 공간
-  인프라를 원하는 상태로 만들기 위해서 정상 상태에 대한 snapshot 및 관리에 필요한 메타데이터가 어딘가에 저장되어야 하는데, ETCD는 바로 이를 담당한다.
-
-
-쿠버네티스 설치 및 실습
-minikube
-
-공식문서
-설치
-
-brew install minikube
-
-클러스터 시작
-
-minikube start
-
-
-
-클러스터와 상호작용
-
-kubectl get pods ~|-|A
-
-
-
-  
-    
-      NAMESPACE
-      NAME
-      READY
-      STATUS
-      RESTARTS
-      AGE
-    
-  
-  
-    
-      kube-system
-      coredns-787d4945fb-lgtvz
-      1/1
-      Running
-      0
-      3m33s
-    
-    
-      kube-system
-      etcd-minikube
-      1/1
-      Running
-      0
-      3m46s
-    
-    
-      kube-system
-      kube-apiserver-minikube
-      1/1
-      Running
-      0
-      3m48s
-    
-    
-      kube-system
-      kube-controller-manager-minikube
-      1/1
-      Running
-      0
-      3m46s
-    
-    
-      kube-system
-      kube-proxy-q9h6b
-      1/1
-      Running
-      0
-      3m33s
-    
-    
-      kube-system
-      kube-scheduler-minikube
-      1/1
-      Running
-      0
-      3m48s
-    
-    
-      kube-system
-      storage-provisioner
-      1/1
-      Running
-      1 (3m3s ago)
-      3m45s
-    
-  
-
-
-cozserver라는 이미지를 사용해 배포 가능한 리소스(디플로이먼트, deployment)를 생성합니다.
-
-kubectl create deployment hello~|-|minikube ~|-|~|-|image~|=|sebcontents/cozserver:1.0
-
-
-서비스(service)로 노출합니다.
-
-kubectl expose deployment hello~|-|minikube ~|-|~|-|type~|=|NodePort ~|-|~|-|port~|=|8080
-
-
-로컬 클러스터를 호스트 컴퓨터에서 접속할 수 있도록 포트 포워딩을 합니다.
-
-kubectl port~|-|forward service/hello~|-|minikube 3333:8080
-
-
-
-
+각 서비스 유형은 특정 용도에 사용되며 애플리케이션 및 인프라 설정의 요구 사항에 따라 다양한 기능을 제공합니다. 적절한 서비스 유형을 선택하여 클러스터 내외에서 서비스의 접근성과 가용성을 제어할 수 있습니다.
 ",
-            "wordcount": "764",
+            "wordcount": "2201",
             "inLanguage": "ko",
             "dateCreated": "2023-05-18/",
             "datePublished": "2023-05-18/",
@@ -1067,7 +1329,7 @@ kubectl port~|-|forward service/hello~|-|minikube 3333:8080
             "mainEntityOfPage": "True",
             "genre": "k8s",
             "articleSection": "k8s",
-            "keywords": ["kubernetes","k8s","오케스트레이션","orchestrate"]
+            "keywords": ["kubernetes","k8s","pod","workload","워크로드"]
         }
         </script>
        </body>
