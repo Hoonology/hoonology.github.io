@@ -359,6 +359,8 @@ May 17, 2023
 <h1 id="쿠버네티스-작동-원리">쿠버네티스 작동 원리</h1>
 <h2 id="쿠버네티스-아키텍처">쿠버네티스 아키텍처</h2>
 
+<p><img src="/assets/img/kubernetes/k8s_arch.png" alt="arch" /></p>
+
 <ul>
   <li>클러스터 구성 요소 : 제어판(Control Plane) 컴포넌트 + 워커 노드
 <img src="/assets/img/kubernetes/k8s5.png" alt="ku" /></li>
@@ -368,25 +370,28 @@ May 17, 2023
 
 <p>kubelet 이라는 프로세스가 작동하고, 다른 노드와 서로 통신하거나 컨테이너를 실행하는 태스크 실행</p>
 <ul>
-  <li>
-    <p>한개 이상의 컨테이너 존재, 워커노드는 애플리케이션이 실행되고 있는 곳이다.
-<img src="/assets/img/kubernetes/k8s6.png" alt="ku" /></p>
-  </li>
-  <li>
-    <p>팟(Pod) : 컨테이너의 작동 정보, 볼륨
-<img src="/assets/img/kubernetes/k8s7.png" alt="ku" /></p>
-  </li>
+  <li>한개 이상의 컨테이너 존재, 워커노드는 애플리케이션이 실행되고 있는 곳이다.</li>
 </ul>
+
+<p><img src="/assets/img/kubernetes/k8s6.png" alt="ku" /></p>
+
+<ul>
+  <li>팟(Pod) : 컨테이너의 작동 정보, 볼륨</li>
+</ul>
+
+<p><img src="/assets/img/kubernetes/k8s7.png" alt="ku" /></p>
 
 <h3 id="2-제어판-control-plane-">2. 제어판 ( Control Plane )</h3>
 
-<p><img src="/assets/img/kubernetes/k8s8.png" alt="ku" />
-제어판은 클러스터가 잘 작동할수 있도록 도와줍니다.</p>
+<p><img src="/assets/img/kubernetes/k8s8.png" alt="ku" /></p>
 
-<h4 id="21-api-서버">2-1. API 서버</h4>
+<p>제어판은 클러스터가 잘 작동할수 있도록 도와줍니다.</p>
 
-<p><img src="/assets/img/kubernetes/k8s9.png" alt="ku" />
-<img src="/assets/img/kubernetes/k8s10.png" alt="ku" /></p>
+<h4 id="21-api-서버-교통정리-">2-1. API 서버 ( 교통정리 )</h4>
+
+<p><img src="/assets/img/kubernetes/k8s9.png" alt="ku" /></p>
+
+<p><img src="/assets/img/kubernetes/k8s10.png" alt="ku" /></p>
 
 <ul>
   <li>모든 클러스터 관리의 입구 ( 명령을 내릴 수 있는 관문 )</li>
@@ -395,34 +400,61 @@ May 17, 2023
       <li>직접 호출도 가능</li>
     </ul>
   </li>
+  <li><strong>etcd와 유일하게 통신</strong>하는 모듈이다.</li>
+  <li>수평확장(병렬처리)</li>
 </ul>
 
-<h4 id="22-컨트롤러-매니저">2-2. 컨트롤러 매니저</h4>
+<h4 id="22-컨트롤러-매니저-세부적인-내용-체크-">2-2. 컨트롤러 매니저( 세부적인 내용 체크 )</h4>
 
 <p><img src="/assets/img/kubernetes/k8s11.png" alt="ku" /></p>
+
 <ul>
   <li>클러스터에서 무슨 일이 발생하는지를 추적하는 역할
     <ul>
       <li>컨테이너가 죽거나 재시작되었을 경우, 컨트롤러 매니저는 이를 알 수 있다.</li>
     </ul>
   </li>
+  <li>논리적으로 다양한 컨트롤러 존재
+    <ul>
+      <li>복제</li>
+      <li>노드</li>
+      <li>엔드포인트</li>
+    </ul>
+  </li>
+  <li>끊임없이 상태를 체크하고 원하는 상태를 유지</li>
 </ul>
 
-<h4 id="23-스케쥴러">2-3. 스케쥴러</h4>
+<p><img src="/assets/img/kubernetes/controller.png" alt="controller" /></p>
+
+<h4 id="23-스케쥴러-상태-체크-담당-">2-3. 스케쥴러 ( 상태 체크 담당 )</h4>
 
 <p><img src="/assets/img/kubernetes/k8s12.png" alt="ku" /></p>
+
 <ul>
   <li>서버(노드) 리소스를 바탕으로 컨테이너(정확히는 pod)가 노드에 배치되게 만드는 역할을 담당</li>
   <li>새로 생성된 컨테이너를 찾아 노드에 할당</li>
 </ul>
 
-<h4 id="24-키값-저장소-etcd">2-4. 키-값 저장소 etcd</h4>
+<h4 id="24-키값-저장소-etcd-가장-먼저-실행해야하는-부분-">2-4. 키-값 저장소 etcd ( 가장 먼저 실행해야하는 부분 )</h4>
 
 <p><img src="/assets/img/kubernetes/k8s13.png" alt="ku" /></p>
+
 <ul>
-  <li>클러스터 관리에 필요한 모든 데이터를 저장하는 공간</li>
+  <li>클러스터 관리에 필요한 모든 상태와 데이터를 저장하는 공간 ( <strong>캡쳐 형식</strong>으로 )</li>
+  <li>Key-Value 형태로 데이터 저장</li>
   <li>인프라를 원하는 상태로 만들기 위해서 정상 상태에 대한 snapshot 및 관리에 필요한 메타데이터가 어딘가에 저장되어야 하는데, ETCD는 바로 이를 담당한다.</li>
+  <li>가볍고 빠르면서 정확하게 설계 ( <strong>일관성</strong> )</li>
+  <li>분산 시스템으로 구성하여 안정성을 높임 ( <strong>고가용성</strong> )</li>
+  <li><strong>백업 필수</strong> ( 공식 문서 참고 )</li>
+  <li>API와 유일하게 통신한다.</li>
 </ul>
+
+<p><br />
+<br /></p>
+
+<h2 id="워크로드">워크로드</h2>
+
+<p><img src="/assets/img/kubernetes/wokload.png" alt="workload" /></p>
 
 <h1 id="쿠버네티스-설치-및-실습">쿠버네티스 설치 및 실습</h1>
 <h2 id="minikube">minikube</h2>
@@ -546,25 +578,25 @@ May 17, 2023
                         
                         
                             <li>
-                                <a href="/%EC%A7%80%EC%86%8D%EC%A0%81-%ED%86%B5%ED%95%A9/">
+                                <a href="/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-%EC%82%AC%EC%A7%84%EC%B2%A9/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
                                     
-                                    <h3>CI/CD - 지속적 통합( CI )</h3>
+                                    <h3>(Sprint) 서버리스 사진첩</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/New-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
+                                <a href="/MileStone1/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>깃허브 블로그 만들기 2 - 새로운 테마 입히기</h3>
+                                    <h3>Milestone 1</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/MileStone4/">
+                                <a href="/MileStone5/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
@@ -966,6 +998,8 @@ VM은 느리다.
 쿠버네티스 아키텍처
 
 
+
+
   클러스터 구성 요소 : 제어판(Control Plane) 컴포넌트 + 워커 노드
 
 
@@ -974,22 +1008,25 @@ VM은 느리다.
 
 kubelet 이라는 프로세스가 작동하고, 다른 노드와 서로 통신하거나 컨테이너를 실행하는 태스크 실행
 
-  
-    한개 이상의 컨테이너 존재, 워커노드는 애플리케이션이 실행되고 있는 곳이다.
+  한개 이상의 컨테이너 존재, 워커노드는 애플리케이션이 실행되고 있는 곳이다.
 
-  
-  
-    팟(Pod) : 컨테이너의 작동 정보, 볼륨
 
-  
+
+
+
+  팟(Pod) : 컨테이너의 작동 정보, 볼륨
+
+
 
 
 2. 제어판 ( Control Plane )
 
 
+
 제어판은 클러스터가 잘 작동할수 있도록 도와줍니다.
 
-2-1. API 서버
+2-1. API 서버 ( 교통정리 )
+
 
 
 
@@ -1001,9 +1038,12 @@ kubelet 이라는 프로세스가 작동하고, 다른 노드와 서로 통신�
       직접 호출도 가능
     
   
+  etcd와 유일하게 통신하는 모듈이다.
+  수평확장(병렬처리)
 
 
-2-2. 컨트롤러 매니저
+2-2. 컨트롤러 매니저( 세부적인 내용 체크 )
+
 
 
 
@@ -1012,9 +1052,20 @@ kubelet 이라는 프로세스가 작동하고, 다른 노드와 서로 통신�
       컨테이너가 죽거나 재시작되었을 경우, 컨트롤러 매니저는 이를 알 수 있다.
     
   
+  논리적으로 다양한 컨트롤러 존재
+    
+      복제
+      노드
+      엔드포인트
+    
+  
+  끊임없이 상태를 체크하고 원하는 상태를 유지
 
 
-2-3. 스케쥴러
+
+
+2-3. 스케쥴러 ( 상태 체크 담당 )
+
 
 
 
@@ -1022,12 +1073,25 @@ kubelet 이라는 프로세스가 작동하고, 다른 노드와 서로 통신�
   새로 생성된 컨테이너를 찾아 노드에 할당
 
 
-2-4. 키-값 저장소 etcd
+2-4. 키-값 저장소 etcd ( 가장 먼저 실행해야하는 부분 )
 
 
 
-  클러스터 관리에 필요한 모든 데이터를 저장하는 공간
+
+  클러스터 관리에 필요한 모든 상태와 데이터를 저장하는 공간 ( 캡쳐 형식으로 )
+  Key-Value 형태로 데이터 저장
   인프라를 원하는 상태로 만들기 위해서 정상 상태에 대한 snapshot 및 관리에 필요한 메타데이터가 어딘가에 저장되어야 하는데, ETCD는 바로 이를 담당한다.
+  가볍고 빠르면서 정확하게 설계 ( 일관성 )
+  분산 시스템으로 구성하여 안정성을 높임 ( 고가용성 )
+  백업 필수 ( 공식 문서 참고 )
+  API와 유일하게 통신한다.
+
+
+
+
+
+워크로드
+
 
 
 쿠버네티스 설치 및 실습
@@ -1138,7 +1202,7 @@ kubectl port~|-|forward service/hello~|-|minikube 3333:8080
 
 
 ",
-            "wordcount": "926",
+            "wordcount": "1015",
             "inLanguage": "ko",
             "dateCreated": "2023-05-17/",
             "datePublished": "2023-05-17/",

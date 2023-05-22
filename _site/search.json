@@ -3,6 +3,14 @@
   
   
     {
+      "title"    : "k8s 구성요소 - 볼륨과 스테이트풀셋",
+      "tags"     : "kubernetes, k8s, pod, workload, and 워크로드",
+      "categories" : "k8s",
+      "url"      : "/k8s-volume/",
+      "date"     : "05/21/2023"
+    } ,
+  
+    {
       "title"    : "쿠버네티스 치트 시트",
       "tags"     : "kubernetes, k8s, pod, workload, and 워크로드",
       "categories" : "k8s",
@@ -45,7 +53,7 @@
     {
       "title"    : "Terraform - 기술면접 질문 대비",
       "tags"     : "terraform, 테라폼, IaC, mutable, and immutable",
-      "categories" : "Terraform",
+      "categories" : "terraform",
       "url"      : "/%EA%B8%B0%EC%88%A0%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/",
       "date"     : "05/12/2023"
     } ,
@@ -53,7 +61,7 @@
     {
       "title"    : "Terraform",
       "tags"     : "terraform, 테라폼, and IaC",
-      "categories" : "Terraform",
+      "categories" : "terraform",
       "url"      : "/Terraform/",
       "date"     : "05/12/2023"
     } ,
@@ -61,7 +69,7 @@
     {
       "title"    : "IaC",
       "tags"     : "terraform, 테라폼, and IaC",
-      "categories" : "Terraform",
+      "categories" : "terraform",
       "url"      : "/IaC/",
       "date"     : "05/12/2023"
     } ,
