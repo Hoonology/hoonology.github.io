@@ -17,28 +17,28 @@
     
     
 
-    <title>(Sprint) 환경 변수 설정 | Hoonology</title>
-    <meta name="description" content="클라이언트와 서버를 서로 연결하고 노출되면 안 되는 값을 보호하기 위해 환경 변수를 설정하는 실습을 진행한다.">
+    <title>k8s 네트워크 - Ingress | Hoonology</title>
+    <meta name="description" content="인그레스는 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 게이트웨이입니다. 일반적으로 HTTP를 관리하며 로드 밸런서, SSL Termination (클러스터 내에서는 HTTP로만 통신하게 하는 전환 과정), 가상 호스팅을 제공합니다.">
     
-        <meta name="keywords" content="AWS, cloud, 환경변수">
+        <meta name="keywords" content="kubernetes, k8s, pod, workload, 워크로드, ingress, 인그레스">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="(Sprint) 환경 변수 설정 | Hoonology">
-    <meta name="twitter:description" content="클라이언트와 서버를 서로 연결하고 노출되면 안 되는 값을 보호하기 위해 환경 변수를 설정하는 실습을 진행한다.">
+    <meta name="twitter:title" content="k8s 네트워크 - Ingress | Hoonology">
+    <meta name="twitter:description" content="인그레스는 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 게이트웨이입니다. 일반적으로 HTTP를 관리하며 로드 밸런서, SSL Termination (클러스터 내에서는 HTTP로만 통신하게 하는 전환 과정), 가상 호스팅을 제공합니다.">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/">
-    <meta property="og:title" content="(Sprint) 환경 변수 설정 | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
-    <meta property="og:description" content="클라이언트와 서버를 서로 연결하고 노출되면 안 되는 값을 보호하기 위해 환경 변수를 설정하는 실습을 진행한다.">
+    <meta property="og:url" content="http://localhost:4000/k8s-ingress/">
+    <meta property="og:title" content="k8s 네트워크 - Ingress | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
+    <meta property="og:description" content="인그레스는 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 게이트웨이입니다. 일반적으로 HTTP를 관리하며 로드 밸런서, SSL Termination (클러스터 내에서는 HTTP로만 통신하게 하는 전환 과정), 가상 호스팅을 제공합니다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/">
+    <link rel="canonical" href="http://localhost:4000/k8s-ingress/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-04-25T09:30:10+09:00">
+                        <time class="date" datetime="2023-05-22T09:00:00+09:00">
                             
 
 
-April 25, 2023
+May 22, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
                     <span>2 min to read</span>
                 </p>
-                <h1 class="post-title">(Sprint) 환경 변수 설정</h1>
-                <p class="post-subtitle">환경변수에 대하여</p>
+                <h1 class="post-title">k8s 네트워크 - Ingress</h1>
+                <p class="post-subtitle">Kubernetes, k8s</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,107 +192,94 @@ April 25, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="bare-minimum-requirement">Bare Minimum Requirement</h1>
+                <h1 id="인그레스">인그레스</h1>
 
-<ol>
-  <li>AWS CodeBuild 서비스를 통해 환경 변수를 전달할 수 있어야 합니다.</li>
-  <li>AWS Parameter Store 서비스와 AWS CLI를 통해 환경 변수를 전달할 수 있어야 합니다.</li>
-</ol>
+<p>인그레스는 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 게이트웨이입니다. 일반적으로 HTTP를 관리하며 <strong>로드 밸런서</strong>, <strong>SSL Termination</strong> (클러스터 내에서는 HTTP로만 통신하게 하는 전환 과정), 가상 호스팅을 제공합니다.</p>
 
-<h1 id="getting-started">Getting Started</h1>
-<ol>
-  <li>RDS 인스턴스가 생성되어 있어야 합니다.</li>
-  <li>서버 환경 변수 설정 실습이 성공적으로 마무리되기 위해서는 EC2 인스턴스 안에 AWS CLI가 설치되어 있어야 합니다.</li>
-</ol>
-
-<h2 id="aws-cli-설치-방법">AWS CLI 설치 방법</h2>
-
-<p>실습 과정에서 생성한 EC2 인스턴스를 터미널을 통해 접속합니다. 아래 명령어를 터미널에 복사하여 붙여 넣습니다.</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="s2">"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"</span> <span class="nt">-o</span> <span class="s2">"awscliv2.zip"</span>
-<span class="nv">$ </span>unzip awscliv2.zip
-<span class="nv">$ </span><span class="nb">sudo</span> ./aws/install
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube start       
 </code></pre></div></div>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws <span class="nt">--version</span> 명령어를 통해 AWS CLI의 설치 여부를 확인합니다.
-<span class="nv">$ </span>aws <span class="nt">--version</span>
+<ul>
+  <li>먼저 기존 서비스 타입을 LoadBalancer로 ClusterIP로 바꾸고 적용합니다. ClusterIP는 클러스터 내에서만 접근 가능합니다. 더 이상 EXTERNAL-IP는 사용할 수 없습니다.</li>
+  <li>인그레스 리소스를 다음과 같이 만들고 적용합니다.</li>
+</ul>
 
-aws-cli/2.1.39 Python/3.8.8 Darwin/20.4.0 exe/x86_64 prompt/off //이런식의 문구가 보인다면 설치가 성공적으로 마무리된 것입니다.
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">networking.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Ingress</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">nginx</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">rules</span><span class="pi">:</span>
+  <span class="na">~|-| host</span><span class="pi">:</span> <span class="s">localhost</span>
+    <span class="s">http</span><span class="err">:</span>
+      <span class="na">paths</span><span class="pi">:</span>
+      <span class="na">~|-| path</span><span class="pi">:</span> <span class="s">/</span>
+        <span class="s">pathType</span><span class="err">:</span> <span class="s">Prefix</span>
+        <span class="s">backend</span><span class="err">:</span>
+          <span class="na">service</span><span class="pi">:</span>
+            <span class="na">name</span><span class="pi">:</span> <span class="s">nginx</span>
+            <span class="na">port</span><span class="pi">:</span>
+              <span class="na">number</span><span class="pi">:</span> <span class="m">80</span>
 </code></pre></div></div>
 
-<h3 id="실습-과정-완료-후-테스트-진행-시-보이는-화면">실습 과정 완료 후 테스트 진행 시 보이는 화면</h3>
-<p>테스트는 S3 버킷의 엔드포인트 주소에 접속해서 진행</p>
-<ol>
-  <li>클라이언트 환경 변수 설정 관련 실습이 모두 마무리되어, S3 버킷의 엔드포인트 주소에 접속하고 로그인 테스트를 진행하면 아래와 같은 화면이 보입니다.
-<img src="/assets/img/CICD/ssWhmZWQO-1618474630640.png" alt="1" /></li>
-</ol>
-<div align="center">[그림] 실습이 성공적으로 마무리되면 로그인 과정이 성공적으로 진행되어 메인 페이지로 리디렉션 됩니다.</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> kubectl get all,ingresses
 
-<ol>
-  <li>서버 환경 변수 설정 Hands-on 실습 완료 시 결과 화면
-서버 환경 변수 설정 실습이 모두 마무리되고, S3 버킷의 엔드포인트 주소로 접속하여 로그인 테스트를 진행하면 아래와 같은 화면이 보입니다.
-<img src="/assets/img/CICD/7BttZRz9I-1618472502721.png" alt="2" /></li>
-</ol>
+ <span class="o">&gt;</span> 
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/nginx~|-|deployment~|-|9456bbbf9~|-|5m79q   1/1     Running   0          10m
+pod/nginx~|-|deployment~|-|9456bbbf9~|-|hjcm6   1/1     Running   0          10m
+pod/nginx~|-|deployment~|-|9456bbbf9~|-|lqkgg   1/1     Running   0          10m
 
-<div align="center">[그림] RDS 인스턴스 관련한 환경 변수 설정이 정상적으로 이루어진다면, 위 그림이 보입니다.</div>
+NAME                 TYPE        CLUSTER~|-|IP     EXTERNAL~|-|IP   PORT<span class="o">(</span>S<span class="o">)</span>   AGE
+service/kubernetes   ClusterIP   10.96.0.1      ~|&lt;|none&gt;        443/TCP   24m
+service/nginx        ClusterIP   10.105.4.233   ~|&lt;|none&gt;        80/TCP    106s     ~|#| 더이상 nginx 서비스는 LoadBalancer가 아닙니다
 
-<h1 id="클라이언트-환경-변수-설정">클라이언트 환경 변수 설정</h1>
-<p><img src="/assets/img/CICD/codebuild_client1.png" alt="환경변수" />
-<img src="/assets/img/CICD/codebuild_client2.png" alt="환경변수" />
-<img src="/assets/img/CICD/codebuild_client3.png" alt="환경변수" />
-<img src="/assets/img/CICD/codebuild_client4.png" alt="환경변수" />
-<img src="/assets/img/CICD/codebuild_client5.png" alt="환경변수" />
-<img src="/assets/img/CICD/codebuild_client6.png" alt="환경변수" /></p>
+NAME                               READY   UP~|-|TO~|-|DATE   AVAILABLE   AGE
+deployment.apps/nginx~|-|deployment   3/3     3            3           10m
 
-<h1 id="서버-환경-변수-설정">서버 환경 변수 설정</h1>
-<p>비밀번호와 같은 환경 변수는 외부에 노출되면 안 되기 때문에, 소스코드에 포함할 수 없습니다.</p>
+NAME                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx~|-|deployment~|-|9456bbbf9   3         3         3       10m
 
-<p>AWS Parameter Store 서비스를 이용하면 EC2 instance에 환경 변수를 전달할 수 있습니다.</p>
+NAME                              CLASS    HOSTS       ADDRESS   PORTS   AGE
+ingress.networking.k8s.io/nginx   ~|&lt;|none&gt;   localhost             80      2m55s    ~|#| 여기에 인그레스가 생성되었습니다
+</code></pre></div></div>
 
-<p>이름에 환경 변수명을 적어주고, 환경 변수에 할당되어야 할 값을 입력합니다.</p>
-
-<p>우측 하단으로 내려가 [ 파라미터 생성 ] 버튼을 눌러 파라미터를 생성합니다.</p>
-
-<p>여기서 환경 변수명은 소스 코드로 등록한 리포지토리에서 사용하고 있는 환경 변수를 그대로 이용하면 됩니다.</p>
+<ul>
+  <li>인그레스는 인그레스 리소스(정책 그 자체) 외에도 인그레스 컨트롤러(정책을 실행시키는 도구)가 반드시 필요합니다. minikube를 사용하는 경우, 인그레스 컨트롤러는 애드온으로 별도의 설치가 필요합니다. <a href="https://kubernetes.io/ko/docs/tasks/access-application-cluster/ingress-minikube/">공식 문서</a>를 참고해서 nginx 인그레스 컨트롤러를 활성화하세요.</li>
+</ul>
 
 <blockquote>
-  <p>우리는 현재 리포지토리에서 총 4개(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_PORT)의 환경 변수를 이용해 DB와의 연결을 세팅해두었습니다.</p>
+  <p>인그레스는 클러스터의 서비스에 대한 외부 액세스를 허용하는 규칙을 정의하는 API 객체이다. 인그레스 컨트롤러는 인그레스에 설정된 규칙을 이행한다.</p>
 </blockquote>
 
-<p>해당 과정을 반복해 4개의 파라미터를 모두 생성합니다.</p>
+<ul>
+  <li>터널을 열고, http://localhost에 접속해 봅시다.</li>
+</ul>
 
-<p><img src="/assets/img/CICD/codebuild_server1.png" alt="환경변수" />
-<img src="/assets/img/CICD/codebuild_server2.png" alt="환경변수" />
-<img src="/assets/img/CICD/codebuild_server3.png" alt="환경변수" />
-<img src="/assets/img/CICD/codebuild_server4.png" alt="환경변수" />
-변경 사항을 저장하고 commit한 뒤, master로 push하여 파이프라인을 통해 변경 사항을 전달합니다.</p>
+<h2 id="인그레스가-왜-필요하지-">인그레스가 왜 필요하지 ?</h2>
 
-<p>파이프라인을 통해 코드가 성공적으로 된 것을 확인한 후, 배포한 클라이언트 S3 버킷의 엔드포인트로 접속해 환경 변수가 정상적으로 전달되었는지 확인합니다. RDS의 연결 여부를 확인하세요!</p>
+<p>애플리케이션을 외부에 노출시키는 방법으로 앞서 서비스를 배웠습니다. 외부 IP 주소를 할당해 주는 서비스와 로드 밸런서를 생성하고 컨테이너로 트래픽을 보내는 방법을 이용합니다. 이렇게 파드를 노출시킬 수 있는데, 왜 인그레스를 별도로 사용해야 할까요?</p>
 
-<h1 id="문제-발생">문제 발생</h1>
-<p>AWS CLI가 EC2 환경에서 설치가 되지 않는다.</p>
 <blockquote>
-  <p>AWS Command Line Interface는 쉘 커맨드를 사용하여 AWS 서비스와 상호 작용할 수 있는 도구이다.
-<img src="/assets/img/CICD/awscli.png" alt="awscli" /></p>
-  <ul>
-    <li>나의 EC2 는 ARM 64로 설치한 것이니 설치를 진행해본다.</li>
-  </ul>
+  <p>인그레스 리소스는 로드 밸런싱과 더불어 호스트 기반 라우팅을 지원하기 때문입니다.</p>
 </blockquote>
 
-<p>공식 문서를 통해 해결해본다.</p>
+<p>( 앞서 만든 서비스는 LoadBalancer에서 ClusterIP로 바꿨기 때문에 인그레스가 로드 밸런서의 역할을 수행해야 합니다. )</p>
 
-<h2 id="aws-cli-설치-또는-업데이트">AWS CLI 설치 또는 업데이트</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="s2">"https://awscli.amazonaws.com/AWSCLIV2.pkg"</span> <span class="nt">-o</span> <span class="s2">"AWSCLIV2.pkg"</span>
-</code></pre></div></div>
-<p>되지 않는다.</p>
+<p>아주 단순한 애플리케이션도 서비스는 두 개 이상의 HTTP 요청을 가지는 것이 보통입니다. 보통 각각 Web Server와 WAS로 대표됩니다. 이러한 서비스의 접근을 별도의 포트로 구분하여 접속하게 할 수도 있지만, 하나의 호스트 상에서 라우팅으로 구분하면 보다 유연한 서비스를 만들 수 있습니다.</p>
+<ul>
+  <li>Web : <code class="language-plaintext highlighter-rouge">/</code></li>
+  <li>WAS : <code class="language-plaintext highlighter-rouge">/api</code></li>
+</ul>
 
-<h3 id="gpt-답변">GPT 답변</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
-<span class="nb">sudo </span>apt upgrade
-</code></pre></div></div>
+<p>YAML 파일에서 spec.rules.host에 별도의 호스트를 지정하여 Web Server는 www.mydomain.click, WAS는 api.mydomain.click으로 설정하는 것도 가능합니다.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="s2">"https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip"</span> <span class="nt">-o</span> <span class="s2">"awscliv2.zip"</span>
-unzip awscliv2.zip
-<span class="nb">sudo</span> ./aws/install
-</code></pre></div></div>
+<h4 id="인그레스-컨트롤러는-무엇일까요-">인그레스 컨트롤러는 무엇일까요?</h4>
+
+<blockquote>
+  <p>인그레스 컨트롤러라고 해서 뭔가 특별한 프로그램은 아닙니다. 우리가 흔히 잘 알고 있는 nginx와 같은 애플리케이션이 바로 인그레스 컨트롤러입니다. (nginx가 하는 일이 결국 호스트 기반 라우팅과 로드 밸런싱이라는 점을 기억하세요)
+즉 인그레스 컨트롤러는 규칙을 이행하는 실질적인 애플리케이션 컨테이너입니다.</p>
+</blockquote>
 
 
                 <!-- Pagination links -->
@@ -308,29 +295,29 @@ unzip awscliv2.zip
                         
                         
                             <li>
-                                <a href="/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4-API-Gateway%EC%99%80-%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
-                                    
-                                    <h3>(Sprint) 마이크로서비스 - API Gateway와 서버리스 애플리케이션</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Chirpy-theme-%EB%A5%BC-%EC%9E%85%ED%98%80%EB%B3%B4%EC%9E%90/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
-                                    
-                                    <h3>깃허브 블로그 만들기 3 - Chirpy 테마 입혀보기</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Terraform/">
+                                <a href="/%EA%B8%B0%EC%88%A0%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
                                     
-                                    <h3>Terraform</h3>
+                                    <h3>Terraform - 기술면접 질문 대비</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-AutoScalingGroup/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                    
+                                    <h3>수평확장</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/IaC/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
+                                    
+                                    <h3>IaC</h3>
                                 </a>
                             </li>
                         
@@ -362,13 +349,13 @@ unzip awscliv2.zip
         </div>
     </div>
     
-    <a href="/Test/" class="post-preview">
+    <a href="/YAML/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
             
         </div>
-        <h3 class="title">Test</h3>
+        <h3 class="title">YAML</h3>
     </a>
 </div>
 
@@ -384,11 +371,11 @@ unzip awscliv2.zip
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;클라이언트와 서버를 서로 연결하고 노출되면 안 되는 값을 보호하기 위해 환경 변수를 설정하는 실습을 진행한다.&quot;%20http://localhost:4000/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/%20via%20&#64;&hashtags=AWS,cloud,환경변수"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;인그레스는 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 게이트웨이입니다. 일반적으로 HTTP를 관리하며 로드 밸런서, SSL Termination (클러스터 내에서는 HTTP로만 통신하게 하는 전환 과정), 가상 호스팅을 제공합니다.&quot;%20http://localhost:4000/k8s-ingress/%20via%20&#64;&hashtags=kubernetes,k8s,pod,workload,워크로드,ingress,인그레스"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/k8s-ingress/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -411,7 +398,7 @@ unzip awscliv2.zip
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/';
+        var disqus_url = '/k8s-ingress/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -555,118 +542,105 @@ unzip awscliv2.zip
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "(Sprint) 환경 변수 설정",
-            "headline": "환경변수에 대하여",
-            "description": "클라이언트와 서버를 서로 연결하고 노출되면 안 되는 값을 보호하기 위해 환경 변수를 설정하는 실습을 진행한다.",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
-            "url": "http://localhost:4000/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/",
-            "articleBody": "Bare Minimum Requirement
+            "name": "k8s 네트워크 - Ingress",
+            "headline": "Kubernetes, k8s",
+            "description": "인그레스는 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 게이트웨이입니다. 일반적으로 HTTP를 관리하며 로드 밸런서, SSL Termination (클러스터 내에서는 HTTP로만 통신하게 하는 전환 과정), 가상 호스팅을 제공합니다.",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png",
+            "url": "http://localhost:4000/k8s-ingress/",
+            "articleBody": "인그레스
+
+인그레스는 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 게이트웨이입니다. 일반적으로 HTTP를 관리하며 로드 밸런서, SSL Termination (클러스터 내에서는 HTTP로만 통신하게 하는 전환 과정), 가상 호스팅을 제공합니다.
+
+minikube start       
 
 
-  AWS CodeBuild 서비스를 통해 환경 변수를 전달할 수 있어야 합니다.
-  AWS Parameter Store 서비스와 AWS CLI를 통해 환경 변수를 전달할 수 있어야 합니다.
+  먼저 기존 서비스 타입을 LoadBalancer로 ClusterIP로 바꾸고 적용합니다. ClusterIP는 클러스터 내에서만 접근 가능합니다. 더 이상 EXTERNAL-IP는 사용할 수 없습니다.
+  인그레스 리소스를 다음과 같이 만들고 적용합니다.
 
 
-Getting Started
-
-  RDS 인스턴스가 생성되어 있어야 합니다.
-  서버 환경 변수 설정 실습이 성공적으로 마무리되기 위해서는 EC2 인스턴스 안에 AWS CLI가 설치되어 있어야 합니다.
-
-
-AWS CLI 설치 방법
-
-실습 과정에서 생성한 EC2 인스턴스를 터미널을 통해 접속합니다. 아래 명령어를 터미널에 복사하여 붙여 넣습니다.
-$ curl &quot;https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip&quot; -o &quot;awscliv2.zip&quot;
-$ unzip awscliv2.zip
-$ sudo ./aws/install
-
-aws --version 명령어를 통해 AWS CLI의 설치 여부를 확인합니다.
-$ aws --version
-
-aws-cli/2.1.39 Python/3.8.8 Darwin/20.4.0 exe/x86_64 prompt/off //이런식의 문구가 보인다면 설치가 성공적으로 마무리된 것입니다.
-
-
-실습 과정 완료 후 테스트 진행 시 보이는 화면
-테스트는 S3 버킷의 엔드포인트 주소에 접속해서 진행
-
-  클라이언트 환경 변수 설정 관련 실습이 모두 마무리되어, S3 버킷의 엔드포인트 주소에 접속하고 로그인 테스트를 진행하면 아래와 같은 화면이 보입니다.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  rules:
+  ~|-| host: localhost
+    http:
+      paths:
+      ~|-| path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
 
 
-[그림] 실습이 성공적으로 마무리되면 로그인 과정이 성공적으로 진행되어 메인 페이지로 리디렉션 됩니다.
+ kubectl get all,ingresses
 
+ &amp;gt; 
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/nginx~|-|deployment~|-|9456bbbf9~|-|5m79q   1/1     Running   0          10m
+pod/nginx~|-|deployment~|-|9456bbbf9~|-|hjcm6   1/1     Running   0          10m
+pod/nginx~|-|deployment~|-|9456bbbf9~|-|lqkgg   1/1     Running   0          10m
 
-  서버 환경 변수 설정 Hands-on 실습 완료 시 결과 화면
-서버 환경 변수 설정 실습이 모두 마무리되고, S3 버킷의 엔드포인트 주소로 접속하여 로그인 테스트를 진행하면 아래와 같은 화면이 보입니다.
+NAME                 TYPE        CLUSTER~|-|IP     EXTERNAL~|-|IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1      ~|&amp;lt;|none&amp;gt;        443/TCP   24m
+service/nginx        ClusterIP   10.105.4.233   ~|&amp;lt;|none&amp;gt;        80/TCP    106s     ~|#| 더이상 nginx 서비스는 LoadBalancer가 아닙니다
 
+NAME                               READY   UP~|-|TO~|-|DATE   AVAILABLE   AGE
+deployment.apps/nginx~|-|deployment   3/3     3            3           10m
 
+NAME                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx~|-|deployment~|-|9456bbbf9   3         3         3       10m
 
-[그림] RDS 인스턴스 관련한 환경 변수 설정이 정상적으로 이루어진다면, 위 그림이 보입니다.
-
-클라이언트 환경 변수 설정
-
-
-
-
-
-
-
-서버 환경 변수 설정
-비밀번호와 같은 환경 변수는 외부에 노출되면 안 되기 때문에, 소스코드에 포함할 수 없습니다.
-
-AWS Parameter Store 서비스를 이용하면 EC2 instance에 환경 변수를 전달할 수 있습니다.
-
-이름에 환경 변수명을 적어주고, 환경 변수에 할당되어야 할 값을 입력합니다.
-
-우측 하단으로 내려가 [ 파라미터 생성 ] 버튼을 눌러 파라미터를 생성합니다.
-
-여기서 환경 변수명은 소스 코드로 등록한 리포지토리에서 사용하고 있는 환경 변수를 그대로 이용하면 됩니다.
-
-
-  우리는 현재 리포지토리에서 총 4개(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_PORT)의 환경 변수를 이용해 DB와의 연결을 세팅해두었습니다.
-
-
-해당 과정을 반복해 4개의 파라미터를 모두 생성합니다.
+NAME                              CLASS    HOSTS       ADDRESS   PORTS   AGE
+ingress.networking.k8s.io/nginx   ~|&amp;lt;|none&amp;gt;   localhost             80      2m55s    ~|#| 여기에 인그레스가 생성되었습니다
 
 
 
+  인그레스는 인그레스 리소스(정책 그 자체) 외에도 인그레스 컨트롤러(정책을 실행시키는 도구)가 반드시 필요합니다. minikube를 사용하는 경우, 인그레스 컨트롤러는 애드온으로 별도의 설치가 필요합니다. 공식 문서를 참고해서 nginx 인그레스 컨트롤러를 활성화하세요.
 
 
-변경 사항을 저장하고 commit한 뒤, master로 push하여 파이프라인을 통해 변경 사항을 전달합니다.
 
-파이프라인을 통해 코드가 성공적으로 된 것을 확인한 후, 배포한 클라이언트 S3 버킷의 엔드포인트로 접속해 환경 변수가 정상적으로 전달되었는지 확인합니다. RDS의 연결 여부를 확인하세요!
-
-문제 발생
-AWS CLI가 EC2 환경에서 설치가 되지 않는다.
-
-  AWS Command Line Interface는 쉘 커맨드를 사용하여 AWS 서비스와 상호 작용할 수 있는 도구이다.
-
-  
-    나의 EC2 는 ARM 64로 설치한 것이니 설치를 진행해본다.
-  
+  인그레스는 클러스터의 서비스에 대한 외부 액세스를 허용하는 규칙을 정의하는 API 객체이다. 인그레스 컨트롤러는 인그레스에 설정된 규칙을 이행한다.
 
 
-공식 문서를 통해 해결해본다.
 
-AWS CLI 설치 또는 업데이트
-curl &quot;https://awscli.amazonaws.com/AWSCLIV2.pkg&quot; -o &quot;AWSCLIV2.pkg&quot;
-
-되지 않는다.
-
-GPT 답변
-sudo apt update
-sudo apt upgrade
+  터널을 열고, http://localhost에 접속해 봅시다.
 
 
-curl &quot;https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip&quot; -o &quot;awscliv2.zip&quot;
-unzip awscliv2.zip
-sudo ./aws/install
+인그레스가 왜 필요하지 ?
+
+애플리케이션을 외부에 노출시키는 방법으로 앞서 서비스를 배웠습니다. 외부 IP 주소를 할당해 주는 서비스와 로드 밸런서를 생성하고 컨테이너로 트래픽을 보내는 방법을 이용합니다. 이렇게 파드를 노출시킬 수 있는데, 왜 인그레스를 별도로 사용해야 할까요?
+
+
+  인그레스 리소스는 로드 밸런싱과 더불어 호스트 기반 라우팅을 지원하기 때문입니다.
+
+
+( 앞서 만든 서비스는 LoadBalancer에서 ClusterIP로 바꿨기 때문에 인그레스가 로드 밸런서의 역할을 수행해야 합니다. )
+
+아주 단순한 애플리케이션도 서비스는 두 개 이상의 HTTP 요청을 가지는 것이 보통입니다. 보통 각각 Web Server와 WAS로 대표됩니다. 이러한 서비스의 접근을 별도의 포트로 구분하여 접속하게 할 수도 있지만, 하나의 호스트 상에서 라우팅으로 구분하면 보다 유연한 서비스를 만들 수 있습니다.
+
+  Web : /
+  WAS : /api
+
+
+YAML 파일에서 spec.rules.host에 별도의 호스트를 지정하여 Web Server는 www.mydomain.click, WAS는 api.mydomain.click으로 설정하는 것도 가능합니다.
+
+인그레스 컨트롤러는 무엇일까요?
+
+
+  인그레스 컨트롤러라고 해서 뭔가 특별한 프로그램은 아닙니다. 우리가 흔히 잘 알고 있는 nginx와 같은 애플리케이션이 바로 인그레스 컨트롤러입니다. (nginx가 하는 일이 결국 호스트 기반 라우팅과 로드 밸런싱이라는 점을 기억하세요)
+즉 인그레스 컨트롤러는 규칙을 이행하는 실질적인 애플리케이션 컨테이너입니다.
 
 ",
-            "wordcount": "499",
+            "wordcount": "459",
             "inLanguage": "ko",
-            "dateCreated": "2023-04-25/",
-            "datePublished": "2023-04-25/",
-            "dateModified": "2023-04-25/",
+            "dateCreated": "2023-05-22/",
+            "datePublished": "2023-05-22/",
+            "dateModified": "2023-05-22/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -691,9 +665,9 @@ sudo ./aws/install
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "AWS",
-            "articleSection": "AWS",
-            "keywords": ["AWS","cloud","환경변수"]
+            "genre": "k8s",
+            "articleSection": "k8s",
+            "keywords": ["kubernetes","k8s","pod","workload","워크로드","ingress","인그레스"]
         }
         </script>
        </body>
