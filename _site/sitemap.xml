@@ -179,6 +179,13 @@
     
     
         <url>
+            <loc>http://localhost:4000/k8s-EKS/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-05-23</lastmod>
+        </url>
+    
+        <url>
             <loc>http://localhost:4000/k8s-ingress/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>

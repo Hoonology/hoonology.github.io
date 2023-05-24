@@ -3,6 +3,14 @@
   
   
     {
+      "title"    : "Amazon EKS ( Elastic Kubernetes Service )",
+      "tags"     : "kubernetes, k8s, pod, workload, 워크로드, EKS, and GKE",
+      "categories" : "k8s",
+      "url"      : "/k8s-EKS/",
+      "date"     : "05/23/2023"
+    } ,
+  
+    {
       "title"    : "k8s 네트워크 - Ingress",
       "tags"     : "kubernetes, k8s, pod, workload, 워크로드, ingress, and 인그레스",
       "categories" : "k8s",
