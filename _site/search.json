@@ -3,6 +3,30 @@
   
   
     {
+      "title"    : "Project 3 - Part II",
+      "tags"     : "",
+      "categories" : "project",
+      "url"      : "/Section3/",
+      "date"     : "05/25/2023"
+    } ,
+  
+    {
+      "title"    : "Project 3 - Part I",
+      "tags"     : "",
+      "categories" : "project",
+      "url"      : "/Section3/",
+      "date"     : "05/24/2023"
+    } ,
+  
+    {
+      "title"    : "Chapter III - Review",
+      "tags"     : "serverless, 서버리스, IaaC, Terraform, Lambda, SQS, and MSA",
+      "categories" : "k8s",
+      "url"      : "/3/",
+      "date"     : "05/24/2023"
+    } ,
+  
+    {
       "title"    : "Amazon EKS ( Elastic Kubernetes Service )",
       "tags"     : "kubernetes, k8s, pod, workload, 워크로드, EKS, and GKE",
       "categories" : "k8s",
