@@ -17,28 +17,28 @@
     
     
 
-    <title>Chapter III - Review | Hoonology</title>
-    <meta name="description" content="파드 그 자체는 Stateless, 파드의 교체와 배치를 담당하는 것이 '디플로이먼트', 레플리카셋을 통해 파드를 scale out하며, 이때 만들어지는 파드들은 상호 대체 가능합니다.">
+    <title>서비스 모니터링 - 계층별 메트릭과 메트릭 구분 | Hoonology</title>
+    <meta name="description" content="메트릭을 살펴보자">
     
-        <meta name="keywords" content="serverless, 서버리스, IaaC, Terraform, Lambda, SQS, MSA">
+        <meta name="keywords" content="모니터링, mornitoring, observability">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Chapter III - Review | Hoonology">
-    <meta name="twitter:description" content="파드 그 자체는 Stateless, 파드의 교체와 배치를 담당하는 것이 '디플로이먼트', 레플리카셋을 통해 파드를 scale out하며, 이때 만들어지는 파드들은 상호 대체 가능합니다.">
+    <meta name="twitter:title" content="서비스 모니터링 - 계층별 메트릭과 메트릭 구분 | Hoonology">
+    <meta name="twitter:description" content="메트릭을 살펴보자">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/3/">
-    <meta property="og:title" content="Chapter III - Review | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
-    <meta property="og:description" content="파드 그 자체는 Stateless, 파드의 교체와 배치를 담당하는 것이 '디플로이먼트', 레플리카셋을 통해 파드를 scale out하며, 이때 만들어지는 파드들은 상호 대체 가능합니다.">
+    <meta property="og:url" content="http://localhost:4000/ServiceMornitoring2/">
+    <meta property="og:title" content="서비스 모니터링 - 계층별 메트릭과 메트릭 구분 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+    <meta property="og:description" content="메트릭을 살펴보자">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/3/">
+    <link rel="canonical" href="http://localhost:4000/ServiceMornitoring2/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-05-24T09:00:00+09:00">
+                        <time class="date" datetime="2023-05-31T09:00:00+09:00">
                             
 
 
-May 24, 2023
+May 31, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>1 min to read</span>
+                    <span>2 min to read</span>
                 </p>
-                <h1 class="post-title">Chapter III - Review</h1>
-                <p class="post-subtitle">Kubernetes, k8s</p>
+                <h1 class="post-title">서비스 모니터링 - 계층별 메트릭과 메트릭 구분</h1>
+                <p class="post-subtitle">서비스 모니터링</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,74 +192,101 @@ May 24, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="review-">Review</h1>
+                <h1 id="index">Index</h1>
 
 <ul>
-  <li>마이크로서비스</li>
-  <li>serverless</li>
-  <li>lambda( 핸들러 레퍼런스 )</li>
-  <li>API 서버로 요청 보내기
+  <li><a href="#계층별-메트릭과-메트릭-구분">계층별 메트릭과 메트릭 구분</a></li>
+  <li><a href="#메트릭-한눈에-보기">메트릭 한눈에 보기</a></li>
+  <li><a href="#application-load-balancer">Application Load Balancer</a></li>
+  <li><a href="#ecs">ECS</a></li>
+  <li><a href="#ec2">EC2</a></li>
+  <li><a href="#lambda">Lambda</a></li>
+  <li><a href="#사이트-신뢰성-엔지니어링--sre--관련-메트릭">사이트 신뢰성 엔지니어링 (SRE) 관련 메트릭</a></li>
+</ul>
+
+<h1 id="계층별-메트릭과-메트릭-구분">계층별 메트릭과 메트릭 구분</h1>
+<h2 id="메트릭-한눈에-보기">메트릭 한눈에 보기</h2>
+
+<p><img src="/assets/img/CICD/met.png" alt="메트릭" /></p>
+
+<h2 id="application-load-balancer">Application Load Balancer</h2>
+
+<p><img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/N80FCe__Q8BfNCImtrDj9-1651557340916.png" alt="Alt text" /></p>
+
+<h2 id="ecs">ECS</h2>
+
+<p>클러스터
+<img src="https://user-images.githubusercontent.com/702622/164989495-acb8a380-ce4b-4d71-a88b-c2e0d7cd268d.png" alt="Alt text" /></p>
+
+<p>서비스
+<img src="https://user-images.githubusercontent.com/702622/164989455-67a573e2-50ea-432e-a500-42a156394cd5.png" alt="Alt text" /></p>
+
+<p>태스크
+<img src="https://user-images.githubusercontent.com/702622/164989427-862e7144-5a35-4146-b370-a929745a6489.png" alt="Alt text" /></p>
+
+<h2 id="ec2">EC2</h2>
+
+<p><img src="https://user-images.githubusercontent.com/702622/164989407-998ba1b6-5ef3-4c9d-8469-f72eb1a55774.png" alt="Alt text" /></p>
+
+<h2 id="lambda">Lambda</h2>
+
+<p><img src="https://user-images.githubusercontent.com/702622/164989608-0c1e821a-d045-4322-8552-345ba796dbfc.png" alt="Alt text" /></p>
+
+<h2 id="메트릭을-이용한-질문-예제">메트릭을 이용한 질문 예제</h2>
+
+<ul>
+  <li>원하는 파드(태스크)의 개수 중 실제로 실행 중인 파드(태스크)는 몇 개인가요?
     <ul>
-      <li>HTTP GET</li>
+      <li>k8s의 “요청/응답 관련 메트릭” 중 “(원하는/실행 중인/보류 중인) 작업 개수”를 사용하여 파악할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li>Pending 상태인 파드(태스크)는 몇 개인가요?
+    <ul>
+      <li>k8s의 “요청/응답 관련 메트릭” 중 “요청 개수”를 사용하여 파악할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li>파드 요청을 처리할 수 있을 만큼의 충분한 리소스가 있나요?
+    <ul>
+      <li>k8s의 “컴퓨팅 유닛 관련 메트릭” 중 “CPU 사용량 (utilization)”, “메모리 사용량”, “네트워크 in/out”, “디스크 사용량” 등을 사용하여 파악할 수 있습니다. 이들 메트릭을 통해 현재 리소스 사용량과 파드 요청에 대한 여유 리소스를 비교하여 확인할 수 있습니다.</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="마이크로서비스">마이크로서비스</h2>
+<h1 id="사이트-신뢰성-엔지니어링-sre-관련-메트릭">사이트 신뢰성 엔지니어링 ( SRE ) 관련 메트릭</h1>
 
-<p><img src="https://microservices.io/i/Microservice_Architecture.png" alt="Alt text" /></p>
+<p>CPU 및 메모리, 사용량 등을 파악하는 것 외에도 <strong>네트워크 요청에 따른 응답 상태</strong>, <strong>요청의 횟수나 시간</strong> 등도 중요한 지표가 될 수 있습니다.</p>
 
-<h3 id="마이크로서비스-아키텍처의-정의">마이크로서비스 아키텍처의 정의</h3>
-<h4 id="1-독립적으로-배포-가능">1. 독립적으로 배포 가능</h4>
-<h4 id="2-느슨한-결합">2. 느슨한 결합</h4>
-<h4 id="3-비즈니스-역량-중심으로-구성">3. 비즈니스 역량 중심으로 구성</h4>
-<h4 id="4-소규모-팀-소유">4. 소규모 팀 소유</h4>
-<h4 id="5-유지보수에-유리하고-테스트-가능">5. 유지보수에 유리하고 테스트 가능</h4>
+<p>이를 통해 어떤 서비스(웹사이트)가 온전히 사용자에게 전달될 수 있도록 가용성을 극대화하는 기술/문화를 특별히 <br />
+사이트 신뢰성 엔지니어링(<strong><em>Site Reliability Engineering</em></strong>, <strong><em>SRE</em></strong>)라고 부릅니다.</p>
 
-<p>서비스로서의 컴포넌트화</p>
-<ul>
-  <li>컴포넌트: 독립적으로 대체하거나 업그레이드 가능한 소프트웨어 단위</li>
-  <li>컴포넌트화: 시스템을 구성 요소(Component)를 나누고 이를 연결하여 구축하는 것</li>
-  <li>컴포넌트화는 어떻게?: 소프트웨어를 여러 서비스로 분리하는 것</li>
-</ul>
+<h2 id="google-sre-네-가지-황금-시그널">Google SRE “네 가지 황금 시그널”</h2>
+<h3 id="1-대기-시간-latency">1. 대기 시간 (Latency)</h3>
 
-<p><img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/djZuTFfbavXAI9YaZ37H0-1639552127272.png" alt="Alt text" /></p>
+<p>대기 시간은 서비스가 요청에 응답하는 데 걸리는 시간을 나타냅니다. 핵심은 지속 시간뿐만 아니라 성공적인 요청의 대기 시간과, 실패한 요청의 대기 시간을 구별하는 데에도 중점을 두어야 합니다.</p>
 
-<h3 id="비즈니스-수행-능력업무-도메인에-따른-팀-분류">비즈니스 수행 능력(업무 도메인)에 따른 팀 분류</h3>
+<h3 id="2트래픽-traffic">2.트래픽 (Traffic)</h3>
 
-<blockquote>
-  <p>도메인?</p>
-  <ul>
-    <li>예) 쇼핑몰의 경우 회원/상품/배송이 각각의 도메인이 된다.</li>
-    <li>하나의 온전한 시스템의 단위</li>
-  </ul>
-</blockquote>
+<p>트래픽은 서비스에 대한 수요 측정입니다. 대표적인 예로는, 초당 HTTP 요청 수가 있습니다.</p>
 
-<blockquote>
-  <p>팀이 하는 일이 하나의 서비스로 나뉨 → 마이크로서비스</p>
-  <ul>
-    <li>이로 인한 장점으로는,
-      <ul>
-        <li>소프트웨어 스택, 데이터베이스 선택, 프로젝트 관리 등이 팀 별로 <strong>독립적</strong>이다.</li>
-      </ul>
-    </li>
-  </ul>
-</blockquote>
+<h3 id="3오류-errors">3.오류 (Errors)</h3>
 
-<blockquote>
-  <p>이를 달성하기 위해서,</p>
-  <ul>
-    <li>각 팀은 서비스에 대한 책임을 가져야 한다</li>
-    <li>각 서비스는 메시지 버스(통신 인터페이스)를 통해 통신해야 한다</li>
-  </ul>
-</blockquote>
+<p>오류는 실패한 요청/전체 요청 의 비율로 측정됩니다. 대부분의 경우 이러한 실패는 명시적이지만(예: HTTP 500 오류) 암시적일 수도 있습니다(예: “결과 없음”이라는 메시지를 본문으로 전달하는 HTTP 200 응답).</p>
 
-<h1 id="마이크로서비스-직접-구현하기">마이크로서비스 직접 구현하기</h1>
+<h3 id="4-포화-수준-saturation">4. 포화 수준 (Saturation)</h3>
 
-<ul>
-  <li>공장을 돌린다.</li>
-</ul>
+<p>포화는 서비스 또는 시스템 리소스를 “얼마나 가득 채워서 사용하는가”로 설명할 수 있습니다. 전형적인 예로는 과도한 CPU 자원 사용이 있습니다. CPU 자원이 부족하면, 스로틀링을 초래하고 결과적으로 응용 프로그램의 성능을 저하시킵니다.</p>
 
+<h2 id="주요-모니터링-패턴">주요 모니터링 패턴</h2>
+
+<p>시간이 지남에 따라 다양한 모니터링 방법이 개발되었습니다. 대표적으로 USE 패턴, RED 패턴이 있으며, 그밖에 다른 패턴 역시 유사하며 대기 시간, 트래픽, 오류 및 포화도를 측정하기 위한 SRE 요구와 크게 다르지 않습니다.</p>
+
+<h3 id="use-패턴">USE 패턴</h3>
+
+<p>USE 패턴은 모든 리소스에 대한 사용률(Utilization), 포화도(Saturation), 오류(Errors)를 체크하는 패턴을 의미합니다.</p>
+
+<h3 id="red-패턴">RED 패턴</h3>
+
+<p>RED 패턴은 비율(Rate), 오류(Errors) 및 기간(Duration)을 주요 메트릭으로 정의하는 패턴입니다.</p>
 
 
                 <!-- Pagination links -->
@@ -275,29 +302,29 @@ May 24, 2023
                         
                         
                             <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B3%B4%EC%95%88/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
-                                    
-                                    <h3>보안</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-Sprint-3Tier-architecture/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
-                                    
-                                    <h3>(Sprint) 3 Tier Architecture 배포</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Docker-CLI-Part1/">
+                                <a href="/MileStone1/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker CLI</h3>
+                                    <h3>Milestone 1</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Sprint-%EC%BD%94%EB%93%9C%EB%A1%9C%EB%B6%80%ED%84%B0-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98-%EB%B6%84%EB%A6%AC/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                    
+                                    <h3>(Sprint) - 환경변수와 코드로 부터 환경변수 분리</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/k8s-cheat/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
+                                    
+                                    <h3>쿠버네티스 치트 시트</h3>
                                 </a>
                             </li>
                         
@@ -309,7 +336,7 @@ May 24, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="1">
+            <div class="time-bar" data-minutes="2">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -329,13 +356,13 @@ May 24, 2023
         </div>
     </div>
     
-    <a href="/Section3/" class="post-preview">
+    <a href="/AutoScailing+CloudWatch/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
             
         </div>
-        <h3 class="title">Project 3 - Part I</h3>
+        <h3 class="title">서비스 모니터링 - 기술면접 발표</h3>
     </a>
 </div>
 
@@ -351,11 +378,11 @@ May 24, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;파드 그 자체는 Stateless, 파드의 교체와 배치를 담당하는 것이 '디플로이먼트', 레플리카셋을 통해 파드를 scale out하며, 이때 만들어지는 파드들은 상호 대체 가능합니다.&quot;%20http://localhost:4000/3/%20via%20&#64;&hashtags=serverless,서버리스,IaaC,Terraform,Lambda,SQS,MSA"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;메트릭을 살펴보자&quot;%20http://localhost:4000/ServiceMornitoring2/%20via%20&#64;&hashtags=모니터링,mornitoring,observability"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/3/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ServiceMornitoring2/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -378,7 +405,7 @@ May 24, 2023
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/3/';
+        var disqus_url = '/ServiceMornitoring2/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -522,85 +549,112 @@ May 24, 2023
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "Chapter III - Review",
-            "headline": "Kubernetes, k8s",
-            "description": "파드 그 자체는 Stateless, 파드의 교체와 배치를 담당하는 것이 '디플로이먼트', 레플리카셋을 통해 파드를 scale out하며, 이때 만들어지는 파드들은 상호 대체 가능합니다.",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png",
-            "url": "http://localhost:4000/3/",
-            "articleBody": "Review
+            "name": "서비스 모니터링 - 계층별 메트릭과 메트릭 구분",
+            "headline": "서비스 모니터링",
+            "description": "메트릭을 살펴보자",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png",
+            "url": "http://localhost:4000/ServiceMornitoring2/",
+            "articleBody": "Index
 
 
-  마이크로서비스
-  serverless
-  lambda( 핸들러 레퍼런스 )
-  API 서버로 요청 보내기
+  계층별 메트릭과 메트릭 구분
+  메트릭 한눈에 보기
+  Application Load Balancer
+  ECS
+  EC2
+  Lambda
+  사이트 신뢰성 엔지니어링 (SRE) 관련 메트릭
+
+
+계층별 메트릭과 메트릭 구분
+메트릭 한눈에 보기
+
+
+
+Application Load Balancer
+
+
+
+ECS
+
+클러스터
+
+
+서비스
+
+
+태스크
+
+
+EC2
+
+
+
+Lambda
+
+
+
+메트릭을 이용한 질문 예제
+
+
+  원하는 파드(태스크)의 개수 중 실제로 실행 중인 파드(태스크)는 몇 개인가요?
     
-      HTTP GET
-    
-  
-
-
-마이크로서비스
-
-
-
-마이크로서비스 아키텍처의 정의
-1. 독립적으로 배포 가능
-2. 느슨한 결합
-3. 비즈니스 역량 중심으로 구성
-4. 소규모 팀 소유
-5. 유지보수에 유리하고 테스트 가능
-
-서비스로서의 컴포넌트화
-
-  컴포넌트: 독립적으로 대체하거나 업그레이드 가능한 소프트웨어 단위
-  컴포넌트화: 시스템을 구성 요소(Component)를 나누고 이를 연결하여 구축하는 것
-  컴포넌트화는 어떻게?: 소프트웨어를 여러 서비스로 분리하는 것
-
-
-
-
-비즈니스 수행 능력(업무 도메인)에 따른 팀 분류
-
-
-  도메인?
-  
-    예) 쇼핑몰의 경우 회원/상품/배송이 각각의 도메인이 된다.
-    하나의 온전한 시스템의 단위
-  
-
-
-
-  팀이 하는 일이 하나의 서비스로 나뉨 → 마이크로서비스
-  
-    이로 인한 장점으로는,
-      
-        소프트웨어 스택, 데이터베이스 선택, 프로젝트 관리 등이 팀 별로 독립적이다.
-      
+      k8s의 “요청/응답 관련 메트릭” 중 “(원하는/실행 중인/보류 중인) 작업 개수”를 사용하여 파악할 수 있습니다.
     
   
-
-
-
-  이를 달성하기 위해서,
+  Pending 상태인 파드(태스크)는 몇 개인가요?
+    
+      k8s의 “요청/응답 관련 메트릭” 중 “요청 개수”를 사용하여 파악할 수 있습니다.
+    
   
-    각 팀은 서비스에 대한 책임을 가져야 한다
-    각 서비스는 메시지 버스(통신 인터페이스)를 통해 통신해야 한다
+  파드 요청을 처리할 수 있을 만큼의 충분한 리소스가 있나요?
+    
+      k8s의 “컴퓨팅 유닛 관련 메트릭” 중 “CPU 사용량 (utilization)”, “메모리 사용량”, “네트워크 in/out”, “디스크 사용량” 등을 사용하여 파악할 수 있습니다. 이들 메트릭을 통해 현재 리소스 사용량과 파드 요청에 대한 여유 리소스를 비교하여 확인할 수 있습니다.
+    
   
 
 
-마이크로서비스 직접 구현하기
+사이트 신뢰성 엔지니어링 ( SRE ) 관련 메트릭
 
+CPU 및 메모리, 사용량 등을 파악하는 것 외에도 네트워크 요청에 따른 응답 상태, 요청의 횟수나 시간 등도 중요한 지표가 될 수 있습니다.
 
-  공장을 돌린다.
+이를 통해 어떤 서비스(웹사이트)가 온전히 사용자에게 전달될 수 있도록 가용성을 극대화하는 기술/문화를 특별히 
+사이트 신뢰성 엔지니어링(Site Reliability Engineering, SRE)라고 부릅니다.
 
+Google SRE “네 가지 황금 시그널”
+1. 대기 시간 (Latency)
 
+대기 시간은 서비스가 요청에 응답하는 데 걸리는 시간을 나타냅니다. 핵심은 지속 시간뿐만 아니라 성공적인 요청의 대기 시간과, 실패한 요청의 대기 시간을 구별하는 데에도 중점을 두어야 합니다.
+
+2.트래픽 (Traffic)
+
+트래픽은 서비스에 대한 수요 측정입니다. 대표적인 예로는, 초당 HTTP 요청 수가 있습니다.
+
+3.오류 (Errors)
+
+오류는 실패한 요청/전체 요청 의 비율로 측정됩니다. 대부분의 경우 이러한 실패는 명시적이지만(예: HTTP 500 오류) 암시적일 수도 있습니다(예: “결과 없음”이라는 메시지를 본문으로 전달하는 HTTP 200 응답).
+
+4. 포화 수준 (Saturation)
+
+포화는 서비스 또는 시스템 리소스를 “얼마나 가득 채워서 사용하는가”로 설명할 수 있습니다. 전형적인 예로는 과도한 CPU 자원 사용이 있습니다. CPU 자원이 부족하면, 스로틀링을 초래하고 결과적으로 응용 프로그램의 성능을 저하시킵니다.
+
+주요 모니터링 패턴
+
+시간이 지남에 따라 다양한 모니터링 방법이 개발되었습니다. 대표적으로 USE 패턴, RED 패턴이 있으며, 그밖에 다른 패턴 역시 유사하며 대기 시간, 트래픽, 오류 및 포화도를 측정하기 위한 SRE 요구와 크게 다르지 않습니다.
+
+USE 패턴
+
+USE 패턴은 모든 리소스에 대한 사용률(Utilization), 포화도(Saturation), 오류(Errors)를 체크하는 패턴을 의미합니다.
+
+RED 패턴
+
+RED 패턴은 비율(Rate), 오류(Errors) 및 기간(Duration)을 주요 메트릭으로 정의하는 패턴입니다.
 ",
-            "wordcount": "170",
+            "wordcount": "417",
             "inLanguage": "ko",
-            "dateCreated": "2023-05-24/",
-            "datePublished": "2023-05-24/",
-            "dateModified": "2023-05-24/",
+            "dateCreated": "2023-05-31/",
+            "datePublished": "2023-05-31/",
+            "dateModified": "2023-05-31/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -625,9 +679,9 @@ May 24, 2023
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "k8s",
-            "articleSection": "k8s",
-            "keywords": ["serverless","서버리스","IaaC","Terraform","Lambda","SQS","MSA"]
+            "genre": "CICD",
+            "articleSection": "CICD",
+            "keywords": ["모니터링","mornitoring","observability"]
         }
         </script>
        </body>

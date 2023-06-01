@@ -3,10 +3,50 @@
   
   
     {
+      "title"    : "(Sprint) Auto Scaling + CloudWatch를 이용한 알림",
+      "tags"     : "ASG and AutoScailingGroup",
+      "categories" : "CICD",
+      "url"      : "/ServiceMornitoring3/",
+      "date"     : "06/01/2023"
+    } ,
+  
+    {
+      "title"    : "서비스 모니터링 - 기술면접 발표",
+      "tags"     : "모니터링, mornitoring, and observability",
+      "categories" : "CICD",
+      "url"      : "/AutoScailing+CloudWatch/",
+      "date"     : "05/31/2023"
+    } ,
+  
+    {
+      "title"    : "서비스 모니터링 - 계층별 메트릭과 메트릭 구분",
+      "tags"     : "모니터링, mornitoring, and observability",
+      "categories" : "CICD",
+      "url"      : "/ServiceMornitoring2/",
+      "date"     : "05/31/2023"
+    } ,
+  
+    {
+      "title"    : "서비스 모니터링",
+      "tags"     : "모니터링, mornitoring, and observability",
+      "categories" : "CICD",
+      "url"      : "/ServiceMornitoring/",
+      "date"     : "05/31/2023"
+    } ,
+  
+    {
       "title"    : "Project 3 - Part II",
       "tags"     : "",
       "categories" : "project",
       "url"      : "/Section3/",
+      "date"     : "05/25/2023"
+    } ,
+  
+    {
+      "title"    : "Project 3 - 기술면접",
+      "tags"     : "",
+      "categories" : "project",
+      "url"      : "/Section3-%EA%B8%B0%EC%88%A0%EB%A9%B4%EC%A0%91/",
       "date"     : "05/25/2023"
     } ,
   
@@ -22,7 +62,7 @@
       "title"    : "Chapter III - Review",
       "tags"     : "serverless, 서버리스, IaaC, Terraform, Lambda, SQS, and MSA",
       "categories" : "k8s",
-      "url"      : "/3/",
+      "url"      : "/Review/",
       "date"     : "05/24/2023"
     } ,
   

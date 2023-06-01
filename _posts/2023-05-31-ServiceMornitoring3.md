@@ -1,60 +1,89 @@
 ---
-date: 2023-05-31 00:00:01
+date: 2023-06-01 00:00:01
 layout: post
-title: 서비스 모니터링 - 기술면접 발표
-subtitle: 서비스 모니터링
-description: 메트릭을 살펴보자
+title: (Sprint) Auto Scaling + CloudWatch를 이용한 알림
+subtitle: Auto Scaling + CloudWatch를 이용한 알림
+description: ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png
 category: CICD
 tags:  
-  - 모니터링
-  - mornitoring
-  - observability
+  - ASG
+  - AutoScailingGroup
 
 author: Hoonology
 paginate: true
 ---
+갑작스러운 트래픽 증가에 대응하기 위해서는, 서버의 주요 메트릭을 모니터링하고, 특정 메트릭이 임계치를 넘을 때, 수평 확장이 자동으로 진행되게 하는 것이 바람직합니다. 우리는 이미 앞서 AWS를 통해 이러한 서비스를 제공하는 Auto Scaling Group (이하 ASG)에 대해 배웠습니다. 스프린트를 통해 ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.
 
-# 기술면접 
-#### Q. 람다를 모니터링하려는 경우, 메트릭을 활용해 어떤 질문이 나올 수 있을까요? 레퍼런스(Lambda 키 메트릭)를 읽고, 어떤 질문을 해결할 수 있는지 알아봅시다.
+추가적으로 모니터링을 통해 모든 지표를 항상 관찰할 수 없으므로, 주요 메트릭의 임계치, 또는 장애 발생 예상 시점(예를 들어, CPU 사용량이 80%에 도달할 경우)을 경보의 형태로 제공해야 합니다. 이를 기존에 익혔던 SNS 및 람다를 통해 구현해 봅시다.
 
-- 몇 개의 람다 함수가 실행되었나요? (Invocation count)   
-Lambda는 들어오는 요청 수에 따라 기능을 자동으로 확장합니다.  
-Lambda는 함수의 사용률 및 성능 지표를 자동으로 추적합니다. 이 데이터를 모니터링하면 기능을 최적화하고 비용을 관리하는 데 도움이 됩니다.  
-![Alt text](https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/lambda_iterator_age.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2)
+## Bare Minimum Requirement
 
-- 얼마나 많은 람다 함수가 오류를 발생시켰나요? (Error count)
-![Alt text](https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/lambda_execution_errors_by_function.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2)
+- EC2 서버를 ASG를 통해 구성합니다. 구성은 다음을 따릅니다.
+- CloudWatch 알람을 통해 ASG의 스케일 인/아웃을 진행합니다.
+- 스케일 인/아웃이 진행될 때 디스코드에 알림을 보냅니다.
+- 메트릭을 바탕으로 장애 발생 예상 시점에 디스코드에 알림을 보냅니다.
+  - CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요
 
-- 람다 함수의 실행에 얼마나 오랜 시간이 걸렸나요? (Duration)
-  - 각 람다 함수에 얼마나 많은 메모리가 할당되었나요? (Memory size)
-  - 람다 함수가 사용한 메모리는 얼마나 됩니까? (Memory usage)
+## Getting Started
+### 시작 템플릿 구성
+ASG를 위한 시작 템플릿 구성은 다음을 따릅니다.
 
-  ```bash
-  REPORT RequestId: f1d3fc9a-4875-4c34-b280-a5fae40abcf9	Duration: 102.25 ms	Billed Duration: 200 ms	Memory Size: 128 MB	Max Memory Used: 58 MB	Init Duration: 2.04 ms	
-  ```
+- 그룹 정보
+  - 원하는 용량: 1
+  - 최소 용량: 1
+  - 최대 용량: 3
+- 시작 템플릿은 다음 구성을 따릅니다.
+  - Ubuntu Server (LTS)
+  - t2.nano
+  - 기존 혹은 신규 키 페어를 사용합니다
+  - 보안 그룹: 인바운드 HTTP 및 SSH 허용
+  - 사용자 데이터
+    ```bash
+    #!/bin/bash
+    echo "Hello, World" > index.html
+    sudo apt update
+    sudo apt install stress
+    nohup busybox httpd -f -p 80 &
+    ```
 
-![Alt text](https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/lambda_duration_overview.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2)
-- 람다 함수가 트리거된 후 얼마나 오랜 시간 동안 대기하였나요? (Throttle count)
-![Alt text](https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/unreserved_concurrency_diagram.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2)
+### CloudWatch와 조정 정책
+- CloudWatch를 통한 Auto Scaling 그룹 지표 수집 활성화 필요
+- Scale-in 조건: CPU 40% 이하
+- Scale-out 조건: CPU 50% 이상
 
-- 특정 람다 함수의 병렬 실행 수는 얼마나 됩니까? (Concurrent executions)
-![Alt text](https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/reserved_concurrency_diagram.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2)
+기타
+- 로드 밸런서는 설정하지 않아도 좋습니다.
 
-#### Q. 쿠버네티스에 어떤 파드가 Pending 상태에 머물러있다면, 어떤 계층부터 살펴보아야 할까요? 이 경우는 파드가 Running 상태인데 잘 작동하지 않는 경우랑은 어떻게 다른가요? (서비스는 연결되어 있다고 가정합니다)
-먼저 **Node 및 파드 스케줄러의 상태**를 살펴보아야 합니다. 파드가 `Pending` 상태에 있으면, 그것은 필요한**리소스(예: CPU, 메모리)가 부족하거나 노드에 문제가 있어서 스케줄링 되지 않은 상태를 의미**합니다.
 
-- **스케줄러**: 파드가 Pending 상태에 머물러 있다면, 쿠버네티스 스케줄러가 파드를 적합한 노드에 배치하지 못했을 가능성이 있습니다. 스케줄러의 로그를 확인해보세요.
+## 지표 수집 과정
+EC2 수집 주기의 기본값은 5분입니다. ASG의 경우 [지표 수집 활성화]를 통해 지표를 CloudWatch에 기록합니다.
 
-- **노드의 리소스**: 파드가 필요로 하는 리소스(CPU, 메모리, 디스크 등)가 충분한지 확인해야 합니다. 만약 필요 리소스가 부족하다면, 파드는 스케줄링 되지 않습니다.
+이러한 기록을 이용해 시간에 따른 메트릭 추이를 확인할 수 있습니다. 이때 경보를 통해 임계치에 따른 메시지가 SNS로 전달됩니다. 또한 ASG에서 발생하는 스케일링 이벤트를 트리거하기 위해 경보 두 개(스케일 인/아웃)를 자동으로 생성합니다.
 
-- **Taints and Tolerations**: 노드에 설정된 Taints가 파드의 Tolerations와 맞지 않는 경우, 해당 노드에 스케줄링되지 않을 수 있습니다.
+참고로, CloudWatch의 메트릭 보존 기간은 수집 주기에 따라 다릅니다. 세부 모니터링 옵션을 활성화하여 수집 주기를 조절할 수 있습니다. 자세한 내용은 CloudWatch FAQ를 통해 확인하세요.
 
-- **Affinity and Anti-Affinity** 설정: 이 설정들은 특정 **노드에 파드를 유지하거나 특정 노드에서 파드를 배제**하는데 사용됩니다. 이러한 설정이 파드 스케줄링에 영향을 줄 수 있습니다.
+### 알림 및 경보 아키텍처
+알림을 위해서 다음의 아키텍처를 사용합니다.
 
-- **Security Policies**: 파드가 실행되는 데 필요한 권한이나 보안 정책이 제대로 설정되어 있는지 확인해야 합니다.
 
-파드가 Running 상태이지만 잘 작동하지 않는 경우와는 다릅니다. `Running` 상태의 파드는 **이미 스케줄링이 완료**되어 노드에 할당되었으나, **파드 내의 컨테이너 또는 응용 프로그램에 문제가 있을 수 있습니다**. 이 경우에는 **파드 로그, 컨테이너 로그, 그리고 쿠버네티스 이벤트**, **애플리케이션 오류 메시지**를 살펴보는 것이 좋습니다. 또한, 서비스가 연결되어 있다고 하더라도, 네트워크 문제 또는 서비스 설정 문제 등으로 인해 응용 프로그램이 제대로 작동하지 않을 수 있습니다. 이런 경우에는 네트워크 설정과 서비스 설정을 점검해야 합니다.
+![Alt text](https://s3.ap-northeast-2.amazonaws.com/urclass-images/9Yt5UtU7AgThaz3RlNpjY-1651497045773.png)
 
-![Alt text](https://sysdig.com/wp-content/uploads/Understanding-Pod-Pending-problems-02.png)
+추가적으로, 자동으로 생성되는 경보 외에도, 메트릭에 따른 경보를 만들어야 합니다. 레퍼런스를 참고하여 CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요.
+
+### Lambda 코드
+[https://gist.github.com/gotoweb/0f993bdc19833e76f7860608181bedac](https://gist.github.com/gotoweb/0f993bdc19833e76f7860608181bedac)
+
+- 디스코드 웹훅 URL은 HOOK_URL 환경변수를 이용해 추가하며, 다음 URL을 입력해 넣습니다.
+```bash
+https://discord.com/api/webhooks/1102396954543128618/785PFD5H5ORooihWDdipYdVsFQdSwETMypye-X9EavBTrhXGg8DyBLRJW66EGad6XIpD
+```
+- 코드의 username 부분에 CloudWatch Monitoring 대신, 여러분의 이름을 적어 넣으세요.
+
+## 부하 테스트
+부하 테스트를 위해서 stress 명령어를 사용합니다. 다음 명령어를 이용하면, CPU를 100%를 사용하도록 만들 수 있습니다. top명령어를 통해서 정말 100%를 사용하는지 확인해 보세요.
+
+```
+$ stress -c 1
+```
