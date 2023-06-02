@@ -17,28 +17,28 @@
     
     
 
-    <title>(Sprint) Auto Scaling + CloudWatch를 이용한 알림 | Hoonology</title>
-    <meta name="description" content="ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.">
+    <title>쿠버네티스 클러스터 모니터링, 프로메테우스, Grafana 설치 | Hoonology</title>
+    <meta name="description" content="쿠버네티스의 경우 클러스터 안에 다수의 노드, 그리고 그 안에 파드를 비롯한 다양한 워크로드가 많게는 수백 개가 실행되는 형태로 구성되어 있습니다.">
     
-        <meta name="keywords" content="ASG, AutoScailingGroup">
+        <meta name="keywords" content="k8s, 쿠버네티스, kubernetes">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="(Sprint) Auto Scaling + CloudWatch를 이용한 알림 | Hoonology">
-    <meta name="twitter:description" content="ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.">
+    <meta name="twitter:title" content="쿠버네티스 클러스터 모니터링, 프로메테우스, Grafana 설치 | Hoonology">
+    <meta name="twitter:description" content="쿠버네티스의 경우 클러스터 안에 다수의 노드, 그리고 그 안에 파드를 비롯한 다양한 워크로드가 많게는 수백 개가 실행되는 형태로 구성되어 있습니다.">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
-    <meta property="og:url" content="http://localhost:4000/ServiceMornitoring3/">
-    <meta property="og:title" content="(Sprint) Auto Scaling + CloudWatch를 이용한 알림 | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
-    <meta property="og:description" content="ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.">
+    <meta property="og:url" content="http://localhost:4000/k8s_ClusterMonitoring/">
+    <meta property="og:title" content="쿠버네티스 클러스터 모니터링, 프로메테우스, Grafana 설치 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png">
+    <meta property="og:description" content="쿠버네티스의 경우 클러스터 안에 다수의 노드, 그리고 그 안에 파드를 비롯한 다양한 워크로드가 많게는 수백 개가 실행되는 형태로 구성되어 있습니다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -70,7 +70,7 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="canonical" href="http://localhost:4000/ServiceMornitoring3/">
+    <link rel="canonical" href="http://localhost:4000/k8s_ClusterMonitoring/">
     <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
 
     <!-- Include extra styles -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-06-01T09:00:01+09:00">
+                        <time class="date" datetime="2023-06-02T09:00:00+09:00">
                             
 
 
-June 1, 2023
+June 2, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>2 min to read</span>
+                    <span>3 min to read</span>
                 </p>
-                <h1 class="post-title">(Sprint) Auto Scaling + CloudWatch를 이용한 알림</h1>
-                <p class="post-subtitle">Auto Scaling + CloudWatch를 이용한 알림</p>
+                <h1 class="post-title">쿠버네티스 클러스터 모니터링, 프로메테우스, Grafana 설치</h1>
+                <p class="post-subtitle">클러스터 환경에서의 문제 해결의 어려움</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,101 +192,111 @@ June 1, 2023
                 <!-- Add your table of contents here -->
 
 
-                <p>갑작스러운 트래픽 증가에 대응하기 위해서는, 서버의 주요 메트릭을 모니터링하고, 특정 메트릭이 임계치를 넘을 때, 수평 확장이 자동으로 진행되게 하는 것이 바람직합니다. 우리는 이미 앞서 AWS를 통해 이러한 서비스를 제공하는 Auto Scaling Group (이하 ASG)에 대해 배웠습니다. 스프린트를 통해 ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.</p>
+                <h1 id="프로메테우스-모니터링-시스템">프로메테우스 모니터링 시스템</h1>
 
-<p>추가적으로 모니터링을 통해 모든 지표를 항상 관찰할 수 없으므로, 주요 메트릭의 임계치, 또는 장애 발생 예상 시점(예를 들어, CPU 사용량이 80%에 도달할 경우)을 경보의 형태로 제공해야 합니다. 이를 기존에 익혔던 SNS 및 람다를 통해 구현해 봅시다.</p>
+<p><strong>오픈소스 모니터링 및 알림 시스템</strong></p>
+<ul>
+  <li>프로메테우스 : 쿠버네티스, 노드, 프로메테우스 자체를 모니터링</li>
+  <li>CNCF : 쿠버네티스를 지원하고 관리하는재단</li>
+  <li>Grafana : 시각화 담당</li>
+</ul>
 
-<h2 id="bare-minimum-requirement">Bare Minimum Requirement</h2>
+<h2 id="프로메테우스-구성-요소">프로메테우스 구성 요소</h2>
 
 <ul>
-  <li>EC2 서버를 ASG를 통해 구성합니다. 구성은 다음을 따릅니다.</li>
-  <li>CloudWatch 알람을 통해 ASG의 스케일 인/아웃을 진행합니다.</li>
-  <li>스케일 인/아웃이 진행될 때 디스코드에 알림을 보냅니다.</li>
-  <li>메트릭을 바탕으로 장애 발생 예상 시점에 디스코드에 알림을 보냅니다.
+  <li>시계열 데이터 저장</li>
+  <li>프로메테우스 서버는 다양한 exporter로 부터 각 대상의 메트릭을 pull하여 주기적으로 가져오는 모니터링 시스템
     <ul>
-      <li>CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요</li>
+      <li>k8s 관련 메트릭 : k8s exporter</li>
+      <li>mongoDB 관련 메트릭 : mongodb 메트릭</li>
     </ul>
   </li>
-</ul>
-
-<h2 id="getting-started">Getting Started</h2>
-<h3 id="시작-템플릿-구성">시작 템플릿 구성</h3>
-
-<p>ASG를 위한 시작 템플릿 구성은 다음을 따릅니다.</p>
-
-<ul>
-  <li>그룹 정보
+  <li>Alert manager : 경고 및 알림 담당</li>
+  <li>사용자가 데이터를 질의할 수 있는 Web UI 존재
     <ul>
-      <li>원하는 용량: 1</li>
-      <li>최소 용량: 1</li>
-      <li>최대 용량: 3</li>
+      <li>PromgQL(Prometheus Query Language) 사용</li>
     </ul>
   </li>
-  <li>시작 템플릿은 다음 구성을 따릅니다.
-    <ul>
-      <li>Ubuntu Server (LTS)</li>
-      <li>t2.nano</li>
-      <li>기존 혹은 신규 키 페어를 사용합니다</li>
-      <li>보안 그룹: 인바운드 HTTP 및 SSH 허용</li>
-      <li>사용자 데이터
-        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#|!/bin/bash
-<span class="nb">echo</span> <span class="s2">"Hello, World"</span> <span class="o">&gt;</span> index.html
-<span class="nb">sudo </span>apt update
-<span class="nb">sudo </span>apt <span class="nb">install </span>stress
-<span class="nb">nohup </span>busybox httpd ~|-|f ~|-|p 80 &amp;
-</code></pre></div>        </div>
-      </li>
-    </ul>
-  </li>
+  <li>Grafana : 프로메테우스에서 권장하는 시각화 도구</li>
 </ul>
 
-<h3 id="cloudwatch와-조정-정책">CloudWatch와 조정 정책</h3>
+<h2 id="쿠버네티스-exporter">쿠버네티스 exporter</h2>
 
+<p><img src="https://user-images.githubusercontent.com/702622/158340501-2cda5ff5-0dd0-4241-8ffe-353c94688c31.png" alt="Alt text" /></p>
+
+<p>쿠버네티스 관련 메트릭을 가져올 수 있는 쿠버네티스 exporter</p>
 <ul>
-  <li>CloudWatch를 통한 Auto Scaling 그룹 지표 수집 활성화 필요</li>
-  <li>Scale-in 조건: CPU 40% 이하</li>
-  <li>Scale-out 조건: CPU 50% 이상</li>
+  <li>Kube API 사용</li>
 </ul>
 
-<p>기타</p>
-<ul>
-  <li>로드 밸런서는 설정하지 않아도 좋습니다.</li>
-</ul>
+<h1 id="prometheus-grafana-설치">Prometheus, Grafana 설치</h1>
+<h2 id="prometheus-operator를-이용하여-설치">Prometheus Operator를 이용하여 설치</h2>
 
-<h2 id="지표-수집-과정">지표 수집 과정</h2>
-
-<p>EC2 수집 주기의 기본값은 5분입니다. ASG의 경우 [지표 수집 활성화]를 통해 지표를 CloudWatch에 기록합니다.</p>
-
-<p>이러한 기록을 이용해 시간에 따른 메트릭 추이를 확인할 수 있습니다. 이때 경보를 통해 임계치에 따른 메시지가 SNS로 전달됩니다. 또한 ASG에서 발생하는 스케일링 이벤트를 트리거하기 위해 경보 두 개(스케일 인/아웃)를 자동으로 생성합니다.</p>
-
-<p>참고로, CloudWatch의 메트릭 보존 기간은 수집 주기에 따라 다릅니다. 세부 모니터링 옵션을 활성화하여 수집 주기를 조절할 수 있습니다. 자세한 내용은 CloudWatch FAQ를 통해 확인하세요.</p>
-
-<h3 id="알림-및-경보-아키텍처">알림 및 경보 아키텍처</h3>
-
-<p>알림을 위해서 다음의 아키텍처를 사용합니다.</p>
-
-<p><img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/9Yt5UtU7AgThaz3RlNpjY-1651497045773.png" alt="Alt text" /></p>
-
-<p>추가적으로, 자동으로 생성되는 경보 외에도, 메트릭에 따른 경보를 만들어야 합니다. 레퍼런스를 참고하여 CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요.</p>
-
-<h3 id="lambda-코드">Lambda 코드</h3>
-
-<p><a href="https://gist.github.com/gotoweb/0f993bdc19833e76f7860608181bedac">https://gist.github.com/gotoweb/0f993bdc19833e76f7860608181bedac</a></p>
-
-<ul>
-  <li>디스코드 웹훅 URL은 HOOK_URL 환경변수를 이용해 추가하며, 다음 URL을 입력해 넣습니다.
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://discord.com/api/webhooks/1102396954543128618/785PFD5H5ORooihWDdipYdVsFQdSwETMypye~|-|X9EavBTrhXGg8DyBLRJW66EGad6XIpD
-</code></pre></div>    </div>
-  </li>
-  <li>코드의 username 부분에 CloudWatch Monitoring 대신, 여러분의 이름을 적어 넣으세요.</li>
-</ul>
-
-<h2 id="부하-테스트">부하 테스트</h2>
-
-<p>부하 테스트를 위해서 stress 명령어를 사용합니다. 다음 명령어를 이용하면, CPU를 100%를 사용하도록 만들 수 있습니다. top명령어를 통해서 정말 100%를 사용하는지 확인해 보세요.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ stress ~|-|c 1
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube start ~|-|~|-|nodes~|<span class="o">=</span>|3
 </code></pre></div></div>
+<p>위 처럼 여러개의 노드를 만들면 첫 번째는 <code class="language-plaintext highlighter-rouge">master</code>, 나머지 노드는 worker 노드로 구성됩니다.</p>
+<blockquote>
+  <p>여러 개의 노드를 구성할 경우 <strong>워커 노드에는 실제로 실행되는 애플리케이션을 배치</strong>하며, <strong>마스터 노드는 클러스터 관리에 집중</strong>하게 됩니다.</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>워커 노드에 애플리케이션을 별도로 배치하는 것은 모니터링 관점에서 몇 가지 이점을 제공할 수 있습니다:</p>
+
+    <ul>
+      <li>성능 모니터링: 워커 노드에 애플리케이션을 배치하면 해당 노드에서 실행되는 애플리케이션의 성능을 쉽게 모니터링할 수 있습니다. 애플리케이션의 CPU 사용률, 메모리 사용량, 디스크 I/O, 네트워크 트래픽 등을 실시간으로 확인하고 성능 문제를 식별할 수 있습니다.</li>
+      <li>
+        <p>리소스 관리: 워커 노드에 애플리케이션을 별도로 배치하면 해당 노드의 리소스 사용을 더욱 효율적으로 관리할 수 있습니다. 애플리케이션이 독립적인 환경에서 실행되므로 다른 애플리케이션의 리소스 요구에 영향을 받지 않고 필요한 만큼의 CPU, 메모리, 디스크 공간을 할당할 수 있습니다.</p>
+      </li>
+      <li>
+        <p>이상 감지: 애플리케이션을 워커 노드에 별도로 배치하면 해당 노드에서 발생하는 이상 현상을 신속하게 감지할 수 있습니다. 예를 들어, 워커 노드의 네트워크 트래픽이 평소보다 급격하게 증가한다면 애플리케이션에 문제가 발생할 수 있음을 알 수 있습니다. 이러한 이상 현상을 신속하게 감지하고 조치를 취함으로써 잠재적인 장애를 방지할 수 있습니다.</p>
+      </li>
+      <li>로깅 및 추적: 워커 노드에 애플리케이션을 배치하면 해당 노드에서 발생하는 로그 및 추적 정보를 중앙 집중식으로 수집할 수 있습니다. 이는 애플리케이션의 동작과 성능을 분석하고 디버깅할 때 유용합니다. 중앙 집중식 로깅 및 추적 시스템을 사용하면 여러 워커 노드에서 실행되는 애플리케이션의 로그 및 추적을 통합적으로 관리할 수 있습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>minikube status
+</code></pre></div></div>
+<p><img width="816" alt="스크린샷 2023-06-02 14 22 55" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/1f8d0f20-49dc-4e93-814a-01a9d994705f" /></p>
+
+<h2 id="prometheus-operator-quick-start">Prometheus Operator Quick Start</h2>
+<h4 id="1-kubeprometheus-클론">1. kube-prometheus 클론</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/prometheus~|-|operator/kube~|-|prometheus.git
+</code></pre></div></div>
+<h4 id="2-kubeprometheus-배포">2. kube-prometheus 배포</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#| STEP 1
+kubectl create ~|-|f manifests/setup
+~|#| manifests/setup 안의 워크로드를 전부 실행합니다.
+
+~|#| STEP 2
+<span class="k">until </span>kubectl get servicemonitors ~|-|~|-|all~|-|namespaces <span class="p">;</span> <span class="k">do </span><span class="nb">date</span><span class="p">;</span> <span class="nb">sleep </span>1<span class="p">;</span> <span class="nb">echo</span> <span class="s2">""</span><span class="p">;</span> <span class="k">done</span>
+~|#| 일단 모든 모든 서비스 모니터<span class="o">(</span>servicemonitor<span class="o">)</span>가 구동될 때까지 기다립니다.
+
+~|#| STEP 3
+kubectl create ~|-|f manifests/
+~|#| manifest/ 안의 워크로드를 전부 실행합니다.
+</code></pre></div></div>
+
+<h4 id="4-prometheus-operator-관련-서비스-및-워크로드가-실행되기-전까지-기다립니다">4. Prometheus Operator 관련 서비스 및 워크로드가 실행되기 전까지 기다립니다.</h4>
+
+<p>a. 프로메테우스 노출
+<img src="https://www.theteams.kr/includes/uploads/feed/20201006181121_1601975480562_1280.png" alt="프로메테우스" /></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl ~|-|~|-|namespace monitoring port~|-|forward svc/prometheus~|-|k8s 9090
+</code></pre></div></div>
+<p><a href="http://localhost:9090">http://localhost:9090</a>로 접속해서 프로메테우스에 접속할 수 있습니다.</p>
+
+<p><img width="1246" alt="스크린샷 2023-06-02 15 20 43" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/e37f7954-9c0d-4531-847b-4586afcff657" /></p>
+
+<p>b. 그라파나 노출
+<img src="https://www.theteams.kr/includes/uploads/feed/20201006181120_1601975480151_1280.png" alt="그라파나" /></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl ~|-|~|-|namespace monitoring port~|-|forward svc/grafana 3000
+</code></pre></div></div>
+<p><a href="http://localhost:3000">http://localhost:3000</a>으로 접속해서 그라파나에 접속할 수 있습니다. (초기 사용자 이름과 비밀번호는 admin/admin입니다)</p>
+
+<p><img width="1736" alt="스크린샷 2023-06-02 15 32 57" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/38dcb014-0a51-4489-b773-9d17f387f9d5" /></p>
 
 
                 <!-- Pagination links -->
@@ -302,29 +312,29 @@ June 1, 2023
                         
                         
                             <li>
-                                <a href="/%EB%8F%84%EB%A9%94%EC%9D%B8%EC%A3%BC%EB%8F%84%EC%84%A4%EA%B3%84%EC%99%80%EB%AA%A8%EB%86%80%EB%A6%AC%EC%8B%9D%EB%B6%84%ED%95%B4%EC%A0%84%EB%9E%B5/">
+                                <a href="/IaC/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
                                     
-                                    <h3>도메인 주도 설계와 모놀리식 분해 전략</h3>
+                                    <h3>IaC</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AutoScailing+CloudWatch/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
-                                    
-                                    <h3>서비스 모니터링 - 기술면접 발표</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprin-Part2/">
+                                <a href="/MileStone1/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Docker Image 다루기 2 </h3>
+                                    <h3>Milestone 1</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/k8s-Workload/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
+                                    
+                                    <h3>Kubernetes Workload</h3>
                                 </a>
                             </li>
                         
@@ -336,7 +346,7 @@ June 1, 2023
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="2">
+            <div class="time-bar" data-minutes="3">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -356,13 +366,13 @@ June 1, 2023
         </div>
     </div>
     
-    <a href="/YAML/" class="post-preview">
+    <a href="/mornitoringSystem/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png">
             
         </div>
-        <h3 class="title">YAML</h3>
+        <h3 class="title">모니터링 시스템 구축</h3>
     </a>
 </div>
 
@@ -378,11 +388,11 @@ June 1, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.&quot;%20http://localhost:4000/ServiceMornitoring3/%20via%20&#64;&hashtags=ASG,AutoScailingGroup"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;쿠버네티스의 경우 클러스터 안에 다수의 노드, 그리고 그 안에 파드를 비롯한 다양한 워크로드가 많게는 수백 개가 실행되는 형태로 구성되어 있습니다.&quot;%20http://localhost:4000/k8s_ClusterMonitoring/%20via%20&#64;&hashtags=k8s,쿠버네티스,kubernetes"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
-    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ServiceMornitoring3/"
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/k8s_ClusterMonitoring/"
     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
     </a>
@@ -405,7 +415,7 @@ June 1, 2023
         disqus_loaded = true;
         var disqus_shortname = 'hoonology';
         var disqus_title = '';
-        var disqus_url = '/ServiceMornitoring3/';
+        var disqus_url = '/k8s_ClusterMonitoring/';
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -549,112 +559,122 @@ June 1, 2023
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "(Sprint) Auto Scaling + CloudWatch를 이용한 알림",
-            "headline": "Auto Scaling + CloudWatch를 이용한 알림",
-            "description": "ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png",
-            "url": "http://localhost:4000/ServiceMornitoring3/",
-            "articleBody": "갑작스러운 트래픽 증가에 대응하기 위해서는, 서버의 주요 메트릭을 모니터링하고, 특정 메트릭이 임계치를 넘을 때, 수평 확장이 자동으로 진행되게 하는 것이 바람직합니다. 우리는 이미 앞서 AWS를 통해 이러한 서비스를 제공하는 Auto Scaling Group (이하 ASG)에 대해 배웠습니다. 스프린트를 통해 ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.
+            "name": "쿠버네티스 클러스터 모니터링, 프로메테우스, Grafana 설치",
+            "headline": "클러스터 환경에서의 문제 해결의 어려움",
+            "description": "쿠버네티스의 경우 클러스터 안에 다수의 노드, 그리고 그 안에 파드를 비롯한 다양한 워크로드가 많게는 수백 개가 실행되는 형태로 구성되어 있습니다.",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png",
+            "url": "http://localhost:4000/k8s_ClusterMonitoring/",
+            "articleBody": "프로메테우스 모니터링 시스템
 
-추가적으로 모니터링을 통해 모든 지표를 항상 관찰할 수 없으므로, 주요 메트릭의 임계치, 또는 장애 발생 예상 시점(예를 들어, CPU 사용량이 80%에 도달할 경우)을 경보의 형태로 제공해야 합니다. 이를 기존에 익혔던 SNS 및 람다를 통해 구현해 봅시다.
+오픈소스 모니터링 및 알림 시스템
 
-Bare Minimum Requirement
+  프로메테우스 : 쿠버네티스, 노드, 프로메테우스 자체를 모니터링
+  CNCF : 쿠버네티스를 지원하고 관리하는재단
+  Grafana : 시각화 담당
 
 
-  EC2 서버를 ASG를 통해 구성합니다. 구성은 다음을 따릅니다.
-  CloudWatch 알람을 통해 ASG의 스케일 인/아웃을 진행합니다.
-  스케일 인/아웃이 진행될 때 디스코드에 알림을 보냅니다.
-  메트릭을 바탕으로 장애 발생 예상 시점에 디스코드에 알림을 보냅니다.
+프로메테우스 구성 요소
+
+
+  시계열 데이터 저장
+  프로메테우스 서버는 다양한 exporter로 부터 각 대상의 메트릭을 pull하여 주기적으로 가져오는 모니터링 시스템
     
-      CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요
-    
-  
-
-
-Getting Started
-시작 템플릿 구성
-
-ASG를 위한 시작 템플릿 구성은 다음을 따릅니다.
-
-
-  그룹 정보
-    
-      원하는 용량: 1
-      최소 용량: 1
-      최대 용량: 3
+      k8s 관련 메트릭 : k8s exporter
+      mongoDB 관련 메트릭 : mongodb 메트릭
     
   
-  시작 템플릿은 다음 구성을 따릅니다.
+  Alert manager : 경고 및 알림 담당
+  사용자가 데이터를 질의할 수 있는 Web UI 존재
     
-      Ubuntu Server (LTS)
-      t2.nano
-      기존 혹은 신규 키 페어를 사용합니다
-      보안 그룹: 인바운드 HTTP 및 SSH 허용
-      사용자 데이터
-        ~|#|!/bin/bash
-echo &quot;Hello, World&quot; &amp;gt; index.html
-sudo apt update
-sudo apt install stress
-nohup busybox httpd ~|-|f ~|-|p 80 &amp;amp;
-        
+      PromgQL(Prometheus Query Language) 사용
+    
+  
+  Grafana : 프로메테우스에서 권장하는 시각화 도구
+
+
+쿠버네티스 exporter
+
+
+
+쿠버네티스 관련 메트릭을 가져올 수 있는 쿠버네티스 exporter
+
+  Kube API 사용
+
+
+Prometheus, Grafana 설치
+Prometheus Operator를 이용하여 설치
+
+minikube start ~|-|~|-|nodes~|=|3
+
+위 처럼 여러개의 노드를 만들면 첫 번째는 master, 나머지 노드는 worker 노드로 구성됩니다.
+
+  여러 개의 노드를 구성할 경우 워커 노드에는 실제로 실행되는 애플리케이션을 배치하며, 마스터 노드는 클러스터 관리에 집중하게 됩니다.
+
+
+
+  
+    워커 노드에 애플리케이션을 별도로 배치하는 것은 모니터링 관점에서 몇 가지 이점을 제공할 수 있습니다:
+
+    
+      성능 모니터링: 워커 노드에 애플리케이션을 배치하면 해당 노드에서 실행되는 애플리케이션의 성능을 쉽게 모니터링할 수 있습니다. 애플리케이션의 CPU 사용률, 메모리 사용량, 디스크 I/O, 네트워크 트래픽 등을 실시간으로 확인하고 성능 문제를 식별할 수 있습니다.
       
+        리소스 관리: 워커 노드에 애플리케이션을 별도로 배치하면 해당 노드의 리소스 사용을 더욱 효율적으로 관리할 수 있습니다. 애플리케이션이 독립적인 환경에서 실행되므로 다른 애플리케이션의 리소스 요구에 영향을 받지 않고 필요한 만큼의 CPU, 메모리, 디스크 공간을 할당할 수 있습니다.
+      
+      
+        이상 감지: 애플리케이션을 워커 노드에 별도로 배치하면 해당 노드에서 발생하는 이상 현상을 신속하게 감지할 수 있습니다. 예를 들어, 워커 노드의 네트워크 트래픽이 평소보다 급격하게 증가한다면 애플리케이션에 문제가 발생할 수 있음을 알 수 있습니다. 이러한 이상 현상을 신속하게 감지하고 조치를 취함으로써 잠재적인 장애를 방지할 수 있습니다.
+      
+      로깅 및 추적: 워커 노드에 애플리케이션을 배치하면 해당 노드에서 발생하는 로그 및 추적 정보를 중앙 집중식으로 수집할 수 있습니다. 이는 애플리케이션의 동작과 성능을 분석하고 디버깅할 때 유용합니다. 중앙 집중식 로깅 및 추적 시스템을 사용하면 여러 워커 노드에서 실행되는 애플리케이션의 로그 및 추적을 통합적으로 관리할 수 있습니다.
     
   
 
 
-CloudWatch와 조정 정책
-
-
-  CloudWatch를 통한 Auto Scaling 그룹 지표 수집 활성화 필요
-  Scale-in 조건: CPU 40% 이하
-  Scale-out 조건: CPU 50% 이상
-
-
-기타
-
-  로드 밸런서는 설정하지 않아도 좋습니다.
-
-
-지표 수집 과정
-
-EC2 수집 주기의 기본값은 5분입니다. ASG의 경우 [지표 수집 활성화]를 통해 지표를 CloudWatch에 기록합니다.
-
-이러한 기록을 이용해 시간에 따른 메트릭 추이를 확인할 수 있습니다. 이때 경보를 통해 임계치에 따른 메시지가 SNS로 전달됩니다. 또한 ASG에서 발생하는 스케일링 이벤트를 트리거하기 위해 경보 두 개(스케일 인/아웃)를 자동으로 생성합니다.
-
-참고로, CloudWatch의 메트릭 보존 기간은 수집 주기에 따라 다릅니다. 세부 모니터링 옵션을 활성화하여 수집 주기를 조절할 수 있습니다. 자세한 내용은 CloudWatch FAQ를 통해 확인하세요.
-
-알림 및 경보 아키텍처
-
-알림을 위해서 다음의 아키텍처를 사용합니다.
+$ minikube status
 
 
 
-추가적으로, 자동으로 생성되는 경보 외에도, 메트릭에 따른 경보를 만들어야 합니다. 레퍼런스를 참고하여 CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요.
+Prometheus Operator Quick Start
+1. kube-prometheus 클론
 
-Lambda 코드
+git clone https://github.com/prometheus~|-|operator/kube~|-|prometheus.git
 
-https://gist.github.com/gotoweb/0f993bdc19833e76f7860608181bedac
+2. kube-prometheus 배포
+
+~|#| STEP 1
+kubectl create ~|-|f manifests/setup
+~|#| manifests/setup 안의 워크로드를 전부 실행합니다.
+
+~|#| STEP 2
+until kubectl get servicemonitors ~|-|~|-|all~|-|namespaces ; do date; sleep 1; echo &quot;&quot;; done
+~|#| 일단 모든 모든 서비스 모니터(servicemonitor)가 구동될 때까지 기다립니다.
+
+~|#| STEP 3
+kubectl create ~|-|f manifests/
+~|#| manifest/ 안의 워크로드를 전부 실행합니다.
 
 
-  디스코드 웹훅 URL은 HOOK_URL 환경변수를 이용해 추가하며, 다음 URL을 입력해 넣습니다.
-    https://discord.com/api/webhooks/1102396954543128618/785PFD5H5ORooihWDdipYdVsFQdSwETMypye~|-|X9EavBTrhXGg8DyBLRJW66EGad6XIpD
-    
-  
-  코드의 username 부분에 CloudWatch Monitoring 대신, 여러분의 이름을 적어 넣으세요.
+4. Prometheus Operator 관련 서비스 및 워크로드가 실행되기 전까지 기다립니다.
+
+a. 프로메테우스 노출
+
+kubectl ~|-|~|-|namespace monitoring port~|-|forward svc/prometheus~|-|k8s 9090
+
+http://localhost:9090로 접속해서 프로메테우스에 접속할 수 있습니다.
 
 
-부하 테스트
 
-부하 테스트를 위해서 stress 명령어를 사용합니다. 다음 명령어를 이용하면, CPU를 100%를 사용하도록 만들 수 있습니다. top명령어를 통해서 정말 100%를 사용하는지 확인해 보세요.
+b. 그라파나 노출
 
-$ stress ~|-|c 1
+kubectl ~|-|~|-|namespace monitoring port~|-|forward svc/grafana 3000
+
+http://localhost:3000으로 접속해서 그라파나에 접속할 수 있습니다. (초기 사용자 이름과 비밀번호는 admin/admin입니다)
+
 
 ",
-            "wordcount": "442",
+            "wordcount": "540",
             "inLanguage": "ko",
-            "dateCreated": "2023-06-01/",
-            "datePublished": "2023-06-01/",
-            "dateModified": "2023-06-01/",
+            "dateCreated": "2023-06-02/",
+            "datePublished": "2023-06-02/",
+            "dateModified": "2023-06-02/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -679,9 +699,9 @@ $ stress ~|-|c 1
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "CICD",
-            "articleSection": "CICD",
-            "keywords": ["ASG","AutoScailingGroup"]
+            "genre": "mornitoring",
+            "articleSection": "mornitoring",
+            "keywords": ["k8s","쿠버네티스","kubernetes"]
         }
         </script>
        </body>

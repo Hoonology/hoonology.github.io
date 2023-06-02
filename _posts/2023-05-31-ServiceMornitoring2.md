@@ -6,7 +6,7 @@ subtitle: 서비스 모니터링
 description: 메트릭을 살펴보자
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png
-category: CICD
+category: mornitoring
 tags:  
   - 모니터링
   - mornitoring

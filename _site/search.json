@@ -3,25 +3,49 @@
   
   
     {
+      "title"    : "모니터링 시스템 구축",
+      "tags"     : "ASG and AutoScailingGroup",
+      "categories" : "mornitoring",
+      "url"      : "/mornitoringSystem/",
+      "date"     : "06/02/2023"
+    } ,
+  
+    {
+      "title"    : "쿠버네티스 클러스터 모니터링, 프로메테우스, Grafana 설치",
+      "tags"     : "k8s, 쿠버네티스, and kubernetes",
+      "categories" : "mornitoring",
+      "url"      : "/k8s_ClusterMonitoring/",
+      "date"     : "06/02/2023"
+    } ,
+  
+    {
+      "title"    : "(Sprint) 실습 진행",
+      "tags"     : "ASG and AutoScailingGroup",
+      "categories" : "mornitoring",
+      "url"      : "/AutoScailing+CloudWatch2/",
+      "date"     : "06/01/2023"
+    } ,
+  
+    {
       "title"    : "(Sprint) Auto Scaling + CloudWatch를 이용한 알림",
       "tags"     : "ASG and AutoScailingGroup",
-      "categories" : "CICD",
-      "url"      : "/ServiceMornitoring3/",
+      "categories" : "mornitoring",
+      "url"      : "/AutoScailing+CloudWatch/",
       "date"     : "06/01/2023"
     } ,
   
     {
       "title"    : "서비스 모니터링 - 기술면접 발표",
       "tags"     : "모니터링, mornitoring, and observability",
-      "categories" : "CICD",
-      "url"      : "/AutoScailing+CloudWatch/",
+      "categories" : "mornitoring",
+      "url"      : "/ServiceMoniroting3-interview/",
       "date"     : "05/31/2023"
     } ,
   
     {
       "title"    : "서비스 모니터링 - 계층별 메트릭과 메트릭 구분",
       "tags"     : "모니터링, mornitoring, and observability",
-      "categories" : "CICD",
+      "categories" : "mornitoring",
       "url"      : "/ServiceMornitoring2/",
       "date"     : "05/31/2023"
     } ,
@@ -29,7 +53,7 @@
     {
       "title"    : "서비스 모니터링",
       "tags"     : "모니터링, mornitoring, and observability",
-      "categories" : "CICD",
+      "categories" : "mornitoring",
       "url"      : "/ServiceMornitoring/",
       "date"     : "05/31/2023"
     } ,

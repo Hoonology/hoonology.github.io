@@ -17,28 +17,28 @@
     
     
 
-    <title>서비스 모니터링 - 기술면접 발표 | Hoonology</title>
-    <meta name="description" content="메트릭을 살펴보자">
+    <title>(Sprint) Auto Scaling + CloudWatch를 이용한 알림 | Hoonology</title>
+    <meta name="description" content="ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.">
     
-        <meta name="keywords" content="모니터링, mornitoring, observability">
+        <meta name="keywords" content="ASG, AutoScailingGroup">
     
 
     <!-- Social: Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="서비스 모니터링 - 기술면접 발표 | Hoonology">
-    <meta name="twitter:description" content="메트릭을 살펴보자">
+    <meta name="twitter:title" content="(Sprint) Auto Scaling + CloudWatch를 이용한 알림 | Hoonology">
+    <meta name="twitter:description" content="ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.">
 
     
-        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+        <meta property="twitter:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
     
     
     
 
     <!-- Social: Facebook / Open Graph -->
     <meta property="og:url" content="http://localhost:4000/AutoScailing+CloudWatch/">
-    <meta property="og:title" content="서비스 모니터링 - 기술면접 발표 | Hoonology">
-    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
-    <meta property="og:description" content="메트릭을 살펴보자">
+    <meta property="og:title" content="(Sprint) Auto Scaling + CloudWatch를 이용한 알림 | Hoonology">
+    <meta property="og:image" content="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+    <meta property="og:description" content="ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.">
     <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
 
     <!-- Favicon -->
@@ -167,22 +167,22 @@
                 <p class="post-info">
                     
                         <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
-                        <time class="date" datetime="2023-05-31T09:00:01+09:00">
+                        <time class="date" datetime="2023-06-01T09:00:01+09:00">
                             
 
 
-May 31, 2023
+June 1, 2023
 
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
                     <span>2 min to read</span>
                 </p>
-                <h1 class="post-title">서비스 모니터링 - 기술면접 발표</h1>
-                <p class="post-subtitle">서비스 모니터링</p>
+                <h1 class="post-title">(Sprint) Auto Scaling + CloudWatch를 이용한 알림</h1>
+                <p class="post-subtitle">Auto Scaling + CloudWatch를 이용한 알림</p>
 
                 
-                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png" alt="Featured image" class="post-cover">
+                    <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png" alt="Featured image" class="post-cover">
                 
 
                 <!-- Pagination links -->
@@ -192,69 +192,101 @@ May 31, 2023
                 <!-- Add your table of contents here -->
 
 
-                <h1 id="기술면접-">기술면접</h1>
-<h4 id="q-람다를-모니터링하려는-경우-메트릭을-활용해-어떤-질문이-나올-수-있을까요-레퍼런스lambda-키-메트릭를-읽고-어떤-질문을-해결할-수-있는지-알아봅시다">Q. 람다를 모니터링하려는 경우, 메트릭을 활용해 어떤 질문이 나올 수 있을까요? 레퍼런스(Lambda 키 메트릭)를 읽고, 어떤 질문을 해결할 수 있는지 알아봅시다.</h4>
+                <p>갑작스러운 트래픽 증가에 대응하기 위해서는, 서버의 주요 메트릭을 모니터링하고, 특정 메트릭이 임계치를 넘을 때, 수평 확장이 자동으로 진행되게 하는 것이 바람직합니다. 우리는 이미 앞서 AWS를 통해 이러한 서비스를 제공하는 Auto Scaling Group (이하 ASG)에 대해 배웠습니다. 스프린트를 통해 ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.</p>
+
+<p>추가적으로 모니터링을 통해 모든 지표를 항상 관찰할 수 없으므로, 주요 메트릭의 임계치, 또는 장애 발생 예상 시점(예를 들어, CPU 사용량이 80%에 도달할 경우)을 경보의 형태로 제공해야 합니다. 이를 기존에 익혔던 SNS 및 람다를 통해 구현해 봅시다.</p>
+
+<h2 id="bare-minimum-requirement">Bare Minimum Requirement</h2>
 
 <ul>
-  <li>
-    <p>몇 개의 람다 함수가 실행되었나요? (Invocation count) <br />
-Lambda는 들어오는 요청 수에 따라 기능을 자동으로 확장합니다.<br />
-Lambda는 함수의 사용률 및 성능 지표를 자동으로 추적합니다. 이 데이터를 모니터링하면 기능을 최적화하고 비용을 관리하는 데 도움이 됩니다.<br />
-<img src="https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/lambda_iterator_age.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2" alt="Alt text" /></p>
-  </li>
-  <li>
-    <p>얼마나 많은 람다 함수가 오류를 발생시켰나요? (Error count)
-<img src="https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/lambda_execution_errors_by_function.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2" alt="Alt text" /></p>
-  </li>
-  <li>
-    <p>람다 함수의 실행에 얼마나 오랜 시간이 걸렸나요? (Duration)</p>
+  <li>EC2 서버를 ASG를 통해 구성합니다. 구성은 다음을 따릅니다.</li>
+  <li>CloudWatch 알람을 통해 ASG의 스케일 인/아웃을 진행합니다.</li>
+  <li>스케일 인/아웃이 진행될 때 디스코드에 알림을 보냅니다.</li>
+  <li>메트릭을 바탕으로 장애 발생 예상 시점에 디스코드에 알림을 보냅니다.
     <ul>
-      <li>각 람다 함수에 얼마나 많은 메모리가 할당되었나요? (Memory size)</li>
-      <li>람다 함수가 사용한 메모리는 얼마나 됩니까? (Memory usage)</li>
+      <li>CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요</li>
     </ul>
+  </li>
+</ul>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>REPORT RequestId: f1d3fc9a~|-|4875~|-|4c34~|-|b280~|-|a5fae40abcf9	Duration: 102.25 ms	Billed Duration: 200 ms	Memory Size: 128 MB	Max Memory Used: 58 MB	Init Duration: 2.04 ms	
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="시작-템플릿-구성">시작 템플릿 구성</h3>
+
+<p>ASG를 위한 시작 템플릿 구성은 다음을 따릅니다.</p>
+
+<ul>
+  <li>그룹 정보
+    <ul>
+      <li>원하는 용량: 1</li>
+      <li>최소 용량: 1</li>
+      <li>최대 용량: 3</li>
+    </ul>
+  </li>
+  <li>시작 템플릿은 다음 구성을 따릅니다.
+    <ul>
+      <li>Ubuntu Server (LTS)</li>
+      <li>t2.nano</li>
+      <li>기존 혹은 신규 키 페어를 사용합니다</li>
+      <li>보안 그룹: 인바운드 HTTP 및 SSH 허용</li>
+      <li>사용자 데이터
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~|#|!/bin/bash
+<span class="nb">echo</span> <span class="s2">"Hello, World"</span> <span class="o">&gt;</span> index.html
+<span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install </span>stress
+<span class="nb">nohup </span>busybox httpd ~|-|f ~|-|p 80 &amp;
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="cloudwatch와-조정-정책">CloudWatch와 조정 정책</h3>
+
+<ul>
+  <li>CloudWatch를 통한 Auto Scaling 그룹 지표 수집 활성화 필요</li>
+  <li>Scale-in 조건: CPU 40% 이하</li>
+  <li>Scale-out 조건: CPU 50% 이상</li>
+</ul>
+
+<p>기타</p>
+<ul>
+  <li>로드 밸런서는 설정하지 않아도 좋습니다.</li>
+</ul>
+
+<h2 id="지표-수집-과정">지표 수집 과정</h2>
+
+<p>EC2 수집 주기의 기본값은 5분입니다. ASG의 경우 [지표 수집 활성화]를 통해 지표를 CloudWatch에 기록합니다.</p>
+
+<p>이러한 기록을 이용해 시간에 따른 메트릭 추이를 확인할 수 있습니다. 이때 경보를 통해 임계치에 따른 메시지가 SNS로 전달됩니다. 또한 ASG에서 발생하는 스케일링 이벤트를 트리거하기 위해 경보 두 개(스케일 인/아웃)를 자동으로 생성합니다.</p>
+
+<p>참고로, CloudWatch의 메트릭 보존 기간은 수집 주기에 따라 다릅니다. 세부 모니터링 옵션을 활성화하여 수집 주기를 조절할 수 있습니다. 자세한 내용은 CloudWatch FAQ를 통해 확인하세요.</p>
+
+<h3 id="알림-및-경보-아키텍처">알림 및 경보 아키텍처</h3>
+
+<p>알림을 위해서 다음의 아키텍처를 사용합니다.</p>
+
+<p><img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/9Yt5UtU7AgThaz3RlNpjY-1651497045773.png" alt="Alt text" /></p>
+
+<p>추가적으로, 자동으로 생성되는 경보 외에도, 메트릭에 따른 경보를 만들어야 합니다. 레퍼런스를 참고하여 CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요.</p>
+
+<h3 id="lambda-코드">Lambda 코드</h3>
+
+<p><a href="https://gist.github.com/gotoweb/0f993bdc19833e76f7860608181bedac">https://gist.github.com/gotoweb/0f993bdc19833e76f7860608181bedac</a></p>
+
+<ul>
+  <li>디스코드 웹훅 URL은 HOOK_URL 환경변수를 이용해 추가하며, 다음 URL을 입력해 넣습니다.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://discord.com/api/webhooks/1102396954543128618/785PFD5H5ORooihWDdipYdVsFQdSwETMypye~|-|X9EavBTrhXGg8DyBLRJW66EGad6XIpD
 </code></pre></div>    </div>
   </li>
+  <li>코드의 username 부분에 CloudWatch Monitoring 대신, 여러분의 이름을 적어 넣으세요.</li>
 </ul>
 
-<p><img src="https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/lambda_duration_overview.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2" alt="Alt text" /></p>
-<ul>
-  <li>
-    <p>람다 함수가 트리거된 후 얼마나 오랜 시간 동안 대기하였나요? (Throttle count)
-<img src="https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/unreserved_concurrency_diagram.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2" alt="Alt text" /></p>
-  </li>
-  <li>
-    <p>특정 람다 함수의 병렬 실행 수는 얼마나 됩니까? (Concurrent executions)
-<img src="https://imgix.datadoghq.com/img/blog/key-metrics-for-monitoring-aws-lambda/reserved_concurrency_diagram.png?auto%3Dformat%26fit%3Dmax%26w%3D847%26dpr%3D2" alt="Alt text" /></p>
-  </li>
-</ul>
+<h2 id="부하-테스트">부하 테스트</h2>
 
-<h4 id="q-쿠버네티스에-어떤-파드가-pending-상태에-머물러있다면-어떤-계층부터-살펴보아야-할까요-이-경우는-파드가-running-상태인데-잘-작동하지-않는-경우랑은-어떻게-다른가요-서비스는-연결되어-있다고-가정합니다">Q. 쿠버네티스에 어떤 파드가 Pending 상태에 머물러있다면, 어떤 계층부터 살펴보아야 할까요? 이 경우는 파드가 Running 상태인데 잘 작동하지 않는 경우랑은 어떻게 다른가요? (서비스는 연결되어 있다고 가정합니다)</h4>
+<p>부하 테스트를 위해서 stress 명령어를 사용합니다. 다음 명령어를 이용하면, CPU를 100%를 사용하도록 만들 수 있습니다. top명령어를 통해서 정말 100%를 사용하는지 확인해 보세요.</p>
 
-<p>먼저 <strong>Node 및 파드 스케줄러의 상태</strong>를 살펴보아야 합니다. 파드가 <code class="language-plaintext highlighter-rouge">Pending</code> 상태에 있으면, 그것은 필요한<strong>리소스(예: CPU, 메모리)가 부족하거나 노드에 문제가 있어서 스케줄링 되지 않은 상태를 의미</strong>합니다.</p>
-
-<ul>
-  <li>
-    <p><strong>스케줄러</strong>: 파드가 Pending 상태에 머물러 있다면, 쿠버네티스 스케줄러가 파드를 적합한 노드에 배치하지 못했을 가능성이 있습니다. 스케줄러의 로그를 확인해보세요.</p>
-  </li>
-  <li>
-    <p><strong>노드의 리소스</strong>: 파드가 필요로 하는 리소스(CPU, 메모리, 디스크 등)가 충분한지 확인해야 합니다. 만약 필요 리소스가 부족하다면, 파드는 스케줄링 되지 않습니다.</p>
-  </li>
-  <li>
-    <p><strong>Taints and Tolerations</strong>: 노드에 설정된 Taints가 파드의 Tolerations와 맞지 않는 경우, 해당 노드에 스케줄링되지 않을 수 있습니다.</p>
-  </li>
-  <li>
-    <p><strong>Affinity and Anti-Affinity</strong> 설정: 이 설정들은 특정 <strong>노드에 파드를 유지하거나 특정 노드에서 파드를 배제</strong>하는데 사용됩니다. 이러한 설정이 파드 스케줄링에 영향을 줄 수 있습니다.</p>
-  </li>
-  <li>
-    <p><strong>Security Policies</strong>: 파드가 실행되는 데 필요한 권한이나 보안 정책이 제대로 설정되어 있는지 확인해야 합니다.</p>
-  </li>
-</ul>
-
-<p>파드가 Running 상태이지만 잘 작동하지 않는 경우와는 다릅니다. <code class="language-plaintext highlighter-rouge">Running</code> 상태의 파드는 <strong>이미 스케줄링이 완료</strong>되어 노드에 할당되었으나, <strong>파드 내의 컨테이너 또는 응용 프로그램에 문제가 있을 수 있습니다</strong>. 이 경우에는 <strong>파드 로그, 컨테이너 로그, 그리고 쿠버네티스 이벤트</strong>, <strong>애플리케이션 오류 메시지</strong>를 살펴보는 것이 좋습니다. 또한, 서비스가 연결되어 있다고 하더라도, 네트워크 문제 또는 서비스 설정 문제 등으로 인해 응용 프로그램이 제대로 작동하지 않을 수 있습니다. 이런 경우에는 네트워크 설정과 서비스 설정을 점검해야 합니다.</p>
-
-<p><img src="https://sysdig.com/wp-content/uploads/Understanding-Pod-Pending-problems-02.png" alt="Alt text" /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ stress ~|-|c 1
+</code></pre></div></div>
 
 
                 <!-- Pagination links -->
@@ -270,29 +302,29 @@ Lambda는 함수의 사용률 및 성능 지표를 자동으로 추적합니다.
                         
                         
                             <li>
-                                <a href="/CI_CD_Sprint/">
+                                <a href="/AWS-%EA%B8%B0%EC%B4%88/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>(Sprint) Github Actions를 이용한 빌드 및 테스트 자동화</h3>
+                                    <h3>AWS 기초</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%A3%BC%EB%8F%84-%EA%B0%9C%EB%B0%9C/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
-                                    
-                                    <h3>테스트 주도 개발</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/MileStone2/">
+                                <a href="/MileStone4/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
                                     
-                                    <h3>Milestone 1</h3>
+                                    <h3>Milestone 4 - WAS , mongoDB 클러스터에서 서비스화</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/k8s_ClusterMonitoring/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png">
+                                    
+                                    <h3>쿠버네티스 클러스터 모니터링, 프로메테우스, Grafana 설치</h3>
                                 </a>
                             </li>
                         
@@ -324,13 +356,13 @@ Lambda는 함수의 사용률 및 성능 지표를 자동으로 추적합니다.
         </div>
     </div>
     
-    <a href="/ServiceMornitoring3/" class="post-preview">
+    <a href="/AutoScailing+CloudWatch2/" class="post-preview">
         <div class="image">
             
-                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
             
         </div>
-        <h3 class="title">(Sprint) Auto Scaling + CloudWatch를 이용한 알림</h3>
+        <h3 class="title">(Sprint) 실습 진행</h3>
     </a>
 </div>
 
@@ -346,7 +378,7 @@ Lambda는 함수의 사용률 및 성능 지표를 자동으로 추적합니다.
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;메트릭을 살펴보자&quot;%20http://localhost:4000/AutoScailing+CloudWatch/%20via%20&#64;&hashtags=모니터링,mornitoring,observability"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.&quot;%20http://localhost:4000/AutoScailing+CloudWatch/%20via%20&#64;&hashtags=ASG,AutoScailingGroup"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
@@ -517,80 +549,112 @@ Lambda는 함수의 사용률 및 성능 지표를 자동으로 추적합니다.
         {
             "@context": "http://schema.org",
             "@type": "BlogPosting",
-            "name": "서비스 모니터링 - 기술면접 발표",
-            "headline": "서비스 모니터링",
-            "description": "메트릭을 살펴보자",
-            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png",
+            "name": "(Sprint) Auto Scaling + CloudWatch를 이용한 알림",
+            "headline": "Auto Scaling + CloudWatch를 이용한 알림",
+            "description": "ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.",
+            "image": "https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png",
             "url": "http://localhost:4000/AutoScailing+CloudWatch/",
-            "articleBody": "기술면접
-Q. 람다를 모니터링하려는 경우, 메트릭을 활용해 어떤 질문이 나올 수 있을까요? 레퍼런스(Lambda 키 메트릭)를 읽고, 어떤 질문을 해결할 수 있는지 알아봅시다.
+            "articleBody": "갑작스러운 트래픽 증가에 대응하기 위해서는, 서버의 주요 메트릭을 모니터링하고, 특정 메트릭이 임계치를 넘을 때, 수평 확장이 자동으로 진행되게 하는 것이 바람직합니다. 우리는 이미 앞서 AWS를 통해 이러한 서비스를 제공하는 Auto Scaling Group (이하 ASG)에 대해 배웠습니다. 스프린트를 통해 ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.
+
+추가적으로 모니터링을 통해 모든 지표를 항상 관찰할 수 없으므로, 주요 메트릭의 임계치, 또는 장애 발생 예상 시점(예를 들어, CPU 사용량이 80%에 도달할 경우)을 경보의 형태로 제공해야 합니다. 이를 기존에 익혔던 SNS 및 람다를 통해 구현해 봅시다.
+
+Bare Minimum Requirement
 
 
-  
-    몇 개의 람다 함수가 실행되었나요? (Invocation count) 
-Lambda는 들어오는 요청 수에 따라 기능을 자동으로 확장합니다.
-Lambda는 함수의 사용률 및 성능 지표를 자동으로 추적합니다. 이 데이터를 모니터링하면 기능을 최적화하고 비용을 관리하는 데 도움이 됩니다.
-
-  
-  
-    얼마나 많은 람다 함수가 오류를 발생시켰나요? (Error count)
-
-  
-  
-    람다 함수의 실행에 얼마나 오랜 시간이 걸렸나요? (Duration)
+  EC2 서버를 ASG를 통해 구성합니다. 구성은 다음을 따릅니다.
+  CloudWatch 알람을 통해 ASG의 스케일 인/아웃을 진행합니다.
+  스케일 인/아웃이 진행될 때 디스코드에 알림을 보냅니다.
+  메트릭을 바탕으로 장애 발생 예상 시점에 디스코드에 알림을 보냅니다.
     
-      각 람다 함수에 얼마나 많은 메모리가 할당되었나요? (Memory size)
-      람다 함수가 사용한 메모리는 얼마나 됩니까? (Memory usage)
-    
-
-    REPORT RequestId: f1d3fc9a~|-|4875~|-|4c34~|-|b280~|-|a5fae40abcf9	Duration: 102.25 ms	Billed Duration: 200 ms	Memory Size: 128 MB	Max Memory Used: 58 MB	Init Duration: 2.04 ms	
+      CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요
     
   
 
 
+Getting Started
+시작 템플릿 구성
+
+ASG를 위한 시작 템플릿 구성은 다음을 따릅니다.
 
 
+  그룹 정보
+    
+      원하는 용량: 1
+      최소 용량: 1
+      최대 용량: 3
+    
   
-    람다 함수가 트리거된 후 얼마나 오랜 시간 동안 대기하였나요? (Throttle count)
-
-  
-  
-    특정 람다 함수의 병렬 실행 수는 얼마나 됩니까? (Concurrent executions)
-
-  
-
-
-Q. 쿠버네티스에 어떤 파드가 Pending 상태에 머물러있다면, 어떤 계층부터 살펴보아야 할까요? 이 경우는 파드가 Running 상태인데 잘 작동하지 않는 경우랑은 어떻게 다른가요? (서비스는 연결되어 있다고 가정합니다)
-
-먼저 Node 및 파드 스케줄러의 상태를 살펴보아야 합니다. 파드가 Pending 상태에 있으면, 그것은 필요한리소스(예: CPU, 메모리)가 부족하거나 노드에 문제가 있어서 스케줄링 되지 않은 상태를 의미합니다.
-
-
-  
-    스케줄러: 파드가 Pending 상태에 머물러 있다면, 쿠버네티스 스케줄러가 파드를 적합한 노드에 배치하지 못했을 가능성이 있습니다. 스케줄러의 로그를 확인해보세요.
-  
-  
-    노드의 리소스: 파드가 필요로 하는 리소스(CPU, 메모리, 디스크 등)가 충분한지 확인해야 합니다. 만약 필요 리소스가 부족하다면, 파드는 스케줄링 되지 않습니다.
-  
-  
-    Taints and Tolerations: 노드에 설정된 Taints가 파드의 Tolerations와 맞지 않는 경우, 해당 노드에 스케줄링되지 않을 수 있습니다.
-  
-  
-    Affinity and Anti-Affinity 설정: 이 설정들은 특정 노드에 파드를 유지하거나 특정 노드에서 파드를 배제하는데 사용됩니다. 이러한 설정이 파드 스케줄링에 영향을 줄 수 있습니다.
-  
-  
-    Security Policies: 파드가 실행되는 데 필요한 권한이나 보안 정책이 제대로 설정되어 있는지 확인해야 합니다.
+  시작 템플릿은 다음 구성을 따릅니다.
+    
+      Ubuntu Server (LTS)
+      t2.nano
+      기존 혹은 신규 키 페어를 사용합니다
+      보안 그룹: 인바운드 HTTP 및 SSH 허용
+      사용자 데이터
+        ~|#|!/bin/bash
+echo &quot;Hello, World&quot; &amp;gt; index.html
+sudo apt update
+sudo apt install stress
+nohup busybox httpd ~|-|f ~|-|p 80 &amp;amp;
+        
+      
+    
   
 
 
-파드가 Running 상태이지만 잘 작동하지 않는 경우와는 다릅니다. Running 상태의 파드는 이미 스케줄링이 완료되어 노드에 할당되었으나, 파드 내의 컨테이너 또는 응용 프로그램에 문제가 있을 수 있습니다. 이 경우에는 파드 로그, 컨테이너 로그, 그리고 쿠버네티스 이벤트, 애플리케이션 오류 메시지를 살펴보는 것이 좋습니다. 또한, 서비스가 연결되어 있다고 하더라도, 네트워크 문제 또는 서비스 설정 문제 등으로 인해 응용 프로그램이 제대로 작동하지 않을 수 있습니다. 이런 경우에는 네트워크 설정과 서비스 설정을 점검해야 합니다.
+CloudWatch와 조정 정책
 
+
+  CloudWatch를 통한 Auto Scaling 그룹 지표 수집 활성화 필요
+  Scale-in 조건: CPU 40% 이하
+  Scale-out 조건: CPU 50% 이상
+
+
+기타
+
+  로드 밸런서는 설정하지 않아도 좋습니다.
+
+
+지표 수집 과정
+
+EC2 수집 주기의 기본값은 5분입니다. ASG의 경우 [지표 수집 활성화]를 통해 지표를 CloudWatch에 기록합니다.
+
+이러한 기록을 이용해 시간에 따른 메트릭 추이를 확인할 수 있습니다. 이때 경보를 통해 임계치에 따른 메시지가 SNS로 전달됩니다. 또한 ASG에서 발생하는 스케일링 이벤트를 트리거하기 위해 경보 두 개(스케일 인/아웃)를 자동으로 생성합니다.
+
+참고로, CloudWatch의 메트릭 보존 기간은 수집 주기에 따라 다릅니다. 세부 모니터링 옵션을 활성화하여 수집 주기를 조절할 수 있습니다. 자세한 내용은 CloudWatch FAQ를 통해 확인하세요.
+
+알림 및 경보 아키텍처
+
+알림을 위해서 다음의 아키텍처를 사용합니다.
+
+
+
+추가적으로, 자동으로 생성되는 경보 외에도, 메트릭에 따른 경보를 만들어야 합니다. 레퍼런스를 참고하여 CPU 사용률(CPUUtilization) 값이 특정 값 이상일 때 경보가 발생하게 하세요.
+
+Lambda 코드
+
+https://gist.github.com/gotoweb/0f993bdc19833e76f7860608181bedac
+
+
+  디스코드 웹훅 URL은 HOOK_URL 환경변수를 이용해 추가하며, 다음 URL을 입력해 넣습니다.
+    https://discord.com/api/webhooks/1102396954543128618/785PFD5H5ORooihWDdipYdVsFQdSwETMypye~|-|X9EavBTrhXGg8DyBLRJW66EGad6XIpD
+    
+  
+  코드의 username 부분에 CloudWatch Monitoring 대신, 여러분의 이름을 적어 넣으세요.
+
+
+부하 테스트
+
+부하 테스트를 위해서 stress 명령어를 사용합니다. 다음 명령어를 이용하면, CPU를 100%를 사용하도록 만들 수 있습니다. top명령어를 통해서 정말 100%를 사용하는지 확인해 보세요.
+
+$ stress ~|-|c 1
 
 ",
-            "wordcount": "419",
+            "wordcount": "442",
             "inLanguage": "ko",
-            "dateCreated": "2023-05-31/",
-            "datePublished": "2023-05-31/",
-            "dateModified": "2023-05-31/",
+            "dateCreated": "2023-06-01/",
+            "datePublished": "2023-06-01/",
+            "dateModified": "2023-06-01/",
             "author": {
                 "@type": "Person",
                 "name": "Mr. Anderson",
@@ -615,9 +679,9 @@ Q. 쿠버네티스에 어떤 파드가 Pending 상태에 머물러있다면, 어
                 }
             },
             "mainEntityOfPage": "True",
-            "genre": "CICD",
-            "articleSection": "CICD",
-            "keywords": ["모니터링","mornitoring","observability"]
+            "genre": "mornitoring",
+            "articleSection": "mornitoring",
+            "keywords": ["ASG","AutoScailingGroup"]
         }
         </script>
        </body>

@@ -6,7 +6,7 @@ subtitle: 서비스 모니터링
 description: CI/CD 파이프라인 중 가장 마지막 단계인 운영에 있어 필요한 측정 항목(metric)과 AWS의 대표적인 모니터링 도구인 CloudWatch를 좀 더 잘 다룰 수 있게 연습합니다. 또한, 쿠버네티스 환경에서 사용하는 Prometheus와 Grafana 조합을 살펴봅니다.
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png
-category: CICD
+category: mornitoring
 tags:  
   - 모니터링
   - mornitoring
