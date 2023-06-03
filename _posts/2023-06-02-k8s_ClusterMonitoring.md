@@ -11,6 +11,9 @@ tags:
   - k8s
   - 쿠버네티스
   - kubernetes
+  - prometheus
+  - grafana
+  - exporter
 
 author: Hoonology
 paginate: true

@@ -20,7 +20,7 @@
     <title>모니터링 시스템 구축 | Hoonology</title>
     <meta name="description" content="ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.">
     
-        <meta name="keywords" content="ASG, AutoScailingGroup">
+        <meta name="keywords" content="k8s, 쿠버네티스, kubernetes, prometheus, grafana, exporter, nginx">
     
 
     <!-- Social: Twitter -->
@@ -202,6 +202,16 @@ June 2, 2023
   <li>Grafana에 이미 존재하는 대시보드들을 살펴보고, 어떤 쿼리를 사용하는지 확인합니다.</li>
 </ul>
 
+<h1 id="getting-started">Getting Started</h1>
+
+<ol>
+  <li>nginx 인그레스 컨트롤러 설치
+Helm을 이용해서 설치합니다. (minikube addon을 사용하는 것이 아닙니다) 이때 nginx 인그레스 컨트롤러가 프로메테우스용 메트릭을 노출해야 하므로, helm install 과정에서 반드시 설정해야 하는 옵션이 있습니다.</li>
+</ol>
+
+<blockquote>
+  <p>이정도만 보여줘도 이력서에 프로메테우스 할줄 압니다 쓸 수 있다고한다.</p>
+</blockquote>
 
 
                 <!-- Pagination links -->
@@ -217,6 +227,15 @@ June 2, 2023
                         
                         
                             <li>
+                                <a href="/Sprint-k8s/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
+                                    
+                                    <h3>(Sprint) 3.0에서 2.0 버전으로 롤백하기</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
                                 <a href="/(Sprint)%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
@@ -226,20 +245,11 @@ June 2, 2023
                             </li>
                         
                             <li>
-                                <a href="/(Sprint)%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EB%B0%B0%ED%8F%AC-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/">
+                                <a href="/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%A3%BC%EB%8F%84-%EA%B0%9C%EB%B0%9C/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
                                     
-                                    <h3>(Sprint)클라이언트 배포 파이프라인</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/k8s-cheat/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
-                                    
-                                    <h3>쿠버네티스 치트 시트</h3>
+                                    <h3>테스트 주도 개발</h3>
                                 </a>
                             </li>
                         
@@ -293,7 +303,7 @@ June 2, 2023
 
         <section class="share">
     <h3>Share</h3>
-    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.&quot;%20http://localhost:4000/mornitoringSystem/%20via%20&#64;&hashtags=ASG,AutoScailingGroup"
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;ASG의 원리를 익히고, 메트릭에 따른 스케일링 정책을 세우고 모니터링을 통해 정책이 적용되는지 확인해 봅시다.&quot;%20http://localhost:4000/mornitoringSystem/%20via%20&#64;&hashtags=k8s,쿠버네티스,kubernetes,prometheus,grafana,exporter,nginx"
     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
     </a>
@@ -479,8 +489,18 @@ June 2, 2023
   Grafana에 이미 존재하는 대시보드들을 살펴보고, 어떤 쿼리를 사용하는지 확인합니다.
 
 
+Getting Started
+
+
+  nginx 인그레스 컨트롤러 설치
+Helm을 이용해서 설치합니다. (minikube addon을 사용하는 것이 아닙니다) 이때 nginx 인그레스 컨트롤러가 프로메테우스용 메트릭을 노출해야 하므로, helm install 과정에서 반드시 설정해야 하는 옵션이 있습니다.
+
+
+
+  이정도만 보여줘도 이력서에 프로메테우스 할줄 압니다 쓸 수 있다고한다.
+
 ",
-            "wordcount": "44",
+            "wordcount": "88",
             "inLanguage": "ko",
             "dateCreated": "2023-06-02/",
             "datePublished": "2023-06-02/",
@@ -511,7 +531,7 @@ June 2, 2023
             "mainEntityOfPage": "True",
             "genre": "mornitoring",
             "articleSection": "mornitoring",
-            "keywords": ["ASG","AutoScailingGroup"]
+            "keywords": ["k8s","쿠버네티스","kubernetes","prometheus","grafana","exporter","nginx"]
         }
         </script>
        </body>
