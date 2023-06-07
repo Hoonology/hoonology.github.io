@@ -19,7 +19,7 @@
     } ,
   
     {
-      "title"    : "성능 및 부하 테스트 I - Performance Test",
+      "title"    : "성능 및 부하 테스트 I - 복습",
       "tags"     : "가용성, 확장성, Latency, Throughput, and 병목",
       "categories" : "mornitoring",
       "url"      : "/performanceTest/",
