@@ -2,12 +2,11 @@
 date: 2023-06-05 00:00:05
 layout: post
 title: 서비스 모니터링 기술면접
-subtitle: -
+subtitle: 기술면접
 description: 서비스를 운영하는 데 있어서, 사용자에게 필요한 적정 수준을 정의하고 제공하기 위해, 서비스 제공자와 사용자는 서로 서비스 수준 협약(Service Level Agreements, SLA)을 맺습니다.
 image: https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png
 optimized_image: https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png
 category: mornitoring
-
 author: Hoonology
 paginate: true
 ---

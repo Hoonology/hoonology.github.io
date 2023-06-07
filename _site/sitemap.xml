@@ -203,7 +203,42 @@
     
     
         <url>
+            <loc>http://localhost:4000/loadTest/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-06-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/loadTest-TechInterview/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-06-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/performanceTest/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-06-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/mornitoring-TechInterview/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-06-05</lastmod>
+        </url>
+    
+        <url>
             <loc>http://localhost:4000/mornitoringSystem/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-06-02</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/ServiceLevel/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-06-02</lastmod>

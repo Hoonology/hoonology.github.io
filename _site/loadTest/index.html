@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    <title>성능 및 부하 테스트 II - Load Test | Hoonology</title>
+    <meta name="description" content="성능을 개선하기 위해 확장해야 하는 시스템이 무엇인지 파악, 부하가 많이 발생할 때 문제 상황 개선, 각 시스템의 병목 지점을 예측하고 진단 및 개선">
+    
+        <meta name="keywords" content="가용성, 확장성, Latency, Throughput, 병목">
+    
+
+    <!-- Social: Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="성능 및 부하 테스트 II - Load Test | Hoonology">
+    <meta name="twitter:description" content="성능을 개선하기 위해 확장해야 하는 시스템이 무엇인지 파악, 부하가 많이 발생할 때 문제 상황 개선, 각 시스템의 병목 지점을 예측하고 진단 및 개선">
+
+    
+        <meta property="twitter:image" content="https://s3.ap-northeast-2.amazonaws.com/urclass-images/vAZ96HI84yghJWvZ4weBg-1638317071798.png">
+    
+    
+    
+
+    <!-- Social: Facebook / Open Graph -->
+    <meta property="og:url" content="http://localhost:4000/loadTest/">
+    <meta property="og:title" content="성능 및 부하 테스트 II - Load Test | Hoonology">
+    <meta property="og:image" content="https://s3.ap-northeast-2.amazonaws.com/urclass-images/vAZ96HI84yghJWvZ4weBg-1638317071798.png">
+    <meta property="og:description" content="성능을 개선하기 위해 확장해야 하는 시스템이 무엇인지 파악, 부하가 많이 발생할 때 문제 상황 개선, 각 시스템의 병목 지점을 예측하고 진단 및 개선">
+    <meta property="og:site_name" content="Hoonology | Welcome to Hoony's Blog !">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/icons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/icons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/icons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/icons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/icons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/icons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/icons/apple-touch-icon-152x152.png" />
+
+    <!-- Windows 8 Tile Icons -->
+    <meta name="application-name" content="Hoonology">
+    <meta name="msapplication-TileColor" content="#141414">
+    <meta name="msapplication-square70x70logo" content="smalltile.png" />
+    <meta name="msapplication-square150x150logo" content="mediumtile.png" />
+    <meta name="msapplication-wide310x150logo" content="widetile.png" />
+    <meta name="msapplication-square310x310logo" content="largetile.png" />
+    
+    <!-- Android Lolipop Theme Color -->
+    <meta name="theme-color" content="#141414">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="canonical" href="http://localhost:4000/loadTest/">
+    <link rel="alternate" type="application/rss+xml" title="Hoonology | Welcome to Hoony's Blog !" href="http://localhost:4000/feed.xml" />
+
+    <!-- Include extra styles -->
+    
+
+    <!-- JavaScript enabled/disabled -->
+    <script>
+        document.querySelector('html').classList.remove('no-js');
+    </script>
+</head>
+
+    <body class="has-push-menu">
+        
+
+
+
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" display="none" version="1.1"><defs><symbol id="icon-menu" viewBox="0 0 1024 1024"><path class="path1" d="M128 213.333h768q17.667 0 30.167 12.5t12.5 30.167-12.5 30.167-30.167 12.5h-768q-17.667 0-30.167-12.5t-12.5-30.167 12.5-30.167 30.167-12.5zM128 725.333h768q17.667 0 30.167 12.5t12.5 30.167-12.5 30.167-30.167 12.5h-768q-17.667 0-30.167-12.5t-12.5-30.167 12.5-30.167 30.167-12.5zM128 469.333h768q17.667 0 30.167 12.5t12.5 30.167-12.5 30.167-30.167 12.5h-768q-17.667 0-30.167-12.5t-12.5-30.167 12.5-30.167 30.167-12.5z"/></symbol><symbol id="icon-search" viewBox="0 0 951 1024"><path class="path1" d="M658.286 475.429q0-105.714-75.143-180.857t-180.857-75.143-180.857 75.143-75.143 180.857 75.143 180.857 180.857 75.143 180.857-75.143 75.143-180.857zM950.857 950.857q0 29.714-21.714 51.429t-51.429 21.714q-30.857 0-51.429-21.714l-196-195.429q-102.286 70.857-228 70.857-81.714 0-156.286-31.714t-128.571-85.714-85.714-128.571-31.714-156.286 31.714-156.286 85.714-128.571 128.571-85.714 156.286-31.714 156.286 31.714 128.571 85.714 85.714 128.571 31.714 156.286q0 125.714-70.857 228l196 196q21.143 21.143 21.143 51.429z"/></symbol><symbol id="icon-close" viewBox="0 0 1000 1000"><path d="M969.8,870.3c27,27.7,27,71.8,0,99.1C955.7,983,937.9,990,920,990c-17.9,0-35.7-7-49.7-20.7L500,599L129.6,969.4C115.6,983,97.8,990,79.9,990s-35.7-7-49.7-20.7c-27-27.3-27-71.4,0-99.1L400.9,500L30.3,129.3c-27-27.3-27-71.4,0-99.1c27.3-27,71.8-27,99.4,0L500,400.9L870.4,30.2c27.7-27,71.8-27,99.4,0c27,27.7,27,71.8,0,99.1L599.1,500L969.8,870.3z"/></symbol><symbol id="icon-twitter" viewBox="0 0 951 1024"><path class="path1" d="M925.714 233.143q-38.286 56-92.571 95.429 0.571 8 0.571 24 0 74.286-21.714 148.286t-66 142-105.429 120.286-147.429 83.429-184.571 31.143q-154.857 0-283.429-82.857 20 2.286 44.571 2.286 128.571 0 229.143-78.857-60-1.143-107.429-36.857t-65.143-91.143q18.857 2.857 34.857 2.857 24.571 0 48.571-6.286-64-13.143-106-63.714t-42-117.429v-2.286q38.857 21.714 83.429 23.429-37.714-25.143-60-65.714t-22.286-88q0-50.286 25.143-93.143 69.143 85.143 168.286 136.286t212.286 56.857q-4.571-21.714-4.571-42.286 0-76.571 54-130.571t130.571-54q80 0 134.857 58.286 62.286-12 117.143-44.571-21.143 65.714-81.143 101.714 53.143-5.714 106.286-28.571z"/></symbol><symbol id="icon-facebook" viewBox="0 0 585 1024"><path class="path1" d="M548 6.857v150.857h-89.714q-49.143 0-66.286 20.571t-17.143 61.714v108h167.429l-22.286 169.143h-145.143v433.714h-174.857v-433.714h-145.714v-169.143h145.714v-124.571q0-106.286 59.429-164.857t158.286-58.571q84 0 130.286 6.857z"/></symbol><symbol id="icon-clock" viewBox="0 0 1000 1000"><path d="M500,10C229.8,10,10,229.8,10,500c0,270.2,219.8,490,490,490c270.2,0,490-219.8,490-490C990,229.8,770.2,10,500,10z M500,910.2c-226.2,0-410.2-184-410.2-410.2c0-226.2,184-410.2,410.2-410.2c226.2,0,410.2,184,410.2,410.2C910.2,726.1,726.2,910.2,500,910.2z M753.1,374c8.2,11.9,5.2,28.1-6.6,36.3L509.9,573.7c-4.4,3.1-9.6,4.6-14.8,4.6c-4.1,0-8.3-1-12.1-3c-8.6-4.5-14-13.4-14-23.1V202.5c0-14.4,11.7-26.1,26.1-26.1c14.4,0,26.1,11.7,26.1,26.1v300l195.6-135.1C728.7,359.2,744.9,362.1,753.1,374z"/></symbol><symbol id="icon-calendar" viewBox="0 0 1000 1000"><path d="M920,500v420H80V500H920 M990,430H10v490c0,38.7,31.3,70,70,70h840c38.7,0,70-31.3,70-70V430L990,430z"/><path d="M850,80v105c0,57.9-47.2,105-105,105c-58,0-105-47.1-105-105V80H360v105c0,57.9-47.2,105-105,105c-58,0-105-47.1-105-105V80C72.8,80,10,142.7,10,220v140h980V220C990,142.7,927.2,80,850,80z"/><path d="M255,10c-19.3,0-35,15.8-35,35v140c0,19.2,15.7,35,35,35c19.3,0,35-15.8,35-35V45C290,25.8,274.3,10,255,10z"/><path d="M745,10c-19.3,0-35,15.8-35,35v140c0,19.2,15.7,35,35,35c19.3,0,35-15.8,35-35V45C780,25.8,764.3,10,745,10z"/></symbol><symbol id="icon-github" viewBox="0 0 12 14"><path d="M6 1q1.633 0 3.012 0.805t2.184 2.184 0.805 3.012q0 1.961-1.145 3.527t-2.957 2.168q-0.211 0.039-0.312-0.055t-0.102-0.234q0-0.023 0.004-0.598t0.004-1.051q0-0.758-0.406-1.109 0.445-0.047 0.801-0.141t0.734-0.305 0.633-0.52 0.414-0.82 0.16-1.176q0-0.93-0.617-1.609 0.289-0.711-0.062-1.594-0.219-0.070-0.633 0.086t-0.719 0.344l-0.297 0.187q-0.727-0.203-1.5-0.203t-1.5 0.203q-0.125-0.086-0.332-0.211t-0.652-0.301-0.664-0.105q-0.352 0.883-0.062 1.594-0.617 0.68-0.617 1.609 0 0.664 0.16 1.172t0.41 0.82 0.629 0.523 0.734 0.305 0.801 0.141q-0.305 0.281-0.383 0.805-0.164 0.078-0.352 0.117t-0.445 0.039-0.512-0.168-0.434-0.488q-0.148-0.25-0.379-0.406t-0.387-0.187l-0.156-0.023q-0.164 0-0.227 0.035t-0.039 0.090 0.070 0.109 0.102 0.094l0.055 0.039q0.172 0.078 0.34 0.297t0.246 0.398l0.078 0.18q0.102 0.297 0.344 0.48t0.523 0.234 0.543 0.055 0.434-0.027l0.18-0.031q0 0.297 0.004 0.691t0.004 0.426q0 0.141-0.102 0.234t-0.312 0.055q-1.812-0.602-2.957-2.168t-1.145-3.527q0-1.633 0.805-3.012t2.184-2.184 3.012-0.805zM2.273 9.617q0.023-0.055-0.055-0.094-0.078-0.023-0.102 0.016-0.023 0.055 0.055 0.094 0.070 0.047 0.102-0.016zM2.516 9.883q0.055-0.039-0.016-0.125-0.078-0.070-0.125-0.023-0.055 0.039 0.016 0.125 0.078 0.078 0.125 0.023zM2.75 10.234q0.070-0.055 0-0.148-0.062-0.102-0.133-0.047-0.070 0.039 0 0.141t0.133 0.055zM3.078 10.562q0.062-0.062-0.031-0.148-0.094-0.094-0.156-0.023-0.070 0.062 0.031 0.148 0.094 0.094 0.156 0.023zM3.523 10.758q0.023-0.086-0.102-0.125-0.117-0.031-0.148 0.055t0.102 0.117q0.117 0.047 0.148-0.047zM4.016 10.797q0-0.102-0.133-0.086-0.125 0-0.125 0.086 0 0.102 0.133 0.086 0.125 0 0.125-0.086zM4.469 10.719q-0.016-0.086-0.141-0.070-0.125 0.023-0.109 0.117t0.141 0.062 0.109-0.109z"></path></symbol><symbol id="icon-medium" viewBox="0 0 1000 1000"><path d="M336.5,240.2v641.5c0,9.1-2.3,16.9-6.8,23.2s-11.2,9.6-20,9.6c-6.2,0-12.2-1.5-18-4.4L37.3,782.7c-7.7-3.6-14.1-9.8-19.4-18.3S10,747.4,10,739V115.5c0-7.3,1.8-13.5,5.5-18.6c3.6-5.1,8.9-7.7,15.9-7.7c5.1,0,13.1,2.7,24.1,8.2l279.5,140C335.9,238.6,336.5,239.5,336.5,240.2L336.5,240.2z M371.5,295.5l292,473.6l-292-145.5V295.5z M990,305.3v576.4c0,9.1-2.6,16.5-7.7,22.1c-5.1,5.7-12,8.5-20.8,8.5s-17.3-2.4-25.7-7.1L694.7,784.9L990,305.3z M988.4,239.7c0,1.1-46.8,77.6-140.3,229.4C754.6,621,699.8,709.8,683.8,735.7L470.5,389l177.2-288.2c6.2-10.2,15.7-15.3,28.4-15.3c5.1,0,9.8,1.1,14.2,3.3l295.9,147.7C987.6,237.1,988.4,238.2,988.4,239.7L988.4,239.7z"/></symbol><symbol id="icon-instagram" viewBox="0 0 489.84 489.84"><path d="M249.62,50.46c65.4,0,73.14.25,99,1.43C372.47,53,385.44,57,394.07,60.32a75.88,75.88,0,0,1,28.16,18.32,75.88,75.88,0,0,1,18.32,28.16c3.35,8.63,7.34,21.6,8.43,45.48,1.18,25.83,1.43,33.57,1.43,99s-0.25,73.14-1.43,99c-1.09,23.88-5.08,36.85-8.43,45.48a81.11,81.11,0,0,1-46.48,46.48c-8.63,3.35-21.6,7.34-45.48,8.43-25.82,1.18-33.57,1.43-99,1.43s-73.15-.25-99-1.43c-23.88-1.09-36.85-5.08-45.48-8.43A75.88,75.88,0,0,1,77,423.86,75.88,75.88,0,0,1,58.69,395.7c-3.35-8.63-7.34-21.6-8.43-45.48-1.18-25.83-1.43-33.57-1.43-99s0.25-73.14,1.43-99c1.09-23.88,5.08-36.85,8.43-45.48A75.88,75.88,0,0,1,77,78.64a75.88,75.88,0,0,1,28.16-18.32c8.63-3.35,21.6-7.34,45.48-8.43,25.83-1.18,33.57-1.43,99-1.43m0-44.13c-66.52,0-74.86.28-101,1.47s-43.87,5.33-59.45,11.38A120.06,120.06,0,0,0,45.81,47.44,120.06,120.06,0,0,0,17.56,90.82C11.5,106.4,7.36,124.2,6.17,150.27s-1.47,34.46-1.47,101,0.28,74.86,1.47,101,5.33,43.87,11.38,59.45a120.06,120.06,0,0,0,28.25,43.38,120.06,120.06,0,0,0,43.38,28.25c15.58,6.05,33.38,10.19,59.45,11.38s34.46,1.47,101,1.47,74.86-.28,101-1.47,43.87-5.33,59.45-11.38a125.24,125.24,0,0,0,71.63-71.63c6.05-15.58,10.19-33.38,11.38-59.45s1.47-34.46,1.47-101-0.28-74.86-1.47-101-5.33-43.87-11.38-59.45a120.06,120.06,0,0,0-28.25-43.38,120.06,120.06,0,0,0-43.38-28.25C394.47,13.13,376.67,9,350.6,7.8s-34.46-1.47-101-1.47h0Z" transform="translate(-4.7 -6.33)" /><path d="M249.62,125.48A125.77,125.77,0,1,0,375.39,251.25,125.77,125.77,0,0,0,249.62,125.48Zm0,207.41a81.64,81.64,0,1,1,81.64-81.64A81.64,81.64,0,0,1,249.62,332.89Z" transform="translate(-4.7 -6.33)"/><circle cx="375.66" cy="114.18" r="29.39" /></symbol><symbol id="icon-linkedin" viewBox="0 0 12 14"><path d="M2.727 4.883v7.742h-2.578v-7.742h2.578zM2.891 2.492q0.008 0.57-0.395 0.953t-1.059 0.383h-0.016q-0.641 0-1.031-0.383t-0.391-0.953q0-0.578 0.402-0.957t1.051-0.379 1.039 0.379 0.398 0.957zM12 8.187v4.437h-2.57v-4.141q0-0.82-0.316-1.285t-0.988-0.465q-0.492 0-0.824 0.27t-0.496 0.668q-0.086 0.234-0.086 0.633v4.32h-2.57q0.016-3.117 0.016-5.055t-0.008-2.313l-0.008-0.375h2.57v1.125h-0.016q0.156-0.25 0.32-0.438t0.441-0.406 0.68-0.34 0.895-0.121q1.336 0 2.148 0.887t0.813 2.598z"></path></symbol><symbol id="icon-heart" viewBox="0 0 34 30"><path d="M17,29.7 L16.4,29.2 C3.5,18.7 0,15 0,9 C0,4 4,0 9,0 C13.1,0 15.4,2.3 17,4.1 C18.6,2.3 20.9,0 25,0 C30,0 34,4 34,9 C34,15 30.5,18.7 17.6,29.2 L17,29.7 Z M9,2 C5.1,2 2,5.1 2,9 C2,14.1 5.2,17.5 17,27.1 C28.8,17.5 32,14.1 32,9 C32,5.1 28.9,2 25,2 C21.5,2 19.6,4.1 18.1,5.8 L17,7.1 L15.9,5.8 C14.4,4.1 12.5,2 9,2 Z" id="Shape"></path></symbol><symbol id="icon-arrow-right" viewBox="0 0 25.452 25.452"><path d="M4.471,24.929v-2.004l12.409-9.788c0.122-0.101,0.195-0.251,0.195-0.411c0-0.156-0.073-0.31-0.195-0.409L4.471,2.526V0.522c0-0.2,0.115-0.384,0.293-0.469c0.18-0.087,0.396-0.066,0.552,0.061l15.47,12.202c0.123,0.1,0.195,0.253,0.195,0.409c0,0.16-0.072,0.311-0.195,0.411L5.316,25.34c-0.155,0.125-0.372,0.147-0.552,0.061C4.586,25.315,4.471,25.13,4.471,24.929z"/></symbol><symbol id="icon-star" viewBox="0 0 48 48"><path fill="currentColor" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"/><path fill="#ffffff" d="M24,11l3.898,7.898l8.703,1.301l-6.301,6.102l1.5,8.699L24,30.898L16.199,35l1.5-8.699l-6.301-6.102  l8.703-1.301L24,11z"/></symbol><symbol id="icon-read" viewBox="0 0 32 32"><path fill="currentColor" d="M29,4H3C1.343,4,0,5.343,0,7v18c0,1.657,1.343,3,3,3h10c0,0.552,0.448,1,1,1h4c0.552,0,1-0.448,1-1h10  c1.657,0,3-1.343,3-3V7C32,5.343,30.657,4,29,4z M29,5v20H18.708c-0.618,0-1.236,0.146-1.789,0.422l-0.419,0.21V5H29z M15.5,5  v20.632l-0.419-0.21C14.528,25.146,13.91,25,13.292,25H3V5H15.5z M31,25c0,1.103-0.897,2-2,2H18v1h-4v-1H3c-1.103,0-2-0.897-2-2V7  c0-0.737,0.405-1.375,1-1.722V25c0,0.552,0.448,1,1,1h10.292c0.466,0,0.925,0.108,1.342,0.317l0.919,0.46  c0.141,0.07,0.294,0.106,0.447,0.106c0.153,0,0.306-0.035,0.447-0.106l0.919-0.46C17.783,26.108,18.242,26,18.708,26H29  c0.552,0,1-0.448,1-1V5.278C30.595,5.625,31,6.263,31,7V25z M6,12.5C6,12.224,6.224,12,6.5,12h5c0.276,0,0.5,0.224,0.5,0.5  S11.776,13,11.5,13h-5C6.224,13,6,12.776,6,12.5z M6,14.5C6,14.224,6.224,14,6.5,14h5c0.276,0,0.5,0.224,0.5,0.5S11.776,15,11.5,15  h-5C6.224,15,6,14.776,6,14.5z M6,16.5C6,16.224,6.224,16,6.5,16h5c0.276,0,0.5,0.224,0.5,0.5S11.776,17,11.5,17h-5  C6.224,17,6,16.776,6,16.5z M20,12.5c0-0.276,0.224-0.5,0.5-0.5h5c0.276,0,0.5,0.224,0.5,0.5S25.776,13,25.5,13h-5  C20.224,13,20,12.776,20,12.5z M20,14.5c0-0.276,0.224-0.5,0.5-0.5h5c0.276,0,0.5,0.224,0.5,0.5S25.776,15,25.5,15h-5  C20.224,15,20,14.776,20,14.5z M20,16.5c0-0.276,0.224-0.5,0.5-0.5h5c0.276,0,0.5,0.224,0.5,0.5S25.776,17,25.5,17h-5  C20.224,17,20,16.776,20,16.5z"></path></symbol></defs></svg>
+
+        <header class="bar-header">
+    <a id="menu" role="button">
+        <svg id="open" class="icon-menu"><use xlink:href="#icon-menu"></use></svg>
+    </a>
+    <h1 class="logo">
+        <a href="/">
+            
+                Hoonology <span class="version"></span>
+            
+        </a>
+    </h1>
+    <a id="search" class="dosearch" role="button">
+        <svg class="icon-search"><use xlink:href="#icon-search"></use></svg>
+    </a>
+    
+</header>
+
+<div id="mask" class="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+    <nav id="navigation">
+      <h2>Menu</h2>
+      <ul>
+  
+    
+      <li>
+        <a href="http://localhost:4000/">Home</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/about">About</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/blog">Github Blog</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/yaml">YAML</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/docker">Docker</a>
+      </li>
+    
+  
+    
+  
+</ul>
+
+    </nav>
+</aside>
+
+<div class="search-wrapper">
+    <div class="search-form">
+        <input type="text" class="search-field" placeholder="Search">
+        <svg class="icon-remove-sign"><use xlink:href="#icon-close"></use></svg>
+        <ul class="search-results search-list"></ul>
+    </div>
+</div>
+
+
+
+        <section class="post two-columns">
+            <article role="article" class="post-content">
+                <p class="post-info">
+                    
+                        <svg class="icon-calendar" id="date"><use xlink:href="#icon-calendar"></use></svg>
+                        <time class="date" datetime="2023-06-07T09:00:14+09:00">
+                            
+
+
+June 7, 2023
+
+                        </time>
+                    
+                    <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
+                    <span>8 min to read</span>
+                </p>
+                <h1 class="post-title">성능 및 부하 테스트 II - Load Test</h1>
+                <p class="post-subtitle"></p>
+
+                
+                    <img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/vAZ96HI84yghJWvZ4weBg-1638317071798.png" alt="Featured image" class="post-cover">
+                
+
+                <!-- Pagination links -->
+
+
+
+                <!-- Add your table of contents here -->
+
+
+                <h1 id="부하-테스트의-기본">부하 테스트의 기본</h1>
+<h2 id="클라우드-환경에서의-부하-테스트-목적-">클라우드 환경에서의 부하 테스트 목적</h2>
+<h4 id="1-시스템-확장성을-가졌는지-확인">1. 시스템 확장성을 가졌는지 확인</h4>
+<h4 id="2-성능을-개선하기-위해-확장해야-하는-시스템이-무엇인지-파악">2. 성능을 개선하기 위해 확장해야 하는 시스템이 무엇인지 파악</h4>
+<h4 id="3-부하가-많이-발생할-때-문제-상황-개선">3. 부하가 많이 발생할 때 문제 상황 개선</h4>
+<h4 id="4-각-시스템의-병목-지점을-예측하고-진단-및-개선">4. 각 시스템의 병목 지점을 예측하고 진단 및 개선</h4>
+<h2 id="어떤-부분을-확장-">어떤 부분을 확장 ?</h2>
+<h4 id="throughput-데이터-전송량에-포커스를-맞춘-성능-지표">Throughput : 데이터 전송량에 포커스를 맞춘 성능 지표</h4>
+
+<ul>
+  <li>시스템의 성능 지표는 RPS(request per second), TPS(transaction per second)와 같은 단위로 표현</li>
+  <li>IOPS(Input/Output per second)라는 단위를 사용</li>
+</ul>
+
+<h4 id="질문-사항">질문 사항</h4>
+
+<ul>
+  <li>1000rps에서 2000rps로 성능을 두 배 개선하기 위해서는, 웹서버를 확장해야 할까? DB 서버를 확장해야 할까?
+    <ul>
+      <li>성능을 1000rps(초당 요청)에서 2000rps로 두 배로 늘리려면 시스템에서 병목 현상이 있는 위치에 따라 웹 서버와 데이터베이스(DB) 서버를 모두 확장하는 것을 고려해야 할 수 있습니다. 다음은 각 구성 요소에 대해 고려해야 할 몇 가지 요소입니다.</li>
+      <li>웹 서버:
+        <ul>
+          <li>하나, 수직 확장: 웹 서버가 사용 가능한 리소스(CPU, 메모리 등)를 완전히 활용하지 못하는 경우 하드웨어를 업그레이드하거나 더 높은 로드를 처리하도록 소프트웨어 구성을 최적화하는 것을 고려할 수 있습니다.</li>
+          <li>둘, 수평 확장: 웹 서버가 이미 사용 가능한 리소스를 효율적으로 활용하고 있는 경우 웹 서버 인스턴스를 더 추가하고 부하 분산 기술을 사용하여 부하를 분산해야 할 수 있습니다.</li>
+        </ul>
+      </li>
+      <li>DB 서버:
+        <ul>
+          <li>하나, 수직 확장 : DB 서버가 병목 현상을 일으켜 늘어난 부하를 감당할 수 없다면 CPU, 메모리, 저장 용량을 늘리는 등 하드웨어 업그레이드를 고려할 수 있다.</li>
+          <li>둘, 수평 확장: 또 다른 접근 방식은 샤딩 또는 복제와 같은 기술을 사용하여 여러 DB 서버에 데이터베이스 로드를 분산시키는 것입니다. 이를 통해 성능을 개선하고 더 높은 요청률을 처리할 수 있습니다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>시스템 구성 변경 시 다운타임은 얼마나 허용되는가? 서비스 정지 없이 가능한가?
+    <ul>
+      <li>현재 시스템의 성능 메트릭을 분석하여 병목 현상을 식별하고 가장 적절한 확장 전략을 결정하는 것이 중요합니다.</li>
+      <li>시스템 구성 변경 중 중단 시간과 관련하여 목표는 서비스 중단을 최소화하거나 제거하는 것입니다. 다음과 같은 특정 사례를 구현하면 눈에 띄는 다운타임 없이 원활한 전환을 달성할 수 있습니다.
+        <ul>
+          <li>Blue-Green 배포: 기존 프로덕션 환경(파란색)을 계속 실행하면서 업데이트된 구성으로 병렬 환경(녹색)을 설정합니다. 친환경 환경이 준비되면 트래픽을 이 환경으로 전환할 수 있으므로 다운타임이 최소화되거나 전혀 발생하지 않습니다.</li>
+          <li>롤링 업데이트: 시스템에서 허용하는 경우 전체 시스템 작동을 유지하면서 유지 관리를 위해 구성 요소를 잠시 오프라인으로 전환하여 한 번에 하나씩 구성 요소를 업데이트할 수 있습니다. 이렇게 하면 완전히 종료하지 않고 변경 사항을 점진적으로 적용할 수 있습니다.</li>
+          <li>로드 밸런서 기술: 로드 밸런서가 있는 경우 세션 지속성 또는 연결 드레이닝과 같은 기능을 활용할 수 있습니다. 이러한 기술을 사용하면 새 연결이 업데이트된 시스템으로 라우팅되는 동안 기존 연결이 완료되어 최종 사용자에게 미치는 영향을 줄일 수 있습니다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>현재 시스템에서 낼 수 있는 최대 성능(limit)은 어디까지인가?
+    <ul>
+      <li>현재 시스템에서 달성할 수 있는 최대 성능 제한은 하드웨어 기능, 소프트웨어 최적화, 네트워크 인프라 및 특정 워크로드 특성과 같은 다양한 요소에 따라 다릅니다. 철저한 성능 테스트를 수행하고, 시스템 메트릭을 모니터링하고, 병목 현상을 식별하여 실질적인 한계를 결정하는 것이 좋습니다. 정기적인 성능 조정 및 최적화를 통해 시스템의 제약 조건 내에서 가능한 최상의 성능을 얻을 수 있습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="부하가-많이-발생할-때의-문제-상황-개선">부하가 많이 발생할 때의 문제 상황 개선</h2>
+
+<p><strong>사용자 요청이 많아지는 경우</strong>, 즉 <strong>부하</strong>가 많이 발생하면 실제로 시스템은 어떤 문제를 일으킬까요? 이때 발생할 수 있는 요소는 다음과 같습니다.</p>
+
+<ul>
+  <li>응답 속도(Latency) 저하</li>
+  <li>시스템 잠금(Lock) 경합</li>
+  <li>부하 발생 시 애플리케이션 또는 서버 에러 발생</li>
+  <li>데이터 일관성 문제와 손실</li>
+  <li>이러한 문제 상황을 해결할 수 있을 만큼의 부하의 수용 범위를 파악해야 합니다.</li>
+</ul>
+
+<h4 id="q-시스템-잠금lock에-대한-경합race-condition은-어느-때-발생하나요-누가-무엇을-잠그는-걸까요-주로-db에서-이러한-일이-발생합니다">Q. 시스템 잠금(Lock)에 대한 경합(Race condition)은 어느 때 발생하나요? 누가 무엇을 잠그는 걸까요? (주로 DB에서 이러한 일이 발생합니다.)</h4>
+
+<p><strong>경쟁 조건(경합)은 둘 이상의 스레드가 공유 데이터에 액세스할 수 있고 동시에 이를 변경하려고 할 때 발생</strong>합니다. 결과적으로 변수 값은 예측할 수 없으며 프로세스의 컨텍스트 전환 타이밍에 따라 달라질 수 있습니다.</p>
+
+<p>데이터베이스와 관련하여 <strong>경쟁 조건</strong>은 <strong>여러 사용자/트랜잭션/쿼리가 동시에 데이터베이스의 동일한 데이터에 액세스</strong>(읽기 또는 쓰기)하려고 할 때 자주 발생합니다. 은행 애플리케이션을 예로 들어 보겠습니다.</p>
+
+<ul>
+  <li>사용자 A와 사용자 B가 동시에 은행 계좌에서 돈을 인출하려고 시도합니다.</li>
+  <li>사용자 A가 잔액을 확인합니다($100라고 가정).</li>
+  <li>사용자 B가 잔액을 확인합니다(또한 $100로 표시됨).</li>
+  <li>사용자 A는 $70를 인출하기로 결정하고 시스템은 잔액을 $30로 업데이트합니다.</li>
+  <li>사용자 B는 계좌에 $100가 있다고 생각하고 $50를 인출하기로 결정합니다. 이것이 허용되는 경우 잔액은 -$20가 되며 이는 불가능합니다.</li>
+</ul>
+
+<p>이는 <strong>경합 상태이며 잠금을 사용하여 방지</strong>합니다. 사용자가 트랜잭션을 수행하려고 하면 시스템은 관련 데이터(이 경우 계정 잔액)를 잠가 <strong>첫 번째 트랜잭션이 완료될 때까지 다른 사용자가 상호 작용하지 못하도록 합니다.</strong></p>
+
+<p>따라서 이 경우 <strong>시스템(데이터베이스)이 계정 잔액을 잠그고 있습니다</strong>. “누가”는 사용자 A 또는 B에 의해 실행되는 트랜잭션입니다. 그들은 상호 작용하려는 특정 데이터인 계정 잔액을 잠급니다.</p>
+
+<p>시스템 잠금에 대한 경쟁 조건은 이러한 잠금이 제대로 처리되지 않을 때 발생합니다. 다음과 같은 경우에 발생할 수 있습니다.</p>
+
+<ul>
+  <li>잠금은 있어야 할 곳에 사용되지 않으므로 여러 프로세스가 동일한 데이터에 동시에 액세스할 수 있습니다.</li>
+  <li><strong>잠금이 제대로 해제되지 않아</strong> 리소스에 액세스할 수 없는 <strong>교착 상태</strong>가 발생합니다.</li>
+  <li>읽기 및 쓰기 잠금이 제대로 관리되지 않아 <strong>데이터 상태가 일관되지 않습니다</strong>.</li>
+</ul>
+
+<p>이러한 문제를 방지하기 위해 데이터베이스는 2단계 잠금, 낙관적 동시성 제어, 다중 버전 동시성 제어 등과 같은 다양한 동시성 제어 메커니즘을 사용합니다. 이러한 메커니즘은 여러 사용자/트랜잭션/쿼리가 동시에 데이터와 상호 작용하는 경우에도 데이터 일관성과 무결성을 보장합니다.</p>
+
+<h1 id="throughput과-latency">Throughput과 Latency</h1>
+
+<p>시스템 성능 지표의 주요 메트릭 두개에 대해 설명합니다.</p>
+
+<h4 id="throughput-시간당-처리량을-의미합니다-웹-애플리케이션의-성능-지표입니다">Throughput : 시간당 처리량을 의미합니다. 웹 애플리케이션의 성능 지표입니다.</h4>
+
+<ul>
+  <li>1초에 처리하는 HTTP 요청 수 (rps)</li>
+  <li>네트워크로 전송되는 데이터 전송 속도(동영상 스트리밍 서비스와 같이 대역폭이 중요시 되는 경우)</li>
+</ul>
+
+<h4 id="latency-처리-시간">Latency : 처리 시간</h4>
+
+<p>사용자가 어떤 웹페이지를 보기 위한 Latency : 사용자의 인터넷 환경, 브라우저 등의 개별 환경에 대한 변수가 존재합니다. 즉, “<strong>네트워크를 통한 데이터 왕복 시간</strong>“도 포함합니다. 그러나 <u>***성능 테스트를 진행할 때에는, 사용자 환경에 따른 변인을 통제하거나, 애초에 네트워크 상황을 고려하지 않고 테스트를 진행***</u> 합니다. 이후 언급하는 Latency는 네트워크 상황을 고려하지 않은 <strong>시스템이 요청을 받고 응답을 줄 때까지의 시간만을 의미</strong>할 것입니다.</p>
+
+<h2 id="하위-시스템으로-구성된-경우에서의-throughput과-latency">하위 시스템으로 구성된 경우에서의 Throughput과 Latency</h2>
+
+<p>다음 고속도로의 비유를 통해 Throughput과 Latency를 이해할 수 있습니다.<br />
+여기서 <strong>하위 시스템</strong>은 서울/대구/부산 각각의 도시를 의미하며, 각 도시 간에는 서로 다른 <strong>Throughput과 Latency를 가진 고속도로 두 개가 존재</strong>한다고 가정합시다.</p>
+
+<p>이때 <strong>Latency</strong>는 대기 시간을 포함한, 각 <strong>하위 시스템 처리 시간의 총합</strong>으로 계산합니다.<br />
+반면 <strong>Throughput</strong>은 하위 시스템 Throughput 중 <strong>최소값을 전체 시스템의 Throughput으로 계산</strong>합니다.</p>
+
+<p><img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/i7P63xMKKRDxEwT_Q82gA-1652201937330.png" alt="Alt text" /></p>
+<ul>
+  <li>서울-부산 간 Latency: 각 구간의 소요 시간 합계인 5시간</li>
+  <li>서울-부산 간 Throughput: 각 구간에 도달하는 차량 대수 중 최소값인 800대/시간</li>
+</ul>
+
+<h2 id="throughput-개선">Throughput 개선</h2>
+
+<p><img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/l2Z14K10vEFvNz2aEILpl-1652202339077.png" alt="Alt text" /></p>
+
+<p>서울-부산 사이의 Throughput은 최소값인, 200대/시간에 불과합니다. 이런 경우에는 도로 확장 공사를 통해 병목을 해결합니다. 확장 공사를 마친 대구-부산 간 고속도로의 Throughput이 800대/시간으로 개선되었습니다
+<img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/vshK_NrR_Yq095AedxWVD-1652202351931.png" alt="Alt text" /></p>
+
+<p>병목이 아닌 구간(서울-대구)을 개선하는 것은, 전체의 Throughput을 개선하는 데에 전혀 도움이 되지 않습니다. 도리어 대구-부산 간의 정체가 늘어나 Throughput이 감소할 수도 있습니다. 따라서, <strong>Throughput 개선을 위해서는 병목 구간이 어디인가를 먼저 파악하는 것이 가장 중요합니다.</strong></p>
+
+<h2 id="latency-개선">Latency 개선</h2>
+<h3 id="애플리케이션-개선">애플리케이션 개선</h3>
+
+<p>Latency의 개선은 <strong>개발된 애플리케이션을 개선</strong>하는 것으로 시작합니다. 애플리케이션 <strong>성능 최적화는 현상을 파악(APM</strong>, Application Performance Monitoring)하는 것으로 시작하며, <strong>알고리즘 개선, I/O 최소화</strong> 등의 개선 방안이 뒤따릅니다. DevOps가 이를 모니터링할 수는 있으나, 결국 <u>개발자가 APM 도구와 프로파일러 등을 이용해 이를 개선해야 합니다.</u></p>
+
+<h2 id="애플리케이션-성능-향상을-위한-하위-시스템의-확장">(애플리케이션 성능 향상을 위한) 하위 시스템의 확장</h2>
+
+<p>한편 앞서 고속도로의 예를 살펴보면, Throughput의 개선이 Latency의 개선으로 이어진 것을 확인할 수 있습니다. 이는 곧 <strong>“대기 시간”에 문제</strong>가 있다는 의미입니다. 만일 <strong>애플리케이션이 실행 환경(하위 시스템)의 성능을 최대한 활용</strong>할 수 있다면, 하위 시스템의 확장에 따라 <strong>Throughput도 개선</strong>되며, 대기 시간도 줄어듭니다.</p>
+
+<p>즉 많은 경우 <strong><em>Throughput이 개선되면 Latency도 개선됩니다.</em></strong></p>
+
+<h1 id="응답-성능의-병목-원인과-대책">응답 성능의 병목 원인과 대책</h1>
+
+<blockquote>
+  <p>서비스를 시작한 후 발생할 수 있는 문제 시나리오는 다양합니다. 이러한 문제는 응답 성능의 병목을 가져다줍니다.</p>
+</blockquote>
+
+<p>아래 제시된 시나리오는 매우 일반적이며, 부하 테스트를 통해 응답 성능을 예측할 수 있습니다.
+개발자에게 솔루션을 제공합니다.</p>
+
+<ul>
+  <li>많은 사용자의 서비스 등록</li>
+  <li>많은 데이터의 저장
+    <ul>
+      <li>위 두개의 경우 DB에 데이터가 증가합니다. secondary 복제본 등을 이용해 읽기/쓰기를 분리하거나, 검색에 최적화된 인덱스 사용을 고려할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li>단기간 동안의 사용자 요청 증가(peak traffic)
+    <ul>
+      <li>Auto Scaling이 해결책이 될 수 있습니다. 다만 버스트 성능에 대해 이해해야 합니다.</li>
+    </ul>
+  </li>
+  <li>배치 작업을 진행하는 데이터베이스
+    <ul>
+      <li>DB가 주기적으로 스냅샷을 만들거나, 데이터 일관성을 위해 레플리카와의 sync 과정을 진행하는 등의 배치 작업이 이루어질 경우, primary DB는 성능 저하가 발생할 수 있습니다. 이때 사용자들의 요청과 맞물려 서비스 수준을 맞추기 어려울 수 있습니다.</li>
+    </ul>
+  </li>
+  <li>많은 양의 로그 수집 처리
+    <ul>
+      <li>애플리케이션이 잘 작동할 때에는 로그를 많이 남기지 않지만, 애플리케이션에 문제가 발생하면 추적을 위해 많은 로그를 남깁니다. 다만 이러한 상황이 반복적으로 진행될 경우, 에러 로그 수집 그 자체가 애플리케이션 병목을 일으킬 수 있습니다.</li>
+    </ul>
+  </li>
+  <li>시스템 재시작 후의 캐시 초기화
+    <ul>
+      <li>큰 문제를 발생시키는 것은 아니지만, 캐시가 초기화되면서 시스템으로 직접적인 요청 횟수가 증가할 수 있습니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="q-aws에서는-버스트-가능한-인스턴스의-경우-cpu-성능을-적게-사용하는-평상시에는-크레딧을-누적했다가-단기간의-사용자-요청-증가와-같이-cpu-사용량이-증가할-경우-모아둔-크레딧을-성능을-끌어올리는-용도로-사용할-수-있습니다-이때-잔고에-충분한-크레딧이-있어야-합니다-그렇지-않을-경우-100의-cpu-성능을-제공하지-못하여-파열burst에-이르며-시스템-사용-불능-상태가-됩니다-어떠한-메커니즘으로-작동하는지-한번-알아보세요">Q. AWS에서는 버스트 가능한 인스턴스의 경우, CPU 성능을 적게 사용하는 평상시에는 “크레딧”을 누적했다가, 단기간의 사용자 요청 증가와 같이 CPU 사용량이 증가할 경우, 모아둔 크레딧을 성능을 끌어올리는 용도로 사용할 수 있습니다. 이때 잔고에 충분한 크레딧이 있어야 합니다. 그렇지 않을 경우 100%의 CPU 성능을 제공하지 못하여, 파열(burst)에 이르며, 시스템 사용 불능 상태가 됩니다. 어떠한 메커니즘으로 작동하는지 한번 알아보세요.</h4>
+
+<p><a href="https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html">AWS 공식문서</a></p>
+
+<p>기존 <strong>Amazon EC2 인스턴스 유형</strong>은 <strong>고정된 CPU 리소스</strong>를 제공하는 반면, 성능 순간 <strong>확장 가능 인스턴스</strong>는 기본 수준의 CPU 사용률을 제공하면서 <strong>기본 수준 이상으로 CPU 사용률을 버스트하는 기능을 제공</strong>합니다. 이렇게 하면 기준 CPU와 <strong>추가 버스트 CPU 사용량에 대해서만 비용을 지불</strong>하면 되므로 <strong>컴퓨팅 비용이 절감</strong>됩니다. 기준 사용률과 버스트 기능은 CPU 크레딧에 의해 좌우됩니다. 성능 순간 확장 가능 인스턴스는 CPU 사용량에 대해 크레딧을 사용하는 유일한 인스턴스 유형입니다.</p>
+
+<p>각 버스트 가능 성능 인스턴스는 CPU 기준 미만으로 유지되면 지속적으로 크레딧을 얻고, 기준선 이상으로 버스트될 때 크레딧을 지속적으로 소비합니다. 적립되거나 소비되는 크레딧 금액은 인스턴스의 CPU 사용률에 따라 달라집니다.</p>
+
+<ul>
+  <li>CPU 사용률이 기준 미만인 경우 적립되는 크레딧은 소비되는 크레딧보다 많습니다.</li>
+  <li>CPU 사용률이 기준과 같을 경우 적립되는 크레딧은 소비되는 크레딧과 같습니다.</li>
+  <li>CPU 사용률이 기준을 초과할 경우 소비되는 크레딧이 적립되는 크레딧보다 많습니다.</li>
+</ul>
+
+<h2 id="주요-병목-구간과-부하-테스트-시-고려해야-할-부분">주요 병목 구간과 부하 테스트 시 고려해야 할 부분</h2>
+
+<p>병목 구간을 확인하는 것은 부하 테스트의 주요 목적이면서, 또한 좋은 부하 테스트를 만드는 기본입니다. 시스템에서 문제가 발생할 수 있는 부분을 다이어그램으로 표현하면 다음과 같습니다.</p>
+
+<p><img src="https://s3.ap-northeast-2.amazonaws.com/urclass-images/gZ4KrzytY511OlouLqIYK-1652207503487.png" alt="Alt text" /></p>
+
+
+                <!-- Pagination links -->
+
+
+            </article>
+
+            
+                <aside class="see-also">
+                    <h2>See also</h2>
+                    <ul>
+                        
+                        
+                        
+                            <li>
+                                <a href="/IaC/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
+                                    
+                                    <h3>IaC</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/Docker-Image-%EB%8B%A4%EB%A3%A8%EA%B8%B0-Sprint/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681198236/dev-jeans_r2fkxp.png">
+                                    
+                                    <h3>Docker Image 다루기 1</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/AutoScailing+CloudWatch2/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                    
+                                    <h3>(Sprint) 실습 진행</h3>
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </aside>
+            
+
+        </section>
+
+        <!-- Add time bar only for pages without pagination -->
+        
+            <div class="time-bar" data-minutes="8">
+    <span class="time-completed"></span>
+    <span class="time-remaining"></span>
+    <div class="bar">
+        <span class="completed" style="width:0%;"></span>
+        <span class="remaining" style="width:100%;"></span>
+    </div>
+</div>
+
+            <div class="recommendation">
+    <div class="message">
+        <strong>Why don't you read something next?</strong>
+        <div>
+            <button>
+                <svg><use xlink:href="#icon-arrow-right"></use></svg>
+                <span>Go back to top</span>
+            </button>
+        </div>
+    </div>
+    
+    <a href="/YAML/" class="post-preview">
+        <div class="image">
+            
+                <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681174499/2023-04-11T09_54_36.873476bunny_ij9met.png">
+            
+        </div>
+        <h3 class="title">YAML</h3>
+    </a>
+</div>
+
+        
+
+        <!-- Show modal if the post is the last one -->
+        
+
+        <!-- Show modal before user leaves the page -->
+        
+
+        <!-- Add your newsletter subscription form here -->
+
+        <section class="share">
+    <h3>Share</h3>
+    <a aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text=&quot;성능을 개선하기 위해 확장해야 하는 시스템이 무엇인지 파악, 부하가 많이 발생할 때 문제 상황 개선, 각 시스템의 병목 지점을 예측하고 진단 및 개선&quot;%20http://localhost:4000/loadTest/%20via%20&#64;&hashtags=가용성,확장성,Latency,Throughput,병목"
+    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+        <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
+    </a>
+    <a aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/loadTest/"
+    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
+    </a>
+</section>
+
+        
+
+
+        
+
+<section class="comments">
+    <h3>Comments</h3>
+    <div id="disqus_thread"></div>
+</section>
+<script type="text/javascript">
+    var disqus_loaded = false;
+
+    function load_disqus()
+    {
+        disqus_loaded = true;
+        var disqus_shortname = 'hoonology';
+        var disqus_title = '';
+        var disqus_url = '/loadTest/';
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        var ldr = document.getElementById('disqus_loader');
+    };
+    window.onscroll = function(e) {
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800)) {
+            //hit bottom of page
+            if (disqus_loaded==false)
+                load_disqus()
+        }
+    };
+</script>
+
+
+
+        <footer>
+    <p>
+      
+        <a href="https://github.com/hoonology" title="Github">
+          <svg><use xlink:href="#icon-github"></use></svg>
+        </a>
+      
+      
+      
+      
+      
+        <a href="https://www.instagram.com/ho.o_ny" title="Instagram">
+          <svg><use xlink:href="#icon-instagram"></use></svg>
+        </a>
+      
+      
+    </p>
+
+    <ul>
+  
+    
+      <li>
+        <a href="http://localhost:4000/">Home</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/about">About</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/blog">Github Blog</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/yaml">YAML</a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="http://localhost:4000/category/docker">Docker</a>
+      </li>
+    
+  
+    
+  
+</ul>
+
+
+    <!-- <p>
+      <span>Jekflix</span> was made with <svg class="love"><use xlink:href="#icon-heart"></use></svg> by <a href="https://rossener.com" target="_blank" class="creator">Thiago Rossener</a>
+    </p> -->
+</footer>
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "Hoonology",
+  "description": "Hoonology changes whole world.",
+  "url": "http://localhost:4000/",
+  "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:4000/assets/img/icons/mediumtile.png",
+      "width": "600",
+      "height": "315"
+  },
+  "sameAs": [
+    "https://github.com/hoonology","https://www.instagram.com/ho.o_ny"
+  ]
+}
+</script>
+
+<!-- Include the script that allows Netlify CMS login -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<!-- Include the website scripts -->
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Include Google Analytics script -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JJ0MLGN5R6"></script>
+<script>
+  var host = window.location.hostname;
+  if (host != 'localhost') {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-JJ0MLGN5R6');
+  }
+</script>
+  
+
+
+<!-- Include extra scripts -->
+
+
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "BlogPosting",
+            "name": "성능 및 부하 테스트 II - Load Test",
+            "headline": "",
+            "description": "성능을 개선하기 위해 확장해야 하는 시스템이 무엇인지 파악, 부하가 많이 발생할 때 문제 상황 개선, 각 시스템의 병목 지점을 예측하고 진단 및 개선",
+            "image": "https://s3.ap-northeast-2.amazonaws.com/urclass-images/vAZ96HI84yghJWvZ4weBg-1638317071798.png",
+            "url": "http://localhost:4000/loadTest/",
+            "articleBody": "부하 테스트의 기본
+클라우드 환경에서의 부하 테스트 목적
+1. 시스템 확장성을 가졌는지 확인
+2. 성능을 개선하기 위해 확장해야 하는 시스템이 무엇인지 파악
+3. 부하가 많이 발생할 때 문제 상황 개선
+4. 각 시스템의 병목 지점을 예측하고 진단 및 개선
+어떤 부분을 확장 ?
+Throughput : 데이터 전송량에 포커스를 맞춘 성능 지표
+
+
+  시스템의 성능 지표는 RPS(request per second), TPS(transaction per second)와 같은 단위로 표현
+  IOPS(Input/Output per second)라는 단위를 사용
+
+
+질문 사항
+
+
+  1000rps에서 2000rps로 성능을 두 배 개선하기 위해서는, 웹서버를 확장해야 할까? DB 서버를 확장해야 할까?
+    
+      성능을 1000rps(초당 요청)에서 2000rps로 두 배로 늘리려면 시스템에서 병목 현상이 있는 위치에 따라 웹 서버와 데이터베이스(DB) 서버를 모두 확장하는 것을 고려해야 할 수 있습니다. 다음은 각 구성 요소에 대해 고려해야 할 몇 가지 요소입니다.
+      웹 서버:
+        
+          하나, 수직 확장: 웹 서버가 사용 가능한 리소스(CPU, 메모리 등)를 완전히 활용하지 못하는 경우 하드웨어를 업그레이드하거나 더 높은 로드를 처리하도록 소프트웨어 구성을 최적화하는 것을 고려할 수 있습니다.
+          둘, 수평 확장: 웹 서버가 이미 사용 가능한 리소스를 효율적으로 활용하고 있는 경우 웹 서버 인스턴스를 더 추가하고 부하 분산 기술을 사용하여 부하를 분산해야 할 수 있습니다.
+        
+      
+      DB 서버:
+        
+          하나, 수직 확장 : DB 서버가 병목 현상을 일으켜 늘어난 부하를 감당할 수 없다면 CPU, 메모리, 저장 용량을 늘리는 등 하드웨어 업그레이드를 고려할 수 있다.
+          둘, 수평 확장: 또 다른 접근 방식은 샤딩 또는 복제와 같은 기술을 사용하여 여러 DB 서버에 데이터베이스 로드를 분산시키는 것입니다. 이를 통해 성능을 개선하고 더 높은 요청률을 처리할 수 있습니다.
+        
+      
+    
+  
+  시스템 구성 변경 시 다운타임은 얼마나 허용되는가? 서비스 정지 없이 가능한가?
+    
+      현재 시스템의 성능 메트릭을 분석하여 병목 현상을 식별하고 가장 적절한 확장 전략을 결정하는 것이 중요합니다.
+      시스템 구성 변경 중 중단 시간과 관련하여 목표는 서비스 중단을 최소화하거나 제거하는 것입니다. 다음과 같은 특정 사례를 구현하면 눈에 띄는 다운타임 없이 원활한 전환을 달성할 수 있습니다.
+        
+          Blue-Green 배포: 기존 프로덕션 환경(파란색)을 계속 실행하면서 업데이트된 구성으로 병렬 환경(녹색)을 설정합니다. 친환경 환경이 준비되면 트래픽을 이 환경으로 전환할 수 있으므로 다운타임이 최소화되거나 전혀 발생하지 않습니다.
+          롤링 업데이트: 시스템에서 허용하는 경우 전체 시스템 작동을 유지하면서 유지 관리를 위해 구성 요소를 잠시 오프라인으로 전환하여 한 번에 하나씩 구성 요소를 업데이트할 수 있습니다. 이렇게 하면 완전히 종료하지 않고 변경 사항을 점진적으로 적용할 수 있습니다.
+          로드 밸런서 기술: 로드 밸런서가 있는 경우 세션 지속성 또는 연결 드레이닝과 같은 기능을 활용할 수 있습니다. 이러한 기술을 사용하면 새 연결이 업데이트된 시스템으로 라우팅되는 동안 기존 연결이 완료되어 최종 사용자에게 미치는 영향을 줄일 수 있습니다.
+        
+      
+    
+  
+  현재 시스템에서 낼 수 있는 최대 성능(limit)은 어디까지인가?
+    
+      현재 시스템에서 달성할 수 있는 최대 성능 제한은 하드웨어 기능, 소프트웨어 최적화, 네트워크 인프라 및 특정 워크로드 특성과 같은 다양한 요소에 따라 다릅니다. 철저한 성능 테스트를 수행하고, 시스템 메트릭을 모니터링하고, 병목 현상을 식별하여 실질적인 한계를 결정하는 것이 좋습니다. 정기적인 성능 조정 및 최적화를 통해 시스템의 제약 조건 내에서 가능한 최상의 성능을 얻을 수 있습니다.
+    
+  
+
+
+부하가 많이 발생할 때의 문제 상황 개선
+
+사용자 요청이 많아지는 경우, 즉 부하가 많이 발생하면 실제로 시스템은 어떤 문제를 일으킬까요? 이때 발생할 수 있는 요소는 다음과 같습니다.
+
+
+  응답 속도(Latency) 저하
+  시스템 잠금(Lock) 경합
+  부하 발생 시 애플리케이션 또는 서버 에러 발생
+  데이터 일관성 문제와 손실
+  이러한 문제 상황을 해결할 수 있을 만큼의 부하의 수용 범위를 파악해야 합니다.
+
+
+Q. 시스템 잠금(Lock)에 대한 경합(Race condition)은 어느 때 발생하나요? 누가 무엇을 잠그는 걸까요? (주로 DB에서 이러한 일이 발생합니다.)
+
+경쟁 조건(경합)은 둘 이상의 스레드가 공유 데이터에 액세스할 수 있고 동시에 이를 변경하려고 할 때 발생합니다. 결과적으로 변수 값은 예측할 수 없으며 프로세스의 컨텍스트 전환 타이밍에 따라 달라질 수 있습니다.
+
+데이터베이스와 관련하여 경쟁 조건은 여러 사용자/트랜잭션/쿼리가 동시에 데이터베이스의 동일한 데이터에 액세스(읽기 또는 쓰기)하려고 할 때 자주 발생합니다. 은행 애플리케이션을 예로 들어 보겠습니다.
+
+
+  사용자 A와 사용자 B가 동시에 은행 계좌에서 돈을 인출하려고 시도합니다.
+  사용자 A가 잔액을 확인합니다($100라고 가정).
+  사용자 B가 잔액을 확인합니다(또한 $100로 표시됨).
+  사용자 A는 $70를 인출하기로 결정하고 시스템은 잔액을 $30로 업데이트합니다.
+  사용자 B는 계좌에 $100가 있다고 생각하고 $50를 인출하기로 결정합니다. 이것이 허용되는 경우 잔액은 -$20가 되며 이는 불가능합니다.
+
+
+이는 경합 상태이며 잠금을 사용하여 방지합니다. 사용자가 트랜잭션을 수행하려고 하면 시스템은 관련 데이터(이 경우 계정 잔액)를 잠가 첫 번째 트랜잭션이 완료될 때까지 다른 사용자가 상호 작용하지 못하도록 합니다.
+
+따라서 이 경우 시스템(데이터베이스)이 계정 잔액을 잠그고 있습니다. “누가”는 사용자 A 또는 B에 의해 실행되는 트랜잭션입니다. 그들은 상호 작용하려는 특정 데이터인 계정 잔액을 잠급니다.
+
+시스템 잠금에 대한 경쟁 조건은 이러한 잠금이 제대로 처리되지 않을 때 발생합니다. 다음과 같은 경우에 발생할 수 있습니다.
+
+
+  잠금은 있어야 할 곳에 사용되지 않으므로 여러 프로세스가 동일한 데이터에 동시에 액세스할 수 있습니다.
+  잠금이 제대로 해제되지 않아 리소스에 액세스할 수 없는 교착 상태가 발생합니다.
+  읽기 및 쓰기 잠금이 제대로 관리되지 않아 데이터 상태가 일관되지 않습니다.
+
+
+이러한 문제를 방지하기 위해 데이터베이스는 2단계 잠금, 낙관적 동시성 제어, 다중 버전 동시성 제어 등과 같은 다양한 동시성 제어 메커니즘을 사용합니다. 이러한 메커니즘은 여러 사용자/트랜잭션/쿼리가 동시에 데이터와 상호 작용하는 경우에도 데이터 일관성과 무결성을 보장합니다.
+
+Throughput과 Latency
+
+시스템 성능 지표의 주요 메트릭 두개에 대해 설명합니다.
+
+Throughput : 시간당 처리량을 의미합니다. 웹 애플리케이션의 성능 지표입니다.
+
+
+  1초에 처리하는 HTTP 요청 수 (rps)
+  네트워크로 전송되는 데이터 전송 속도(동영상 스트리밍 서비스와 같이 대역폭이 중요시 되는 경우)
+
+
+Latency : 처리 시간
+
+사용자가 어떤 웹페이지를 보기 위한 Latency : 사용자의 인터넷 환경, 브라우저 등의 개별 환경에 대한 변수가 존재합니다. 즉, “네트워크를 통한 데이터 왕복 시간“도 포함합니다. 그러나 ***성능 테스트를 진행할 때에는, 사용자 환경에 따른 변인을 통제하거나, 애초에 네트워크 상황을 고려하지 않고 테스트를 진행*** 합니다. 이후 언급하는 Latency는 네트워크 상황을 고려하지 않은 시스템이 요청을 받고 응답을 줄 때까지의 시간만을 의미할 것입니다.
+
+하위 시스템으로 구성된 경우에서의 Throughput과 Latency
+
+다음 고속도로의 비유를 통해 Throughput과 Latency를 이해할 수 있습니다.
+여기서 하위 시스템은 서울/대구/부산 각각의 도시를 의미하며, 각 도시 간에는 서로 다른 Throughput과 Latency를 가진 고속도로 두 개가 존재한다고 가정합시다.
+
+이때 Latency는 대기 시간을 포함한, 각 하위 시스템 처리 시간의 총합으로 계산합니다.
+반면 Throughput은 하위 시스템 Throughput 중 최소값을 전체 시스템의 Throughput으로 계산합니다.
+
+
+
+  서울-부산 간 Latency: 각 구간의 소요 시간 합계인 5시간
+  서울-부산 간 Throughput: 각 구간에 도달하는 차량 대수 중 최소값인 800대/시간
+
+
+Throughput 개선
+
+
+
+서울-부산 사이의 Throughput은 최소값인, 200대/시간에 불과합니다. 이런 경우에는 도로 확장 공사를 통해 병목을 해결합니다. 확장 공사를 마친 대구-부산 간 고속도로의 Throughput이 800대/시간으로 개선되었습니다
+
+
+병목이 아닌 구간(서울-대구)을 개선하는 것은, 전체의 Throughput을 개선하는 데에 전혀 도움이 되지 않습니다. 도리어 대구-부산 간의 정체가 늘어나 Throughput이 감소할 수도 있습니다. 따라서, Throughput 개선을 위해서는 병목 구간이 어디인가를 먼저 파악하는 것이 가장 중요합니다.
+
+Latency 개선
+애플리케이션 개선
+
+Latency의 개선은 개발된 애플리케이션을 개선하는 것으로 시작합니다. 애플리케이션 성능 최적화는 현상을 파악(APM, Application Performance Monitoring)하는 것으로 시작하며, 알고리즘 개선, I/O 최소화 등의 개선 방안이 뒤따릅니다. DevOps가 이를 모니터링할 수는 있으나, 결국 개발자가 APM 도구와 프로파일러 등을 이용해 이를 개선해야 합니다.
+
+(애플리케이션 성능 향상을 위한) 하위 시스템의 확장
+
+한편 앞서 고속도로의 예를 살펴보면, Throughput의 개선이 Latency의 개선으로 이어진 것을 확인할 수 있습니다. 이는 곧 “대기 시간”에 문제가 있다는 의미입니다. 만일 애플리케이션이 실행 환경(하위 시스템)의 성능을 최대한 활용할 수 있다면, 하위 시스템의 확장에 따라 Throughput도 개선되며, 대기 시간도 줄어듭니다.
+
+즉 많은 경우 Throughput이 개선되면 Latency도 개선됩니다.
+
+응답 성능의 병목 원인과 대책
+
+
+  서비스를 시작한 후 발생할 수 있는 문제 시나리오는 다양합니다. 이러한 문제는 응답 성능의 병목을 가져다줍니다.
+
+
+아래 제시된 시나리오는 매우 일반적이며, 부하 테스트를 통해 응답 성능을 예측할 수 있습니다.
+개발자에게 솔루션을 제공합니다.
+
+
+  많은 사용자의 서비스 등록
+  많은 데이터의 저장
+    
+      위 두개의 경우 DB에 데이터가 증가합니다. secondary 복제본 등을 이용해 읽기/쓰기를 분리하거나, 검색에 최적화된 인덱스 사용을 고려할 수 있습니다.
+    
+  
+  단기간 동안의 사용자 요청 증가(peak traffic)
+    
+      Auto Scaling이 해결책이 될 수 있습니다. 다만 버스트 성능에 대해 이해해야 합니다.
+    
+  
+  배치 작업을 진행하는 데이터베이스
+    
+      DB가 주기적으로 스냅샷을 만들거나, 데이터 일관성을 위해 레플리카와의 sync 과정을 진행하는 등의 배치 작업이 이루어질 경우, primary DB는 성능 저하가 발생할 수 있습니다. 이때 사용자들의 요청과 맞물려 서비스 수준을 맞추기 어려울 수 있습니다.
+    
+  
+  많은 양의 로그 수집 처리
+    
+      애플리케이션이 잘 작동할 때에는 로그를 많이 남기지 않지만, 애플리케이션에 문제가 발생하면 추적을 위해 많은 로그를 남깁니다. 다만 이러한 상황이 반복적으로 진행될 경우, 에러 로그 수집 그 자체가 애플리케이션 병목을 일으킬 수 있습니다.
+    
+  
+  시스템 재시작 후의 캐시 초기화
+    
+      큰 문제를 발생시키는 것은 아니지만, 캐시가 초기화되면서 시스템으로 직접적인 요청 횟수가 증가할 수 있습니다.
+    
+  
+
+
+Q. AWS에서는 버스트 가능한 인스턴스의 경우, CPU 성능을 적게 사용하는 평상시에는 “크레딧”을 누적했다가, 단기간의 사용자 요청 증가와 같이 CPU 사용량이 증가할 경우, 모아둔 크레딧을 성능을 끌어올리는 용도로 사용할 수 있습니다. 이때 잔고에 충분한 크레딧이 있어야 합니다. 그렇지 않을 경우 100%의 CPU 성능을 제공하지 못하여, 파열(burst)에 이르며, 시스템 사용 불능 상태가 됩니다. 어떠한 메커니즘으로 작동하는지 한번 알아보세요.
+
+AWS 공식문서
+
+기존 Amazon EC2 인스턴스 유형은 고정된 CPU 리소스를 제공하는 반면, 성능 순간 확장 가능 인스턴스는 기본 수준의 CPU 사용률을 제공하면서 기본 수준 이상으로 CPU 사용률을 버스트하는 기능을 제공합니다. 이렇게 하면 기준 CPU와 추가 버스트 CPU 사용량에 대해서만 비용을 지불하면 되므로 컴퓨팅 비용이 절감됩니다. 기준 사용률과 버스트 기능은 CPU 크레딧에 의해 좌우됩니다. 성능 순간 확장 가능 인스턴스는 CPU 사용량에 대해 크레딧을 사용하는 유일한 인스턴스 유형입니다.
+
+각 버스트 가능 성능 인스턴스는 CPU 기준 미만으로 유지되면 지속적으로 크레딧을 얻고, 기준선 이상으로 버스트될 때 크레딧을 지속적으로 소비합니다. 적립되거나 소비되는 크레딧 금액은 인스턴스의 CPU 사용률에 따라 달라집니다.
+
+
+  CPU 사용률이 기준 미만인 경우 적립되는 크레딧은 소비되는 크레딧보다 많습니다.
+  CPU 사용률이 기준과 같을 경우 적립되는 크레딧은 소비되는 크레딧과 같습니다.
+  CPU 사용률이 기준을 초과할 경우 소비되는 크레딧이 적립되는 크레딧보다 많습니다.
+
+
+주요 병목 구간과 부하 테스트 시 고려해야 할 부분
+
+병목 구간을 확인하는 것은 부하 테스트의 주요 목적이면서, 또한 좋은 부하 테스트를 만드는 기본입니다. 시스템에서 문제가 발생할 수 있는 부분을 다이어그램으로 표현하면 다음과 같습니다.
+
+
+",
+            "wordcount": "1576",
+            "inLanguage": "ko",
+            "dateCreated": "2023-06-07/",
+            "datePublished": "2023-06-07/",
+            "dateModified": "2023-06-07/",
+            "author": {
+                "@type": "Person",
+                "name": "Mr. Anderson",
+                
+                "image": "/assets/img/uploads/profile.png",
+                
+                "jobTitle": "The One",
+                "url": "http://localhost:4000/authors/mranderson/",
+                "sameAs": [
+                    "https://github.com/github_username","https://www.facebook.com/facebook_username","https://twitter.com/twitter_username","https://medium.com/@medium_username","https://www.instagram.com/instagram_username","https://www.linkedin.com/in/linkedin_username"
+                ]
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Hoonology",
+                "url": "http://localhost:4000/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "http://localhost:4000/assets/img/blog-image.png",
+                    "width": "600",
+                    "height": "315"
+                }
+            },
+            "mainEntityOfPage": "True",
+            "genre": "mornitoring",
+            "articleSection": "mornitoring",
+            "keywords": ["가용성","확장성","Latency","Throughput","병목"]
+        }
+        </script>
+       </body>
+</html>
