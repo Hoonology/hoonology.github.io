@@ -3,6 +3,22 @@
   
   
     {
+      "title"    : "(Sprint) AWS EC2와 K6를 이용한 성능테스트",
+      "tags"     : "가용성, 확장성, Latency, Throughput, 병목, and k6",
+      "categories" : "mornitoring",
+      "url"      : "/sprint-k6/",
+      "date"     : "06/08/2023"
+    } ,
+  
+    {
+      "title"    : "성능 및 부하 테스트 III - 부하 테스트 도구와 활용",
+      "tags"     : "가용성, 확장성, Latency, Throughput, 병목, k6, and artillery",
+      "categories" : "mornitoring",
+      "url"      : "/loadTest/",
+      "date"     : "06/08/2023"
+    } ,
+  
+    {
       "title"    : "성능 및 부하 테스트 II - Load Test",
       "tags"     : "가용성, 확장성, Latency, Throughput, and 병목",
       "categories" : "mornitoring",

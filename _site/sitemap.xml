@@ -203,6 +203,20 @@
     
     
         <url>
+            <loc>http://localhost:4000/sprint-k6/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-06-08</lastmod>
+        </url>
+    
+        <url>
+            <loc>http://localhost:4000/loadTest/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+            <lastmod>2023-06-08</lastmod>
+        </url>
+    
+        <url>
             <loc>http://localhost:4000/loadTest/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
@@ -672,7 +686,7 @@
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker/3/</loc>
+            <loc>http://localhost:4000/Docker/2/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-11</lastmod>
@@ -728,7 +742,7 @@
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker/2/</loc>
+            <loc>http://localhost:4000/Docker/3/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
             <lastmod>2023-04-11</lastmod>
