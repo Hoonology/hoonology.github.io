@@ -3,6 +3,38 @@
   
   
     {
+      "title"    : "Final Project 엔지니어 피드백, 문제 파악 및  수정",
+      "tags"     : "",
+      "categories" : "project",
+      "url"      : "/final4/",
+      "date"     : "06/29/2023"
+    } ,
+  
+    {
+      "title"    : "Final Project 아키텍처 설명",
+      "tags"     : "",
+      "categories" : "project",
+      "url"      : "/final3/",
+      "date"     : "06/28/2023"
+    } ,
+  
+    {
+      "title"    : "Final Project 회고",
+      "tags"     : "",
+      "categories" : "project",
+      "url"      : "/final2/",
+      "date"     : "06/27/2023"
+    } ,
+  
+    {
+      "title"    : "Final Project",
+      "tags"     : "",
+      "categories" : "project",
+      "url"      : "/final/",
+      "date"     : "06/09/2023"
+    } ,
+  
+    {
       "title"    : "데브옵스 총정리 퀴즈 3",
       "tags"     : "",
       "categories" : "review",
