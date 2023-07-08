@@ -19,18 +19,10 @@
     } ,
   
     {
-      "title"    : "Final Project 회고",
-      "tags"     : "",
-      "categories" : "project",
-      "url"      : "/final2/",
-      "date"     : "06/27/2023"
-    } ,
-  
-    {
       "title"    : "Final Project",
       "tags"     : "",
       "categories" : "project",
-      "url"      : "/final/",
+      "url"      : "/final2/",
       "date"     : "06/09/2023"
     } ,
   
