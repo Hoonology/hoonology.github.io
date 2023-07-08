@@ -14,14 +14,25 @@ menu:
     url: /
   - title: About
     url: /about
-  - title: Github Blog
-    url: /category/blog
-  - title: YAML
-    url: /category/yaml
   - title: Docker
     url: /category/docker
-  - title: BLOG
-        
+  - title: AWS
+    url: /category/aws
+  - title: CICD
+    url: /category/cicd
+  - title: MSA
+    url: /category/msa
+  - title: Terraform
+    url: /category/terraform
+  - title: Mornitoring
+    url: /category/mornitoring            
+  - title: k8s
+    url: /category/k8s
+  - title: Project
+    url: /category/project        
+  - title: review
+    url: /category/review    
+         
   # - title: 22
   #   url: /feed.xml
 email: mase306@gmail.com
