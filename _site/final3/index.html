@@ -325,6 +325,36 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
 <img src="https://velog.velcdn.com/images/hoonology/post/e3c39500-5fcb-4061-9124-b486e5c40a37/image.png" alt="" /></li>
 </ol>
 
+<h2 id="lambda-api-gateway-연결-">Lambda - API Gateway 연결</h2>
+
+<ul>
+  <li>트리거 추가로 API Gateway를 연결한다.</li>
+  <li>
+    <p>DynamoDB의 dynamo_user 테이블을 엔드포인트로 지정한다.
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754239-62e545cb-6a28-492d-8546-93addeea18de.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082623Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=41b140601634e9fabd0370716f9427de7783c0629cada79a2b3cd352bb41f01d&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
+  </li>
+  <li>POST 메서드 추가</li>
+</ul>
+
+<p><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754365-b5499562-56c5-4fff-a774-8d2f3135534d.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082640Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=585976376f77cee7755e606f5b3e9bc4c4966d575934ff3c3252f326e61c90f1&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
+
+<ul>
+  <li>API 배포</li>
+</ul>
+
+<p><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754421-051a99ba-49b2-40e4-9635-d4b1e0e100ee.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082652Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=73301c76e6bee92bc9f98666564e6b6d6da2acb749678e3771c0aa412cff46e8&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
+
+<ul>
+  <li>
+    <p>스테이지를 아래와 같이 구성한다.
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754805-4841ece7-105a-45c7-8863-567b54bd5d7e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082703Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=48205324547201c6530be241b852d6fbb35d62b8b6ca774252b666c74c6b7385&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
+  </li>
+  <li>
+    <p>API 엔드포인트 확인 
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754876-a56dab93-a561-48d7-8208-438f2f6690a9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=c4b37c16f4399f1814da23006f0495f2875147e7068a64c616e1e47bad14f0a9&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
+  </li>
+</ul>
+
 <p><br />
 <br /></p>
 
@@ -463,29 +493,29 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
                         
                         
                             <li>
-                                <a href="/ServiceMoniroting3-interview/">
+                                <a href="/ServiceLevel/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681954803/eoe0iiqoeiq9ghldrltc.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png">
                                     
-                                    <h3>서비스 모니터링 - 기술면접 발표</h3>
+                                    <h3>서비스 수준 목표</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/Review/">
+                                <a href="/final4/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
+                                        <img src="https://www.liquidplanner.com/wp-content/uploads/2019/04/HiRes-17.jpg">
                                     
-                                    <h3>Chapter III - Review</h3>
+                                    <h3>Final Project 엔지니어 피드백, 문제 파악 및  수정</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/AutoScailing+CloudWatch2/">
+                                <a href="/Terraform/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
                                     
-                                    <h3>(Sprint) 실습 진행</h3>
+                                    <h3>Terraform</h3>
                                 </a>
                             </li>
                         
@@ -848,6 +878,36 @@ Lambda 함수 - ‘index.js’
 
 
 
+Lambda - API Gateway 연결
+
+
+  트리거 추가로 API Gateway를 연결한다.
+  
+    DynamoDB의 dynamo_user 테이블을 엔드포인트로 지정한다.
+
+  
+  POST 메서드 추가
+
+
+
+
+
+  API 배포
+
+
+
+
+
+  
+    스테이지를 아래와 같이 구성한다.
+
+  
+  
+    API 엔드포인트 확인 
+
+  
+
+
 
 
 
@@ -972,7 +1032,7 @@ S3 버킷 정책 및 CORS 구성은 암호화 요구 사항을 지정하지 않�
 이 서비스 말고 다른 서비스를 사용할줄 아는가
 
 ",
-            "wordcount": "1006",
+            "wordcount": "1066",
             "inLanguage": "ko",
             "dateCreated": "2023-06-28/",
             "datePublished": "2023-06-28/",

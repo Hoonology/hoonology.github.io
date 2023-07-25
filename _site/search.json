@@ -371,14 +371,6 @@
     } ,
   
     {
-      "title"    : "Docker Compose",
-      "tags"     : "Docker, compose, and Docker Compose",
-      "categories" : "docker",
-      "url"      : "/Docker-Compse/",
-      "date"     : "04/26/2023"
-    } ,
-  
-    {
       "title"    : "Test",
       "tags"     : "test",
       "categories" : "AWS",

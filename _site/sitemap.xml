@@ -541,13 +541,6 @@
         </url>
     
         <url>
-            <loc>http://localhost:4000/Docker-Compse/</loc>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-            <lastmod>2023-04-26</lastmod>
-        </url>
-    
-        <url>
             <loc>http://localhost:4000/Test/</loc>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>
