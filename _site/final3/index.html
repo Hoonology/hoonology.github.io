@@ -210,7 +210,7 @@ June 28, 2023
                         </time>
                     
                     <svg id="clock" class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-                    <span>5 min to read</span>
+                    <span>7 min to read</span>
                 </p>
                 <h1 class="post-title">Final Project 아키텍처 설명</h1>
                 <p class="post-subtitle">회고</p>
@@ -301,6 +301,20 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
 
 <p><img src="https://velog.velcdn.com/images/hoonology/post/a48d154c-bbb3-4e47-ac87-fe4f55eb2094/image.png" width="750" height="350" /></p>
 
+<h3 id="dynamodb-테라폼-코드-작성-">DynamoDB 테라폼 코드 작성</h3>
+<h4 id="dynamodb-생성">DynamoDB 생성</h4>
+
+<ul>
+  <li>hash key : “email”</li>
+  <li>range key : “password”</li>
+</ul>
+
+<p><img width="719" alt="스크린샷 2023-06-26 00 37 37" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568609-e3f2cfb5-2662-44fa-9e08-7432c6d7ba50.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083553Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=9ed37ba1f90c0da64dfb1671a968ccfa0b98d6ad2c04d2a4829dc5c72dbfe55d&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+
+<h4 id="aws-console에서-생성-확인">AWS console에서 생성 확인</h4>
+
+<p><img width="1535" alt="스크린샷 2023-06-26 00 39 20" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568704-230b6648-c2cd-4a36-ada6-0a0fe74ec63e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083629Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=c428d4de74857610d3bcc1b2e0938b12d244212693fffc6e97ef1879a43bba71&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+
 <h4 id="23-api-gateway-생성">2.3 API Gateway 생성</h4>
 
 <blockquote>
@@ -355,6 +369,78 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
   </li>
 </ul>
 
+<h3 id="loginhtml-api-gateway-taskhtml-통신-오류-해결-과정">login.html - API Gateway - task.html 통신 오류 해결 과정</h3>
+
+<p>브라우저 개발자 콘솔에서 확인하여 결과적으로 API Gateway, Lambda, S3의 CORS 문제였다.</p>
+<ul>
+  <li>Lambda
+    <ul>
+      <li>코드 내에서 응답 코드의 헤더 부분에 CORS 설정을 해주었다.
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247010484-7be4f237-163d-4dc4-954f-56833c77bdd6.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082913Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=ddfbed9970cc19db1a15357890148f70120903b9a17c98abe174f2900a10d2d2&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></li>
+    </ul>
+  </li>
+  <li>S3
+    <ul>
+      <li>버킷 정책과, CORS 설정 
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247010624-c1f53ee3-1f51-420e-91d6-08cb60433bdc.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082929Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=28a0d3b00ceaffcfaf4607244cf67788f9e0d1d13128a1e34ff83b03c78aaf8c&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" />
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247010656-3c653ea8-2bce-4117-bf2b-4f14b9866315.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082945Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=f7ae1e8a18a7fb1bad2bad6108d155a8a0a1703708df3b85b2e6d7ec423cb953&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></li>
+    </ul>
+  </li>
+  <li>API Gateway
+    <ul>
+      <li><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247009257-41161754-72c0-4244-86e4-d30d97cf5e9f.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083046Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=7cc01bfd418beafc68cc5ef80557c06ca03868426641421cdd731e16df16de48&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></li>
+      <li>이 과정에서 가장 애를 먹었다!! 모든 CORS를 수정했는데도 불구하고 해결되지 않던 문제가 API 재배포를 하니 해결되었다… <strong>API 재배포를 잊지 말 것!</strong> 
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247009312-d1a93fff-8683-4b85-9a90-d042b5d5c2ad.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083010Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=dca461e80bb88e6c26cb9d0166497dbd806f6fdaa73eeb0d3c8851e013f11812&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" />
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247009347-d3e1a37e-690e-4499-b38f-e4fff008640f.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083024Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=0513b02b0783154ca335c2b4c0448b687d8c1909f6527b281b53aafda1e8e8c5&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="람다-테라폼-코드-작성-">람다 테라폼 코드 작성</h3>
+<h4 id="lambda-생성">Lambda 생성</h4>
+
+<ul>
+  <li>index.js를 zip으로 묶어서 파일을 생성합니다.
+    <ul>
+      <li>파일명 : lambda_function_payload.zip</li>
+      <li>IaC로 람다를 생성하고 apply 할 때, 같은 위치에서 업로드 합니다.</li>
+    </ul>
+
+    <p><img width="302" alt="스크린샷 2023-06-26 00 47 55" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248569117-4624f2ad-713d-4fec-877d-36752c9368f7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083823Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=2abab93d926c730d206dd1c57f8a2a81dc9fc71085cac3f9579a87e502c97ff5&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+  </li>
+</ul>
+
+<p><img width="936" alt="스크린샷 2023-06-26 00 40 24" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568746-0d663fca-fc93-4681-b8eb-fdfeefd77fbe.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083857Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=d25734905efdea7f5186f0b597dfe1bc1e9fd91f20be9de245a3f22b457992a4&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+
+<p><img width="974" alt="스크린샷 2023-06-26 00 42 45" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568858-11daf280-33f6-4362-abda-aac5ebb4cd43.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083908Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=3e0c22d5d305d37fca03be98ff87a0ab2738d758f436f4a86d6c3b40b8af9fa4&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+
+<p>정상적으로 람다 함수 코드 안에 업로드 된 것을 확인합니다.</p>
+
+<h4 id="람다-iam-역할-생성-">람다 IAM 역할 생성</h4>
+
+<p><img width="684" alt="스크린샷 2023-06-26 00 43 34" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568901-c019c102-c38b-4cba-8dc5-48280ff43d6c.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083931Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=a52eeaec6c08a10b93dd6b0ca12cfc2e4f12d4cfe47229f0b64d793537b395ab&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+
+<h4 id="람다-iam-정책-생성-lambda-함수가-dynamodb-테이블에-액세스-">람다 IAM 정책 생성 (  Lambda 함수가 DynamoDB 테이블에 액세스 )</h4>
+
+<p><img width="801" alt="스크린샷 2023-06-26 00 44 10" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568926-8a9d9444-8b8e-4e16-9da4-6714c0332fc2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083942Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=7f4c275dcdbb530fdd4c74ac6e0bafc3536798c2dd2b9d580d8491a1ae53889a&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+
+<h5 id="aws-console에서-권한-정책-생성-확인-">AWS console에서 권한 정책 생성 확인</h5>
+
+<p><img width="1132" alt="스크린샷 2023-06-26 00 44 59" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248569024-5f162681-13cf-497f-9696-9a28f6027cf1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083951Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=fac5b860579c9e5be49178461050a9062c937f93b84d98acc67445b5d3c0fc14&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+
+<h4 id="람다-함수-테스트">람다 함수 테스트</h4>
+
+<ul>
+  <li>테스트 코드
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mase306@naver.com"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zerobase0000!"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+    <p><img width="495" alt="스크린샷 2023-06-26 00 51 24" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248569284-b5f4fbf3-5b87-47c2-ae82-32f8697221b7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T084000Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=017f4fae57fa104c59c2388fd0f6d178116f82c68bdc16891d022ec7249f549e&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+  </li>
+</ul>
+
 <p><br />
 <br /></p>
 
@@ -393,7 +479,7 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
 <br /></p>
 
 <h2 id="내가-했던-트러블-슈팅">내가 했던 트러블 슈팅</h2>
-<h3 id="loginhtml-api-gateway-taskhtml-통신-오류-해결-과정">login.html - API Gateway - task.html 통신 오류 해결 과정</h3>
+<h3 id="loginhtml-api-gateway-taskhtml-통신-오류-해결-과정-1">login.html - API Gateway - task.html 통신 오류 해결 과정</h3>
 
 <p>브라우저 개발자 콘솔에서 확인한 결과, API Gateway, Lambda, S3의 <code class="language-plaintext highlighter-rouge">CORS</code> 문제였다.</p>
 
@@ -493,29 +579,29 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
                         
                         
                             <li>
-                                <a href="/ServiceLevel/">
+                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                    
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                    
+                                    <h3>깃허브 블로그 만들기</h3>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/mornitoring-TechInterview/">
                                     
                                         <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png">
                                     
-                                    <h3>서비스 수준 목표</h3>
+                                    <h3>서비스 모니터링 기술면접</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/final4/">
+                                <a href="/k8s-EKS/">
                                     
-                                        <img src="https://www.liquidplanner.com/wp-content/uploads/2019/04/HiRes-17.jpg">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
                                     
-                                    <h3>Final Project 엔지니어 피드백, 문제 파악 및  수정</h3>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="/Terraform/">
-                                    
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683864943/dev-jeans_kadf7q.png">
-                                    
-                                    <h3>Terraform</h3>
+                                    <h3>Amazon EKS ( Elastic Kubernetes Service )</h3>
                                 </a>
                             </li>
                         
@@ -527,7 +613,7 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
 
         <!-- Add time bar only for pages without pagination -->
         
-            <div class="time-bar" data-minutes="5">
+            <div class="time-bar" data-minutes="7">
     <span class="time-completed"></span>
     <span class="time-remaining"></span>
     <div class="bar">
@@ -854,6 +940,20 @@ Lambda 함수 - ‘index.js’
 
 
 
+DynamoDB 테라폼 코드 작성
+DynamoDB 생성
+
+
+  hash key : “email”
+  range key : “password”
+
+
+
+
+AWS console에서 생성 확인
+
+
+
 2.3 API Gateway 생성
 
 
@@ -905,6 +1005,78 @@ Lambda - API Gateway 연결
   
     API 엔드포인트 확인 
 
+  
+
+
+login.html - API Gateway - task.html 통신 오류 해결 과정
+
+브라우저 개발자 콘솔에서 확인하여 결과적으로 API Gateway, Lambda, S3의 CORS 문제였다.
+
+  Lambda
+    
+      코드 내에서 응답 코드의 헤더 부분에 CORS 설정을 해주었다.
+
+    
+  
+  S3
+    
+      버킷 정책과, CORS 설정 
+
+
+    
+  
+  API Gateway
+    
+      
+      이 과정에서 가장 애를 먹었다!! 모든 CORS를 수정했는데도 불구하고 해결되지 않던 문제가 API 재배포를 하니 해결되었다… API 재배포를 잊지 말 것! 
+
+
+    
+  
+
+
+람다 테라폼 코드 작성
+Lambda 생성
+
+
+  index.js를 zip으로 묶어서 파일을 생성합니다.
+    
+      파일명 : lambda_function_payload.zip
+      IaC로 람다를 생성하고 apply 할 때, 같은 위치에서 업로드 합니다.
+    
+
+    
+  
+
+
+
+
+
+
+정상적으로 람다 함수 코드 안에 업로드 된 것을 확인합니다.
+
+람다 IAM 역할 생성
+
+
+
+람다 IAM 정책 생성 (  Lambda 함수가 DynamoDB 테이블에 액세스 )
+
+
+
+AWS console에서 권한 정책 생성 확인
+
+
+
+람다 함수 테스트
+
+
+  테스트 코드
+    {
+&quot;email&quot;: &quot;mase306@naver.com&quot;,
+&quot;password&quot;: &quot;zerobase0000!&quot;
+}
+    
+    
   
 
 
@@ -1032,7 +1204,7 @@ S3 버킷 정책 및 CORS 구성은 암호화 요구 사항을 지정하지 않�
 이 서비스 말고 다른 서비스를 사용할줄 아는가
 
 ",
-            "wordcount": "1066",
+            "wordcount": "1365",
             "inLanguage": "ko",
             "dateCreated": "2023-06-28/",
             "datePublished": "2023-06-28/",
