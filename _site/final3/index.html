@@ -309,11 +309,11 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
   <li>range key : “password”</li>
 </ul>
 
-<p><img width="719" alt="스크린샷 2023-06-26 00 37 37" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568609-e3f2cfb5-2662-44fa-9e08-7432c6d7ba50.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083553Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=9ed37ba1f90c0da64dfb1671a968ccfa0b98d6ad2c04d2a4829dc5c72dbfe55d&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+<p><img width="719" alt="스크린샷 2023-06-26 00 37 37" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/628a668e-8896-4e67-8c46-f10de69862b1" /></p>
 
 <h4 id="aws-console에서-생성-확인">AWS console에서 생성 확인</h4>
 
-<p><img width="1535" alt="스크린샷 2023-06-26 00 39 20" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568704-230b6648-c2cd-4a36-ada6-0a0fe74ec63e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083629Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=c428d4de74857610d3bcc1b2e0938b12d244212693fffc6e97ef1879a43bba71&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+<p><img width="1535" alt="스크린샷 2023-06-26 00 39 20" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/be0b80a1-ee94-4731-b217-0de8adb39afa" /></p>
 
 <h4 id="23-api-gateway-생성">2.3 API Gateway 생성</h4>
 
@@ -339,34 +339,28 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
 <img src="https://velog.velcdn.com/images/hoonology/post/e3c39500-5fcb-4061-9124-b486e5c40a37/image.png" alt="" /></li>
 </ol>
 
-<h2 id="lambda-api-gateway-연결-">Lambda - API Gateway 연결</h2>
+<h3 id="lambda-api-gateway-연결-">Lambda - API Gateway 연결</h3>
 
 <ul>
   <li>트리거 추가로 API Gateway를 연결한다.</li>
   <li>
     <p>DynamoDB의 dynamo_user 테이블을 엔드포인트로 지정한다.
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754239-62e545cb-6a28-492d-8546-93addeea18de.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082623Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=41b140601634e9fabd0370716f9427de7783c0629cada79a2b3cd352bb41f01d&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/ad748fd0-4110-4621-b8d0-561508d60fa1" alt="Image" /></p>
   </li>
-  <li>POST 메서드 추가</li>
-</ul>
-
-<p><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754365-b5499562-56c5-4fff-a774-8d2f3135534d.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082640Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=585976376f77cee7755e606f5b3e9bc4c4966d575934ff3c3252f326e61c90f1&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
-
-<ul>
-  <li>API 배포</li>
-</ul>
-
-<p><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754421-051a99ba-49b2-40e4-9635-d4b1e0e100ee.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082652Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=73301c76e6bee92bc9f98666564e6b6d6da2acb749678e3771c0aa412cff46e8&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
-
-<ul>
+  <li>
+    <p>POST 메서드 추가
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/61f53516-0e2e-4a15-9758-38176d7516a4" alt="Image" /></p>
+  </li>
+  <li>
+    <p>API 배포 
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/2811b1f6-2098-4fa1-a8ba-d768e5d502a0" alt="Image" /></p>
+  </li>
   <li>
     <p>스테이지를 아래와 같이 구성한다.
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754805-4841ece7-105a-45c7-8863-567b54bd5d7e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082703Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=48205324547201c6530be241b852d6fbb35d62b8b6ca774252b666c74c6b7385&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/918d9084-941b-416b-bbf2-92db858f8111" alt="image" /></p>
   </li>
-  <li>
-    <p>API 엔드포인트 확인 
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/246754876-a56dab93-a561-48d7-8208-438f2f6690a9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=c4b37c16f4399f1814da23006f0495f2875147e7068a64c616e1e47bad14f0a9&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></p>
-  </li>
+  <li>API 엔드포인트 확인 
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/e01b0ddb-6832-4bc5-a15b-d51888c5c904" alt="image" /></li>
 </ul>
 
 <h3 id="loginhtml-api-gateway-taskhtml-통신-오류-해결-과정">login.html - API Gateway - task.html 통신 오류 해결 과정</h3>
@@ -376,22 +370,22 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
   <li>Lambda
     <ul>
       <li>코드 내에서 응답 코드의 헤더 부분에 CORS 설정을 해주었다.
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247010484-7be4f237-163d-4dc4-954f-56833c77bdd6.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082913Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=ddfbed9970cc19db1a15357890148f70120903b9a17c98abe174f2900a10d2d2&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></li>
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/9b99b1d7-ca5b-48e3-b197-618bd6e9f72b" alt="image" /></li>
     </ul>
   </li>
   <li>S3
     <ul>
       <li>버킷 정책과, CORS 설정 
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247010624-c1f53ee3-1f51-420e-91d6-08cb60433bdc.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082929Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=28a0d3b00ceaffcfaf4607244cf67788f9e0d1d13128a1e34ff83b03c78aaf8c&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" />
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247010656-3c653ea8-2bce-4117-bf2b-4f14b9866315.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T082945Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=f7ae1e8a18a7fb1bad2bad6108d155a8a0a1703708df3b85b2e6d7ec423cb953&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></li>
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/2660a378-8be5-48ef-9705-44fb3375c42f" alt="image" />
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/c7354b40-8df4-4401-92c7-69ea57e6846f" alt="image" /></li>
     </ul>
   </li>
   <li>API Gateway
     <ul>
-      <li><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247009257-41161754-72c0-4244-86e4-d30d97cf5e9f.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083046Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=7cc01bfd418beafc68cc5ef80557c06ca03868426641421cdd731e16df16de48&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></li>
+      <li><img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/78067a54-e9ba-4b0d-846b-f64e254d3843" alt="image" /></li>
       <li>이 과정에서 가장 애를 먹었다!! 모든 CORS를 수정했는데도 불구하고 해결되지 않던 문제가 API 재배포를 하니 해결되었다… <strong>API 재배포를 잊지 말 것!</strong> 
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247009312-d1a93fff-8683-4b85-9a90-d042b5d5c2ad.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083010Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=dca461e80bb88e6c26cb9d0166497dbd806f6fdaa73eeb0d3c8851e013f11812&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" />
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/126550894/247009347-d3e1a37e-690e-4499-b38f-e4fff008640f.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083024Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=0513b02b0783154ca335c2b4c0448b687d8c1909f6527b281b53aafda1e8e8c5&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" alt="Image" /></li>
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/739208ba-65db-4ff8-abd2-d8939e055042" alt="image" />
+<img src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/7c12c22c-167b-42e4-aec1-e7cd8f3f8f9c" alt="image" /></li>
     </ul>
   </li>
 </ul>
@@ -406,27 +400,27 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
       <li>IaC로 람다를 생성하고 apply 할 때, 같은 위치에서 업로드 합니다.</li>
     </ul>
 
-    <p><img width="302" alt="스크린샷 2023-06-26 00 47 55" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248569117-4624f2ad-713d-4fec-877d-36752c9368f7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083823Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=2abab93d926c730d206dd1c57f8a2a81dc9fc71085cac3f9579a87e502c97ff5&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+    <p><img width="302" alt="스크린샷 2023-06-26 00 47 55" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/54c4f098-82cf-4238-a958-778e54771e03" /></p>
   </li>
 </ul>
 
-<p><img width="936" alt="스크린샷 2023-06-26 00 40 24" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568746-0d663fca-fc93-4681-b8eb-fdfeefd77fbe.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083857Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=d25734905efdea7f5186f0b597dfe1bc1e9fd91f20be9de245a3f22b457992a4&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+<p><img width="936" alt="스크린샷 2023-06-26 00 40 24" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/cc9b38d4-3f15-4c62-bcbb-2460efff3727" /></p>
 
-<p><img width="974" alt="스크린샷 2023-06-26 00 42 45" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568858-11daf280-33f6-4362-abda-aac5ebb4cd43.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083908Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=3e0c22d5d305d37fca03be98ff87a0ab2738d758f436f4a86d6c3b40b8af9fa4&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+<p><img width="974" alt="스크린샷 2023-06-26 00 42 45" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/aabc2e2b-dca4-44c0-bb8c-d94e8b0f0a86" /></p>
 
 <p>정상적으로 람다 함수 코드 안에 업로드 된 것을 확인합니다.</p>
 
 <h4 id="람다-iam-역할-생성-">람다 IAM 역할 생성</h4>
 
-<p><img width="684" alt="스크린샷 2023-06-26 00 43 34" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568901-c019c102-c38b-4cba-8dc5-48280ff43d6c.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083931Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=a52eeaec6c08a10b93dd6b0ca12cfc2e4f12d4cfe47229f0b64d793537b395ab&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+<p><img width="684" alt="스크린샷 2023-06-26 00 43 34" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/8ec1de47-be8d-4086-bdbd-aa1039dda871" /></p>
 
 <h4 id="람다-iam-정책-생성-lambda-함수가-dynamodb-테이블에-액세스-">람다 IAM 정책 생성 (  Lambda 함수가 DynamoDB 테이블에 액세스 )</h4>
 
-<p><img width="801" alt="스크린샷 2023-06-26 00 44 10" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248568926-8a9d9444-8b8e-4e16-9da4-6714c0332fc2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083942Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=7f4c275dcdbb530fdd4c74ac6e0bafc3536798c2dd2b9d580d8491a1ae53889a&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+<p><img width="801" alt="스크린샷 2023-06-26 00 44 10" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/ed552e44-c025-4709-a315-c0fdfc2c0541" /></p>
 
 <h5 id="aws-console에서-권한-정책-생성-확인-">AWS console에서 권한 정책 생성 확인</h5>
 
-<p><img width="1132" alt="스크린샷 2023-06-26 00 44 59" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248569024-5f162681-13cf-497f-9696-9a28f6027cf1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T083951Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=fac5b860579c9e5be49178461050a9062c937f93b84d98acc67445b5d3c0fc14&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+<p><img width="1132" alt="스크린샷 2023-06-26 00 44 59" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/598874c2-0176-4d26-a620-66e961c67c99" /></p>
 
 <h4 id="람다-함수-테스트">람다 함수 테스트</h4>
 
@@ -437,7 +431,7 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
 </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zerobase0000!"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
-    <p><img width="495" alt="스크린샷 2023-06-26 00 51 24" src="https://github-production-user-asset-6210df.s3.amazonaws.com/105037141/248569284-b5f4fbf3-5b87-47c2-ae82-32f8697221b7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230725%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230725T084000Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=017f4fae57fa104c59c2388fd0f6d178116f82c68bdc16891d022ec7249f549e&amp;X-Amz-SignedHeaders=host&amp;actor_id=105037141&amp;key_id=0&amp;repo_id=651385903" /></p>
+    <p><img width="495" alt="스크린샷 2023-06-26 00 51 24" src="https://github.com/Hoonology/hoonology.github.io/assets/105037141/769936f6-2506-454b-ae4c-eeaa7ddf7c4c" /></p>
   </li>
 </ul>
 
@@ -486,8 +480,7 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
 <ul>
   <li>Lambda
     <ul>
-      <li>코드 내에서 응답 코드의 헤더 부분에 CORS 설정을 해주었다.
-<img src="https://private-user-images.githubusercontent.com/126550894/247010484-7be4f237-163d-4dc4-954f-56833c77bdd6.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJrZXkxIiwiZXhwIjoxNjg4MDA3Njc0LCJuYmYiOjE2ODgwMDczNzQsInBhdGgiOiIvMTI2NTUwODk0LzI0NzAxMDQ4NC03YmU0ZjIzNy0xNjNkLTRkYzQtOTU0Zi01NjgzM2M3N2JkZDYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQUlXTkpZQVg0Q1NWRUg1M0ElMkYyMDIzMDYyOSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyMzA2MjlUMDI1NjE0WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9OTQ2ZTk5MDcyNWFlY2U4OTdlZTQ2ZDg4NzNjN2VkOTFiY2JjOTBlMzIyYTVmOTg2ZTExNDZhZjEzMjBkNzc3YSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.0y1EGlNl4F7h8ILiJ5brIwSwIEPIFaCGmm474pmV2GI" alt="Image" /></li>
+      <li>코드 내에서 응답 코드의 헤더 부분에 CORS 설정을 해주었다.</li>
     </ul>
   </li>
   <li>S3
@@ -579,29 +572,29 @@ CRUD 요청을 ECS의 컨테이너로 전송</li>
                         
                         
                             <li>
-                                <a href="/%EA%B9%83%ED%97%88%EB%B8%8C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
+                                <a href="/AWS-%EC%84%9C%EB%B9%84%EC%8A%A4-CloudFront/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681139412/dev-jeans_v2eutk.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>깃허브 블로그 만들기</h3>
+                                    <h3>서비스 노출</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/mornitoring-TechInterview/">
+                                <a href="/%EB%8F%84%EB%A9%94%EC%9D%B8%EC%A3%BC%EB%8F%84%EC%84%A4%EA%B3%84%EC%99%80%EB%AA%A8%EB%86%80%EB%A6%AC%EC%8B%9D%EB%B6%84%ED%95%B4%EC%A0%84%EB%9E%B5/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1685689813/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A6%E1%84%90%E1%85%A6%E1%84%8B%E1%85%AE%E1%84%89%E1%85%B3_zt9ivp.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1683088696/m8krc7ci1vzzbl7sxeac.png">
                                     
-                                    <h3>서비스 모니터링 기술면접</h3>
+                                    <h3>도메인 주도 설계와 모놀리식 분해 전략</h3>
                                 </a>
                             </li>
                         
                             <li>
-                                <a href="/k8s-EKS/">
+                                <a href="/(Sprint)%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EB%B0%B0%ED%8F%AC-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8/">
                                     
-                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1684335849/%E1%84%8F%E1%85%AE%E1%84%87%E1%85%A5%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B3_yoqeyy.png">
+                                        <img src="https://res.cloudinary.com/dvqcvocet/image/upload/v1681432465/dev-jeans_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB_y5n0eh.png">
                                     
-                                    <h3>Amazon EKS ( Elastic Kubernetes Service )</h3>
+                                    <h3>(Sprint)클라이언트 배포 파이프라인</h3>
                                 </a>
                             </li>
                         
@@ -986,26 +979,20 @@ Lambda - API Gateway 연결
     DynamoDB의 dynamo_user 테이블을 엔드포인트로 지정한다.
 
   
-  POST 메서드 추가
+  
+    POST 메서드 추가
 
+  
+  
+    API 배포 
 
-
-
-
-  API 배포
-
-
-
-
-
+  
   
     스테이지를 아래와 같이 구성한다.
 
   
-  
-    API 엔드포인트 확인 
+  API 엔드포인트 확인 
 
-  
 
 
 login.html - API Gateway - task.html 통신 오류 해결 과정
@@ -1126,7 +1113,6 @@ login.html - API Gateway - task.html 통신 오류 해결 과정
   Lambda
     
       코드 내에서 응답 코드의 헤더 부분에 CORS 설정을 해주었다.
-
     
   
   S3
@@ -1204,7 +1190,7 @@ S3 버킷 정책 및 CORS 구성은 암호화 요구 사항을 지정하지 않�
 이 서비스 말고 다른 서비스를 사용할줄 아는가
 
 ",
-            "wordcount": "1365",
+            "wordcount": "1359",
             "inLanguage": "ko",
             "dateCreated": "2023-06-28/",
             "datePublished": "2023-06-28/",
